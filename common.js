@@ -1,6 +1,6 @@
 (function() {
     // 1. Automatically Inject Favicon using your permanent image link
-    var faviconUrl = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghQs5Ur6Wd9uaY2lFogAOB7LfSy4c6uPs43F4dpvQpBboWfRwVYoq_NSaf0potBGwD_ASciUYW1CwyOv5z4vjF2VZhTeeESxrSJyq_tOomDCTlXQ5_y7SdDWAeAc1SeG8QXSAL6PtoXwKcXXb1pKHKnX15SjWmX91R_3nxFRB2hL9iltuSs0WPXHw_xPo/s1600/blog%20image.png";
+    var faviconUrl = "assets/favicon.ico.png";
     
     var existingFavicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
     existingFavicon.type = 'image/png';
