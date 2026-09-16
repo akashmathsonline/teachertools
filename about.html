@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>About Me | Teacher Tools Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #f7f3ff;
+            --cream-deep: #eddffd;
+            --peach: #d9ccf7;
+            --coral: #f4805f;
+            --coral-deep: #e4653f;
+            --lavender: #e9e2fb;
+            --lavender-2: #d9ccf7;
+            --purple: #8574E0;
+            --purple-deep: #5C4DC4;
+            --ink: #2E2A4A;
+            --ink-soft: #6B6584;
+            --white: #FFFFFF;
+        }
+
+        *, *:before, *:after { box-sizing: border-box; }
+        
+        body, html {
+            margin: 0; padding: 0; width: 100%; max-width: 100vw;
+            overflow-x: hidden; background: var(--bg-cream);
+            font-family: 'Inter', -apple-system, sans-serif; color: var(--ink); line-height: 1.5;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; margin: 0; padding: 0; }
+        section { position: relative; }
+
+        .tt-wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+        /* NAVIGATION */
+        .tt-nav { position: relative; z-index: 20; display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 26px 32px 0; background: var(--bg-cream); }
+        .tt-logo { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: var(--purple-deep); font-family: 'Fredoka', sans-serif; }
+        .tt-logo span.tt-dot { color: var(--coral); font-size: 20px; }
+        .tt-navlinks { display: flex; gap: 34px; font-size: 15px; font-weight: 600; color: var(--ink); }
+        .tt-navlinks a { position: relative; padding-bottom: 4px; transition: color .2s; }
+        .tt-navlinks a:hover, .tt-navlinks a.tt-active { color: var(--purple-deep); }
+        
+        .tt-nav-right { display: flex; align-items: center; gap: 12px; }
+        .tt-portal-switch {
+            background: var(--white); border: 1.5px solid var(--peach); color: var(--purple-deep); font-weight: 700; font-size: 13.5px;
+            padding: 8px 16px; border-radius: 999px; transition: all .2s;
+        }
+        .tt-portal-switch:hover { background: var(--lavender); border-color: var(--purple); }
+
+        .tt-cta-talk {
+            background: var(--coral); color: var(--white) !important; font-weight: 700; font-size: 14px;
+            padding: 10px 20px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 6px 16px rgba(228,101,63,.25); transition: transform .2s;
+        }
+        .tt-cta-talk:hover { transform: translateY(-2px); }
+
+        /* PORTFOLIO WRAPPER STYLES */
+        .portfolio-wrapper {
+            padding: 20px 32px 50px 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .luna-display {
+            font-family: 'Fredoka', cursive, sans-serif;
+            font-weight: 600;
+        }
+
+        /* DEEP LUNA HERO BANNER */
+        .portfolio-header {
+            background: linear-gradient(135deg, #2E2A4A 0%, #5C4DC4 100%);
+            color: #FFFFFF;
+            padding: 44px 24px;
+            border-radius: 28px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(46, 42, 74, 0.22);
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-frame {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 4px solid var(--peach);
+            background: var(--white);
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .profile-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-main-text {
+            flex: 1;
+            min-width: 280px;
+            text-align: left;
+        }
+
+        .header-name {
+            font-size: 2.5rem;
+            margin: 0 0 6px 0;
+            color: #FFFFFF;
+        }
+
+        .header-title-text {
+            font-size: 1.15rem;
+            color: #E2DEFB;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        /* SECTIONS */
+        .port-section {
+            padding: 20px 0 35px 0;
+        }
+
+        .port-section-title {
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+            color: var(--purple-deep);
+            position: relative;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--peach);
+            display: inline-block;
+        }
+
+        .summary-box {
+            background: var(--white);
+            padding: 26px;
+            border-radius: 20px;
+            font-size: 1.02rem;
+            line-height: 1.65;
+            color: var(--ink);
+            border: 1px solid var(--peach);
+            box-shadow: 0 10px 25px rgba(92, 77, 196, 0.05);
+        }
+
+        .quote-box {
+            font-style: italic;
+            color: var(--ink-soft);
+            margin: 15px 0 25px 0;
+            padding: 16px 22px;
+            border-left: 5px solid var(--coral);
+            background: var(--lavender);
+            border-radius: 0 16px 16px 0;
+            font-size: 0.95rem;
+        }
+
+        /* GRID LAYOUTS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 22px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(92, 77, 196, 0.05);
+            border: 1px solid var(--peach);
+            border-top: 5px solid var(--purple);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 30px rgba(92, 77, 196, 0.12);
+        }
+
+        .card-item-title {
+            font-weight: 700;
+            color: var(--ink);
+            font-size: 1.1rem;
+        }
+
+        .card-item-subtitle {
+            color: var(--ink-soft);
+            font-size: 0.9rem;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .card-item-score {
+            color: #15803D;
+            background: #DCFCE7;
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            margin-top: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* SKILLS GRID */
+        .skills-flex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .skill-block {
+            background: var(--white);
+            border: 1px solid var(--peach);
+            padding: 22px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(92, 77, 196, 0.05);
+            text-align: center;
+        }
+
+        .skill-block h4 {
+            margin: 0 0 14px 0;
+            font-size: 1.15rem;
+            color: var(--purple-deep);
+            border-bottom: 2px solid var(--peach);
+            padding-bottom: 8px;
+        }
+
+        .skill-block-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skill-block-list li {
+            background: var(--cream-deep);
+            color: var(--ink);
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        /* ACHIEVEMENTS GRID */
+        .achievement-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .achievement-card {
+            background: var(--white);
+            padding: 22px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(92, 77, 196, 0.05);
+            border: 1px solid var(--peach);
+            transition: transform 0.25s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .achievement-icon {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 42px;
+        }
+
+        /* EXPLORE MORE (BEYOND THE CLASSROOM) */
+        .explore-intro {
+            color: var(--ink-soft);
+            font-size: 0.98rem;
+            margin: -10px 0 20px 0;
+            max-width: 640px;
+            line-height: 1.5;
+        }
+
+        .explore-more-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 10px;
+        }
+
+        .explore-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--white);
+            border: 2px solid var(--peach);
+            border-radius: 20px;
+            padding: 18px 20px;
+            text-decoration: none;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(92, 77, 196, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            animation: explorePulse 2.6s ease-in-out infinite;
+        }
+
+        .explore-card:nth-child(2) { animation-delay: 0.5s; }
+        .explore-card:nth-child(3) { animation-delay: 1.0s; }
+
+        .explore-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 18px 34px rgba(92, 77, 196, 0.18);
+            border-color: var(--purple);
+            animation-play-state: paused;
+        }
+
+        @keyframes explorePulse {
+            0%, 100% {
+                box-shadow: 0 10px 25px rgba(92, 77, 196, 0.08), 0 0 0 0 rgba(244, 128, 95, 0.0);
+                border-color: var(--peach);
+            }
+            50% {
+                box-shadow: 0 10px 25px rgba(92, 77, 196, 0.08), 0 0 0 6px rgba(244, 128, 95, 0.12);
+                border-color: var(--coral);
+            }
+        }
+
+        .explore-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--lavender);
+            border-radius: 14px;
+        }
+
+        .explore-text { flex: 1; }
+        .explore-title { font-size: 1.02rem; color: var(--purple-deep); margin-bottom: 3px; }
+        .explore-subtitle { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.35; }
+        .explore-cta { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; font-size: 0.78rem; font-weight: 700; color: var(--coral-deep); }
+        .explore-arrow { font-size: 1.15rem; color: var(--coral); flex-shrink: 0; transition: transform 0.25s ease; }
+        .explore-card:hover .explore-arrow { transform: translateX(4px); }
+
+        /* FOOTER */
+        .tt-footer { background: #231f3d; color: #bcaedffc; padding: 70px 0 34px; margin-top: 50px; }
+        .tt-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 30px; padding-bottom: 40px; }
+        .tt-footer-grid h5 { color: #fff; font-size: 14px; margin: 0 0 16px; font-family: 'Fredoka', sans-serif; }
+        .tt-footer-grid p, .tt-footer-grid ul li { font-size: 13.5px; color: #c4bce8; padding: 4px 0; }
+        .tt-footer-logo { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 12px; font-family: 'Fredoka', sans-serif; display: flex; align-items: center; gap: 8px; }
+        .tt-foot-bottom { border-top: 1px solid rgba(255,255,255,.15); padding-top: 22px; font-size: 12.5px; text-align: center; color: #a496d6; }
+
+        @media (max-width: 768px) {
+            .header-flex { text-align: center; justify-content: center; }
+            .header-main-text { text-align: center; }
+            .header-name { font-size: 2rem; }
+            .explore-more-grid { grid-template-columns: 1fr; }
+            .tt-navlinks { display: none; }
+            .tt-footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="tt-nav">
+        <div class="tt-logo"><span class="tt-dot">✦</span> Akash Srivastva</div>
+        <ul class="tt-navlinks">
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="index.html#tools-vault">Tools Vault</a></li>
+            <li><a href="about.html" class="tt-active">About Me</a></li>
+        </ul>
+        <div class="tt-nav-right">
+            <a href="https://akashmaths.online" class="tt-portal-switch" target="_blank">Student Portal ↗</a>
+            <a href="https://wa.me/919431685016?text=Hello%20Akash%20Sir%2C%20I%20visited%20your%20Teacher%20Tools%20Studio%20and%20wanted%20to%20connect%20with%20you." target="_blank" class="tt-cta-talk">Let's Talk →</a>
+        </div>
+    </nav>
+
+    <!-- PORTFOLIO CONTENT -->
+    <div class="portfolio-wrapper">
+
+        <!-- HEADER BANNER -->
+        <header class="portfolio-header">
+            <div class="header-flex">
+                <div class="profile-frame">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgaSF-XnIfOfYl4vcorE3fCQL-EPm30ZFQqASU_0jj5anFdU3Dvr-sZjwbKy0dPDfRoZsy4Tp0F6Ncvls0A7SAlhjOTIH-Y3n13AU1Y4Yovm552PSfO-WJtYfjLECL_rzSfueAK4Wfhy7gW7R2fAWrY4Qe5DIW0k0IvAhfRJ3opWm_Gii4i3eNAPEA-2IM/s1600/image.jpg" alt="Akash Srivastva" />
+                </div>
+                <div class="header-main-text">
+                    <h1 class="header-name luna-display">Akash Srivastva</h1>
+                    <div class="header-title-text">TGT Mathematics | Sainik School Nalanda</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- PROFESSIONAL SUMMARY -->
+        <section class="port-section">
+            <h2 class="port-section-title luna-display">Professional Summary</h2>
+            <div class="summary-box">
+                A dedicated and disciplined Mathematics educator with over 5 years of cumulative teaching, mentoring, and administrative experience. Currently serving as TGT Mathematics at Sainik School Nalanda (Ministry of Defence). Known for rigorous academic standards, compassionate student mentoring, and effective curriculum delivery aligned with NCERT and NEP 2020 frameworks.
+            </div>
+        </section>
+
+        <!-- BEYOND THE CLASSROOM -->
+        <section class="port-section">
+            <h2 class="port-section-title luna-display">Beyond the Classroom</h2>
+            <p class="explore-intro">Beyond the classroom — a glimpse into my creative works, publications, and the moments recognised along the way.</p>
+            <div class="explore-more-grid">
+
+                <a class="explore-card" href="https://akashsrivastva.blogspot.com/p/editorial-creativity.html" target="_blank">
+                    <div class="explore-icon">🖋️</div>
+                    <div class="explore-text">
+                        <div class="explore-title luna-display">Editorial &amp; Creativity</div>
+                        <div class="explore-subtitle">Magazines, publications &amp; creative design work</div>
+                        <div class="explore-cta">View the collection <span class="explore-arrow">→</span></div>
+                    </div>
+                </a>
+
+                <a class="explore-card" href="https://akashsrivastva.blogspot.com/p/gallery-cp-curricular.html" target="_blank">
+                    <div class="explore-icon">🖼️</div>
+                    <div class="explore-text">
+                        <div class="explore-title luna-display">Gallery &amp; Achievements</div>
+                        <div class="explore-subtitle">Photos, recognitions &amp; co-curricular moments</div>
+                        <div class="explore-cta">Browse the gallery <span class="explore-arrow">→</span></div>
+                    </div>
+                </a>
+
+                <a class="explore-card" href="https://www.arconsultancy.site" target="_blank">
+                    <div class="explore-icon">🏢</div>
+                    <div class="explore-text">
+                        <div class="explore-title luna-display">AR Consultancy</div>
+                        <div class="explore-subtitle">Educational consultancy &amp; institutional services</div>
+                        <div class="explore-cta">Visit portal <span class="explore-arrow">→</span></div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- EDUCATION & QUALIFICATIONS -->
+        <section class="port-section">
+            <div class="quote-box">
+                "Education shapes my journey, turning curiosity into accomplishments. It's the key to unlocking possibilities and realizing my full potential."
+            </div>
+            <h2 class="port-section-title luna-display">Qualifications &amp; Competitive Exams</h2>
+            <div class="cards-grid">
+                <div class="info-card" style="border-top-color: var(--coral);">
+                    <div class="card-item-title luna-display">CTET Paper-II (Maths &amp; Science)</div>
+                    <div class="card-item-subtitle">CBSE, New Delhi</div>
+                    <div class="card-item-score">Status: Qualified</div>
+                </div>
+                <div class="info-card" style="border-top-color: var(--coral);">
+                    <div class="card-item-title luna-display">STET Paper-I (Mathematics)</div>
+                    <div class="card-item-subtitle">BSEB, Bihar</div>
+                    <div class="card-item-score">Status: Qualified</div>
+                </div>
+                <div class="info-card" style="border-top-color: var(--coral);">
+                    <div class="card-item-title luna-display">AWES (TGT Mathematics)</div>
+                    <div class="card-item-subtitle">Army Welfare Education Society</div>
+                    <div class="card-item-score">Status: Qualified</div>
+                </div>
+                <div class="info-card" style="border-top-color: var(--coral);">
+                    <div class="card-item-title luna-display">DAV CBT (TGT Mathematics)</div>
+                    <div class="card-item-subtitle">DAV Institutions</div>
+                    <div class="card-item-score">Status: Qualified</div>
+                </div>
+                <div class="info-card" style="border-top-color: var(--coral);">
+                    <div class="card-item-title luna-display">आचार्य चयन परीक्षा-2026</div>
+                    <div class="card-item-subtitle">लोक शिक्षा समिति, बिहार</div>
+                    <div class="card-item-score">Status: Qualified</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-item-title luna-display">Master of Science (M.Sc. Mathematics)</div>
+                    <div class="card-item-subtitle">Subharati University, Meerut</div>
+                    <div class="card-item-score">Status: Degree Awarded</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-item-title luna-display">Bachelor of Education (B.Ed. Mathematics)</div>
+                    <div class="card-item-subtitle">Kurukshetra University, Haryana</div>
+                    <div class="card-item-score">Status: Degree Awarded</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-item-title luna-display">Bachelor of Science (B.Sc. Mathematics)</div>
+                    <div class="card-item-subtitle">MJK College, BRABU, Bettiah</div>
+                    <div class="card-item-score">Status: Degree Awarded</div>
+                </div>
+                <div class="info-card">
+                    <div class="card-item-title luna-display">Intermediate (Science - Maths)</div>
+                    <div class="card-item-subtitle">M.R.R.G College, Bettiah, Bihar</div>
+                    <div class="card-item-score">Status: Completed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFESSIONAL EXPERIENCE -->
+        <section class="port-section">
+            <h2 class="port-section-title luna-display">Work Experience</h2>
+            <div class="quote-box">
+                "My varied work experiences have been a journey of growth, teaching me resilience, adaptability, and the value of continuous learning."
+            </div>
+            <div class="cards-grid">
+                <div class="info-card" style="border-top-color: var(--coral);">
+                    <div class="card-item-title luna-display">TGT Mathematics</div>
+                    <div class="card-item-subtitle">Sainik School Nalanda (Ministry of Defence)</div>
+                    <p style="font-size:0.88rem; margin-top:10px; color:var(--ink-soft); line-height:1.5;">Feb 2026 – Present | Teaching Classes VI, VII, VIII, IX &amp; X using NCERT Ganita Prakash, Ganita Manjari &amp; Mathematics</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-item-title luna-display">International Mathematics Educator</div>
+                    <div class="card-item-subtitle">Turito Inc. (USA-based EdTech Platform)</div>
+                    <p style="font-size:0.88rem; margin-top:10px; color:var(--ink-soft); line-height:1.5;">Aug 2025 – Feb 2026 | Delivered 1-to-1 Mathematics instruction to US-based students (Grades 5–8) using adaptive teaching strategies.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-item-title luna-display">Academic Coordinator</div>
+                    <div class="card-item-subtitle">St. Xavier's High School, Amba, Bihar</div>
+                    <p style="font-size:0.88rem; margin-top:10px; color:var(--ink-soft); line-height:1.5;">Feb 2023 – Feb 2026 | Senior leadership role overseeing academics, CBSE documentation, routines, and Chief Editor of e-magazine 'The Open Canvas'.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-item-title luna-display">Director &amp; Chief Mentor</div>
+                    <div class="card-item-subtitle">Akash Institute, Bettiah</div>
+                    <p style="font-size:0.88rem; margin-top:10px; color:var(--ink-soft); line-height:1.5;">Apr 2021 – Feb 2023 | Founded and managed coaching institute for Grades 6–12; entrance prep for JNV, KV, Sainik Schools and Olympiads.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-item-title luna-display">Maths &amp; Science Teacher | Residential Head</div>
+                    <div class="card-item-subtitle">Roshani Public School, Turkauliya</div>
+                    <p style="font-size:0.88rem; margin-top:10px; color:var(--ink-soft); line-height:1.5;">Sept 2019 – Mar 2021 | Taught secondary classes, managed the boarding wing, and oversaw Science Lab practicals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS & EXPERTISE -->
+        <section class="port-section">
+            <h2 class="port-section-title luna-display">Skills &amp; Expertise</h2>
+            <div class="skills-flex-grid">
+                <div class="skill-block">
+                    <h4 class="luna-display">Pedagogy</h4>
+                    <ul class="skill-block-list">
+                        <li>Secondary Mathematics</li>
+                        <li>NCERT &amp; NEP 2020</li>
+                        <li>Lesson &amp; Split-up Planning</li>
+                        <li>HOTS Assessment Design</li>
+                    </ul>
+                </div>
+                <div class="skill-block">
+                    <h4 class="luna-display">Digital &amp; EdTech</h4>
+                    <ul class="skill-block-list">
+                        <li>Gemini &amp; NotebookLM (AI Tools)</li>
+                        <li>Smart Board Teaching</li>
+                        <li>MS Office &amp; Canva</li>
+                        <li>Website Building</li>
+                    </ul>
+                </div>
+                <div class="skill-block">
+                    <h4 class="luna-display">Administration</h4>
+                    <ul class="skill-block-list">
+                        <li>UDISE &amp; e-Shiksha</li>
+                        <li>CBSE Documentation</li>
+                        <li>Exam Management</li>
+                        <li>Residential Care</li>
+                    </ul>
+                </div>
+                <div class="skill-block">
+                    <h4 class="luna-display">Languages</h4>
+                    <ul class="skill-block-list">
+                        <li>English (Fluent)</li>
+                        <li>Hindi (Fluent)</li>
+                        <li>Bhojpuri (Fluent)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS & RECOGNITIONS -->
+        <section class="port-section">
+            <h2 class="port-section-title luna-display">Achievements &amp; Recognitions</h2>
+            <div class="achievement-card-grid">
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="geminiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4E82EE"/>
+                                    <stop offset="50%" stop-color="#A56CF4"/>
+                                    <stop offset="100%" stop-color="#F26E6E"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z" fill="url(#geminiGrad)"/>
+                        </svg>
+                    </div>
+                    <h4 class="luna-display" style="color:var(--ink); margin-bottom:5px;">Gemini Certified Educator</h4>
+                    <p style="font-size:0.85rem; color:var(--ink-soft);">Issued by Google for Education. Generative AI pedagogy &amp; interactive math instruction.</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                        </svg>
+                    </div>
+                    <h4 class="luna-display" style="color:var(--ink); margin-bottom:5px;">Google AI Educator Series</h4>
+                    <p style="font-size:0.85rem; color:var(--ink-soft);">Issued by Google for Education. Generative AI workflows with Gemini &amp; Google NotebookLM.</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">🏆</div>
+                    <h4 class="luna-display" style="color:var(--ink); margin-bottom:5px;">Best Teacher Award</h4>
+                    <p style="font-size:0.85rem; color:var(--ink-soft);">Awarded twice in Mathematics at Roshani Public School.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">📜</div>
+                    <h4 class="luna-display" style="color:var(--ink); margin-bottom:5px;">Bal Sahitya Shree Samman</h4>
+                    <p style="font-size:0.85rem; color:var(--ink-soft);">Awarded by Kashi Sahityik Sansthan, Varanasi for literary contributions.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">⭐</div>
+                    <h4 class="luna-display" style="color:var(--ink); margin-bottom:5px;">Smart Teacher Award</h4>
+                    <p style="font-size:0.85rem; color:var(--ink-soft);">Presented by Shaikshik Agaz &amp; Radio Meri Awaz.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">📲</div>
+                    <h4 class="luna-display" style="color:var(--ink); margin-bottom:5px;">Smart Educators Award</h4>
+                    <p style="font-size:0.85rem; color:var(--ink-soft);">Presented by The Homework App.</p>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">📰</div>
+                    <h4 class="luna-display" style="color:var(--ink); margin-bottom:5px;">Chief Editor</h4>
+                    <p style="font-size:0.85rem; color:var(--ink-soft);">Sole designer and editor of school magazine 'The Open Canvas'.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="tt-footer">
+        <div class="tt-wrap">
+            <div class="tt-footer-grid">
+                <div>
+                    <div class="tt-footer-logo">✦ Teacher Tools Studio</div>
+                    <p><strong>Akash Srivastva</strong><br>TGT Mathematics, crafting NEP‑aligned worksheets, digital TLMs, and creative institutional publications.</p>
+                </div>
+                <div>
+                    <h5>Explore</h5>
+                    <ul>
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="index.html#tools-vault">Tools Vault</a></li>
+                        <li><a href="https://akashmaths.online" target="_blank">Student Portal</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Stay Connected</h5>
+                    <ul>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="https://wa.me/919431685016?text=Hello%20Akash%20Sir%2C%20I%20wanted%20to%20connect." target="_blank">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Stay in the loop</h5>
+                    <p>Get updates on new teacher utilities and tools.</p>
+                </div>
+            </div>
+            <div class="tt-foot-bottom">© 2026 Akash Srivastva · Teacher Tools Studio. All rights reserved.</div>
+        </div>
+    </footer>
+
+</body>
+</html>
