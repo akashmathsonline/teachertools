@@ -8,383 +8,315 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #e9e2fb 0%, #d9ccf7 50%, #fceedf 100%);
-            --header-bg: #2e2a4a;
-            --card-bg: #ffffff;
-            --primary-purple: #5c4dc4;
-            --accent-coral: #f4805f;
-            --ink: #2e2a4a;
-            --ink-soft: #6b6584;
-            --border-peach: #fbd9c4;
+            --bg-cream: #f4f0ff;
+            --cream-deep: #e9e2fb;
+            --peach: #d9ccf7;
+            --coral: #5c4dc4;
+            --coral-deep: #4638a0;
+            --lavender: #e9e2fb;
+            --lavender-2: #d9ccf7;
+            --purple: #8574E0;
+            --purple-deep: #5C4DC4;
+            --ink: #2E2A4A;
+            --ink-soft: #6B6584;
+            --white: #FFFFFF;
         }
 
-        * {
-            box-sizing: border-box;
+        *, *:before, *:after { box-sizing: border-box; }
+        
+        body, html {
             margin: 0;
             padding: 0;
-        }
-
-        body, html {
             width: 100%;
             max-width: 100vw;
             overflow-x: hidden;
-            background: var(--bg-gradient);
+            background: var(--bg-cream);
             font-family: 'Inter', -apple-system, sans-serif;
             color: var(--ink);
             line-height: 1.5;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; margin: 0; padding: 0; }
+        section { position: relative; }
+
+        .tt-wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+        
+        .tt-eyebrow {
+            display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px;
+            font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+            color: var(--coral-deep); background: var(--white); border: 1px solid var(--peach);
+            padding: 6px 16px; border-radius: 999px; margin-bottom: 18px;
         }
 
-        /* TOP NAVIGATION */
-        .tt-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px 20px;
+        /* NAVIGATION */
+        .tt-nav { position: relative; z-index: 20; display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 26px 32px 0; }
+        .tt-logo { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: var(--purple-deep); font-family: 'Fredoka', sans-serif; }
+        .tt-logo span.tt-dot { color: var(--coral); font-size: 20px; }
+        .tt-navlinks { display: flex; gap: 34px; font-size: 15px; font-weight: 600; color: var(--ink); }
+        .tt-navlinks a { position: relative; padding-bottom: 4px; transition: color .2s; }
+        .tt-navlinks a:hover, .tt-navlinks a.tt-active { color: var(--purple-deep); }
+        
+        .tt-portal-switch {
+            background: var(--purple-deep); color: var(--white) !important; font-weight: 700; font-size: 14px;
+            padding: 10px 20px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 6px 16px rgba(92,77,196,.25); transition: transform .2s;
         }
+        .tt-portal-switch:hover { transform: translateY(-2px); }
 
-        .tt-logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary-purple);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Fredoka', sans-serif;
-        }
+        /* HERO */
+        .tt-hero { background: linear-gradient(180deg, var(--bg-cream) 0%, var(--cream-deep) 100%); padding: 30px 0 70px; overflow: hidden; }
+        .tt-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
+        .tt-hero h1 { font-family: 'Fredoka', sans-serif; font-size: 44px; line-height: 1.15; margin: 0 0 20px; color: var(--ink); }
+        .tt-hero h1 .tt-accent { color: var(--purple); }
+        .tt-hero h1 .tt-underline { color: var(--coral); position: relative; white-space: nowrap; }
+        .tt-bio { font-size: 15.5px; color: var(--ink-soft); max-width: 530px; margin: 0 0 32px; line-height: 1.65; }
+        
+        .tt-text-link { color: var(--purple-deep); font-weight: 700; text-decoration: underline; text-decoration-color: var(--coral); cursor: pointer; }
 
-        .tt-logo span {
-            color: var(--accent-coral);
-        }
+        .tt-hero-btns { display: flex; align-items: center; gap: 26px; }
+        .tt-cta-btn { background: var(--coral); color: var(--white) !important; font-weight: 700; font-size: 14.5px; padding: 12px 24px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 8px 18px rgba(92,77,196,.28); }
+        .tt-ghost-btn { font-weight: 700; font-size: 15px; color: var(--ink); border-bottom: 2px solid var(--ink); padding-bottom: 3px; }
+        .tt-hero-art img { width: 100%; max-width: 520px; height: auto; object-fit: contain; filter: drop-shadow(0 18px 30px rgba(92,77,196,.15)); }
 
-        .tt-nav-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        /* WAVE */
+        .tt-wave { display: block; width: 100%; margin-top: -2px; }
 
-        .tt-main-portal-btn {
-            background: var(--card-bg);
-            border: 1.5px solid var(--border-peach);
-            color: var(--primary-purple);
-            font-weight: 600;
-            font-size: 13.5px;
-            padding: 8px 16px;
-            border-radius: 999px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(92, 77, 196, 0.08);
-        }
+        /* TOOLS SECTION (CAROUSEL / GRID VIBE) */
+        .tt-purple-band { background: var(--lavender-2); padding: 50px 0 80px; }
+        .tt-section-head { text-align: center; margin-bottom: 35px; }
+        .tt-section-head h2 { font-family: 'Fredoka', sans-serif; font-size: 34px; margin: 6px 0 10px; color: var(--ink); }
+        .tt-section-head p { color: var(--ink-soft); font-size: 15px; max-width: 480px; margin: 0 auto; }
 
-        .tt-main-portal-btn:hover {
-            background: var(--primary-purple);
-            color: #ffffff;
-            border-color: var(--primary-purple);
-        }
+        .tt-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .tt-card { background: var(--white); border-radius: 22px; padding: 30px 24px; box-shadow: 0 10px 20px rgba(92,77,196,.08); transition: transform .3s; display: flex; flex-direction: column; justify-content: space-between; border: 1.5px solid var(--peach); }
+        .tt-card:hover { transform: translateY(-5px); box-shadow: 0 20px 35px rgba(92,77,196,.18); }
+        .tt-card-media { font-size: 40px; margin-bottom: 15px; }
+        .tt-card-tag { font-size: 11.5px; font-weight: 700; text-transform: uppercase; color: var(--purple); margin-bottom: 6px; }
+        .tt-card h3 { font-family: 'Fredoka', sans-serif; font-size: 19px; margin: 0 0 8px; color: var(--ink); }
+        .tt-card p { font-size: 14px; color: var(--ink-soft); margin: 0 0 20px; line-height: 1.4; }
+        .tt-card-link { width: 38px; height: 38px; border-radius: 50%; background: var(--coral); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-        /* HERO SECTION */
-        .tt-hero {
-            padding: 40px 20px 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            align-items: center;
-        }
+        /* PROCESS */
+        .tt-process { background: var(--bg-cream); padding: 90px 0; }
+        .tt-process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 50px; }
+        .tt-proc-step { text-align: center; }
+        .tt-proc-circle { width: 68px; height: 68px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 27px; margin: 0 auto 18px; color: #fff; background: var(--purple); }
+        .tt-proc-step h4 { font-family: 'Fredoka', sans-serif; font-size: 17px; margin: 0 0 6px; }
+        .tt-proc-step p { font-size: 13.5px; color: var(--ink-soft); margin: 0; }
 
-        .tt-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: #e4653f;
-            background: #ffffff;
-            border: 1px solid var(--border-peach);
-            padding: 6px 16px;
-            border-radius: 999px;
-            margin-bottom: 18px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-        }
+        /* TESTIMONIALS / TEACHER FEEDBACK */
+        .tt-gallery { background: var(--cream-deep); padding: 90px 0 100px; }
+        .tt-testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .tt-testi-card { background: var(--white); padding: 24px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .tt-testi-card p { font-size: 14px; color: var(--ink); font-style: italic; margin-bottom: 14px; }
+        .tt-testi-author { font-size: 13px; font-weight: 700; color: var(--purple-deep); }
 
-        .tt-hero h1 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 42px;
-            line-height: 1.15;
-            margin-bottom: 20px;
-            color: var(--ink);
-        }
+        /* WHATSAPP BANNER */
+        .tt-wa-banner { background: linear-gradient(135deg, #E6F8F0 0%, #D1F2E2 100%); border: 2px solid #25D366; border-radius: 24px; padding: 30px; margin: 60px auto 0; max-width: 900px; display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.15); }
+        .tt-wa-left { display: flex; align-items: center; gap: 20px; }
+        .tt-wa-icon { font-size: 42px; background: #25D366; color: #fff; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .tt-wa-text h3 { margin: 0 0 5px; font-size: 20px; color: #075E54; font-family: 'Fredoka', sans-serif; }
+        .tt-wa-text p { margin: 0; font-size: 14px; color: #2C3E50; }
+        .tt-wa-btn { background: #25D366; color: #fff !important; font-weight: 700; padding: 12px 24px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
 
-        .tt-hero h1 span {
-            color: var(--primary-purple);
-        }
-
-        .tt-hero h1 .highlight-coral {
-            color: var(--accent-coral);
-        }
-
-        .tt-bio {
-            font-size: 15px;
-            color: var(--ink-soft);
-            margin-bottom: 28px;
-            line-height: 1.65;
-        }
-
-        .tt-bio strong {
-            color: var(--ink);
-        }
-
-        .tt-hero-art {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .tt-hero-art img {
-            width: 100%;
-            max-width: 440px;
-            height: auto;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(92, 77, 196, 0.18);
-            border: 3px solid #ffffff;
-        }
-
-        /* DASHBOARD TOOLS GRID */
-        .tt-dashboard {
-            background: #ffffff;
-            border-radius: 36px 36px 0 0;
-            padding: 70px 20px 90px;
-            box-shadow: 0 -20px 40px rgba(92, 77, 196, 0.08);
-        }
-
-        .tt-wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .tt-section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .tt-section-title h2 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 32px;
-            color: var(--ink);
-            margin-top: 8px;
-        }
-
-        .tt-section-title p {
-            color: var(--ink-soft);
-            font-size: 15px;
-            margin-top: 8px;
-        }
-
-        .tt-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .tt-card {
-            background: #faf7f5;
-            border: 1.5px solid var(--border-peach);
-            border-radius: 20px;
-            padding: 30px 24px;
-            transition: all 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .tt-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 32px rgba(92, 77, 196, 0.12);
-            border-color: var(--primary-purple);
-            background: #ffffff;
-        }
-
-        .tt-card-icon {
-            width: 54px;
-            height: 54px;
-            border-radius: 16px;
-            background: #e9e2fb;
-            color: var(--primary-purple);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            margin-bottom: 20px;
-        }
-
-        .tt-card h3 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: var(--ink);
-        }
-
-        .tt-card p {
-            font-size: 14px;
-            color: var(--ink-soft);
-            margin-bottom: 24px;
-            line-height: 1.5;
-        }
-
-        .tt-card-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary-purple);
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 13.5px;
-            padding: 10px 18px;
-            border-radius: 999px;
-            transition: background 0.2s;
-            width: fit-content;
-        }
-
-        .tt-card-btn:hover {
-            background: #4638a0;
-        }
+        /* CTA & FAQ */
+        .tt-cta-card { max-width: 1100px; margin: 0 auto -70px; background: linear-gradient(120deg, var(--coral), #7565e5); border-radius: 34px; padding: 52px 56px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 30px; align-items: start; color: #fff; position: relative; z-index: 5; box-shadow: 0 24px 50px rgba(92,77,196,.28); }
+        .tt-cta-card .tt-eyebrow { background: rgba(255,255,255,.18); color: #fff; border: none; }
+        .tt-cta-card h2 { font-family: 'Fredoka', sans-serif; font-size: 30px; margin: 10px 0 0; line-height: 1.25; }
+        .tt-cta-mail { background: #fff; color: var(--coral-deep) !important; font-weight: 700; padding: 14px 24px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; font-size: 14.5px; }
+        
+        .tt-cta-questions { background: rgba(255,255,255,.14); border-radius: 22px; padding: 22px 26px; }
+        .tt-cta-questions h4 { font-family: 'Fredoka', sans-serif; margin: 0 0 10px; font-size: 16px; }
+        .tt-faq-item { border-bottom: 1px solid rgba(255,255,255,.25); padding: 12px 0; }
+        .tt-faq-que { font-size: 13.5px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .tt-faq-ans { max-height: 0; overflow: hidden; font-size: 13px; color: var(--ink); background: rgba(255,255,255,0.94); border-radius: 12px; padding: 0 14px; transition: all .35s ease; margin-top: 0; }
+        .tt-faq-item.active .tt-faq-ans { max-height: 220px; padding: 12px 14px; margin-top: 10px; }
 
         /* FOOTER */
-        .tt-footer {
-            background: var(--header-bg);
-            color: #a79fcf;
-            padding: 50px 20px 30px;
-            text-align: center;
-            font-size: 13.5px;
-        }
+        .tt-footer { background: var(--ink); color: #cfc9e8; padding: 130px 0 34px; }
+        .tt-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 30px; padding-bottom: 40px; }
+        .tt-footer-grid h5 { color: #fff; font-size: 14px; margin: 0 0 16px; font-family: 'Fredoka', sans-serif; }
+        .tt-footer-grid p, .tt-footer-grid ul li { font-size: 13.5px; color: #a79fcf; padding: 4px 0; }
+        .tt-footer-logo { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 12px; font-family: 'Fredoka', sans-serif; display: flex; align-items: center; gap: 8px; }
+        .tt-foot-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 22px; font-size: 12.5px; text-align: center; }
 
-        .tt-footer p {
-            margin-bottom: 10px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .tt-hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .tt-hero-art {
-                margin-top: 20px;
-            }
-            .tt-grid {
-                grid-template-columns: 1fr;
-            }
-            .tt-hero h1 {
-                font-size: 32px;
-            }
+        @media (max-width: 880px) {
+            .tt-hero-grid, .tt-tools-grid, .tt-process-grid, .tt-testi-grid, .tt-cta-card, .tt-footer-grid { grid-template-columns: 1fr; }
+            .tt-navlinks { display: none; }
+            .tt-hero h1 { font-size: 34px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- TOP BAR -->
-    <header class="tt-nav">
-        <div class="tt-logo">
-            <span>✦</span> Teacher Tools
-        </div>
-        <div class="tt-nav-right">
-            <a href="https://akashmaths.online" class="tt-main-portal-btn" target="_blank">Main Student Portal ↗</a>
-        </div>
-    </header>
+    <!-- NAVIGATION -->
+    <nav class="tt-nav">
+        <div class="tt-logo"><span class="tt-dot">✦</span> Teacher Tools</div>
+        <ul class="tt-navlinks">
+            <li><a href="#" class="tt-active">Dashboard</a></li>
+            <li><a href="#tools-vault">Tools Vault</a></li>
+            <li><a href="#process">Workflow</a></li>
+        </ul>
+        <a href="https://akashmaths.online" class="tt-portal-switch" target="_blank">Student Portal ↗</a>
+    </nav>
 
     <!-- HERO SECTION -->
     <section class="tt-hero">
-        <div>
-            <span class="tt-badge">✦ Professional Educator Workspace</span>
-            <h1>
-                Empowering teachers with <span class="highlight-coral">smart tools</span> & <span class="tt-accent">digital workflows.</span>
-            </h1>
-            <p class="tt-bio">
-                Created by <strong>Akash Srivastva</strong> (TGT Mathematics at Sainik School Nalanda, Gemini Certified Educator & Google AI Certified Educator). A dedicated digital studio designed to simplify classroom management, assessments, and pedagogical tasks.
-            </p>
-        </div>
-        <div class="tt-hero-art">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghQs5Ur6Wd9uaY2lFogAOB7LfSy4c6uPs43F4dpvQpBboWfRwVYoq_NSaf0potBGwD_ASciUYW1CwyOv5z4vjF2VZhTeeESxrSJyq_tOomDCTlXQ5_y7SdDWAeAc1SeG8QXSAL6PtoXwKcXXb1pKHKnX15SjWmX91R_3nxFRB2hL9iltuSs0WPXHw_xPo/s1600/blog%20image.png" alt="Akash Srivastva Workspace Illustration">
+        <div class="tt-wrap tt-hero-grid">
+            <div>
+                <span class="tt-eyebrow">✦ Professional Educator Workspace</span>
+                <h1 class="tt-display">
+                    Streamline your <span class="tt-accent">teaching workflow</span> and <span class="tt-underline">classroom tasks,</span> efficiently.
+                </h1>
+                <p class="tt-bio">
+                    A dedicated digital workspace by <strong>Akash Srivastva</strong> (TGT Mathematics at Sainik School Nalanda, Gemini Certified Educator & Google AI Certified Educator). Designed to simplify question generation, seating arrangements, and institutional productivity.
+                </p>
+                <div class="tt-hero-btns">
+                    <a href="#tools-vault" class="tt-cta-btn">Explore Tools <span>↓</span></a>
+                    <a href="https://akashmaths.online" target="_blank" class="tt-ghost-btn">Main Student Hub</a>
+                </div>
+            </div>
+            <div class="tt-hero-art" style="display:flex; justify-content:center;">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghQs5Ur6Wd9uaY2lFogAOB7LfSy4c6uPs43F4dpvQpBboWfRwVYoq_NSaf0potBGwD_ASciUYW1CwyOv5z4vjF2VZhTeeESxrSJyq_tOomDCTlXQ5_y7SdDWAeAc1SeG8QXSAL6PtoXwKcXXb1pKHKnX15SjWmX91R_3nxFRB2hL9iltuSs0WPXHw_xPo/s1600/blog%20image.png" alt="Akash Srivastva Teaching Illustration" />
+            </div>
         </div>
     </section>
 
-    <!-- TOOLS DASHBOARD -->
-    <section class="tt-dashboard">
+    <svg class="tt-wave" viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#d9ccf7" d="M0,32 C240,90 480,0 720,24 C960,48 1200,88 1440,40 L1440,90 L0,90 Z"></path></svg>
+
+    <!-- TOOLS VAULT -->
+    <section class="tt-purple-band" id="tools-vault">
         <div class="tt-wrap">
-            <div class="tt-section-title">
-                <span class="tt-badge">✦ Teacher's Utility Vault</span>
-                <h2>Explore Professional Tools</h2>
-                <p>Modular applications designed for efficient school and classroom management.</p>
+            <div class="tt-section-head">
+                <span class="tt-eyebrow">✦ Teacher's Utility Vault</span>
+                <h2 class="tt-display">Featured Management Tools</h2>
+                <p>Modular applications built for modern educators, test preparation, and school administration.</p>
             </div>
-
-            <div class="tt-grid">
-                <!-- Tool 1 -->
+            
+            <div class="tt-tools-grid">
                 <div class="tt-card">
                     <div>
-                        <div class="tt-card-icon">📝</div>
-                        <h3>Question Paper Generator</h3>
-                        <p>Draft customized assessment papers, select questions from repository pools, and export formatted exams instantly.</p>
+                        <div class="tt-card-media">📝</div>
+                        <div class="tt-card-tag">Assessment · NEP Aligned</div>
+                        <h3 class="tt-display">Question Paper Generator</h3>
+                        <p>Draft customized exam papers by picking questions from structured item pools and export to PDF instantly.</p>
                     </div>
-                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                    <a href="#" class="tt-card-link">→</a>
                 </div>
 
-                <!-- Tool 2 -->
                 <div class="tt-card">
                     <div>
-                        <div class="tt-card-icon">🪑</div>
-                        <h3>Seating Chart Maker</h3>
-                        <p>Design optimized student seating arrangements for examinations, hall setups, or daily classroom seating plans.</p>
+                        <div class="tt-card-media">🪑</div>
+                        <div class="tt-card-tag">Classroom Management</div>
+                        <h3 class="tt-display">Seating Chart Maker</h3>
+                        <p>Design optimized student seating plans for examinations, hall layouts, and daily classroom arrangement.</p>
                     </div>
-                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                    <a href="#" class="tt-card-link">→</a>
                 </div>
 
-                <!-- Tool 3 -->
                 <div class="tt-card">
                     <div>
-                        <div class="tt-card-icon">📅</div>
-                        <h3>School Timetable Hub</h3>
-                        <p>Manage teacher workloads, class periods, and subject allocations to build conflict-free master timetables.</p>
+                        <div class="tt-card-media">📅</div>
+                        <div class="tt-card-tag">Scheduler</div>
+                        <h3 class="tt-display">School Timetable Hub</h3>
+                        <p>Manage teacher workloads, subject distribution periods, and create conflict-free master schedules.</p>
                     </div>
-                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                    <a href="#" class="tt-card-link">→</a>
                 </div>
 
-                <!-- Tool 4 -->
                 <div class="tt-card">
                     <div>
-                        <div class="tt-card-icon">💡</div>
-                        <h3>Smart Prompt Studio</h3>
-                        <p>Access ready-made AI master prompts for drafting lesson scripts, institutional circulars, and worksheets.</p>
+                        <div class="tt-card-media">💡</div>
+                        <div class="tt-card-tag">AI Workflows</div>
+                        <h3 class="tt-display">Smart Prompt Studio</h3>
+                        <p>Ready-made master AI prompts for drafting lesson plans, circulars, and remedial worksheets.</p>
                     </div>
-                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                    <a href="#" class="tt-card-link">→</a>
                 </div>
 
-                <!-- Tool 5 -->
                 <div class="tt-card">
                     <div>
-                        <div class="tt-card-icon">🎯</div>
-                        <h3>Random Student Picker</h3>
-                        <p>Engage your classroom dynamically using a fair, randomized student selection tool for activities and oral quizzes.</p>
+                        <div class="tt-card-media">🎯</div>
+                        <div class="tt-card-tag">Student Engagement</div>
+                        <h3 class="tt-display">Random Student Picker</h3>
+                        <p>Engage your classroom dynamically using a fair, randomized selection utility for oral tests and activities.</p>
                     </div>
-                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                    <a href="#" class="tt-card-link">→</a>
                 </div>
 
-                <!-- Tool 6 -->
                 <div class="tt-card">
                     <div>
-                        <div class="tt-card-icon">📊</div>
-                        <h3>Grade & Result Hub</h3>
-                        <p>Compute percentages, scale marks, and organize student evaluation metrics with clean export options.</p>
+                        <div class="tt-card-media">📊</div>
+                        <div class="tt-card-tag">Analytics</div>
+                        <h3 class="tt-display">Grade & Result Hub</h3>
+                        <p>Compute percentages, scale evaluation metrics, and export clean formatted reports effortlessly.</p>
                     </div>
-                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                    <a href="#" class="tt-card-link">→</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <svg class="tt-wave" viewBox="0 0 1440 80" preserveAspectRatio="none"><path fill="#f4f0ff" d="M0,40 C240,0 480,80 720,44 C960,8 1200,60 1440,20 L1440,80 L0,80 Z"></path></svg>
+
+    <!-- WORKFLOW PROCESS -->
+    <section class="tt-process" id="process">
+        <div class="tt-wrap">
+            <div class="tt-section-head">
+                <span class="tt-eyebrow">✦ Workflow Process</span>
+                <h2 class="tt-display">From administrative friction to smooth execution.</h2>
+                <p>The core methodology behind every tool built for teachers.</p>
+            </div>
+            <div class="tt-process-grid">
+                <div class="tt-proc-step"><div class="tt-proc-circle">🔍</div><h4 class="tt-display">1. Identify</h4><p>Spotting daily repetitive paperwork and classroom bottlenecks.</p></div>
+                <div class="tt-proc-step"><div class="tt-proc-circle">⚙️</div><h4 class="tt-display">2. Build</h4><p>Developing lightweight, instant-access digital web tools.</p></div>
+                <div class="tt-proc-step"><div class="tt-proc-circle">▶</div><h4 class="tt-display">3. Deploy</h4><p>Testing directly within active school environments and schedules.</p></div>
+                <div class="tt-proc-step"><div class="tt-proc-circle">✦</div><h4 class="tt-display">4. Optimize</h4><p>Refining outputs for maximum time-saving and zero errors.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHATSAPP BANNER -->
+    <div class="tt-wrap">
+        <div class="tt-wa-banner">
+            <div class="tt-wa-left">
+                <div class="tt-wa-icon">📢</div>
+                <div class="tt-wa-text">
+                    <h3>Join Teacher's WhatsApp Community</h3>
+                    <p>Get instant updates when new utility tools, question templates, and exam blueprints are released.</p>
+                </div>
+            </div>
+            <a href="https://whatsapp.com/channel/0029VbDHMPCCnA7sKARved2q" target="_blank" class="tt-wa-btn">Join Channel →</a>
+        </div>
+    </div>
+
+    <svg class="tt-wave" viewBox="0 0 1440 70" preserveAspectRatio="none" style="margin-top: 40px;"><path fill="#2E2A4A" d="M0,30 C240,70 480,0 720,26 C960,52 1200,10 1440,36 L1440,70 L0,70 Z"></path></svg>
+
+    <!-- CTA & FAQ SECTION -->
+    <section style="padding: 0;">
+        <div class="tt-wrap">
+            <div class="tt-cta-card">
+                <div>
+                    <span class="tt-eyebrow">✦ Collaborative Hub</span>
+                    <h2 class="tt-display">Have a feature request or need a custom tool for your school?</h2>
+                    <a href="https://wa.me/919431685016?text=Hello%20Akash%20Sir%2C%20I%20wanted%20to%20suggest%20a%20tool%20for%20Teacher%20Tools%20Studio." target="_blank" class="tt-cta-mail">✉ Connect on WhatsApp</a>
+                </div>
+                
+                <div class="tt-cta-questions">
+                    <h4 class="tt-display">Quick Questions</h4>
+                    <div class="tt-faq-item">
+                        <div class="tt-faq-que" onclick="toggleFaq(this)"><span>Are these tools free for educators?</span><span>+</span></div>
+                        <div class="tt-faq-ans">Yes, all tools hosted on Teacher Tools Studio are completely free for teachers and educational institutions.</div>
+                    </div>
+                    <div class="tt-faq-item">
+                        <div class="tt-faq-que" onclick="toggleFaq(this)"><span>Can I export question papers to PDF?</span><span>+</span></div>
+                        <div class="tt-faq-ans">Yes, generated papers come with clean print and PDF export options formatted for standard school exams.</div>
+                    </div>
+                    <div class="tt-faq-item">
+                        <div class="tt-faq-que" onclick="toggleFaq(this)"><span>How frequently are new tools added?</span><span>+</span></div>
+                        <div class="tt-faq-ans">New utilities and management apps are added regularly based on teacher requirements and curriculum updates.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -393,10 +325,43 @@
     <!-- FOOTER -->
     <footer class="tt-footer">
         <div class="tt-wrap">
-            <p>© 2026 Teacher Tools Studio · Powered by Akash Maths Online</p>
-            <p style="font-size: 12px; color: #7d73a8;">Designed for educators to streamline productivity and teaching excellence.</p>
+            <div class="tt-footer-grid">
+                <div>
+                    <div class="tt-footer-logo">✦ Teacher Tools Studio</div>
+                    <p>Empowering educators with smart digital workflows, automated test preparation, and classroom utilities.</p>
+                </div>
+                <div>
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#tools-vault">Tools Vault</a></li>
+                        <li><a href="https://akashmaths.online" target="_blank">Student Portal</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="#">Question Vault</a></li>
+                        <li><a href="#">Timetable Planner</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Stay Connected</h5>
+                    <p>Created by Akash Srivastva for teaching excellence.</p>
+                </div>
+            </div>
+            <div class="tt-foot-bottom">© 2026 Teacher Tools Studio · Powered by Akash Maths Online. All rights reserved.</div>
         </div>
     </footer>
 
+    <script>
+        function toggleFaq(el) {
+            const parent = el.parentElement;
+            document.querySelectorAll('.tt-faq-item').forEach(item => {
+                if (item !== parent) item.classList.remove('active');
+            });
+            parent.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
