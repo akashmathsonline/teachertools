@@ -1,129 +1,401 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher's Tools Studio | Akash Maths Online</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Teacher Tools Studio | Akash Maths Online</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; }
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e9e2fb 0%, #d9ccf7 50%, #fceedf 100%);
+            --header-bg: #2e2a4a;
+            --card-bg: #ffffff;
+            --primary-purple: #5c4dc4;
+            --accent-coral: #f4805f;
+            --ink: #2e2a4a;
+            --ink-soft: #6b6584;
+            --border-peach: #fbd9c4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            background: var(--bg-gradient);
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* TOP NAVIGATION */
+        .tt-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .tt-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-purple);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .tt-logo span {
+            color: var(--accent-coral);
+        }
+
+        .tt-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tt-main-portal-btn {
+            background: var(--card-bg);
+            border: 1.5px solid var(--border-peach);
+            color: var(--primary-purple);
+            font-weight: 600;
+            font-size: 13.5px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(92, 77, 196, 0.08);
+        }
+
+        .tt-main-portal-btn:hover {
+            background: var(--primary-purple);
+            color: #ffffff;
+            border-color: var(--primary-purple);
+        }
+
+        /* HERO SECTION */
+        .tt-hero {
+            padding: 40px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .tt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #e4653f;
+            background: #ffffff;
+            border: 1px solid var(--border-peach);
+            padding: 6px 16px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+
+        .tt-hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 42px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            color: var(--ink);
+        }
+
+        .tt-hero h1 span {
+            color: var(--primary-purple);
+        }
+
+        .tt-hero h1 .highlight-coral {
+            color: var(--accent-coral);
+        }
+
+        .tt-bio {
+            font-size: 15px;
+            color: var(--ink-soft);
+            margin-bottom: 28px;
+            line-height: 1.65;
+        }
+
+        .tt-bio strong {
+            color: var(--ink);
+        }
+
+        .tt-hero-art {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tt-hero-art img {
+            width: 100%;
+            max-width: 440px;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(92, 77, 196, 0.18);
+            border: 3px solid #ffffff;
+        }
+
+        /* DASHBOARD TOOLS GRID */
+        .tt-dashboard {
+            background: #ffffff;
+            border-radius: 36px 36px 0 0;
+            padding: 70px 20px 90px;
+            box-shadow: 0 -20px 40px rgba(92, 77, 196, 0.08);
+        }
+
+        .tt-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tt-section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .tt-section-title h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 32px;
+            color: var(--ink);
+            margin-top: 8px;
+        }
+
+        .tt-section-title p {
+            color: var(--ink-soft);
+            font-size: 15px;
+            margin-top: 8px;
+        }
+
+        .tt-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .tt-card {
+            background: #faf7f5;
+            border: 1.5px solid var(--border-peach);
+            border-radius: 20px;
+            padding: 30px 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tt-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(92, 77, 196, 0.12);
+            border-color: var(--primary-purple);
+            background: #ffffff;
+        }
+
+        .tt-card-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: #e9e2fb;
+            color: var(--primary-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .tt-card h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--ink);
+        }
+
+        .tt-card p {
+            font-size: 14px;
+            color: var(--ink-soft);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .tt-card-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-purple);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 13.5px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            transition: background 0.2s;
+            width: fit-content;
+        }
+
+        .tt-card-btn:hover {
+            background: #4638a0;
+        }
+
+        /* FOOTER */
+        .tt-footer {
+            background: var(--header-bg);
+            color: #a79fcf;
+            padding: 50px 20px 30px;
+            text-align: center;
+            font-size: 13.5px;
+        }
+
+        .tt-footer p {
+            margin-bottom: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .tt-hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .tt-hero-art {
+                margin-top: 20px;
+            }
+            .tt-grid {
+                grid-template-columns: 1fr;
+            }
+            .tt-hero h1 {
+                font-size: 32px;
+            }
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen text-slate-800">
+<body>
 
-    <!-- Navigation Bar -->
-    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-indigo-600 text-white p-2.5 rounded-xl shadow-md font-bold text-xl">📐</div>
-                <div>
-                    <h1 class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Teacher's Tools Studio</h1>
-                    <p class="text-xs text-slate-500">Powered by Akash Maths Online</p>
-                </div>
+    <!-- TOP BAR -->
+    <header class="tt-nav">
+        <div class="tt-logo">
+            <span>✦</span> Teacher Tools
+        </div>
+        <div class="tt-nav-right">
+            <a href="https://akashmaths.online" class="tt-main-portal-btn" target="_blank">Main Student Portal ↗</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="tt-hero">
+        <div>
+            <span class="tt-badge">✦ Professional Educator Workspace</span>
+            <h1>
+                Empowering teachers with <span class="highlight-coral">smart tools</span> & <span class="tt-accent">digital workflows.</span>
+            </h1>
+            <p class="tt-bio">
+                Created by <strong>Akash Srivastva</strong> (TGT Mathematics at Sainik School Nalanda, Gemini Certified Educator & Google AI Certified Educator). A dedicated digital studio designed to simplify classroom management, assessments, and pedagogical tasks.
+            </p>
+        </div>
+        <div class="tt-hero-art">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghQs5Ur6Wd9uaY2lFogAOB7LfSy4c6uPs43F4dpvQpBboWfRwVYoq_NSaf0potBGwD_ASciUYW1CwyOv5z4vjF2VZhTeeESxrSJyq_tOomDCTlXQ5_y7SdDWAeAc1SeG8QXSAL6PtoXwKcXXb1pKHKnX15SjWmX91R_3nxFRB2hL9iltuSs0WPXHw_xPo/s1600/blog%20image.png" alt="Akash Srivastva Workspace Illustration">
+        </div>
+    </section>
+
+    <!-- TOOLS DASHBOARD -->
+    <section class="tt-dashboard">
+        <div class="tt-wrap">
+            <div class="tt-section-title">
+                <span class="tt-badge">✦ Teacher's Utility Vault</span>
+                <h2>Explore Professional Tools</h2>
+                <p>Modular applications designed for efficient school and classroom management.</p>
             </div>
-            <div>
-                <a href="https://www.akashmaths.online" target="_blank" class="px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition shadow-sm">
-                    मुख्य पोर्टल पर जाएं ➔
-                </a>
+
+            <div class="tt-grid">
+                <!-- Tool 1 -->
+                <div class="tt-card">
+                    <div>
+                        <div class="tt-card-icon">📝</div>
+                        <h3>Question Paper Generator</h3>
+                        <p>Draft customized assessment papers, select questions from repository pools, and export formatted exams instantly.</p>
+                    </div>
+                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                </div>
+
+                <!-- Tool 2 -->
+                <div class="tt-card">
+                    <div>
+                        <div class="tt-card-icon">🪑</div>
+                        <h3>Seating Chart Maker</h3>
+                        <p>Design optimized student seating arrangements for examinations, hall setups, or daily classroom seating plans.</p>
+                    </div>
+                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                </div>
+
+                <!-- Tool 3 -->
+                <div class="tt-card">
+                    <div>
+                        <div class="tt-card-icon">📅</div>
+                        <h3>School Timetable Hub</h3>
+                        <p>Manage teacher workloads, class periods, and subject allocations to build conflict-free master timetables.</p>
+                    </div>
+                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                </div>
+
+                <!-- Tool 4 -->
+                <div class="tt-card">
+                    <div>
+                        <div class="tt-card-icon">💡</div>
+                        <h3>Smart Prompt Studio</h3>
+                        <p>Access ready-made AI master prompts for drafting lesson scripts, institutional circulars, and worksheets.</p>
+                    </div>
+                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                </div>
+
+                <!-- Tool 5 -->
+                <div class="tt-card">
+                    <div>
+                        <div class="tt-card-icon">🎯</div>
+                        <h3>Random Student Picker</h3>
+                        <p>Engage your classroom dynamically using a fair, randomized student selection tool for activities and oral quizzes.</p>
+                    </div>
+                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                </div>
+
+                <!-- Tool 6 -->
+                <div class="tt-card">
+                    <div>
+                        <div class="tt-card-icon">📊</div>
+                        <h3>Grade & Result Hub</h3>
+                        <p>Compute percentages, scale marks, and organize student evaluation metrics with clean export options.</p>
+                    </div>
+                    <a href="#" class="tt-card-btn">Launch Tool →</a>
+                </div>
             </div>
         </div>
-    </nav>
+    </section>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        
-        <!-- Hero Header -->
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <span class="bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">शिक्षकों के लिए डिजिटल कार्यस्थान</span>
-            <h2 class="text-4xl font-extrabold text-slate-900 mt-3 mb-4">कक्षा प्रबंधन और शिक्षण अब हुआ बेहद आसान</h2>
-            <p class="text-slate-600 text-base">प्रश्न पत्र निर्माण से लेकर सीटिंग अरेंजमेंट और टाइम-टेबल तक—सभी आधुनिक टूल्स अब एक ही जगह पर उपलब्ध हैं।</p>
+    <!-- FOOTER -->
+    <footer class="tt-footer">
+        <div class="tt-wrap">
+            <p>© 2026 Teacher Tools Studio · Powered by Akash Maths Online</p>
+            <p style="font-size: 12px; color: #7d73a8;">Designed for educators to streamline productivity and teaching excellence.</p>
         </div>
-
-        <!-- Tools Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <!-- Tool 1: Question Paper Generator -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition border border-slate-100 flex flex-col justify-between group">
-                <div>
-                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">📝</div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Question Paper Generator</h3>
-                    <p class="text-slate-500 text-sm mb-6">कक्षा 6 से 10 तक के प्रश्न बैंक से चुनिंदा प्रश्न छांटकर तुरंत सुंदर प्रश्न-पत्र और PDF तैयार करें।</p>
-                </div>
-                <button onclick="alert('यह टूल जल्द ही लाइव होने वाला है!')" class="w-full py-2.5 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 transition shadow-md shadow-indigo-100 text-sm">
-                    शुरू करें ➔
-                </button>
-            </div>
-
-            <!-- Tool 2: Seating Chart Maker -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition border border-slate-100 flex flex-col justify-between group">
-                <div>
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">🪑</div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Seating Chart Maker</h3>
-                    <p class="text-slate-500 text-sm mb-6">कक्षा के छात्रों की सूची दर्ज करें और परीक्षा या दैनिक कक्षा के लिए शानदार सीटिंग लेआउट डिजाइन करें।</p>
-                </div>
-                <button onclick="alert('यह टूल जल्द ही लाइव होने वाला है!')" class="w-full py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-md shadow-emerald-100 text-sm">
-                    शुरू करें ➔
-                </button>
-            </div>
-
-            <!-- Tool 3: Timetable Generator -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition border border-slate-100 flex flex-col justify-between group">
-                <div>
-                    <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">📅</div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">School Timetable Hub</h3>
-                    <p class="text-slate-500 text-sm mb-6">शिक्षक और विषय वर्कलोड के हिसाब से क्लासरूम का परफेक्ट टाइम-टेबल और शेड्यूल तैयार करें।</p>
-                </div>
-                <button onclick="alert('यह टूल जल्द ही लाइव होने वाला है!')" class="w-full py-2.5 bg-amber-600 text-white font-medium rounded-xl hover:bg-amber-700 transition shadow-md shadow-amber-100 text-sm">
-                    शुरू करें ➔
-                </button>
-            </div>
-
-            <!-- Tool 4: Smart Prompt Studio -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition border border-slate-100 flex flex-col justify-between group">
-                <div>
-                    <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">💡</div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Smart Prompt Studio</h3>
-                    <p class="text-slate-500 text-sm mb-6">लेसन स्क्रिप्ट्स, पैराग्राफ्स और स्कूल सर्कुलर ड्राफ्ट करने के लिए रेडीमेड मास्टर प्रॉम्प्ट्स।</p>
-                </div>
-                <button onclick="alert('यह टूल जल्द ही लाइव होने वाला है!')" class="w-full py-2.5 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition shadow-md shadow-purple-100 text-sm">
-                    शुरू करें ➔
-                </button>
-            </div>
-
-            <!-- Tool 5: Random Student Picker -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition border border-slate-100 flex flex-col justify-between group">
-                <div>
-                    <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">🎯</div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Random Student Picker</h3>
-                    <p class="text-slate-500 text-sm mb-6">क्लास में सवाल पूछने या ग्रुप एक्टिविटीज के लिए छात्रों को निष्पक्ष और मजेदार तरीके से चुनें।</p>
-                </div>
-                <button onclick="alert('यह टूल जल्द ही लाइव होने वाला है!')" class="w-full py-2.5 bg-rose-600 text-white font-medium rounded-xl hover:bg-rose-700 transition shadow-md shadow-rose-100 text-sm">
-                    शुरू करें ➔
-                </button>
-            </div>
-
-            <!-- Tool 6: Grade & Result Calculator -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition border border-slate-100 flex flex-col justify-between group">
-                <div>
-                    <div class="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">📊</div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2">Grade & Result Hub</h3>
-                    <p class="text-slate-500 text-sm mb-6">छात्रों के मार्क्स दर्ज करें, पर्सेंटेज और ग्रेड्स निकालें तथा Excel शीट तुरंत डाउनलोड करें।</p>
-                </div>
-                <button onclick="alert('यह टूल जल्द ही लाइव होने वाला है!')" class="w-full py-2.5 bg-cyan-600 text-white font-medium rounded-xl hover:bg-cyan-700 transition shadow-md shadow-cyan-100 text-sm">
-                    शुरू करें ➔
-                </button>
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-100 mt-20 py-8 text-center text-slate-500 text-sm">
-        <p>© 2026 Teacher's Tools Studio. Designed with passion for educators.</p>
     </footer>
 
 </body>
