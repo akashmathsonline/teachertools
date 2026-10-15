@@ -1,4 +1,11 @@
 {
+  "featured": {
+    "id": "smart-slides",
+    "name": "Smart Slides",
+    "icon": "📊",
+    "description": "Present PPT/PDF on smart boards",
+    "url": "tools/smart-slides.html"
+  },
   "tools": [
     {
       "id": "smart-slides",
@@ -14,7 +21,7 @@
       "name": "Lesson Plan Studio",
       "icon": "📝",
       "category": "planning",
-      "description": "NEP-aligned lesson plans in 1 click with your school branding",
+      "description": "NEP-aligned lesson plans with your school branding",
       "status": "ready",
       "url": "tools/lesson-plan.html"
     },
@@ -23,7 +30,7 @@
       "name": "Poster Maker",
       "icon": "🎨",
       "category": "content",
-      "description": "Educational posters with your name, photo and school logo",
+      "description": "Educational posters with your name and logo",
       "status": "ready",
       "url": "tools/poster-maker.html"
     },
@@ -32,7 +39,7 @@
       "name": "Question Paper Generator",
       "icon": "📋",
       "category": "assessment",
-      "description": "CBSE-format exam papers with blueprint and marking scheme",
+      "description": "CBSE-format exam papers with blueprint",
       "status": "coming-soon",
       "url": "tools/question-paper.html"
     },
@@ -41,7 +48,7 @@
       "name": "Seating Chart Maker",
       "icon": "🪑",
       "category": "planning",
-      "description": "Exam and classroom seating arrangements in seconds",
+      "description": "Exam and classroom seating arrangements",
       "status": "coming-soon",
       "url": "tools/seating-chart.html"
     },
@@ -50,7 +57,7 @@
       "name": "School Timetable Hub",
       "icon": "📅",
       "category": "planning",
-      "description": "Conflict-free master schedules for teachers and classes",
+      "description": "Conflict-free master schedules",
       "status": "coming-soon",
       "url": "tools/timetable.html"
     },
@@ -59,7 +66,7 @@
       "name": "AI Prompt Studio",
       "icon": "💡",
       "category": "ai",
-      "description": "Ready-made AI prompts for lesson plans, circulars and worksheets",
+      "description": "Ready-made AI prompts for teachers",
       "status": "ready",
       "url": "tools/prompt-studio.html"
     },
@@ -68,7 +75,7 @@
       "name": "Notes & Formula Studio",
       "icon": "📖",
       "category": "content",
-      "description": "White-label revision notes and formula sheets in seconds",
+      "description": "White-label revision notes and formula sheets",
       "status": "coming-soon",
       "url": "tools/notes-studio.html"
     },
@@ -77,7 +84,7 @@
       "name": "Math Lab Portfolio",
       "icon": "🧪",
       "category": "content",
-      "description": "NCERT-aligned lab activity sheets with observation tables",
+      "description": "NCERT-aligned lab activity sheets",
       "status": "coming-soon",
       "url": "tools/lab-portfolio.html"
     },
@@ -86,7 +93,7 @@
       "name": "Grade & Performance Hub",
       "icon": "📈",
       "category": "assessment",
-      "description": "Marks analysis, grade distribution and PTM comments builder",
+      "description": "Marks analysis and PTM comments builder",
       "status": "coming-soon",
       "url": "tools/grade-hub.html"
     }
