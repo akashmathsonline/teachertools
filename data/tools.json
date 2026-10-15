@@ -1,0 +1,94 @@
+{
+  "tools": [
+    {
+      "id": "smart-slides",
+      "name": "Smart Slides",
+      "icon": "📊",
+      "category": "content",
+      "description": "Present PPT/PDF on smart boards with stylus annotation",
+      "status": "ready",
+      "url": "tools/smart-slides.html"
+    },
+    {
+      "id": "lesson-plan",
+      "name": "Lesson Plan Studio",
+      "icon": "📝",
+      "category": "planning",
+      "description": "NEP-aligned lesson plans in 1 click with your school branding",
+      "status": "ready",
+      "url": "tools/lesson-plan.html"
+    },
+    {
+      "id": "poster-maker",
+      "name": "Poster Maker",
+      "icon": "🎨",
+      "category": "content",
+      "description": "Educational posters with your name, photo and school logo",
+      "status": "ready",
+      "url": "tools/poster-maker.html"
+    },
+    {
+      "id": "question-paper",
+      "name": "Question Paper Generator",
+      "icon": "📋",
+      "category": "assessment",
+      "description": "CBSE-format exam papers with blueprint and marking scheme",
+      "status": "coming-soon",
+      "url": "tools/question-paper.html"
+    },
+    {
+      "id": "seating-chart",
+      "name": "Seating Chart Maker",
+      "icon": "🪑",
+      "category": "planning",
+      "description": "Exam and classroom seating arrangements in seconds",
+      "status": "coming-soon",
+      "url": "tools/seating-chart.html"
+    },
+    {
+      "id": "timetable",
+      "name": "School Timetable Hub",
+      "icon": "📅",
+      "category": "planning",
+      "description": "Conflict-free master schedules for teachers and classes",
+      "status": "coming-soon",
+      "url": "tools/timetable.html"
+    },
+    {
+      "id": "prompt-studio",
+      "name": "AI Prompt Studio",
+      "icon": "💡",
+      "category": "ai",
+      "description": "Ready-made AI prompts for lesson plans, circulars and worksheets",
+      "status": "ready",
+      "url": "tools/prompt-studio.html"
+    },
+    {
+      "id": "notes-studio",
+      "name": "Notes & Formula Studio",
+      "icon": "📖",
+      "category": "content",
+      "description": "White-label revision notes and formula sheets in seconds",
+      "status": "coming-soon",
+      "url": "tools/notes-studio.html"
+    },
+    {
+      "id": "lab-portfolio",
+      "name": "Math Lab Portfolio",
+      "icon": "🧪",
+      "category": "content",
+      "description": "NCERT-aligned lab activity sheets with observation tables",
+      "status": "coming-soon",
+      "url": "tools/lab-portfolio.html"
+    },
+    {
+      "id": "grade-hub",
+      "name": "Grade & Performance Hub",
+      "icon": "📈",
+      "category": "assessment",
+      "description": "Marks analysis, grade distribution and PTM comments builder",
+      "status": "coming-soon",
+      "url": "tools/grade-hub.html"
+    }
+  ]
+}
