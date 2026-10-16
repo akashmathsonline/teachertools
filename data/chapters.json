@@ -1,0 +1,42 @@
+{
+  "classes": [
+    {
+      "id": 9,
+      "name": "Class 9",
+      "icon": "9️⃣",
+      "color": "#0A2540",
+      "chapters": [
+        { "id": 1, "name": "Orienting Yourself: Coordinates", "pdf": "/pdfs/class-9/class-9-ch1.pdf" },
+        { "id": 2, "name": "Introduction to Linear Polynomials", "pdf": "/pdfs/class-9/class-9-ch2.pdf" },
+        { "id": 3, "name": "The World of Numbers", "pdf": "/pdfs/class-9/class-9-ch3.pdf" },
+        { "id": 4, "name": "Exploring Algebraic Identities", "pdf": "/pdfs/class-9/class-9-ch4.pdf" },
+        { "id": 5, "name": "I'm Up and Down, Round and Round", "pdf": "/pdfs/class-9/class-9-ch5.pdf" },
+        { "id": 6, "name": "Measuring Space: Perimeter & Area", "pdf": "/pdfs/class-9/class-9-ch6.pdf" },
+        { "id": 7, "name": "The Mathematics of Maybe: Probability", "pdf": "/pdfs/class-9/class-9-ch7.pdf" },
+        { "id": 8, "name": "Predicting What Comes Next?", "pdf": "/pdfs/class-9/class-9-ch8.pdf" }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Class 10",
+      "icon": "🔟",
+      "color": "#0E5C7A",
+      "chapters": [
+        { "id": 1, "name": "Real Numbers", "pdf": "/pdfs/class-10/class-10-ch1.pdf" },
+        { "id": 2, "name": "Polynomials", "pdf": "/pdfs/class-10/class-10-ch2.pdf" },
+        { "id": 3, "name": "Linear Equations", "pdf": "/pdfs/class-10/class-10-ch3.pdf" },
+        { "id": 4, "name": "Quadratic Equations", "pdf": "/pdfs/class-10/class-10-ch4.pdf" },
+        { "id": 5, "name": "Arithmetic Progressions", "pdf": "/pdfs/class-10/class-10-ch5.pdf" },
+        { "id": 6, "name": "Triangles", "pdf": "/pdfs/class-10/class-10-ch6.pdf" },
+        { "id": 7, "name": "Coordinate Geometry", "pdf": "/pdfs/class-10/class-10-ch7.pdf" },
+        { "id": 8, "name": "Introduction to Trigonometry", "pdf": "/pdfs/class-10/class-10-ch8.pdf" },
+        { "id": 9, "name": "Applications of Trigonometry", "pdf": "/pdfs/class-10/class-10-ch9.pdf" },
+        { "id": 10, "name": "Circles", "pdf": "/pdfs/class-10/class-10-ch10.pdf" },
+        { "id": 11, "name": "Areas Related to Circles", "pdf": "/pdfs/class-10/class-10-ch11.pdf" },
+        { "id": 12, "name": "Surface Areas and Volumes", "pdf": "/pdfs/class-10/class-10-ch12.pdf" },
+        { "id": 13, "name": "Statistics", "pdf": "/pdfs/class-10/class-10-ch13.pdf" },
+        { "id": 14, "name": "Probability", "pdf": "/pdfs/class-10/class-10-ch14.pdf" }
+      ]
+    }
+  ]
+}
