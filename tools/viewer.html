@@ -74,7 +74,37 @@
     }
 
     #drawCanvas.active-interactive { pointer-events: auto; }
+/* Landscape rotation for mobile fullscreen */
+@media (max-width: 768px) and (orientation: portrait) {
+  body.fullscreen-active .presentation-viewport {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg) scale(var(--slide-scale));
+    transform-origin: center center;
+    width: 100vh;
+    height: 100vw;
+    max-width: 100vh;
+    max-height: 100vw;
+  }
 
+  body.fullscreen-active .stylus-toolbar {
+    transform: rotate(90deg);
+    transform-origin: center center;
+    right: -20px;
+  }
+
+  body.fullscreen-active .hud-controls {
+    transform: rotate(90deg) translateX(-50%);
+    transform-origin: center center;
+    bottom: 20px;
+  }
+
+  body.fullscreen-active .back-btn,
+  body.fullscreen-active .top-actions {
+    display: none;
+  }
+}
     /* Loading spinner */
     .loading {
       position: absolute;
@@ -257,22 +287,22 @@
        BOTTOM HUD CONTROLS
        ============================================ */
     .hud-controls {
-      position: fixed;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 60;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(34, 28, 51, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 6px 18px;
-      border-radius: 9999px;
-      color: white;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
+  position: fixed;
+  bottom: 15px;
+  left: 25%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(34, 28, 51, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 6px 18px;
+  border-radius: 9999px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
 
     .hud-btn {
       background: transparent;
@@ -347,10 +377,11 @@
       }
 
       .hud-controls {
-        bottom: 10px;
-        padding: 4px 12px;
-        gap: 4px;
-      }
+  bottom: 10px;
+  left: 50%;
+  padding: 4px 12px;
+  gap: 4px;
+}
 
       .hud-btn {
         padding: 6px 10px;
@@ -411,6 +442,8 @@
     <div class="color-swatch" style="background: #27AE60" data-color="#27AE60" title="Green"></div>
     <div class="color-swatch" style="background: #F4714B" data-color="#F4714B" title="Coral"></div>
     <div class="color-swatch" style="background: #221C33" data-color="#221C33" title="Black"></div>
+<div class="color-swatch" style="background: #FFD93D" data-color="#FFD93D" title="Yellow"></div>
+<div class="color-swatch" style="background: #FFFFFF" data-color="#FFFFFF" title="White"></div>
 
     <div class="divider"></div>
 
@@ -705,11 +738,46 @@ viewport.addEventListener('touchend', (e) => {
 // ============================================================
 // FULLSCREEN
 // ============================================================
-function toggleFullscreen() {
+async function toggleFullscreen() {
+  const isMobile = window.innerWidth <= 768;
+  
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().catch(err => console.warn(err));
+    try {
+      // Request fullscreen
+      await document.documentElement.requestFullscreen();
+      
+      // Add class for mobile rotation
+      if (isMobile) {
+        document.body.classList.add('fullscreen-active');
+        
+        // Try to lock orientation to landscape
+        if (screen.orientation && screen.orientation.lock) {
+          try {
+            await screen.orientation.lock('landscape');
+          } catch (err) {
+            // Orientation lock not supported — CSS rotation will handle it
+            console.log('Orientation lock not supported:', err);
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Fullscreen failed:', err);
+    }
   } else {
-    if (document.exitFullscreen) document.exitFullscreen();
+    // Exit fullscreen
+    if (screen.orientation && screen.orientation.unlock) {
+      try {
+        screen.orientation.unlock();
+      } catch (err) {
+        // Ignore
+      }
+    }
+    
+    document.body.classList.remove('fullscreen-active');
+    
+    if (document.exitFullscreen) {
+      await document.exitFullscreen();
+    }
   }
 }
 
@@ -1014,7 +1082,19 @@ document.getElementById('btnDownload').addEventListener('click', () => {
   link.href = combined.toDataURL('image/png');
   link.click();
 });
-
+// Handle fullscreen change (e.g., user presses ESC or system exits fullscreen)
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('fullscreen-active');
+    if (screen.orientation && screen.orientation.unlock) {
+      try {
+        screen.orientation.unlock();
+      } catch (err) {
+        // Ignore
+      }
+    }
+  }
+});
 // ============================================================
 // INIT
 // ============================================================
