@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 6 Mathematics - Chapter 9: Symmetry</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #9333ea;       /* Rich Purple/Violet */
+      --primary-dark: #7e22ce;
+      --primary-light: #f3e8ff;
+      --accent-magenta: #c026d3;
+      --accent-magenta-light: #fae8ff;
+      --accent-teal: #0d9488;
+      --accent-teal-light: #ccfbf1;
+      --amber: #d97706;
+      --amber-bg: #fef3c7;
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+      --bg-gradient: linear-gradient(135deg, #faf5ff 0%, #fdf4ff 50%, #f0fdfa 100%);
+      --card-bg: #ffffff;
+      --card-border: #e9d5ff;
+      --text-main: #1e1b4b;
+      --text-muted: #64748b;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(147, 51, 234, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(147, 51, 234, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+        body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f8fafc; /* Background light kar diya */
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+       #deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      box-shadow: none; /* Box shadow hata dein */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+            padding: 30px 40px 30px 40px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Subtle middle slide watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 25;
+    }
+
+    /* Header styling */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+    .pill-magenta { background: #fae8ff; color: #a21caf; border: 1px solid #f0abfc; }
+    .pill-teal { background: #ccfbf1; color: #0f766e; border: 1px solid #99f6e4; }
+    .pill-amber { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .pill-rose { background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; font-weight: 800; }
+
+    .slide-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.85rem;
+      color: #1e1b4b;
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Slide body containers */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 18px 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-purple {
+      border-left: 5px solid var(--primary);
+      background: linear-gradient(145deg, #ffffff, #faf5ff);
+    }
+
+    .card-teal {
+      border-left: 5px solid var(--accent-teal);
+      background: linear-gradient(145deg, #ffffff, #f0fdfa);
+    }
+
+    .card-magenta {
+      border-left: 5px solid var(--accent-magenta);
+      background: linear-gradient(145deg, #ffffff, #fdf4ff);
+    }
+
+    .card-amber {
+      border-left: 5px solid var(--amber);
+      background: linear-gradient(145deg, #ffffff, #fffbeb);
+    }
+
+    .card-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1e1b4b;
+    }
+
+    .card-text {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .highlight-box {
+      background: #faf5ff;
+      border: 2px dashed #c084fc;
+      border-radius: 14px;
+      padding: 14px 18px;
+      text-align: center;
+      margin: 6px 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #6b21a8;
+    }
+
+    .badge-icon {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Quick Box Container */
+    .quickbox-wrapper {
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      border: 2px solid #fcd34d;
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #fef08a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .quick-badge {
+      background: #f59e0b;
+      color: white;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .quick-text {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.45;
+    }
+
+    /* Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Cover & Closing */
+    .cover-slide, .closing-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 80px;
+      background: radial-gradient(circle at 50% 30%, #faf5ff, #fdf4ff 70%);
+    }
+
+    .eyebrow {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 3.8rem;
+      color: #1e1b4b;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 4px rgba(147, 51, 234, 0.08);
+    }
+
+    .cover-subtitle {
+      font-size: 1.25rem;
+      color: #475569;
+      font-weight: 500;
+      margin-bottom: 32px;
+      max-width: 820px;
+      font-style: italic;
+    }
+
+    .credit-pill {
+      background: #1e1b4b;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 20px -3px rgba(30, 27, 75, 0.25);
+      border: 1px solid #4338ca;
+    }
+
+    .credit-pill span {
+      color: #c084fc;
+      font-weight: 600;
+    }
+
+    /* Visual mini illustration boxes */
+    .visual-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+    }
+
+    /* On-screen controls */
+    #controls {
+      position: absolute;
+      bottom: 16px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: #1e1b4b;
+      color: white;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: #9333ea;
+      transform: translateY(-2px);
+    }
+
+    #keyboard-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 24px;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="presentation-container">
+    <div id="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover-slide active" id="slide-1">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-purple">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-magenta">CHAPTER 9 • COVER</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 36px;">
+        <div class="eyebrow">Class 6 Mathematics • Chapter 9</div>
+        <h1 class="cover-title">Symmetry</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.7rem; color: #9333ea; margin-bottom: 12px; font-weight: 600;">
+          Reflection, Folding & Rotational Patterns
+        </div>
+        <p class="cover-subtitle">
+          "Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook."
+        </p>
+
+        <!-- Mandatory Credit Pill (Cover Slide) -->
+        <div class="credit-pill">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 1 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 9.0 Look Around You: Nature & Architecture -->
+    <section class="slide" id="slide-2">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Introduction</span>
+          <span class="slide-title">Look Around You: Harmony & Patterns</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 217–218</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-purple">
+            <div class="card-title">🌸 Flower & Rangoli</div>
+            <p class="card-text">
+              • A 6-petaled flower appears unchanged from several angles.<br>
+              • In a Rangoli, petal patterns repeat identically when rotated by $90^\circ$ around the centre.
+            </p>
+          </div>
+
+          <div class="card card-magenta">
+            <div class="card-title">🦋 Butterfly & Pinwheel</div>
+            <p class="card-text">
+              • The butterfly balances identical wings across a central vertical line.<br>
+              • The pinwheel repeats identical triangular blades along the boundary of a central hexagon.
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🏛️ Architecture vs. Clouds</div>
+            <p class="card-text">
+              • <strong>Taj Mahal & Gopuram:</strong> Left and right halves balance in majestic harmony.<br>
+              • <strong>Clouds:</strong> Random and irregular—no repeating balance or symmetry!
+            </p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          ✨ <strong>Definition of Symmetry:</strong> When parts of a figure repeat in a definite, balanced pattern, the figure is called <em>symmetrical</em>.
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 2 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX — Slide 2 -->
+    <section class="slide" id="slide-3">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Symmetrical Patterns</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 217–218</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why is a butterfly classified as symmetrical while a drifting cloud is considered asymmetrical?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">By what angle does the flower in a 4-fold Rangoli rotate to map each petal exactly onto the next?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Name two monuments or everyday human-made structures that display prominent left-right symmetry.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 3 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: 9.1 Line of Symmetry (Mirror Halves) -->
+    <section class="slide" id="slide-4">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Section 9.1</span>
+          <span class="slide-title">Line of Symmetry & Mirror Halves</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 219–220</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-purple">
+            <div class="card-title">✂️ The Folding Test</div>
+            <p class="card-text">
+              Fold an isosceles triangle along its central dotted line: one half covers the other half completely and perfectly.
+            </p>
+            <div class="highlight-box">
+              These overlapping halves are called <strong>Mirror Halves</strong>.
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              A line that cuts a figure into two parts that exactly overlap upon folding is a <strong>Line of Symmetry</strong> (or <em>Axis of Symmetry</em>).
+            </p>
+          </div>
+
+          <div class="card card-rose">
+            <div class="card-title">🧩 Non-Examples (Puzzle Pieces)</div>
+            <p class="card-text">
+              Consider a 4-piece jigsaw puzzle with tabs and blanks:
+            </p>
+            <ul style="padding-left: 18px; font-size: 0.9rem; line-height: 1.6; margin-top: 6px;">
+              <li>A dotted line passes through the middle.</li>
+              <li>When folded, the interlocking tabs and hollows do not align.</li>
+              <li>The halves do <strong>not</strong> overlap.</li>
+              <li>Therefore, that dotted line is <strong>not</strong> a line of symmetry!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 4 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX — Line of Symmetry -->
+    <section class="slide" id="slide-5">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Mirror Halves</span>
+        </div>
+        <span class="pill-tag pill-page">Page 219</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">If folding a paper along a line leaves some edges sticking out, is that fold line an axis of symmetry?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Does a standard kite quadrilateral have a line of symmetry? Along which diagonal does it lie?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can a scalene triangle with sides 5 cm, 7 cm, and 9 cm ever have a line of symmetry? Why?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 5 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Figures with Multiple Lines of Symmetry (The Square & Rectangle) -->
+    <section class="slide" id="slide-6">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Folding Analysis</span>
+          <span class="slide-title">Multiple Lines: Square vs. Rectangle</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 220–221</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-purple">
+            <div class="card-title">🟦 The 4 Folds of a Square</div>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6;">
+              <li><strong>Fold 1:</strong> Vertical fold (left edge onto right edge).</li>
+              <li><strong>Fold 2:</strong> Horizontal fold (top edge onto bottom edge).</li>
+              <li><strong>Fold 3:</strong> Diagonal fold (top-left to bottom-right).</li>
+              <li><strong>Fold 4:</strong> Second diagonal fold (top-right to bottom-left).</li>
+            </ul>
+            <div class="highlight-box" style="margin-top: 10px;">
+              A Square has exactly <strong>4 Lines of Symmetry</strong>!
+            </div>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">📏 The Rectangle Mystery: Diagonal?</div>
+            <p class="card-text">
+              Does a non-square rectangle have a diagonal line of symmetry?
+            </p>
+            <div style="background: #f0fdfa; border: 1px solid #99f6e4; padding: 10px; border-radius: 10px; margin: 10px 0; font-size: 0.9rem;">
+              <strong>Observation:</strong> When folded along its diagonal, the corners stick out! The two halves have equal area, but they do <em>not overlap</em>!
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #0f766e;">
+              • A non-square rectangle has ONLY 2 lines of symmetry (horizontal & vertical midlines).<br>
+              • Its diagonals are NOT lines of symmetry!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 6 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX — Square vs Rectangle -->
+    <section class="slide" id="slide-7">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Folds & Diagonals</span>
+        </div>
+        <span class="pill-tag pill-page">Page 221</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why does the diagonal of a square create exact mirror halves, whereas the diagonal of a rectangle fails?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">A shape is divided into two triangles of identical area by a line. Is that line guaranteed to be a line of symmetry?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">How many lines of symmetry does a rhombus (with unequal diagonals) possess?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 7 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Symmetry as Reflection -->
+    <section class="slide" id="slide-8">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Geometry Insight</span>
+          <span class="slide-title">Reflection Symmetry & Point Mapping</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 221–222</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-purple">
+          <div class="card-title">🪞 The Mirror Line Concept</div>
+          <p class="card-text">
+            Folding along a line of symmetry is identical to placing a plane mirror perpendicular to the paper. Every point on one side maps directly to a matching point on the opposite side at the same perpendicular distance!
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-magenta">
+            <div class="card-title">Vertical Reflection of Square ABCD</div>
+            <p class="card-text">
+              Corners: Top-left $A$, Top-right $B$, Bottom-right $C$, Bottom-left $D$.<br>
+              Reflect across the vertical midline:
+            </p>
+            <div class="highlight-box" style="font-size: 1rem; text-align: left;">
+              $$B \longleftrightarrow A \quad\text{and}\quad C \longleftrightarrow D$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">Point $B$ goes to position $A$, and point $C$ goes to position $D$!</p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">Diagonal Reflection Across AC</div>
+            <p class="card-text">
+              Reflect across diagonal line segment $AC$:
+            </p>
+            <div class="highlight-box" style="font-size: 1rem; text-align: left;">
+              $$A \longrightarrow A, \quad C \longrightarrow C, \quad B \longleftrightarrow D$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">Points $A$ and $C$ lie directly on the mirror line, so they remain fixed, while $B$ and $D$ swap positions!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 8 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX — Reflection Mapping -->
+    <section class="slide" id="slide-9">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Reflection Mapping</span>
+        </div>
+        <span class="pill-tag pill-page">Page 222</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">When square $ABCD$ is reflected across its horizontal line of symmetry, which vertex occupies the original position of $A$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What happens to any point that lies directly on the mirror line during a reflection?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Is the distance of a point from the mirror line equal to the distance of its reflection from the mirror line?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 9 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Generating Symmetrical Shapes (Ink Blots & Paper Cutting) -->
+    <section class="slide" id="slide-10">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Hands-on Creations</span>
+          <span class="slide-title">Ink Blots & Cut-Outs</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 222–223</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-purple">
+            <div class="card-title">🎨 Ink Blot Devils</div>
+            <p class="card-text">
+              1. Fold a blank sheet in half.<br>
+              2. Spill ink drops on one half.<br>
+              3. Press firmly and open out.<br>
+              <strong>Result:</strong> An intricate, organic symmetric shape! The central crease is the exact line of symmetry.
+            </p>
+          </div>
+
+          <div class="card card-magenta">
+            <div class="card-title">✂️ Single-Fold Cuts</div>
+            <p class="card-text">
+              Fold paper once along a line. Cut any design out of the doubled edge. When unfolded, the cut boundary duplicates symmetrically on both sides of the fold line.
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🏮 Multi-Fold Paper Lace</div>
+            <p class="card-text">
+              Fold a thin strip multiple times (accordion or grid). Snip geometric notches along the folded edges to generate repeating festoons, borders, and decorative bunting for festivals!
+            </p>
+          </div>
+        </div>
+
+        <div class="card card-amber">
+          <div class="card-title">🎯 The Core Rule of Fold-Generation</div>
+          <p class="card-text">
+            Every fold line acts as a potential mirror line. $N$ folds through the centre multiply single incisions into $2^N$ or $2N$ symmetrically repeating features!
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 10 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: QUICK BOX — Ink Blots & Paper Cutting -->
+    <section class="slide" id="slide-11">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Generating Shapes</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 222–223</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Can an ink blot design have more than one line of symmetry if the paper was folded only once?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If you cut a triangle out of the closed crease of a single-folded paper, what complete polygon emerges when opened?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">How many identical copies of a cut edge appear if a square sheet is folded into quarters (folded twice)?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 11 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: The Punching Game & Fold Line Deduction -->
+    <section class="slide" id="slide-12">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Classroom Activity</span>
+          <span class="slide-title">The Punching Game: Identifying Fold Lines</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 223–224</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-purple">
+          <div class="card-title">📌 How Hole Punches Reveal Crease Lines</div>
+          <p class="card-text">
+            When a folded sheet is punched with a single hole and unfolded, the resulting holes lie symmetrically on opposite sides of the crease. The crease is the <strong>perpendicular bisector</strong> connecting paired holes!
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-teal">
+            <div class="card-title">Case 1: Vertical Holes</div>
+            <p class="card-text">
+              Two holes aligned horizontally near the side edges indicate a <strong>vertical fold line</strong> down the centre.
+            </p>
+          </div>
+
+          <div class="card card-magenta">
+            <div class="card-title">Case 2: Diagonal Holes</div>
+            <p class="card-text">
+              Two holes near opposite corners symmetric to a diagonal indicate the paper was folded along that <strong>diagonal line</strong>.
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Case 3: Four Corner Holes</div>
+            <p class="card-text">
+              A single punch creating four holes at all 4 corners requires <strong>two folds</strong>: one vertical followed by one horizontal!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 12 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: QUICK BOX — Punching Game -->
+    <section class="slide" id="slide-13">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Hole Punch Deductions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 224–225</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A sheet has one hole near the top-right and one near the bottom-right. Is the fold line horizontal or vertical?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">In a circular paper with a single diameter fold line, where does a punched hole appear after unfolding?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">How must you fold a paper so that a single straight scissor cut produces a diamond-shaped hole in the centre?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 13 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: Regular Polygons & Number of Lines of Symmetry -->
+    <section class="slide" id="slide-14">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Theorem & Pattern</span>
+          <span class="slide-title">Symmetry in Regular Polygons</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 226–227</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-purple">
+          <div class="card-title">👑 The Regular Polygon Symmetry Rule</div>
+          <p class="card-text">
+            A polygon is <strong>regular</strong> if all its sides are equal and all its interior angles are equal.
+          </p>
+          <div class="highlight-box">
+            A regular polygon with $n$ sides has exactly <strong>$n$ lines of symmetry</strong>!
+          </div>
+        </div>
+
+        <div class="grid-4">
+          <div class="visual-box" style="border-top: 4px solid #9333ea;">
+            <strong style="color: #9333ea;">Equilateral Triangle</strong>
+            <span style="font-size: 0.85rem; color: #64748b;">3 equal sides</span>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #1e1b4b; margin: 4px 0;">3 Lines</div>
+            <span style="font-size: 0.75rem; color: #334155;">Vertex to midpoint</span>
+          </div>
+
+          <div class="visual-box" style="border-top: 4px solid #0d9488;">
+            <strong style="color: #0d9488;">Square</strong>
+            <span style="font-size: 0.85rem; color: #64748b;">4 equal sides</span>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #1e1b4b; margin: 4px 0;">4 Lines</div>
+            <span style="font-size: 0.75rem; color: #334155;">2 midlines + 2 diagonals</span>
+          </div>
+
+          <div class="visual-box" style="border-top: 4px solid #c026d3;">
+            <strong style="color: #c026d3;">Regular Pentagon</strong>
+            <span style="font-size: 0.85rem; color: #64748b;">5 equal sides</span>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #1e1b4b; margin: 4px 0;">5 Lines</div>
+            <span style="font-size: 0.75rem; color: #334155;">Vertex to opp. midpoint</span>
+          </div>
+
+          <div class="visual-box" style="border-top: 4px solid #d97706;">
+            <strong style="color: #d97706;">Regular Hexagon</strong>
+            <span style="font-size: 0.85rem; color: #64748b;">6 equal sides</span>
+            <div style="font-size: 1.4rem; font-weight: 800; color: #1e1b4b; margin: 4px 0;">6 Lines</div>
+            <span style="font-size: 0.75rem; color: #334155;">3 diagonals + 3 midlines</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; font-size: 0.9rem; font-weight: 600; color: #475569;">
+          Sequence formed by lines of symmetry: $3, 4, 5, 6, 7, 8, \dots, n$ (The natural numbers starting from 3!).
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 14 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: QUICK BOX — Regular Polygons -->
+    <section class="slide" id="slide-15">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Regular Polygons</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 226–227</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">How many lines of symmetry does a regular nonagon (9-sided polygon) possess?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Is it possible to draw a triangle that has exactly TWO lines of symmetry? Explain why.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">A kite has equal adjacent sides. How many lines of symmetry does a non-rhombus kite have?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 15 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: 9.2 Rotational Symmetry & Centre of Rotation -->
+    <section class="slide" id="slide-16">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Section 9.2</span>
+          <span class="slide-title">Rotational Symmetry: The Paper Windmill</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 230–231</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-purple">
+            <div class="card-title">🌀 The Windmill Paradox</div>
+            <p class="card-text">
+              Look at a 4-blade paper pinwheel:
+            </p>
+            <ul style="padding-left: 18px; font-size: 0.9rem; line-height: 1.6; margin-top: 6px;">
+              <li>Try folding it across any line: <em>no two halves overlap</em>. It has <strong>zero lines of symmetry</strong>!</li>
+              <li>Now rotate it about its central pivot pin by $90^\circ$: it fits its own outline perfectly!</li>
+              <li>It repeats at $180^\circ$, $270^\circ$, and $360^\circ$.</li>
+            </ul>
+            <div class="highlight-box" style="margin-top: 10px;">
+              This property is called <strong>Rotational Symmetry</strong>!
+            </div>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🎯 Key Technical Definitions</div>
+            <p class="card-text">
+              • <strong>Centre of Rotation:</strong> The fixed point about which the figure turns (e.g., the pin in the windmill).<br><br>
+              • <strong>Angle of Symmetry:</strong> An angle through which a figure is turned to look identical to its initial state.<br><br>
+              • <strong>Full Turn Fact:</strong> Rotating by $360^\circ$ always brings <em>every</em> object back to itself. Hence, a figure is said to have rotational symmetry only if it has an angle of symmetry <strong>strictly between $0^\circ$ and $360^\circ$</strong>!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 16 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: QUICK BOX — Rotational Symmetry -->
+    <section class="slide" id="slide-17">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Rotational Symmetry</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 230–231</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Does an object that looks identical only after a full $360^\circ$ rotation possess rotational symmetry?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What are the 4 angles of rotational symmetry for a square rotated about its intersection of diagonals?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can a shape possess rotational symmetry without having any line of reflection symmetry? Name one.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 17 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: Radial Arms: 2, 3, 4, and n Angles of Symmetry -->
+    <section class="slide" id="slide-18">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Radial Design</span>
+          <span class="slide-title">Radial Arms: Determining Angles of Rotation</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 232–234</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-purple">
+            <div class="card-title">4 Radial Arms (Cross)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Angle between arms: $\frac{360^\circ}{4} = 90^\circ$<br>
+              • <strong>Angles of symmetry:</strong><br>
+              $90^\circ, 180^\circ, 270^\circ, 360^\circ$<br>
+              • Total: 4 angles of symmetry.
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">3 Radial Arms (Tri-Star)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Must distribute $360^\circ$ equally: $\angle A = \angle B = \angle C = \frac{360^\circ}{3} = 120^\circ$<br>
+              • <strong>Angles of symmetry:</strong><br>
+              $120^\circ, 240^\circ, 360^\circ$<br>
+              • If angles are unequal, rotational symmetry vanishes!
+            </p>
+          </div>
+
+          <div class="card card-magenta">
+            <div class="card-title">2 Radial Arms (Z / S Shape)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Angle between opposite arms: $180^\circ$<br>
+              • <strong>Angles of symmetry:</strong><br>
+              $180^\circ, 360^\circ$<br>
+              • Order of symmetry = 2.
+            </p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          📐 <strong>Fundamental Radial Theorem:</strong> For a figure with $n$ equally spaced identical radial arms, the smallest angle of symmetry is $\frac{360^\circ}{n}$, and all other angles of symmetry are exact integer multiples of this smallest angle!
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 18 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: QUICK BOX — Radial Arms -->
+    <section class="slide" id="slide-19">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Radial Symmetry</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 233–235</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A figure with 3 radial arms has angles between adjacent arms as $110^\circ, 120^\circ, 130^\circ$. Does it have rotational symmetry?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What are the 5 angles of symmetry for a figure with 5 equally spaced radial arms?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">For 7 equal radial arms, what is the smallest angle of rotation? Express as a mixed fraction.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 19 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: Order of Symmetry & The Divisor Rule -->
+    <section class="slide" id="slide-20">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Mathematical Laws</span>
+          <span class="slide-title">Order of Symmetry & The Divisor Rule</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 236–237</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-purple">
+            <div class="card-title">🔢 Order of Rotational Symmetry</div>
+            <p class="card-text">
+              The number of times a figure fits onto itself in one full revolution ($360^\circ$) is called its <strong>order of rotational symmetry</strong>.
+            </p>
+            <div class="highlight-box" style="text-align: left; font-size: 0.95rem; line-height: 1.6;">
+              • Order 2 $\implies$ Angles: $180^\circ, 360^\circ$<br>
+              • Order 3 $\implies$ Angles: $120^\circ, 240^\circ, 360^\circ$<br>
+              • Order 4 $\implies$ Angles: $90^\circ, 180^\circ, 270^\circ, 360^\circ$<br>
+              • Order 6 $\implies$ Angles: $60^\circ, 120^\circ, 180^\circ, 240^\circ, 300^\circ, 360^\circ$
+            </div>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">⚖️ The Divisor Principle (True / False)</div>
+            <p class="card-text">
+              • <strong>Law 1:</strong> Every figure has $360^\circ$ as an angle of symmetry. (<strong>True</strong>)<br><br>
+              • <strong>Law 2:</strong> If the smallest angle of symmetry is a whole number of degrees, it MUST be a <strong>factor of $360$</strong>! (<strong>True</strong>)
+            </p>
+            <div style="background: #f0fdfa; border: 1px solid #99f6e4; padding: 10px; border-radius: 10px; margin-top: 8px; font-size: 0.88rem;">
+              <strong>Application:</strong> Can a figure have $45^\circ$ as its smallest angle? Yes, because $360 \div 45 = 8$.<br>
+              Can it have $17^\circ$? No, because 17 does not divide 360!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 20 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX — Order & Divisors -->
+    <section class="slide" id="slide-21">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Order & Divisors</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 236–237</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A figure has $60^\circ$ as an angle of symmetry, and has two smaller angles of symmetry. What is its smallest angle?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What is the order of rotational symmetry of a regular 6-pointed star (Star of David)?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can a shape have a rotational symmetry of order 5 with whole-number degree rotations? What is the smallest turn?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 21 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: Symmetries of a Circle & Real-World Rotations -->
+    <section class="slide" id="slide-22">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Infinite Symmetry</span>
+          <span class="slide-title">The Circle & Real-World Rotations</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 237–238</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-purple">
+            <div class="card-title">⚪ The Infinite Symmetry of a Circle</div>
+            <p class="card-text">
+              The circle is the most symmetrical geometric shape:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6; margin-top: 6px;">
+              <li><strong>Reflection:</strong> Every diameter passing through the centre is a line of symmetry $\implies$ <em>infinitely many lines of symmetry</em>!</li>
+              <li><strong>Rotation:</strong> Rotate by any angle whatsoever (e.g., $1^\circ, 0.5^\circ, 33.7^\circ$) about the centre, and the circle coincides with itself $\implies$ <em>infinitely many angles of symmetry</em>!</li>
+            </ul>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🚲 Real-World Rotational Objects</div>
+            <p class="card-text">
+              • <strong>Ceiling Fan (3 blades):</strong> Rotational order 3 ($120^\circ, 240^\circ, 360^\circ$).<br>
+              • <strong>Bicycle Wheel (spoked):</strong> Order depends on the number of spokes.<br>
+              • <strong>Ashoka Chakra (24 spokes):</strong> Exactly 24 lines of reflection symmetry and 24 angles of rotational symmetry (smallest turn $= \frac{360^\circ}{24} = 15^\circ$)!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 22 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: QUICK BOX — Circle & Ashoka Chakra -->
+    <section class="slide" id="slide-23">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Circle Symmetries</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 237–239</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Does a circle have a single "smallest" angle of rotational symmetry? Explain why or why not.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Calculate the smallest angle of rotation for the Ashoka Chakra with its 24 equally spaced spokes.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">If alternate sectors of a 12-sector wheel are coloured black and white, what is its order of rotational symmetry?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 23 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: Symmetries in Architecture & Classroom Game -->
+    <section class="slide" id="slide-24">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Architecture & Game</span>
+          <span class="slide-title">Parliament House & The Domino Grid Game</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 239–241</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-purple">
+            <div class="card-title">🏛️ New Parliament Building, New Delhi</div>
+            <p class="card-text">
+              The triangular layout with 3 prominent porticos displays remarkable mathematical harmony:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6; margin-top: 6px;">
+              <li><strong>Reflection:</strong> 3 lines of reflection symmetry passing through vertices and opposite sides.</li>
+              <li><strong>Rotation:</strong> 3 angles of rotational symmetry ($120^\circ, 240^\circ, 360^\circ$) about its central atrium.</li>
+            </ul>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🎮 6×6 Grid Game (Symmetry Strategy)</div>
+            <p class="card-text">
+              Two players take turns placing 1×2 domino segments on a 6×6 square grid without overlapping. The last player able to move wins!
+            </p>
+            <div style="background: #f0fdfa; border: 1px solid #99f6e4; padding: 10px; border-radius: 10px; margin-top: 8px; font-size: 0.88rem;">
+              🧠 <strong>Winning Strategy:</strong> The second player copies the first player's move symmetrically across the center point (point reflection)! Whenever Player 1 finds a spot, the symmetric opposite is guaranteed open!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 24 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 25: QUICK BOX — Architecture & Game -->
+    <section class="slide" id="slide-25">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Strategy & Design</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 239–241</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why does the 3-sided layout of the Parliament building yield order-3 rotational symmetry rather than order-4?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">In the 6×6 domino grid game, why does the symmetry-matching strategy guarantee a win for Player 2?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">How many lines of symmetry and angles of symmetry exist in the Koch Snowflake from Chapter 1?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 25 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 26: Exercise Highlights (Worked Problems) -->
+    <section class="slide" id="slide-26">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Worked Examples</span>
+          <span class="slide-title">Exercise Highlights & Solutions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 228–238</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-purple">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 1: Triangles</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Can a triangle have exactly two lines of symmetry?
+            </p>
+            <div style="background: #faf5ff; border: 1px dashed #c084fc; border-radius: 8px; padding: 8px; margin: 8px 0; font-size: 0.88rem;">
+              <strong>Analysis:</strong><br>
+              • Scalene: 0 lines<br>
+              • Isosceles: Exactly 1 line<br>
+              • Equilateral: Exactly 3 lines
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #7e22ce;">Answer: Impossible! A triangle has 0, 1, or 3 lines of symmetry, never 2.</p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 2: Quadrilaterals</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Name a quadrilateral with rotational symmetry but no reflection symmetry.
+            </p>
+            <div style="background: #f0fdfa; border: 1px dashed #2dd4bf; border-radius: 8px; padding: 8px; margin: 8px 0; font-size: 0.88rem;">
+              <strong>Analysis:</strong><br>
+              A non-rectangular parallelogram has order 2 rotational symmetry ($180^\circ, 360^\circ$) but 0 lines of symmetry!
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #0f766e;">Answer: Parallelogram.</p>
+          </div>
+
+          <div class="card card-magenta">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 3: Missing Turns</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> A figure has $60^\circ$ as an angle of symmetry and two smaller angles. Find its smallest angle.
+            </p>
+            <div style="background: #fdf4ff; border: 1px dashed #f0abfc; border-radius: 8px; padding: 8px; margin: 8px 0; font-size: 0.88rem;">
+              <strong>Analysis:</strong><br>
+              If $60^\circ$ is the 3rd multiple of the smallest angle $\theta$:<br>
+              $3\theta = 60^\circ \implies \theta = 20^\circ$.
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #a21caf;">Answer: $20^\circ$ (Angles: $20^\circ, 40^\circ, 60^\circ$).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 26 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 27: Chapter Summary Checklist -->
+    <section class="slide" id="slide-27">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Chapter Summary</span>
+          <span class="slide-title">Core Takeaways & Rules Checklist</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 241</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-purple">
+            <div class="card-title">✅ Reflection Symmetry Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Line of Symmetry:</strong> The crease along which a folded shape overlaps exactly into mirror halves.</li>
+              <li><strong>Reflection Property:</strong> Every point is mapped perpendicular to the mirror line at equal distance.</li>
+              <li><strong>Regular Polygons:</strong> An $n$-sided regular polygon has exactly $n$ lines of symmetry.</li>
+              <li><strong>Rectangle vs. Square:</strong> Square has 4 lines; rectangle has 2; rectangle diagonals are NOT lines of symmetry.</li>
+            </ul>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">✅ Rotational Symmetry Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Centre of Rotation:</strong> The fixed anchor point about which rotation occurs.</li>
+              <li><strong>Angles of Symmetry:</strong> Angles between $0^\circ$ and $360^\circ$ that restore the original outline.</li>
+              <li><strong>Divisor Law:</strong> If the smallest angle is a whole number of degrees, it must divide $360^\circ$ cleanly.</li>
+              <li><strong>Independent Symmetries:</strong> A shape may have lines but no rotational symmetry, rotations but no lines, or both!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 27 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 28: CLOSING SLIDE -->
+    <section class="slide closing-slide" id="slide-28">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-purple">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-teal">CHAPTER 9 COMPLETE</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 30px;">
+        <div class="eyebrow">Conclusion • Harmony of Forms</div>
+        <h1 class="cover-title" style="font-size: 3.2rem;">Congratulations!</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: #9333ea; margin-bottom: 16px; font-weight: 600;">
+          You Have Mastered Reflection & Rotational Symmetry
+        </div>
+        <p class="cover-subtitle" style="font-size: 1.15rem; max-width: 780px;">
+          "Symmetry, as wide or as narrow as you may define its meaning, is one idea by which man through the ages has tried to comprehend and create order, beauty, and perfection."<br>
+          <span style="font-size: 0.95rem; font-style: normal; color: #64748b; margin-top: 6px; display: inline-block;">
+            — Hermann Weyl, <em>Symmetry</em> (1952)
+          </span>
+        </p>
+
+        <!-- Mandatory Credit Pill (Closing Slide) -->
+        <div class="credit-pill" style="margin-top: 10px;">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 28 / 28</span>
+      </div>
+    </section>
+
+    <!-- Navigation Overlay Controls -->
+    <div id="controls">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+
+        // Render KaTeX for the newly active slide
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentSlide], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ]
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          updateSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          updateSlide(currentSlide - 1);
+        }
+      }
+
+      // Button navigation
+      document.getElementById('next-btn').addEventListener('click', nextSlide);
+      document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
