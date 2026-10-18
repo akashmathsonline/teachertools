@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 6 Mathematics - Chapter 6: Perimeter and Area</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for math formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #be123c;          /* Deep Crimson / Rose */
+      --primary-dark: #881337;
+      --primary-light: #ffe4e6;
+      --accent-emerald: #059669;
+      --accent-emerald-light: #d1fae5;
+      --accent-amber: #d97706;
+      --amber-bg: #fef3c7;
+      --accent-sky: #0284c7;
+      --sky-bg: #e0f2fe;
+      --bg-gradient: linear-gradient(135deg, #fff1f2 0%, #fff7ed 50%, #fdf4ff 100%);
+      --card-bg: #ffffff;
+      --card-border: #fecdd3;
+      --text-main: #1e1b4b;
+      --text-muted: #64748b;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(190, 18, 60, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(190, 18, 60, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #e0e1e4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--text-main);
+      overflow: hidden;
+    }
+
+       .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: #f8fafc; /* Ye line add/change karein */
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 30px 40px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Watermark for middle slides */
+    .slide-watermark {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 25;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-rose { background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; }
+    .pill-emerald { background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
+    .pill-amber { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .pill-sky { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; font-weight: 800; }
+
+    .slide-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.85rem;
+      color: #1e1b4b;
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Content Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-rose {
+      border-left: 5px solid var(--primary);
+      background: linear-gradient(145deg, #ffffff, #fff1f2);
+    }
+
+    .card-emerald {
+      border-left: 5px solid var(--accent-emerald);
+      background: linear-gradient(145deg, #ffffff, #f0fdf4);
+    }
+
+    .card-amber {
+      border-left: 5px solid var(--accent-amber);
+      background: linear-gradient(145deg, #ffffff, #fffbeb);
+    }
+
+    .card-sky {
+      border-left: 5px solid var(--accent-sky);
+      background: linear-gradient(145deg, #ffffff, #f0f9ff);
+    }
+
+    .card-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1e1b4b;
+    }
+
+    .card-text {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .highlight-box {
+      background: #fff1f2;
+      border: 2px dashed #fb7185;
+      border-radius: 14px;
+      padding: 12px 18px;
+      text-align: center;
+      margin: 4px 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #9f1239;
+    }
+
+    .formula-box {
+      background: #ffffff;
+      border: 1.5px solid #fecdd3;
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: center;
+      margin: 6px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #be123c;
+    }
+
+    /* Quick Box Styles */
+    .quickbox-wrapper {
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      border: 2px solid #fcd34d;
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #fef08a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .quick-badge {
+      background: #f59e0b;
+      color: white;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .quick-text {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.45;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Cover and Closing Slides */
+    .cover-slide, .closing-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      padding: 56px 80px;
+      background: radial-gradient(circle at 50% 30%, #fff1f2, #fef3c7 70%);
+    }
+
+    .eyebrow {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 3.8rem;
+      color: #1e1b4b;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(190, 18, 60, 0.08);
+    }
+
+    .cover-subtitle {
+      font-size: 1.25rem;
+      color: #475569;
+      font-weight: 500;
+      margin-bottom: 30px;
+      max-width: 820px;
+      font-style: italic;
+    }
+
+    .credit-pill {
+      background: #1e1b4b;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 20px -3px rgba(30, 27, 75, 0.25);
+      border: 1px solid #4338ca;
+    }
+
+    .credit-pill span {
+      color: #f43f5e;
+      font-weight: 600;
+    }
+
+    /* Navigation Controls */
+    #controls {
+      position: absolute;
+      bottom: 16px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: #1e1b4b;
+      color: white;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: #be123c;
+      transform: translateY(-2px);
+    }
+
+    #keyboard-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 24px;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="presentation-container">
+    <div id="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover-slide active" id="slide-1">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-rose">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-emerald">CHAPTER 6 • COVER</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 36px;">
+        <div class="eyebrow">Class 6 Mathematics • Chapter 6</div>
+        <h1 class="cover-title">Perimeter and Area</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.7rem; color: #be123c; margin-bottom: 12px; font-weight: 600;">
+          Boundaries, Enclosed Regions & Area Maze Puzzles
+        </div>
+        <p class="cover-subtitle">
+          "Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook."
+        </p>
+
+        <!-- Mandatory Credit Pill (Cover Slide Only) -->
+        <div class="credit-pill">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 1 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 6.1 What is Perimeter? -->
+    <section class="slide" id="slide-2">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.1</span>
+          <span class="slide-title">Perimeter: Boundary of Plane Figures</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 129–130</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-rose">
+          <div class="card-title">📏 Definition of Perimeter</div>
+          <p class="card-text">
+            The <strong>perimeter</strong> of any closed plane figure is the continuous distance covered along its boundary when you go around it once completely.
+          </p>
+          <div class="formula-box">
+            $$\text{Perimeter of a Polygon} = \text{Sum of the lengths of all its sides}$$
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-emerald">
+            <div class="card-title">Rectangle Perimeter Formula</div>
+            <p class="card-text">
+              Since opposite sides of a rectangle are equal ($AB = CD$ and $BC = DA$):
+            </p>
+            <div class="formula-box">
+              $$\text{Perimeter} = 2 \times (\text{Length} + \text{Breadth}) = 2(l + b)$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Example: For $l = 12\text{ cm}, b = 8\text{ cm} \implies P = 2 \times (12 + 8) = 40\text{ cm}$.
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Square Perimeter Formula</div>
+            <p class="card-text">
+              A square has 4 sides of identical length $s$:
+            </p>
+            <div class="formula-box">
+              $$\text{Perimeter of Square} = 4 \times \text{Length of a side} = 4s$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Example: Putting colored tape around a photo frame of side $1\text{ m} \implies P = 4 \times 1 = 4\text{ m}$.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 2 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX — Section 6.1 (Basics) -->
+    <section class="slide" id="slide-3">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Perimeter Basics</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 129–131</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A rectangular table cloth is $3\text{ m}$ long and $2\text{ m}$ wide. What length of decorative lace is required to border it completely?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">A triangle has sides $4\text{ cm}, 5\text{ cm}$, and $7\text{ cm}$. What is its perimeter?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Usha runs 3 complete rounds of a square park of side $75\text{ m}$. What is the total distance she covers?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 3 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Finding Missing Dimensions & Wire Bending -->
+    <section class="slide" id="slide-4">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.1</span>
+          <span class="slide-title">Missing Dimensions & Invariant Perimeter</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 131–132</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">🔍 Working Backwards from Perimeter</div>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6;">
+              <li><strong>Rectangle:</strong> Given $P$ and $b$, $\text{Length} = \frac{P}{2} - b$.<br>
+                Example: $P = 14\text{ cm}, b = 2\text{ cm} \implies l = 7 - 2 = 5\text{ cm}$.
+              </li>
+              <li><strong>Square:</strong> Side $= \frac{P}{4}$.<br>
+                Example: $P = 20\text{ cm} \implies \text{Side} = 5\text{ cm}$.
+              </li>
+              <li><strong>Triangle:</strong> Third side $= P - (s_1 + s_2)$.<br>
+                Example: $P = 55\text{ cm}, s_1 = 20, s_2 = 14 \implies s_3 = 55 - 34 = 21\text{ cm}$.
+              </li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🔄 Wire Reshaping Principle</div>
+            <p class="card-text">
+              When a wire of fixed length is bent into different shapes, its <strong>perimeter remains constant</strong>!
+            </p>
+            <div class="highlight-box">
+              $$\text{Wire of Rectangle } (5\text{ cm} \times 3\text{ cm}) \implies P = 2(5 + 3) = 16\text{ cm}$$
+              $$\text{Forming Square} \implies 4s = 16\text{ cm} \implies s = 4\text{ cm}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              <strong>Fencing Cost:</strong> Cost $= \text{Perimeter} \times \text{Rate per metre}$. For multiple rounds, multiply total perimeter by number of rounds!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 4 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX — Missing Dimensions -->
+    <section class="slide" id="slide-5">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Invariant Wire & Perimeter</span>
+        </div>
+        <span class="pill-tag pill-page">Page 132</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A wire of length $36\text{ cm}$ is bent into an equilateral triangle. What is the length of each side?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">The same $36\text{ cm}$ wire is bent into a regular hexagon. What is the length of each side?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">A rectangular park $150\text{ m} \times 120\text{ m}$ is to be fenced at ₹40 per metre. What is the total cost of fencing?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 5 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Matha Pachchi & Running Track Races -->
+    <section class="slide" id="slide-6">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.1</span>
+          <span class="slide-title">Matha Pachchi: Concentric Running Tracks</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 133–134</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">🏃 Outer vs. Inner Track Comparison</div>
+            <p class="card-text">
+              • <strong>Akshi (Outer Track $70\text{ m} \times 40\text{ m}$):</strong><br>
+              1 Round $= 2 \times (70 + 40) = 220\text{ m}$.<br>
+              5 Rounds $= 5 \times 220\text{ m} = \mathbf{1100\text{ m}}$.
+            </p>
+            <p class="card-text" style="margin-top: 8px;">
+              • <strong>Toshi (Inner Track $60\text{ m} \times 30\text{ m}$):</strong><br>
+              1 Round $= 2 \times (60 + 30) = 180\text{ m}$.<br>
+              7 Rounds $= 7 \times 180\text{ m} = \mathbf{1260\text{ m}}$.
+            </p>
+            <div class="highlight-box">
+              Toshi ran a longer distance ($1260\text{ m} > 1100\text{ m}$) despite the smaller track!
+            </div>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🏁 Deep Dive: Staggered Starts for Equal Races</div>
+            <p class="card-text">
+              For a $350\text{ m}$ race with a <strong>common finishing line</strong> on square tracks:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6; margin-top: 6px;">
+              <li><strong>Inner Track ($100\text{ m}$ side):</strong> $P = 400\text{ m}$. To finish at the halfway mark, the start $A$ is placed $50\text{ m}$ before the corner!</li>
+              <li><strong>Outer Track ($150\text{ m}$ side):</strong> $P = 600\text{ m}$. To run $350\text{ m}$ to the flag, start $B$ is placed on the opposite top side!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 6 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX — Running Tracks -->
+    <section class="slide" id="slide-7">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Running Tracks</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 133–134</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why do athletes in 400m races on concentric circular tracks not all start at the exact same straight line?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Akshi runs along a $220\text{ m}$ perimeter track. Where is she relative to the start after running $500\text{ m}$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">On a square track of side $100\text{ m}$, how many metres remain in a complete single lap after running $350\text{ m}$?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 7 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Dot Grids & Regular Polygons -->
+    <section class="slide" id="slide-8">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.1</span>
+          <span class="slide-title">Dot Grid Perimeters & Regular Polygons</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 134–136</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">📐 Straight vs. Diagonal Grid Units</div>
+            <p class="card-text">
+              On a square dot grid, lines connecting adjacent dots horizontally/vertically are <strong>straight units ($s$)</strong>. Lines connecting diagonal dots are <strong>diagonal units ($d$)</strong>.
+            </p>
+            <div class="highlight-box">
+              $$\text{Diagonal Unit } (d) > \text{Straight Unit } (s) \quad [d = \sqrt{2}s \approx 1.414s]$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 4px;">
+              Therefore, a triangle boundary of 6 straight segments and 3 diagonals has perimeter $6s + 3d > 9$ units!
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⭐ General Regular Polygon Law</div>
+            <p class="card-text">
+              A <strong>regular polygon</strong> has all sides equal and all angles equal:
+            </p>
+            <div class="formula-box">
+              $$\text{Perimeter of Regular Polygon} = n \times \text{Length of one side}$$
+            </div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6; margin-top: 6px;">
+              <li><strong>Equilateral Triangle ($n = 3$):</strong> $P = 3 \times \text{side}$.</li>
+              <li><strong>Square ($n = 4$):</strong> $P = 4 \times \text{side}$.</li>
+              <li><strong>Regular Pentagon ($n = 5$):</strong> $P = 5 \times \text{side}$.</li>
+              <li><strong>Regular Hexagon ($n = 6$):</strong> $P = 6 \times \text{side}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 8 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX — Dot Grids & Regular Polygons -->
+    <section class="slide" id="slide-9">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Dot Grids & Polygons</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 135–136</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why is the diagonal distance between two adjacent dots in a square grid strictly greater than the horizontal distance?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">A regular octagon has each side measuring $4.5\text{ cm}$. What is its perimeter?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">If a regular decagon has a perimeter of $70\text{ cm}$, what is the length of each side?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 9 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Split and Rejoin: Same Area, Different Perimeter -->
+    <section class="slide" id="slide-10">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.1</span>
+          <span class="slide-title">Split and Rejoin: Perimeter Variations</span>
+        </div>
+        <span class="pill-tag pill-page">Page 136</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-rose">
+          <div class="card-title">✂️ Cutting and Rearranging a $6\text{ cm} \times 4\text{ cm}$ Chit</div>
+          <p class="card-text">
+            Cut a $6\text{ cm} \times 4\text{ cm}$ rectangle into two identical $6\text{ cm} \times 2\text{ cm}$ strips. Both pieces have area $12\text{ cm}^2$ each (total $24\text{ cm}^2$).
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-emerald">
+            <div class="card-title">Arrangement A (End-to-End)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Joined at $2\text{ cm}$ ends: creates a long $12\text{ cm} \times 2\text{ cm}$ strip.<br>
+              <strong>Perimeter:</strong> $2(12 + 2) = \mathbf{28\text{ cm}}$.
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Arrangement B (L-Shape)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Two strips overlap at a $2\text{ cm} \times 2\text{ cm}$ square corner.<br>
+              <strong>Perimeter:</strong> Sum of exterior sides $= \mathbf{28\text{ cm}}$.
+            </p>
+          </div>
+
+          <div class="card card-sky">
+            <div class="card-title">Original (Side-by-Side)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Joined along the full $6\text{ cm}$ edge: forms the original $6 \times 4$ rectangle.<br>
+              <strong>Perimeter:</strong> $2(6 + 4) = \mathbf{20\text{ cm}}$.
+            </p>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          ✨ <strong>Core Discovery:</strong> Cutting and rearranging pieces changes the perimeter substantially even though the enclosed area remains completely identical!
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 10 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: QUICK BOX — Split and Rejoin -->
+    <section class="slide" id="slide-11">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Split and Rejoin</span>
+        </div>
+        <span class="pill-tag pill-page">Page 136</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">When two shapes are glued along a shared edge, does the total combined perimeter increase or decrease compared to the sum of separate perimeters?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">How would you arrange the two $6\text{ cm} \times 2\text{ cm}$ pieces to produce a figure with a perimeter of exactly $22\text{ cm}$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Does cutting a shape into pieces ever change its total surface area?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 11 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: 6.2 Concept of Area -->
+    <section class="slide" id="slide-12">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.2</span>
+          <span class="slide-title">Area: Measure of Enclosed Surface</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 137–138</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-rose">
+          <div class="card-title">📐 Definition of Area</div>
+          <p class="card-text">
+            The amount of flat two-dimensional surface enclosed inside the boundary of a closed figure is called its <strong>area</strong>. Area is always measured in <em>square units</em> ($\text{sq cm}, \text{sq m}, \text{sq units}$).
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-emerald">
+            <div class="card-title">Area of a Rectangle</div>
+            <div class="formula-box">
+              $$\text{Area} = \text{Length} \times \text{Width} = l \times b$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Represents the total number of unit squares filling $l$ columns and $b$ rows!
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Area of a Square</div>
+            <div class="formula-box">
+              $$\text{Area} = \text{Side} \times \text{Side} = s^2$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Special case of rectangle where length equals width ($l = b = s$).
+            </p>
+          </div>
+        </div>
+
+        <div class="card card-sky">
+          <div class="card-title">Real-World Subtraction of Areas</div>
+          <p class="card-text" style="font-size: 0.88rem;">
+            <strong>Uncarpeted Floor:</strong> Room $= 5\text{ m} \times 4\text{ m} = 20\text{ m}^2$. Square carpet $= 3\text{ m} \times 3\text{ m} = 9\text{ m}^2$.<br>
+            $\text{Remaining Uncarpeted Area} = 20 - 9 = \mathbf{11\text{ m}^2}$.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 12 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: QUICK BOX — Section 6.2 -->
+    <section class="slide" id="slide-13">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Area Calculations</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 137–138</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A rectangular garden has an area of $300\text{ m}^2$ and a length of $25\text{ m}$. What is its width?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">A plot is $500\text{ m}$ long and $200\text{ m}$ wide. What is the cost of tiling it at the rate of ₹8 per hundred sq m?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">A coconut grove is $100\text{ m} \times 50\text{ m}$. If each tree requires $25\text{ m}^2$, what is the maximum number of trees that can be planted?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 13 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: Tangram Area Relationships -->
+    <section class="slide" id="slide-14">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.2</span>
+          <span class="slide-title">Tangram Puzzle: Fractional Area Ratios</span>
+        </div>
+        <span class="pill-tag pill-page">Page 139</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">🧩 7-Piece Tangram Composition</div>
+            <p class="card-text">
+              The classic Chinese tangram consists of 7 pieces cut from one large square:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6; margin-top: 6px;">
+              <li>2 Large Triangles ($A, B$)</li>
+              <li>1 Medium Triangle ($F$)</li>
+              <li>2 Small Triangles ($C, E$)</li>
+              <li>1 Square ($D$)</li>
+              <li>1 Parallelogram ($G$)</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⚖️ Exact Multiples in Terms of Small Triangle C</div>
+            <div class="formula-box" style="text-align: left; font-size: 0.95rem; line-height: 1.6;">
+              • $\text{Area}(E) = \text{Area}(C) = 1 \text{ unit}$<br>
+              • $\text{Area}(D) = \text{Area}(F) = \text{Area}(G) = 2 \times \text{Area}(C)$<br>
+              • $\text{Area}(A) = \text{Area}(B) = 4 \times \text{Area}(C)$<br>
+              • $\text{Total Big Square Area} = 16 \times \text{Area}(C)$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; font-weight: 600; color: #047857;">
+              Area of any shape formed using all 7 pieces is strictly identical ($16 \times C$)!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 14 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: QUICK BOX — Tangram -->
+    <section class="slide" id="slide-15">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Tangram Geometry</span>
+        </div>
+        <span class="pill-tag pill-page">Page 139</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">How many small triangles (Shape C) are needed to exactly cover the square piece (Shape D)?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Which tangram pieces have equal area? List all matching pairs.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">If all 7 pieces form a rectangle instead of a square, will the perimeter be the same as the original square? Explain.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 15 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: Estimating Area on Squared Paper & Circle Packing -->
+    <section class="slide" id="slide-16">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.2</span>
+          <span class="slide-title">Estimating Irregular Areas & Circle Packing</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 140–141</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">📝 4-Step Grid Estimation Convention</div>
+            <ol style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55;">
+              <li>Count each <strong>fully enclosed square</strong> as $1\text{ sq unit}$.</li>
+              <li><strong>Ignore</strong> parts covering less than half a square.</li>
+              <li>Count parts covering <strong>more than half</strong> as $1\text{ sq unit}$.</li>
+              <li>Count parts covering <strong>exactly half</strong> as $\frac{1}{2}\text{ sq unit}$.</li>
+            </ol>
+            <p class="card-text" style="font-size: 0.85rem; margin-top: 6px;">
+              Enables measuring irregular leaves, lakes, and organic shapes with great precision!
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⚪ Why Measure Area in Squares, Not Circles?</div>
+            <p class="card-text">
+              • <strong>The Gap Problem:</strong> Circles cannot tessellate (tile) a plane without leaving empty gaps.<br><br>
+              • In a rectangle packed with circles, alignment variations yield different counts ($42$ vs $44$ circles)!<br><br>
+              • <strong>Squares Tessellate Perfectly:</strong> Zero overlaps, zero gaps, simple base $\times$ height multiplication!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 16 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: QUICK BOX — Estimation & Circle Packing -->
+    <section class="slide" id="slide-17">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Estimation & Tiling</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 140–141</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">On a grid paper, if a curved boundary covers 0.7 of a square, what value do you assign to it under the convention?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Name two regular geometric polygons other than squares that can tile a flat floor with zero gaps and zero overlaps.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why does counting circular coins inside a box fail to give an accurate measurement of the floor's area?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 17 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: 6.3 Area of a Triangle -->
+    <section class="slide" id="slide-18">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.3</span>
+          <span class="slide-title">Area of a Triangle: Half of a Rectangle</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 142–144</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">✂️ The Diagonal Bisection Principle</div>
+            <p class="card-text">
+              Cutting any rectangle along its diagonal produces two right triangles that overlap identically (congruent):
+            </p>
+            <div class="formula-box">
+              $$\text{Area of Right Triangle } \triangle BAD = \frac{1}{2} \times \text{Area of Rectangle } ABCD$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Both triangles have equal area, even though one is rotated relative to the other!
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🔺 Any Triangle Inside a Rectangle</div>
+            <p class="card-text">
+              For any general triangle $\triangle ABE$ with apex $E$ on the top edge:
+            </p>
+            <div class="highlight-box" style="text-align: left; font-size: 0.92rem; line-height: 1.6;">
+              $$\text{Area}(\triangle AEF) = \frac{1}{2}\text{Area}(\text{Rectangle } AFED)$$
+              $$\text{Area}(\triangle BEF) = \frac{1}{2}\text{Area}(\text{Rectangle } BFEC)$$
+              $$\text{Area}(\triangle ABE) = \frac{1}{2}\text{Area}(\text{Rectangle } ABCD)$$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #047857; font-size: 0.88rem;">
+              Universal Law: $\text{Area of Triangle} = \frac{1}{2} \times \text{Base} \times \text{Height}$!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 18 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: QUICK BOX — Area of a Triangle -->
+    <section class="slide" id="slide-19">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Triangle Areas</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 143–144</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A rectangle has dimensions $6\text{ cm} \times 8\text{ cm}$. What is the area of each triangle formed by drawing its diagonal?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Two triangles have the same base and their third vertex lies on the same parallel line. Do they have the same area?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">How do you find the area of an irregular polygon by decomposing it into triangles and rectangles?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 19 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: Polyominoes & Making it 'More' or 'Less' -->
+    <section class="slide" id="slide-20">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.3</span>
+          <span class="slide-title">Making it 'More' or 'Less': 9-Square Polyominoes</span>
+        </div>
+        <span class="pill-tag pill-page">Page 145</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-rose">
+          <div class="card-title">🧱 Fixed Area ($9\text{ sq units}$) with Variable Perimeters</div>
+          <p class="card-text">
+            Using 9 unit squares connected edge-to-edge without holes, we can generate drastically different perimeters!
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-emerald">
+            <div class="card-title">Smallest Perimeter: $12\text{ units}$</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Arranged as a compact $3 \times 3$ square:<br>
+              $P = 4 \times 3 = \mathbf{12\text{ units}}$.<br>
+              (Maximal sharing of internal edges!)
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Intermediate: $18\text{ units}$</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Staircase or stepped cross arrangement with 9 squares gives $P = \mathbf{18\text{ units}}$. Multiple distinct shapes exist for $P = 18$!
+            </p>
+          </div>
+
+          <div class="card card-rose">
+            <div class="card-title">Largest Perimeter: $20\text{ units}$</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Arranged as a single straight $9 \times 1$ line or C-bracket:<br>
+              $P = 2(9 + 1) = \mathbf{20\text{ units}}$.<br>
+              (Minimal sharing of internal edges!)
+            </p>
+          </div>
+        </div>
+
+        <div class="highlight-box" style="font-size: 0.95rem;">
+          📐 <strong>Isoperimetric Principle:</strong> For a given area, the more compact and square-like a figure is, the <em>smaller</em> its perimeter! The more stretched out or branched, the <em>larger</em> its perimeter!
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 20 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX — Polyominoes -->
+    <section class="slide" id="slide-21">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Perimeter Extremes</span>
+        </div>
+        <span class="pill-tag pill-page">Page 145</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">For an area of $24\text{ sq units}$, which whole-number rectangle has the greatest perimeter, and which has the least?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">A figure has perimeter 24 units. If a new unit square is attached touching only 1 side of an existing square, by how much does the perimeter change?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Where must a new square be placed in a corner so that the overall perimeter does NOT change at all?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 21 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: Architectural Floor Plans: Charan vs. Sharan -->
+    <section class="slide" id="slide-22">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.3</span>
+          <span class="slide-title">Architectural Floor Plans: Charan vs. Sharan</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 146–147</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">🏠 Charan's House ($35\text{ ft} \times 30\text{ ft}$)</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55;">
+              <li>Master Bedroom: $15 \times 15 = 225\text{ sq ft}$</li>
+              <li>Small Bedroom: $15 \times 12 = 180\text{ sq ft}$</li>
+              <li>Kitchen: $15 \times 12 = 180\text{ sq ft}$</li>
+              <li>Hall: $20 \times 12 = 240\text{ sq ft}$</li>
+              <li>Toilet: $5 \times 10 = 50\text{ sq ft}$; Utility: $15 \times 3 = 45$</li>
+              <li><strong>Total Plot Area:</strong> $35 \times 30 = \mathbf{1050\text{ sq ft}}$</li>
+              <li><strong>Perimeter:</strong> $2(35 + 30) = \mathbf{130\text{ ft}}$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🏡 Sharan's House ($42\text{ ft} \times 25\text{ ft}$)</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55;">
+              <li>Master Bedroom: $12 \times 15 = 180\text{ sq ft}$</li>
+              <li>Small Bedroom: $12 \times 10 = 120\text{ sq ft}$</li>
+              <li>Kitchen: $18 \times 10 = 180\text{ sq ft}$</li>
+              <li>Hall: $23 \times 15 = 345\text{ sq ft}$</li>
+              <li>Entrance: $7 \times 15 = 105$; Utility: $7 \times 10 = 70$</li>
+              <li><strong>Total Plot Area:</strong> $42 \times 25 = \mathbf{1050\text{ sq ft}}$</li>
+              <li><strong>Perimeter:</strong> $2(42 + 25) = \mathbf{134\text{ ft}}$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          ✨ <strong>Comparative Verdict:</strong> Both houses have the <em>exact same area</em> ($1050\text{ sq ft}$), but Sharan's house has a <em>larger perimeter</em> ($134\text{ ft} > 130\text{ ft}$) because $42 \times 25$ is more elongated than $35 \times 30$!
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 22 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: QUICK BOX — Floor Plans -->
+    <section class="slide" id="slide-23">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Floor Plan Dimensions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 146–147</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">In Charan's house, the Small Bedroom has area $180\text{ sq ft}$ and length $15\text{ ft}$. What is its breadth?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Between Charan's plot ($35 \times 30$) and Sharan's plot ($42 \times 25$), which plot requires more boundary wall fencing?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">If a square house had the same $1050\text{ sq ft}$ area, would its perimeter be smaller or larger than 130 ft?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 23 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: Area Maze Puzzles -->
+    <section class="slide" id="slide-24">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Section 6.3</span>
+          <span class="slide-title">Area Maze Puzzles: Logical Deductions</span>
+        </div>
+        <span class="pill-tag pill-page">Page 148</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">🧩 Puzzle A: 4-Quadrant Rectangle</div>
+            <p class="card-text" style="font-size: 0.9rem;">
+              • Top-left: $13\text{ cm}^2$, Top-right: $26\text{ cm}^2$<br>
+              • Width ratio $= 26 / 13 = 2:1$.<br>
+              • Bottom-left: $15\text{ cm}^2$.<br>
+              • Since width doubles with same height:
+            </p>
+            <div class="formula-box">
+              $$\text{Missing Area} = 15 \times 2 = \mathbf{30\text{ cm}^2}$$
+            </div>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🧩 Puzzle B: Stepped Blocks</div>
+            <p class="card-text" style="font-size: 0.9rem;">
+              • Middle block: Area $10\text{ cm}^2$, width $= 2\text{ cm} \implies \text{height} = 5\text{ cm}$.<br>
+              • Top block has width $3\text{ cm}$, height $= 5 - 2 = 3\text{ cm}$.
+            </p>
+            <div class="formula-box">
+              $$\text{Missing Area} = 3 \times 3 = \mathbf{9\text{ cm}^2}$$
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-amber">
+            <div class="card-title">🧩 Puzzle C: Cascading Heights</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Middle block: $42\text{ cm}^2$, height $6\text{ cm} \implies \text{width} = 7\text{ cm}$.<br>
+              • Top block width $= 7 - 3 = 4\text{ cm}$, height $= 15 - (6 + 5) = 4\text{ cm}$.<br>
+              <strong>Missing Area:</strong> $4 \times 4 = \mathbf{16\text{ cm}^2}$.
+            </p>
+          </div>
+
+          <div class="card card-sky">
+            <div class="card-title">🧩 Puzzle D: Stepped Side Dimension</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Bottom block: $18\text{ cm}^2$, width $5\text{ cm} \implies \text{height} = 3.6\text{ cm}$ or integer stepped heights.<br>
+              • Deducing shared heights: <strong>Missing Side $= \mathbf{5\text{ cm}}$</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 24 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 25: QUICK BOX — Area Mazes -->
+    <section class="slide" id="slide-25">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Area Mazes</span>
+        </div>
+        <span class="pill-tag pill-page">Page 148</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">In a 4-quadrant area maze, why does the ratio of areas in the top row equal the ratio of areas in the bottom row?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If a rectangle has an area of $42\text{ cm}^2$ and a vertical height of $6\text{ cm}$, what is its horizontal width?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can you solve Area Maze puzzles purely through multiplication and division without drawing to scale?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 25 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 26: Exercise Highlights (Worked Problems) -->
+    <section class="slide" id="slide-26">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Worked Examples</span>
+          <span class="slide-title">Exercise Highlights & Solutions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 148–149</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-rose">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 1: Combined Area</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Find dimensions of a rectangle whose area equals the sum of $5\text{ m} \times 10\text{ m}$ and $2\text{ m} \times 7\text{ m}$.
+            </p>
+            <div style="background: #fff1f2; border: 1px dashed #fb7185; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $\text{Total Area} = 50 + 14 = 64\text{ m}^2$.<br>
+              Factors: $16 \times 4, 32 \times 2, 8 \times 8$.
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #be123c; font-size: 0.85rem;">Answer: $16\text{ m} \times 4\text{ m}$ or $8\text{ m} \times 8\text{ m}$</p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 2: Corner Beds</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Four flower beds $2\text{ m} \times 1\text{ m}$ dug at corners of garden $15\text{ m} \times 12\text{ m}$. Remaining lawn area?
+            </p>
+            <div style="background: #f0fdf4; border: 1px dashed #34d399; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $\text{Garden} = 15 \times 12 = 180\text{ m}^2$.<br>
+              $\text{4 Beds} = 4 \times (2 \times 1) = 8\text{ m}^2$.<br>
+              $\text{Lawn} = 180 - 8 = 172\text{ m}^2$.
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #047857; font-size: 0.85rem;">Answer: $172\text{ sq m}$</p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 3: Halving a Square</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> A square of side $s$ is cut into two rectangles. What is true about their combined perimeter?
+            </p>
+            <div style="background: #fffbeb; border: 1px dashed #fcd34d; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $\text{Square } P = 4s$.<br>
+              Two rectangles $s \times \frac{s}{2}$:<br>
+              $P_1 + P_2 = 2 \times 3s = 6s = 1.5(4s)$.
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #b45309; font-size: 0.85rem;">Answer: Statement (c) is true: $1\frac{1}{2}$ times!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 26 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 27: Chapter Summary Checklist -->
+    <section class="slide" id="slide-27">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-rose">Chapter Summary</span>
+          <span class="slide-title">Core Takeaways & Formula Checklist</span>
+        </div>
+        <span class="pill-tag pill-page">Page 150</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-rose">
+            <div class="card-title">✅ Perimeter Formulas Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Polygon:</strong> Sum of the lengths of all outer boundary sides.</li>
+              <li><strong>Rectangle:</strong> $P = 2 \times (\text{length} + \text{breadth}) = 2(l + b)$.</li>
+              <li><strong>Square:</strong> $P = 4 \times \text{length of a side} = 4s$.</li>
+              <li><strong>Regular Polygon:</strong> $P = n \times \text{side}$ ($n$ is the number of sides).</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">✅ Area Formulas & Properties Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Rectangle Area:</strong> $\text{Area} = \text{length} \times \text{breadth} = l \times b$.</li>
+              <li><strong>Square Area:</strong> $\text{Area} = \text{side} \times \text{side} = s^2$.</li>
+              <li><strong>Triangle Area:</strong> $\text{Area} = \frac{1}{2} \times \text{base} \times \text{height}$.</li>
+              <li><strong>Independence:</strong> Figures with identical areas can have different perimeters; figures with identical perimeters can enclose different areas!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 27 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 28: CLOSING SLIDE -->
+    <section class="slide closing-slide" id="slide-28">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-rose">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-emerald">CHAPTER 6 COMPLETE</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 30px;">
+        <div class="eyebrow">Conclusion • Measuring the World</div>
+        <h1 class="cover-title" style="font-size: 3.2rem;">Congratulations!</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: #be123c; margin-bottom: 16px; font-weight: 600;">
+          You Have Mastered Perimeter, Area & Geometric Decomposition
+        </div>
+        <p class="cover-subtitle" style="font-size: 1.15rem; max-width: 780px;">
+          "The perimeter traces the boundary of our journey, but area measures the space we inhabit. Mathematics gives us the exact tools to understand both."<br>
+          <span style="font-size: 0.95rem; font-style: normal; color: #64748b; margin-top: 6px; display: inline-block;">
+            — Inspired by the geometric traditions of the <em>Sulba-sutras</em>
+          </span>
+        </p>
+
+        <!-- Mandatory Credit Pill (Closing Slide Only) -->
+        <div class="credit-pill" style="margin-top: 10px;">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 28 / 28</span>
+      </div>
+    </section>
+
+    <!-- Navigation Overlay Controls -->
+    <div id="controls">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+
+        // Render KaTeX for newly active slide
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentSlide], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ]
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          updateSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          updateSlide(currentSlide - 1);
+        }
+      }
+
+      // Button navigation
+      document.getElementById('next-btn').addEventListener('click', nextSlide);
+      document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

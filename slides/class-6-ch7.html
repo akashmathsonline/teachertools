@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 6 Mathematics - Chapter 7: Fractions</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for math formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #c2410c;          /* Warm Terracotta / Amber Orange */
+      --primary-dark: #9a3412;
+      --primary-light: #ffedd5;
+      --accent-teal: #0f766e;
+      --accent-teal-light: #ccfbf1;
+      --accent-amber: #d97706;
+      --amber-bg: #fef3c7;
+      --rose: #e11d48;
+      --rose-bg: #ffe4e6;
+      --bg-gradient: linear-gradient(135deg, #fff7ed 0%, #fffbeb 50%, #fefce8 100%);
+      --card-bg: #ffffff;
+      --card-border: #fed7aa;
+      --text-main: #1c1917;
+      --text-muted: #57534e;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(194, 65, 12, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(194, 65, 12, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc; /* Light background */
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      color: var(--text-main);
+      padding: 0; /* Padding hata dein */
+    }
+
+        .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: var(--slide-bg);
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 30px 40px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Subtle middle slide watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #78716c;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 25;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-orange { background: #ffedd5; color: #c2410c; border: 1px solid #fdba74; }
+    .pill-teal { background: #ccfbf1; color: #0f766e; border: 1px solid #99f6e4; }
+    .pill-amber { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .pill-rose { background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; font-weight: 800; }
+
+    .slide-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.85rem;
+      color: #1c1917;
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Slide Body Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-orange {
+      border-left: 5px solid var(--primary);
+      background: linear-gradient(145deg, #ffffff, #fff7ed);
+    }
+
+    .card-teal {
+      border-left: 5px solid var(--accent-teal);
+      background: linear-gradient(145deg, #ffffff, #f0fdfa);
+    }
+
+    .card-amber {
+      border-left: 5px solid var(--accent-amber);
+      background: linear-gradient(145deg, #ffffff, #fffbeb);
+    }
+
+    .card-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #292524;
+    }
+
+    .card-text {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #44403c;
+    }
+
+    .highlight-box {
+      background: #fff7ed;
+      border: 2px dashed #fb923c;
+      border-radius: 14px;
+      padding: 12px 18px;
+      text-align: center;
+      margin: 4px 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #9a3412;
+    }
+
+    .formula-box {
+      background: #ffffff;
+      border: 1.5px solid #fed7aa;
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: center;
+      margin: 6px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #c2410c;
+    }
+
+    /* Quick Box Styles */
+    .quickbox-wrapper {
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      border: 2px solid #fcd34d;
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #fef08a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .quick-badge {
+      background: #f59e0b;
+      color: white;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .quick-text {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #292524;
+      line-height: 1.45;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e7e5e4;
+      padding-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Cover and Closing Slides */
+    .cover-slide, .closing-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      padding: 56px 80px;
+      background: radial-gradient(circle at 50% 30%, #fff7ed, #fef3c7 70%);
+    }
+
+    .eyebrow {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 4rem;
+      color: #1c1917;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(194, 65, 12, 0.08);
+    }
+
+    .cover-subtitle {
+      font-size: 1.25rem;
+      color: #57534e;
+      font-weight: 500;
+      margin-bottom: 30px;
+      max-width: 820px;
+      font-style: italic;
+    }
+
+    .credit-pill {
+      background: #1c1917;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 20px -3px rgba(28, 25, 23, 0.25);
+      border: 1px solid #44403c;
+    }
+
+    .credit-pill span {
+      color: #fdba74;
+      font-weight: 600;
+    }
+
+    /* Navigation Controls */
+    #controls {
+      position: absolute;
+      bottom: 16px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: #1c1917;
+      color: white;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: #c2410c;
+      transform: translateY(-2px);
+    }
+
+    #keyboard-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 24px;
+      font-size: 0.75rem;
+      color: #a8a29e;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="presentation-container">
+    <div id="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover-slide active" id="slide-1">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-orange">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-teal">CHAPTER 7 • COVER</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 36px;">
+        <div class="eyebrow">Class 6 Mathematics • Chapter 7</div>
+        <h1 class="cover-title">Fractions</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.7rem; color: #c2410c; margin-bottom: 12px; font-weight: 600;">
+          Equal Shares, Fractional Units & Arithmetic Operations
+        </div>
+        <p class="cover-subtitle">
+          "Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook."
+        </p>
+
+        <!-- Mandatory Credit Pill (Cover Slide Only) -->
+        <div class="credit-pill">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 1 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 7.1 Fractional Units and Equal Shares -->
+    <section class="slide" id="slide-2">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.1</span>
+          <span class="slide-title">Fractional Units & Equal Sharing</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 151–152</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-orange">
+            <div class="card-title">🥞 Sharing a Whole (Roti Model)</div>
+            <p class="card-text">
+              • When $1$ whole roti is divided equally among $2$ children, each child receives <strong>one-half</strong>:
+            </p>
+            <div class="formula-box">$$\text{Share} = \frac{1}{2}$$</div>
+            <p class="card-text">
+              • When $1$ whole roti is divided equally among $4$ children, each child receives <strong>one-quarter</strong>:
+            </p>
+            <div class="formula-box">$$\text{Share} = \frac{1}{4}$$</div>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">⚖️ Size of Unit Fractions Law</div>
+            <p class="card-text">
+              • In the second group, more children share the <em>exact same single roti</em>. Therefore, each child's share becomes smaller!
+            </p>
+            <div class="highlight-box">
+              $$\frac{1}{2} > \frac{1}{4} \quad\text{and}\quad \frac{1}{5} > \frac{1}{9}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              <strong>Unit Fraction Principle:</strong> When $1$ unit is divided into $n$ equal parts, each part is called a <em>fractional unit</em> $\frac{1}{n}$. As $n$ increases, the share $\frac{1}{n}$ decreases!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 2 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX — Section 7.1 -->
+    <section class="slide" id="slide-3">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Fractional Units & Shares</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 151–153</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A student says that $\frac{1}{9}$ is greater than $\frac{1}{5}$ because $9 > 5$. How would you explain their mistake using rotis?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Three guavas of roughly equal size together weigh $1\text{ kg}$. What is the approximate weight of each guava?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Which fractional unit is larger: $\frac{1}{100}$ or $\frac{1}{200}$? Why?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 3 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: 7.2 Fractional Units as Parts of a Whole -->
+    <section class="slide" id="slide-4">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.2</span>
+          <span class="slide-title">Parts of a Whole: The Chikki Model</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 154–155</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-orange">
+            <div class="card-title">🍫 Measuring Composite Pieces</div>
+            <p class="card-text">
+              Consider a whole slab of chikki divided into $4$ equal pieces. Each piece has size $\frac{1}{4}$.
+            </p>
+            <p class="card-text" style="margin-top: 6px;">
+              • If you break off $3$ such pieces together, the combined piece contains $3$ unit pieces:
+            </p>
+            <div class="highlight-box">
+              $$\text{Size} = \frac{1}{4} + \frac{1}{4} + \frac{1}{4} = 3 \text{ times } \frac{1}{4} = \frac{3}{4}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              The remaining smaller piece is $1 \text{ times } \frac{1}{4} = \frac{1}{4}$.
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🧩 Different Shapes, Equal Areas!</div>
+            <p class="card-text">
+              A rectangular chikki can be partitioned into $6$ equal parts in multiple ways:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6; margin-top: 6px;">
+              <li>$6$ tall vertical strip slices.</li>
+              <li>$6$ smaller rectangular blocks ($2 \times 3$ grid).</li>
+              <li>Even triangular halves across diagonal cuts!</li>
+            </ul>
+            <div class="formula-box">
+              $$\text{Different Shapes} \implies \text{Identical Area } \left(\frac{1}{6} \text{ of whole}\right)$$
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 4 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX — Section 7.2 -->
+    <section class="slide" id="slide-5">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Parts of a Whole</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 154–155</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">If a whole chocolate bar is partitioned into 12 equal squares, what fraction represents 5 of those squares?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Do two fractional pieces of a cake have to be identical in shape to represent the exact same fraction $\frac{1}{6}$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What ancient term was used in the Rig Veda for the fraction three-quarters ($\frac{3}{4}$)?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 5 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: 7.3 Measuring Using Fractional Units -->
+    <section class="slide" id="slide-6">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.3</span>
+          <span class="slide-title">Measuring Using Paper Strip Creases</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 156–158</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-orange">
+            <div class="card-title">📏 Paper Strip Crease Doubling</div>
+            <p class="card-text">
+              Start with a strip of length $1$ unit:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6; margin-top: 6px;">
+              <li><strong>Fold 1:</strong> Creates $2$ parts $\implies$ each part is $\frac{1}{2}$.</li>
+              <li><strong>Fold 2:</strong> Halves again into $4$ parts $\implies$ each part is $\frac{1}{4}$.</li>
+              <li><strong>Fold 3:</strong> Halves again into $8$ parts $\implies$ each part is $\frac{1}{8}$.</li>
+            </ul>
+            <div class="highlight-box" style="margin-top: 8px;">
+              $$8 \text{ times } \frac{1}{8} = \frac{8}{8} = 1 \text{ unit (the whole!)}$$
+            </div>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🔢 Numerator & Denominator Definition</div>
+            <p class="card-text">
+              In any standard fraction $\frac{a}{b}$ (such as $\frac{5}{6}$):
+            </p>
+            <div class="formula-box" style="text-align: left; line-height: 1.7;">
+              • <strong>Denominator ($b$):</strong> Tells what <em>fractional unit</em> is being counted (the total equal parts into which the whole is divided).<br>
+              • <strong>Numerator ($a$):</strong> Tells <em>how many</em> such fractional units are taken.
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              Reading $\frac{3}{4}$ as <em>"3 times one-fourth"</em> gives immediate intuition of its size!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 6 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX — Section 7.3 -->
+    <section class="slide" id="slide-7">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Creasing & Fraction Terms</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 157–158</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">How many times must a strip of paper be folded in half to create unit fractional lengths of $\frac{1}{16}$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">In the fraction $\frac{7}{12}$, identify the numerator and denominator, and explain what each number signifies.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Express $5 \text{ times } \frac{1}{4}$ of a roti as an addition statement and as a single fraction.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 7 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: 7.4 Marking Fraction Lengths on the Number Line -->
+    <section class="slide" id="slide-8">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.4</span>
+          <span class="slide-title">Fractions on the Number Line</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 159–160</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-orange">
+          <div class="card-title">📍 Placing Fractions Between 0 and 1</div>
+          <p class="card-text">
+            Just like whole numbers $0, 1, 2, 3 \dots$ mark distances from the origin $0$, fractions mark specific distance points along the number line!
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-teal">
+            <div class="card-title">Thirds ($\frac{1}{3}$)</div>
+            <p class="card-text">
+              Divide interval from $0$ to $1$ into $3$ equal intervals:
+            </p>
+            <div class="formula-box">$$0, \;\frac{1}{3}, \;\frac{2}{3}, \;\frac{3}{3}=1$$</div>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Fifths ($\frac{1}{5}$)</div>
+            <p class="card-text">
+              Divide interval from $0$ to $1$ into $5$ equal intervals:
+            </p>
+            <div class="formula-box">$$0, \;\frac{1}{5}, \;\frac{2}{5}, \;\frac{3}{5}, \;\frac{4}{5}, \;\frac{5}{5}=1$$</div>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-title">Beyond 1 Unit ($\frac{3}{2}, \frac{6}{5}$)</div>
+            <p class="card-text">
+              Continue stepping the same fractional unit past $1$:
+            </p>
+            <div class="formula-box">$$\frac{3}{2} = 1 + \frac{1}{2}, \quad \frac{6}{5} = 1 + \frac{1}{5}$$</div>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          ✨ <strong>Infinite Density:</strong> How many fractions lie between $0$ and $1$? There are <em>uncountably infinitely many</em> fractions filling the space between $0$ and $1$!
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 8 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX — Section 7.4 -->
+    <section class="slide" id="slide-9">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Number Line Locations</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 159–160</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Into how many equal sub-segments must the unit length from 0 to 1 be divided to plot $\frac{7}{10}$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Does the fraction $\frac{9}{8}$ lie to the left or to the right of 1 on the number line? Explain why.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can you name three distinct fractions that lie strictly between $\frac{1}{5}$ and $\frac{2}{5}$?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 9 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: 7.5 Mixed Fractions & Fractions Greater than One -->
+    <section class="slide" id="slide-10">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.5</span>
+          <span class="slide-title">Fractions Greater than One & Mixed Numbers</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 161–163</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-orange">
+            <div class="card-title">📦 Decomposing Improper Fractions</div>
+            <p class="card-text">
+              When the numerator is greater than the denominator, the quantity exceeds $1$:
+            </p>
+            <div class="formula-box">
+              $$\frac{7}{2} = \underbrace{\frac{2}{2} + \frac{2}{2} + \frac{2}{2}}_{3 \text{ wholes}} + \frac{1}{2} = 3\frac{1}{2}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              A <strong>Mixed Fraction</strong> contains a whole number part and a proper fractional part ($< 1$).
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🔄 Converting Mixed to Regular Fraction</div>
+            <p class="card-text">
+              To convert $3\frac{1}{4}$ into a regular fraction:
+            </p>
+            <div class="highlight-box" style="text-align: left; font-size: 0.95rem; line-height: 1.6;">
+              $$3\frac{1}{4} = 1 + 1 + 1 + \frac{1}{4}$$
+              $$= \frac{4}{4} + \frac{4}{4} + \frac{4}{4} + \frac{1}{4} = \frac{3 \times 4 + 1}{4} = \frac{13}{4}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; font-weight: 600; color: #0f766e;">
+              General Rule: $W\frac{a}{b} = \frac{W \times b + a}{b}$
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 10 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: QUICK BOX — Section 7.5 -->
+    <section class="slide" id="slide-11">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Mixed Numbers Conversion</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 162–163</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">How many whole units are contained in the fraction $\frac{19}{6}$? What is its fractional remainder?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Convert the mixed number $7\frac{2}{3}$ into an improper fraction.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can every fraction greater than 1 be written as a mixed number? Why can't $\frac{8}{4}$ be written as one?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 11 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: 7.6 Equivalent Fractions & The Fraction Wall -->
+    <section class="slide" id="slide-12">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.6</span>
+          <span class="slide-title">Equivalent Fractions & The Fraction Wall</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 164–165</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-orange">
+            <div class="card-title">🧱 The Fraction Wall Concept</div>
+            <p class="card-text">
+              Strips of equal total length ($1$ unit) divided into different numbers of parts reveal identical lengths:
+            </p>
+            <div class="highlight-box">
+              $$\frac{1}{2} = \frac{2}{4} = \frac{3}{6} = \frac{4}{8} = \frac{5}{10}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              These are <strong>Equivalent Fractions</strong>: they represent the <em>exact same length or share</em>, expressed in different fractional units!
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">🍽️ Equivalent Shares Interpretation</div>
+            <p class="card-text">
+              • $1$ roti shared equally among $2$ children $\implies \frac{1}{2}$ roti each.<br>
+              • $2$ rotis shared equally among $4$ children $\implies \frac{2}{4} = \frac{1}{2}$ roti each.<br>
+              • $3$ rotis shared equally among $6$ children $\implies \frac{3}{6} = \frac{1}{2}$ roti each.
+            </p>
+            <div class="formula-box">
+              $$\text{If both rotis and children double, the share is identical!}$$
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 12 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: QUICK BOX — Section 7.6 (Part 1) -->
+    <section class="slide" id="slide-13">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Fraction Wall</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 164–165</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Looking at the fraction wall, how many pieces of length $\frac{1}{6}$ combine to make a length of $\frac{1}{3}$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Anil is in a group where 2 cakes are shared among 5 children. How many cakes are needed for 10 children to get the same share?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">State three different fractions that are all equivalent to $\frac{2}{3}$.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 13 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: Multiplying & Dividing Numerator & Denominator -->
+    <section class="slide" id="slide-14">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Scaling Rule</span>
+          <span class="slide-title">Generating Equivalent Fractions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 168–171</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-orange">
+          <div class="card-title">⚖️ The Fundamental Property of Fractions</div>
+          <p class="card-text">
+            Multiplying or dividing both the numerator and denominator by the <strong>same non-zero number</strong> leaves the value of the fraction unchanged!
+          </p>
+          <div class="formula-box" style="font-size: 1.2rem;">
+            $$\frac{a}{b} = \frac{a \times k}{b \times k} \quad\text{and}\quad \frac{a}{b} = \frac{a \div m}{b \div m}$$
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">Finding Common Fractional Units</div>
+            <p class="card-text">
+              To compare or add $\frac{3}{4}$ and $\frac{7}{10}$, convert them to a common denominator ($4 \times 10 = 40$ or $\text{LCM} = 20$):
+            </p>
+            <div class="highlight-box" style="font-size: 0.95rem; text-align: left;">
+              $$\frac{3}{4} = \frac{3 \times 5}{4 \times 5} = \frac{15}{20}, \quad \frac{7}{10} = \frac{7 \times 2}{10 \times 2} = \frac{14}{20}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">Now both use the common fractional unit $\frac{1}{20}$!</p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Missing Number Equivalences</div>
+            <p class="card-text">
+              • $\frac{5}{4} = \frac{\square}{8} \implies 4 \times 2 = 8$, so $5 \times 2 = \mathbf{10}$.<br>
+              • $\frac{4}{3} = \frac{12}{\square} \implies 4 \times 3 = 12$, so $3 \times 3 = \mathbf{9}$.<br>
+              • $\frac{7}{5} = \frac{14}{\mathbf{10}} = \frac{21}{\mathbf{15}}$.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 14 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: QUICK BOX — Scaling Fractions -->
+    <section class="slide" id="slide-15">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Scaling & Common Units</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 170–172</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Convert $\frac{7}{2}$ and $\frac{3}{5}$ into equivalent fractions having the same fractional unit. What is the common denominator?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Why does multiplying only the numerator by 4 change the value, while multiplying both numerator and denominator by 4 preserves it?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Find the missing number: $\frac{6}{7} = \frac{30}{\square}$.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 15 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: Lowest Terms (Simplest Form) -->
+    <section class="slide" id="slide-16">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Simplest Form</span>
+          <span class="slide-title">Expressing Fractions in Lowest Terms</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 172–173</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-orange">
+          <div class="card-title">✂️ Definition of Lowest Terms</div>
+          <p class="card-text">
+            A fraction is in <strong>lowest terms</strong> (or <em>simplest form</em>) when its numerator and denominator share <strong>no common factor other than 1</strong> (i.e., $\text{HCF}(a, b) = 1$).
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">Method 1: Division by HCF in One Step</div>
+            <p class="card-text">
+              For $\frac{16}{20}$, common factor is $4$:
+            </p>
+            <div class="formula-box">
+              $$\frac{16 \div 4}{20 \div 4} = \frac{4}{5}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Since $4$ and $5$ are coprime, $\frac{4}{5}$ is the simplest form!
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Method 2: Sequential Step-by-Step Reduction</div>
+            <p class="card-text">
+              For large numbers like $\frac{36}{60}$:
+            </p>
+            <div class="highlight-box" style="font-size: 0.95rem; text-align: left; line-height: 1.6;">
+              $$\frac{36}{60} \xrightarrow{\div 2} \frac{18}{30} \xrightarrow{\div 2} \frac{9}{15} \xrightarrow{\div 3} \frac{3}{5}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Both methods yield identical results; step-by-step is often easier!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 16 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: QUICK BOX — Lowest Terms -->
+    <section class="slide" id="slide-17">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Lowest Terms</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 172–173</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Is the fraction $\frac{17}{51}$ in lowest terms? If not, reduce it to simplest form.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What is the highest common factor of 64 and 144 needed to reduce $\frac{64}{144}$ in a single step?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can a fraction whose numerator and denominator are both even ever be in lowest terms? Why?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 17 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: 7.7 Comparing Fractions -->
+    <section class="slide" id="slide-18">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.7</span>
+          <span class="slide-title">Comparing Fractions of Different Denominators</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 173–174</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-orange">
+          <div class="card-title">🎯 The 2-Step Universal Comparison Procedure</div>
+          <p class="card-text">
+            <strong>Step 1:</strong> Convert all fractions to equivalent fractions with the same common denominator (common fractional unit).<br>
+            <strong>Step 2:</strong> Compare the numerators directly—the fraction with the larger numerator has the greater value!
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">Worked Example 1: $\frac{4}{5}$ vs $\frac{7}{9}$</div>
+            <p class="card-text">Common multiple of $5$ and $9$ is $45$:</p>
+            <div class="formula-box">
+              $$\frac{4}{5} = \frac{36}{45}, \quad \frac{7}{9} = \frac{35}{45}$$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #0f766e;">
+              Since $36 > 35 \implies \frac{4}{5} > \frac{7}{9}$!
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Worked Example 2: $\frac{7}{9}$ vs $\frac{17}{21}$</div>
+            <p class="card-text">Smallest common multiple ($\text{LCM}$) of $9$ and $21$ is $63$:</p>
+            <div class="formula-box">
+              $$\frac{7}{9} = \frac{49}{63}, \quad \frac{17}{21} = \frac{51}{63}$$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #b45309;">
+              Since $49 < 51 \implies \frac{7}{9} < \frac{17}{21}$!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 18 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: QUICK BOX — Comparing Fractions -->
+    <section class="slide" id="slide-19">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Comparing Fractions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 173–174</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Which is greater: $\frac{8}{3}$ or $\frac{5}{2}$? Justify by converting to equivalent fractions.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">When two fractions have the same numerator (e.g., $\frac{3}{7}$ and $\frac{3}{8}$), how can you tell which is larger without calculating LCM?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Arrange in ascending order: $\frac{2}{5}, \;\frac{7}{10}, \;\frac{11}{15}$.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 19 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: 7.8 Addition of Fractions & Brahmagupta's Method -->
+    <section class="slide" id="slide-20">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.8</span>
+          <span class="slide-title">Addition of Fractions: Common Fractional Units</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 175–178</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-orange">
+            <div class="card-title">Case 1: Same Denominator</div>
+            <p class="card-text">
+              Simply add the number of fractional units together:
+            </p>
+            <div class="formula-box">
+              $$\frac{2}{5} + \frac{1}{5} = \frac{2 + 1}{5} = \frac{3}{5}$$
+              $$\frac{4}{7} + \frac{6}{7} = \frac{10}{7} = 1\frac{3}{7}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              The denominator stays the same because the fractional unit ($\frac{1}{5}$ or $\frac{1}{7}$) is unchanged!
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">👑 Brahmagupta's Method (628 CE)</div>
+            <p class="card-text" style="font-size: 0.9rem;">
+              When denominators differ (e.g., $\frac{1}{4} + \frac{1}{3}$):
+            </p>
+            <ol style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55; margin-top: 6px;">
+              <li>Find a common multiple of the denominators: $4 \times 3 = 12$.</li>
+              <li>Convert to common units: $\frac{1}{4} = \frac{3}{12}$, $\frac{1}{3} = \frac{4}{12}$.</li>
+              <li>Add the numerators: $\frac{3}{12} + \frac{4}{12} = \frac{7}{12}$.</li>
+              <li>Express in lowest terms if needed.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card card-amber">
+          <div class="card-title">Using Lowest Common Multiple (LCM)</div>
+          <p class="card-text">
+            For $\frac{1}{6} + \frac{1}{3}$, the LCM of $6$ and $3$ is $6$. So $\frac{1}{3} = \frac{2}{6} \implies \frac{1}{6} + \frac{2}{6} = \frac{3}{6} = \frac{1}{2}$!
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 20 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX — Addition of Fractions -->
+    <section class="slide" id="slide-21">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Fraction Addition</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 178–179</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A student adds $\frac{1}{2} + \frac{1}{4}$ as $\frac{1+1}{2+4} = \frac{2}{6}$. What fundamental mistake did they make?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Rahim mixes $\frac{2}{3}\text{ L}$ of yellow paint with $\frac{3}{4}\text{ L}$ of blue paint. What is the total volume of paint?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Evaluate mentally: $\frac{2}{7} + \frac{5}{7} + \frac{6}{7}$. Express as a mixed number.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 21 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: Subtraction of Fractions -->
+    <section class="slide" id="slide-22">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Subtraction</span>
+          <span class="slide-title">Subtraction of Fractions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 180–182</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-orange">
+            <div class="card-title">Case 1: Same Fractional Units</div>
+            <p class="card-text">
+              Directly subtract the numerators:
+            </p>
+            <div class="formula-box">
+              $$\frac{6}{7} - \frac{4}{7} = \frac{6 - 4}{7} = \frac{2}{7}$$
+              $$\frac{10}{27} - \frac{1}{27} = \frac{9}{27} = \frac{1}{3} \quad\text{(in lowest terms)}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Remove $4$ shaded blocks of size $\frac{1}{7}$ from $6$ shaded blocks, leaving $2$ blocks!
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">Case 2: Different Denominators ($\frac{3}{4} - \frac{2}{3}$)</div>
+            <p class="card-text">
+              Convert each fraction to common fractional unit $\frac{1}{12}$:
+            </p>
+            <div class="highlight-box" style="font-size: 0.95rem; text-align: left; line-height: 1.6;">
+              $$\frac{3}{4} = \frac{3 \times 3}{4 \times 3} = \frac{9}{12}, \quad \frac{2}{3} = \frac{2 \times 4}{3 \times 4} = \frac{8}{12}$$
+              $$\frac{3}{4} - \frac{2}{3} = \frac{9}{12} - \frac{8}{12} = \frac{1}{12}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Brahmagupta's subtraction rule applies universally to all fractions!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 22 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: QUICK BOX — Subtraction of Fractions -->
+    <section class="slide" id="slide-23">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Fraction Subtraction</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 181–182</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Subtract $\frac{4}{15}$ from $\frac{2}{5}$. What common denominator will you use?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Jaya lives $\frac{7}{10}\text{ km}$ from school. She takes an auto for $\frac{1}{2}\text{ km}$ and walks the rest. How far does she walk?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Jeevika takes $\frac{10}{3}\text{ min}$ for a lap, while Namit takes $\frac{13}{4}\text{ min}$. Who is faster, and by how many minutes?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 23 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: 7.9 A Pinch of History: India's Gift to Fractions -->
+    <section class="slide" id="slide-24">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Section 7.9</span>
+          <span class="slide-title">A Pinch of History: India & Global Notation</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 182–183</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-orange">
+            <div class="card-title">📜 Ancient Names</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • In Sanskrit, fractions were called <strong>bhinna</strong> (meaning <em>"broken"</em>), or <strong>bhaga / ansha</strong> (meaning <em>"part"</em> or <em>"piece"</em>).<br><br>
+              • In the Vedic <em>Sulba-sutras</em>, exact fractional rules were used for constructing complex sacred altars.
+            </p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">✍️ Bakhshali Notation</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • The modern way of writing fractions originated in India!<br><br>
+              • In the <em>Bakhshali Manuscript</em> (c. 300 CE), one-half was written vertically as $\begin{matrix} 1 \\ 2 \end{matrix}$ without a bar.<br><br>
+              • Used by Aryabhata (499 CE), Brahmagupta (628 CE), and Mahavira (850 CE).
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🌍 Global Transmission</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • The horizontal dividing bar was added by Moroccan mathematician <strong>Al-Hassar</strong> (12th century).<br><br>
+              • While Egypt & Babylon primarily used unit fractions ($\frac{1}{n}$), <strong>general fractions</strong> with full arithmetic laws were first developed in India!
+            </p>
+          </div>
+        </div>
+
+        <div class="highlight-box" style="font-size: 0.95rem;">
+          📖 <em>"By the multiplication of the numerator and denominator of each fraction by the other denominators, the fractions are reduced to a common denominator..."</em> — Brahmagupta, 628 CE
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 24 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 25: QUICK BOX — Section 7.9 & Egyptian Unit Fraction Puzzle -->
+    <section class="slide" id="slide-25">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — History & Egyptian Fraction Puzzle</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 183–185</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why is it impossible for two different unit fractions to add up to 1?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What is the unique combination of three distinct unit fractions that adds up to 1?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can you find four different unit fractions that add up to 1? (e.g., start from $\frac{1}{2} + \frac{1}{4} + \frac{1}{6} + \dots$)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 25 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 26: Exercise Highlights (Worked Problems) -->
+    <section class="slide" id="slide-26">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-orange">Worked Examples</span>
+          <span class="slide-title">Exercise Highlights & Solutions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 174–182</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-orange">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 1: Ordering</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Arrange in descending order: $\frac{25}{16}, \;\frac{7}{8}, \;\frac{13}{4}, \;\frac{17}{32}$.
+            </p>
+            <div style="background: #fff7ed; border: 1px dashed #fb923c; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              Convert all to common denominator $32$:<br>
+              $\frac{13}{4} = \frac{104}{32}, \;\frac{25}{16} = \frac{50}{32}, \;\frac{7}{8} = \frac{28}{32}, \;\frac{17}{32}$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #c2410c; font-size: 0.85rem;">Answer: $\frac{13}{4} > \frac{25}{16} > \frac{7}{8} > \frac{17}{32}$</p>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 2: 3-Fraction Addition</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Add $\frac{3}{4} + \frac{1}{3} + \frac{1}{5}$ using Brahmagupta's method.
+            </p>
+            <div style="background: #f0fdfa; border: 1px dashed #2dd4bf; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $\text{LCM}(4, 3, 5) = 60$.<br>
+              $\frac{3 \times 15}{60} + \frac{1 \times 20}{60} + \frac{1 \times 12}{60}$<br>
+              $= \frac{45 + 20 + 12}{60} = \frac{77}{60}$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #0f766e; font-size: 0.85rem;">Answer: $\frac{77}{60} = 1\frac{17}{60}$</p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 3: Word Problem</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Geeta bought $\frac{2}{5}\text{ m}$ lace, Shamim bought $\frac{3}{4}\text{ m}$. Total bought? Can it border a $1\text{ m}$ cloth?
+            </p>
+            <div style="background: #fffbeb; border: 1px dashed #fcd34d; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $\text{Total} = \frac{2}{5} + \frac{3}{4} = \frac{8 + 15}{20} = \frac{23}{20} = 1\frac{3}{20}\text{ m}$.<br>
+              $1\frac{3}{20}\text{ m} > 1\text{ m}$.
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #b45309; font-size: 0.85rem;">Answer: $1\frac{3}{20}\text{ m}$; Yes, sufficient!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 26 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 27: Chapter Summary Checklist -->
+    <section class="slide" id="slide-27">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Chapter Summary</span>
+          <span class="slide-title">Core Takeaways & Rules Checklist</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 186</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-orange">
+            <div class="card-title">✅ Fraction Concepts Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Equal Shares:</strong> When a whole unit is divided into equal parts, each part is a fractional unit $\frac{1}{n}$.</li>
+              <li><strong>Numerator & Denominator:</strong> In $\frac{a}{b}$, $b$ names the fractional unit, $a$ counts the units taken.</li>
+              <li><strong>Mixed Fractions:</strong> Contain a whole part and a fractional part ($a\frac{b}{c} = \frac{a \times c + b}{c}$).</li>
+              <li><strong>Equivalent Fractions:</strong> Represent identical quantities via scaling: $\frac{a}{b} = \frac{a \times k}{b \times k}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-title">✅ Operations & Historical Rules Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Lowest Terms:</strong> Numerator and denominator share no common factors other than 1.</li>
+              <li><strong>Comparing Fractions:</strong> Convert to equivalent fractions with common denominator, then compare numerators.</li>
+              <li><strong>Brahmagupta's Addition:</strong> Find common denominator, add numerators, simplify to lowest terms.</li>
+              <li><strong>Brahmagupta's Subtraction:</strong> Find common denominator, subtract numerators, simplify to lowest terms.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 27 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 28: CLOSING SLIDE -->
+    <section class="slide closing-slide" id="slide-28">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-orange">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-teal">CHAPTER 7 COMPLETE</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 30px;">
+        <div class="eyebrow">Conclusion • The Broken Whole</div>
+        <h1 class="cover-title" style="font-size: 3.2rem;">Congratulations!</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: #c2410c; margin-bottom: 16px; font-weight: 600;">
+          You Have Mastered Fractional Units & Arithmetic Operations
+        </div>
+        <p class="cover-subtitle" style="font-size: 1.15rem; max-width: 780px;">
+          "Fractions show us that even when things are broken into parts, mathematics gives us the exact language to unite them back into a harmonious whole."<br>
+          <span style="font-size: 0.95rem; font-style: normal; color: #78716c; margin-top: 6px; display: inline-block;">
+            — Inspired by Brahmagupta's <em>Brahmasphuṭasiddhānta</em> (628 CE)
+          </span>
+        </p>
+
+        <!-- Mandatory Credit Pill (Closing Slide Only) -->
+        <div class="credit-pill" style="margin-top: 10px;">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 28 / 28</span>
+      </div>
+    </section>
+
+    <!-- Navigation Overlay Controls -->
+    <div id="controls">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+
+        // Render KaTeX for newly active slide
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentSlide], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ]
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          updateSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          updateSlide(currentSlide - 1);
+        }
+      }
+
+      // Button navigation
+      document.getElementById('next-btn').addEventListener('click', nextSlide);
+      document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
