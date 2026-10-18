@@ -47,25 +47,26 @@
       padding: 0;
     }
 
-    body {
+       body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: #042f2e;
+      background: #f8fafc; /* Background light kar diya */
       color: var(--text-main);
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
     }
 
-    /* Standard 16:9 Deck Stage */
+        /* Deck Container - Full Screen */
     #deck-container {
       position: relative;
-      width: 1280px;
-      height: 720px;
+      width: 100vw;
+      height: 100vh;
       background: var(--bg-gradient);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-      border-radius: var(--radius-lg);
+      box-shadow: none; /* Shadow hata dein */
+      border-radius: 0; /* Corners hatane ke liye */
       overflow: hidden;
       display: flex;
       flex-direction: column;
