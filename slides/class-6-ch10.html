@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 6 Mathematics - Chapter 10: The Other Side of Zero (Integers)</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for beautiful math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0284c7;       /* Ocean cyan/sky blue */
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent-pos: #16a34a;    /* Green for positive */
+      --accent-pos-bg: #dcfce7;
+      --accent-neg: #ea580c;    /* Terracotta/orange-red for negative */
+      --accent-neg-bg: #ffedd5;
+      --amber: #d97706;
+      --amber-bg: #fef3c7;
+      --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #f8fafc 50%, #eff6ff 100%);
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+        body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f8fafc; /* Background light kar diya */
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+       #deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      box-shadow: none; /* Box shadow hata dein */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+           padding: 30px 40px 30px 40px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Watermark for middle slides */
+    .slide-watermark {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 25;
+    }
+
+    /* Headers */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-cyan { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .pill-green { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .pill-orange { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+    .pill-amber { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .pill-purple { background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; font-weight: 800; }
+
+    .slide-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.85rem;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Content Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-custom-building {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-accent {
+      border-left: 5px solid var(--primary);
+    }
+
+    .card-green {
+      border-left: 5px solid var(--accent-pos);
+      background: linear-gradient(145deg, #ffffff, #f0fdf4);
+    }
+
+    .card-orange {
+      border-left: 5px solid var(--accent-neg);
+      background: linear-gradient(145deg, #ffffff, #fff7ed);
+    }
+
+    .card-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1e293b;
+    }
+
+    .card-text {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .formula-box {
+      background: #f8fafc;
+      border: 2px dashed #93c5fd;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      margin: 8px 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #0369a1;
+    }
+
+    .badge-icon {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Building Tower Graphic */
+    .tower-box {
+      background: white;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-md);
+    }
+
+    .floor-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.86rem;
+    }
+
+    .floor-row:last-child {
+      border-bottom: none;
+    }
+
+    .floor-row.ground {
+      background: #fef9c3;
+      font-weight: 800;
+      border-top: 2px solid #eab308;
+      border-bottom: 2px solid #eab308;
+    }
+
+    .floor-row.pos { background: #f0fdf4; color: #166534; }
+    .floor-row.neg { background: #fff7ed; color: #9a3412; }
+
+    /* Number line graphic */
+    .numline-container {
+      background: white;
+      border-radius: 14px;
+      border: 1px solid #cbd5e1;
+      padding: 18px 24px;
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .numline-axis {
+      position: relative;
+      height: 4px;
+      background: #0284c7;
+      margin: 35px 0 25px 0;
+      border-radius: 2px;
+    }
+
+    .numline-axis::before {
+      content: '◀';
+      position: absolute;
+      left: -12px;
+      top: -8px;
+      color: #0284c7;
+      font-size: 14px;
+    }
+
+    .numline-axis::after {
+      content: '▶';
+      position: absolute;
+      right: -12px;
+      top: -8px;
+      color: #0284c7;
+      font-size: 14px;
+    }
+
+    .numline-tick {
+      position: absolute;
+      top: -7px;
+      width: 2px;
+      height: 18px;
+      background: #0284c7;
+      transform: translateX(-50%);
+    }
+
+    .numline-label {
+      position: absolute;
+      top: 16px;
+      transform: translateX(-50%);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .numline-label.zero {
+      color: #e11d48;
+      font-size: 0.95rem;
+    }
+
+    /* Token Visuals */
+    .token-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 8px 0;
+    }
+
+    .token {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+
+    .token-pos {
+      background: radial-gradient(circle at 30% 30%, #86efac, #16a34a);
+      color: #ffffff;
+      border: 2px solid #15803d;
+    }
+
+    .token-neg {
+      background: radial-gradient(circle at 30% 30%, #fca5a5, #dc2626);
+      color: #ffffff;
+      border: 2px solid #b91c1c;
+    }
+
+    .token-pair {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px;
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .token-pair.cancelled::after {
+      content: '✕';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: #64748b;
+      opacity: 0.7;
+      font-weight: 900;
+    }
+
+    /* Quick Box Styling */
+    .quickbox-wrapper {
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      border: 2px solid #fcd34d;
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: white;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid #fef08a;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .quick-badge {
+      background: #f59e0b;
+      color: white;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .quick-text {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.45;
+    }
+
+    /* Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Cover and Closing Slides */
+    .cover-slide, .closing-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 80px;
+      background: radial-gradient(circle at 50% 30%, #f0fdfa, #f8fafc 70%);
+    }
+
+    .eyebrow {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 3.6rem;
+      color: #0f172a;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .cover-subtitle {
+      font-size: 1.3rem;
+      color: #475569;
+      font-weight: 500;
+      margin-bottom: 34px;
+      max-width: 820px;
+      font-style: italic;
+    }
+
+    .credit-pill {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 20px -3px rgba(15, 23, 42, 0.25);
+      border: 1px solid #334155;
+    }
+
+    .credit-pill span {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* On-screen controls */
+    #controls {
+      position: absolute;
+      bottom: 16px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: #0f172a;
+      color: white;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: #0284c7;
+      transform: translateY(-2px);
+    }
+
+    #keyboard-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 24px;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="presentation-container">
+    <div id="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+
+    <!-- ==========================================
+         SLIDE 1: COVER
+         ========================================== -->
+    <section class="slide cover-slide active" id="slide-1">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-cyan">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-orange">CHAPTER 10 • COVER</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 40px;">
+        <div class="eyebrow">Class 6 Mathematics • Chapter 10</div>
+        <h1 class="cover-title">The Other Side of Zero</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.8rem; color: #0284c7; margin-bottom: 12px; font-weight: 600;">
+          Integers, Zero Pairs & Directed Numbers
+        </div>
+        <p class="cover-subtitle">
+          "Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook."
+        </p>
+
+        <!-- Mandatory Credit Pill (Cover Slide) -->
+        <div class="credit-pill">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 1 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 2: 10.0 More and More Numbers!
+         ========================================== -->
+    <section class="slide" id="slide-2">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Chapter Introduction</span>
+          <span class="slide-title">More and More Numbers!</span>
+        </div>
+        <span class="pill-tag pill-page">Page 243</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-accent">
+            <div class="card-title"><span class="badge-icon">1</span> Natural Numbers</div>
+            <p class="card-text">
+              The very first numbers we learned in mathematics were counting numbers:
+            </p>
+            <div class="formula-box">$$1, 2, 3, 4, 5, \dots$$</div>
+            <p class="card-text">Used to count objects in daily life.</p>
+          </div>
+
+          <div class="card card-accent">
+            <div class="card-title"><span class="badge-icon">2</span> Zero & Fractions</div>
+            <p class="card-text">
+              Then we discovered <strong>$0$ (zero)</strong> representing nothing, invented in India!
+            </p>
+            <div class="formula-box">$$\text{Fractions: } \frac{1}{2},\; \frac{3}{2},\; \frac{13}{6}$$</div>
+            <p class="card-text">Fractions fill the space between whole numbers.</p>
+          </div>
+
+          <div class="card card-accent">
+            <div class="card-title"><span class="badge-icon">?</span> Beyond the Ray?</div>
+            <p class="card-text">
+              The number ray begins at $0$ and extends only to the right.
+            </p>
+            <div class="formula-box">$$0 \longrightarrow 1 \longrightarrow 2 \longrightarrow 3 \dots$$</div>
+            <p class="card-text"><strong>Big Question:</strong> Are there numbers less than zero, to the left of $0$?</p>
+          </div>
+        </div>
+
+        <div class="card" style="background: #f0fdf4; border: 1px solid #86efac;">
+          <p class="card-text" style="font-size: 1rem; text-align: center; font-weight: 600; color: #166534;">
+            🎯 <strong>Goal of this Chapter:</strong> Investigate numbers less than zero, complete the number ray into a full <em>Number Line</em>, and master operations on integers!
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 2 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 3: QUICK BOX — Slide 2
+         ========================================== -->
+    <section class="slide" id="slide-3">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Numbers Before Zero</span>
+        </div>
+        <span class="pill-tag pill-page">Page 243</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why is the conventional number line starting from 0 technically called a "number ray" in geometry?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Can you think of any real-life situation where having "less than nothing" or "less than 0" makes practical sense?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">How many digits are used in the Indian number system to write numbers however large or small?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 3 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 4: 10.1 Bela's Building of Fun!
+         ========================================== -->
+    <section class="slide" id="slide-4">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Section 10.1</span>
+          <span class="slide-title">Bela's Building of Fun — Lift & Floors</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 243–244</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-custom-building">
+          <div class="tower-box">
+            <div class="floor-row pos"><strong>+6</strong> Space Station</div>
+            <div class="floor-row pos"><strong>+5</strong> Sports Centre</div>
+            <div class="floor-row pos"><strong>+4</strong> Ice Cream Parlour</div>
+            <div class="floor-row pos"><strong>+3</strong> Book Store</div>
+            <div class="floor-row pos"><strong>+2</strong> Art Centre</div>
+            <div class="floor-row pos"><strong>+1</strong> Food Court</div>
+            <div class="floor-row ground"><strong>Floor 0</strong> Welcome Hall (Ground)</div>
+            <div class="floor-row neg"><strong>-1</strong> Toy Store</div>
+            <div class="floor-row neg"><strong>-2</strong> Video Games</div>
+            <div class="floor-row neg"><strong>-3</strong> Cinema</div>
+            <div class="floor-row neg"><strong>-4</strong> Ghost House</div>
+            <div class="floor-row neg"><strong>-5</strong> Dinosaur Cave</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="card card-accent">
+              <div class="card-title">🛗 The Lift Mechanism</div>
+              <ul style="padding-left: 20px; line-height: 1.6; font-size: 0.93rem;">
+                <li>The lift has two simple buttons: <strong>$+$</strong> (go up) and <strong>$-$</strong> (go down).</li>
+                <li>Pressing $+$ twice moves up 2 floors: written as <strong>$+2$</strong> (or $++$).</li>
+                <li>Pressing $-$ twice moves down 2 floors: written as <strong>$-2$</strong> (or $--$).</li>
+              </ul>
+            </div>
+
+            <div class="card card-green">
+              <div class="card-title">✨ Defining Positive & Negative Numbers</div>
+              <p class="card-text">
+                • <strong>Positive Number:</strong> Number with a $+$ sign (or none). Represents floors <em>above ground</em>.<br>
+                • <strong>Negative Number:</strong> Number with a $-$ sign. Represents floors <em>below ground</em>.<br>
+                • <strong>Zero ($0$):</strong> The reference ground floor. <em>Zero is neither positive nor negative!</em>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 4 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 5: QUICK BOX — Bela's Building
+         ========================================== -->
+    <section class="slide" id="slide-5">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Floors & Button Presses</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 243–244</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why is the ground floor chosen as Floor 0 instead of Floor 1 in Bela's Building of Fun?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What button press corresponds to moving from the Welcome Hall to the Dinosaur Cave?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Does the number 0 have a $+$ or $-$ sign in front of it? Why?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 5 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 6: Addition to Keep Track of Movement
+         ========================================== -->
+    <section class="slide" id="slide-6">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Addition as Movement</span>
+          <span class="slide-title">Tracking Floor Movements</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 245–246</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-accent" style="background: #f8fafc;">
+          <div class="card-title">📌 Fundamental Movement Formula</div>
+          <div class="formula-box" style="font-size: 1.3rem;">
+            $$\mathbf{\text{Starting Floor} + \text{Movement} = \text{Target Floor}}$$
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-green">
+            <div class="card-title">Example 1: Going Up</div>
+            <p class="card-text">
+              Start at Food Court ($+1$) and press $+2$ in the lift:<br>
+              <strong>$(+1) + (+2) = +3$</strong> (Book Store).
+            </p>
+            <div class="formula-box">$$\text{Start } (+1) \xrightarrow{\;+2\;} \text{Target } (+3)$$</div>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-title">Example 2: Going Down</div>
+            <p class="card-text">
+              Start at Art Centre ($+2$) and press $-3$ in the lift:<br>
+              <strong>$(+2) + (-3) = -1$</strong> (Toy Store).
+            </p>
+            <div class="formula-box">$$\text{Start } (+2) \xrightarrow{\;-3\;} \text{Target } (-1)$$</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔄 Combining Button Presses is also Addition</div>
+          <p class="card-text">
+            Gurmit was in the Toy Store ($-1$). He pressed $+$ twice, then realized his error and pressed $-$ three times:<br>
+            Net Movement: <strong>$(+2) + (-3) = -1$</strong> (One floor below where he started).
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 6 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 7: QUICK BOX — Addition as Movement
+         ========================================== -->
+    <section class="slide" id="slide-7">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Tracking Movement</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 245–246</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Evaluate mentally: What is $(-1) + (+2)$? Which floor do you reach starting at Toy Store?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If you start at Floor $+2$, what movement is required to reach Floor $-5$? Write the addition expression.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Combine the consecutive button presses: $(+4) + (-3) + (-2) = \text{?}$</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 7 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 8: Back to Zero & Additive Inverses
+         ========================================== -->
+    <section class="slide" id="slide-8">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Concept Focus</span>
+          <span class="slide-title">Back to Zero & Additive Inverses</span>
+        </div>
+        <span class="pill-tag pill-page">Page 246</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-accent">
+          <div class="card-title">Cancelling Out to Zero</div>
+          <p class="card-text">
+            On the ground floor ($0$), Basant accidentally presses $+3$. To cancel it and stay on the ground floor, he must press $-3$!
+          </p>
+          <div class="formula-box">
+            $$(+3) + (-3) = 0 \quad\text{and}\quad (-2) + (+2) = 0$$
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-green">
+            <div class="card-title">Definition: Additive Inverse</div>
+            <p class="card-text">
+              Every integer has an <strong>additive inverse</strong> (or opposite). When an integer is added to its inverse, the sum is always <strong>zero</strong>.
+            </p>
+            <div class="formula-box">$$a + (-a) = 0$$</div>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-title">Examples of Pairs</div>
+            <ul style="padding-left: 20px; font-size: 0.95rem; line-height: 1.8;">
+              <li>The inverse of $+4$ is <strong>$-4$</strong></li>
+              <li>The inverse of $-7$ is <strong>$+7$</strong></li>
+              <li>The inverse of $-9$ is <strong>$+9$</strong></li>
+              <li>The inverse of $0$ is <strong>$0$</strong> (itself!)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 8 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 9: QUICK BOX — Inverses
+         ========================================== -->
+    <section class="slide" id="slide-9">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Additive Inverses</span>
+        </div>
+        <span class="pill-tag pill-page">Page 246</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">What is the additive inverse of $-543$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If you are at Floor $-2$ and press its additive inverse in the lift, which floor do you arrive at?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Is there any integer that is its own additive inverse?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 9 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 10: Comparing Integers Using Floors
+         ========================================== -->
+    <section class="slide" id="slide-10">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Ordering Integers</span>
+          <span class="slide-title">Comparing Numbers Using Floors</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 246–247</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-accent">
+          <div class="card-title">Higher vs Lower Floors</div>
+          <p class="card-text">
+            Floor $+4$ is higher than Floor $+3$, so $+4 > +3$ (or $+3 < +4$).<br>
+            What about negative floors? Floor $-3$ is higher than Floor $-4$, because Floor $-4$ is further deep underground!
+          </p>
+          <div class="formula-box">
+            $$-4 < -3 \quad\Longleftrightarrow\quad -3 > -4$$
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-green">
+            <div class="card-title">Key Ordering Principles</div>
+            <ul style="padding-left: 20px; line-height: 1.6; font-size: 0.92rem;">
+              <li>All positive numbers are <strong>greater than 0</strong> ($+1 > 0$).</li>
+              <li>All negative numbers are <strong>less than 0</strong> ($-1 < 0$).</li>
+              <li>Any positive number is <strong>greater than any negative number</strong>.</li>
+              <li>For two negative numbers: the one with the larger numeral is <em>smaller</em> (further down).</li>
+            </ul>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-title">Comparison Examples</div>
+            <ul style="padding-left: 20px; line-height: 1.6; font-size: 0.95rem;">
+              <li>$-2 < +5$ (negative is below positive)</li>
+              <li>$-5 < -3$ ($-5$ is deeper down)</li>
+              <li>$-10 > -12$ ($-10$ is higher than $-12$)</li>
+              <li>$0 > -20$ (ground is above basement)</li>
+              <li>$-25 < -7$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 10 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 11: QUICK BOX — Comparing Numbers
+         ========================================== -->
+    <section class="slide" id="slide-11">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Comparing Integers</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 246–247</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Which is lower: Floor $-6$ or Floor $+6$? Fill with $<$ or $>$: $-6 \;\square\; +6$.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">A student claims that since $12 > 10$, it must be that $-12 > -10$. Why is this reasoning incorrect?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Who is on the lowest floor among Jay (Art Centre: $+2$), Asin (Sports: $+5$), Binnu (Cinema: $-3$), and Aman (Toys: $-1$)?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 11 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 12: Subtraction to Find Movement
+         ========================================== -->
+    <section class="slide" id="slide-12">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Subtraction as Difference</span>
+          <span class="slide-title">Finding Which Button to Press</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 247–249</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-accent">
+          <div class="card-title">Subtraction as "Finding the Missing Quantity"</div>
+          <p class="card-text">
+            Earlier subtraction was "take away" ($10 - 4 = 6$). In integers, subtraction means finding the <strong>change needed to reach a target</strong>:
+          </p>
+          <div class="formula-box" style="font-size: 1.25rem;">
+            $$\mathbf{\text{Target Floor} - \text{Starting Floor} = \text{Movement Needed}}$$
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">Case 1: Upward Move</div>
+            <p class="card-text">
+              Start: $+2$ (Art Centre)<br>
+              Target: $+5$ (Sports Centre)<br>
+              Movement:
+            </p>
+            <div class="formula-box">$$(+5) - (+2) = +3$$</div>
+            <p class="card-text">Press $+3$ (3 floors up).</p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Case 2: Downward Move</div>
+            <p class="card-text">
+              Start: $+3$ (Books)<br>
+              Target: $-1$ (Toys)<br>
+              Movement:
+            </p>
+            <div class="formula-box">$$(-1) - (+3) = -4$$</div>
+            <p class="card-text">Press $-4$ (4 floors down).</p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Case 3: From Negative Floor</div>
+            <p class="card-text">
+              Start: $-2$ (Video Games)<br>
+              Target: $+2$ (Art Centre)<br>
+              Movement:
+            </p>
+            <div class="formula-box">$$(+2) - (-2) = +4$$</div>
+            <p class="card-text">Press $+4$ (4 floors up).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 12 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 13: QUICK BOX — Subtraction as Movement
+         ========================================== -->
+    <section class="slide" id="slide-13">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Finding the Button Press</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 248–249</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Target Floor is $-1$ and Starting Floor is $-2$. What button should you press? Complete: $(-1) - (-2) = \text{?}$</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What is the result of $(0) - (-2)$? Explain what movement this represents from the ground floor.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Evaluate $(+3) - (-3)$. How many floors total must the lift move?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 13 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 14: Adding & Subtracting Larger Numbers (Mineshaft)
+         ========================================== -->
+    <section class="slide" id="slide-14">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Deep Mineshaft</span>
+          <span class="slide-title">Adding & Subtracting Larger Integers</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 250–251</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent">
+            <div class="card-title">⛏️ The Deep Mine Model</div>
+            <p class="card-text">
+              Minerals exist above and below ground level ($0\,\text{m}$):<br>
+              • Upper tunnels: $+40\,\text{m},\; +100\,\text{m},\; +125\,\text{m},\; +180\,\text{m}$<br>
+              • Lower shafts: $-50\,\text{m},\; -80\,\text{m},\; -125\,\text{m},\; -175\,\text{m}$
+            </p>
+            <div class="formula-box">
+              $$(+40) - (-50) = +90\,\text{m} \quad(\text{move up } 90\,\text{m})$$
+            </div>
+            <p class="card-text">
+              To move from $-50\,\text{m}$ to $+40\,\text{m}$, lift rises $50\,\text{m}$ to ground, then $40\,\text{m}$ more!
+            </p>
+          </div>
+
+          <div class="card card-green">
+            <div class="card-title">🚀 The Infinite Lift Concept</div>
+            <p class="card-text">
+              We don't need a real building — imagine an <em>infinite lift</em> moving endlessly upwards ($+1, +2, +3 \dots$) and downwards ($-1, -2, -3 \dots$).
+            </p>
+            <div class="formula-box">
+              $$(+2000) - (-200) = +2200$$
+            </div>
+            <p class="card-text">
+              Notice: $(+2000) + (+200)$ also equals $+2200$.<br>
+              <strong>Golden Rule:</strong> <em>Subtracting a negative number is the same as adding the corresponding positive number!</em>
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="background: #e0f2fe; border: 1px solid #7dd3fc; text-align: center;">
+          <strong style="color: #0369a1; font-size: 1.05rem;">
+            Definition of Integers: $\dots, -4, -3, -2, -1, 0, 1, 2, 3, 4, \dots$
+          </strong>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 14 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 15: QUICK BOX — Mineshaft & Large Integers
+         ========================================== -->
+    <section class="slide" id="slide-15">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Mineshaft Calculations</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 250–251</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A lift in a mineshaft is at $-50\,\text{m}$. What movement is required to reach $+200\,\text{m}$? Complete: $(-50) + \;\square = +200$.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Why is subtracting $(-200)$ from $+2000$ identical to adding $(+200)$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Evaluate: $(-200) - (+40) = \text{?}$ Describe the lift movement.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 15 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 16: Completing the Number Ray into a Number Line
+         ========================================== -->
+    <section class="slide" id="slide-16">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Core Model</span>
+          <span class="slide-title">Back to the Number Line</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 252–253</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-accent">
+          <div class="card-title">Rotating the Infinite Lift by $90^\circ$</div>
+          <p class="card-text">
+            If we rotate the vertical lift horizontally, it forms the complete <strong>Number Line</strong>. To the right of 0 are positive numbers; to the left are negative numbers.
+          </p>
+
+          <div class="numline-container">
+            <div class="numline-axis">
+              <!-- Left ticks -->
+              <div class="numline-tick" style="left: 5%;"><span class="numline-label">-5</span></div>
+              <div class="numline-tick" style="left: 14%;"><span class="numline-label">-4</span></div>
+              <div class="numline-tick" style="left: 23%;"><span class="numline-label">-3</span></div>
+              <div class="numline-tick" style="left: 32%;"><span class="numline-label">-2</span></div>
+              <div class="numline-tick" style="left: 41%;"><span class="numline-label">-1</span></div>
+              <!-- Zero -->
+              <div class="numline-tick" style="left: 50%; height: 26px; top: -11px; background: #e11d48;"><span class="numline-label zero">0</span></div>
+              <!-- Right ticks -->
+              <div class="numline-tick" style="left: 59%;"><span class="numline-label">1</span></div>
+              <div class="numline-tick" style="left: 68%;"><span class="numline-label">2</span></div>
+              <div class="numline-tick" style="left: 77%;"><span class="numline-label">3</span></div>
+              <div class="numline-tick" style="left: 86%;"><span class="numline-label">4</span></div>
+              <div class="numline-tick" style="left: 95%;"><span class="numline-label">5</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-green">
+            <div class="card-title">🚶 Walking Directions</div>
+            <p class="card-text">
+              • <strong>To the Right:</strong> Positive / forward direction ($+$)<br>
+              • <strong>To the Left:</strong> Negative / backward direction ($-$)
+            </p>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-title">⚖️ Positional Order</div>
+            <p class="card-text">
+              Numbers further to the <strong>left</strong> are always smaller!<br>
+              $$2 < 5, \quad -3 < 2, \quad -5 < -3$$
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 16 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 17: QUICK BOX — The Number Line
+         ========================================== -->
+    <section class="slide" id="slide-17">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Walking the Number Line</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 252–253</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">From 3, if you wish to go to $-2$, how many steps and in which direction must you walk?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Is $2 > -3$? What is the geometric reason on the number line?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Write the subtraction expression corresponding to walking backward 6 steps from 9 to reach 3.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 17 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 18: Unmarked Number Line & Converting Operations
+         ========================================== -->
+    <section class="slide" id="slide-18">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Visual Strategy</span>
+          <span class="slide-title">Unmarked Number Line & Conversions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 254–255</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-accent">
+          <div class="card-title">Sketching an Unmarked Number Line</div>
+          <p class="card-text">
+            For large numbers, you do not need every tick mark. Just sketch a line, mark $0$, and draw arrows indicating jumps!
+          </p>
+          <div class="formula-box">
+            $$85 + (-60) = 25 \quad\text{(Start at } 85\text{, jump } 60\text{ left } \longrightarrow \text{land at } 25\text{)}$$
+            $$(-100) - (+250) = -350 \quad(250 + ? = -100 \implies ? = -350)$$
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-green">
+            <div class="card-title">Convert Subtraction to Addition</div>
+            <p class="card-text">
+              Replace the number being subtracted with its <strong>additive inverse</strong>, and add!
+            </p>
+            <div class="formula-box">$$a - b = a + (-b)$$</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • $(+7) - (+5) = (+7) + (-5) = 2$<br>
+              • $(+8) - (-2) = (+8) + (+2) = 10$
+            </p>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-title">Convert Addition to Subtraction</div>
+            <p class="card-text">
+              Similarly, adding an integer is the same as subtracting its additive inverse!
+            </p>
+            <div class="formula-box">$$a + b = a - (-b)$$</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • $9 + (-6) = 9 - 6 = 3$<br>
+              • $(-3) + (-2) = -3 - 2 = -5$
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 18 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 19: QUICK BOX — Unmarked Number Line
+         ========================================== -->
+    <section class="slide" id="slide-19">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Converting Operations</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 254–255</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Convert this subtraction into an addition problem: $(+6) - (-9) = \;\square$</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Break the journey from 2 to $-3$ into two parts via 0. What are the two movements?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Mentally evaluate using an unmarked number line: $-99 - (-200) = \text{?}$</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 19 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 20: 10.2 The Token Model — Addition
+         ========================================== -->
+    <section class="slide" id="slide-20">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Section 10.2</span>
+          <span class="slide-title">The Token Model & Zero Pairs (Addition)</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 256–257</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="card card-accent">
+          <div class="card-title">🟢 Green (+) and 🔴 Red (-) Tokens</div>
+          <p class="card-text">
+            Each positive token represents $+1$. Each negative token represents $-1$.
+          </p>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin: 12px 0;">
+            <div class="token-pair cancelled">
+              <span class="token token-pos">+</span>
+              <span class="token token-neg">-</span>
+            </div>
+            <div style="font-size: 1.15rem; font-weight: 700; color: #0369a1;">
+              One Positive $+$ One Negative $=$ <span style="color: #e11d48;">Zero Pair $(0)$</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-green">
+            <div class="card-title">Example 1: $(+5) + (-3)$</div>
+            <p class="card-text">Put down 5 green tokens and 3 red tokens:</p>
+            <div class="token-row">
+              <span class="token token-pos">+</span><span class="token token-pos">+</span><span class="token token-pos">+</span><span class="token token-pos">+</span><span class="token token-pos">+</span>
+            </div>
+            <div class="token-row">
+              <span class="token token-neg">-</span><span class="token token-neg">-</span><span class="token token-neg">-</span>
+            </div>
+            <p class="card-text">Cancel 3 zero pairs $\implies$ <strong>$+2$ remaining</strong>.</p>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-title">Example 2: $(+5) + (-8)$</div>
+            <p class="card-text">Put down 5 green tokens and 8 red tokens:</p>
+            <div class="token-row">
+              <span class="token token-pos">+</span><span class="token token-pos">+</span><span class="token token-pos">+</span><span class="token token-pos">+</span><span class="token token-pos">+</span>
+            </div>
+            <div class="token-row">
+              <span class="token token-neg">-</span><span class="token token-neg">-</span><span class="token token-neg">-</span><span class="token token-neg">-</span><span class="token token-neg">-</span><span class="token token-neg">-</span><span class="token token-neg">-</span><span class="token token-neg">-</span>
+            </div>
+            <p class="card-text">Cancel 5 zero pairs $\implies$ <strong>$-3$ remaining</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 20 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 21: QUICK BOX — Token Addition
+         ========================================== -->
+    <section class="slide" id="slide-21">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Token Addition</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 256–257</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A pocket has 6 positive and 4 positive tokens. Are any zero pairs formed? What is the sum?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If you have 3 positive tokens and 5 negative tokens, how many zero pairs can you remove? What is the final floor?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why does adding a zero pair to any set of tokens leave the total value completely unchanged?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 21 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 22: Token Model — Subtraction & Zero Pairs
+         ========================================== -->
+    <section class="slide" id="slide-22">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Section 10.2 Subtraction</span>
+          <span class="slide-title">Using Tokens for Subtraction</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 257–259</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent">
+            <div class="card-title">Simple Case: Enough Tokens Present</div>
+            <p class="card-text"><strong>$(+5) - (+4)$</strong>: Take away 4 positive tokens from 5 positives $\implies \mathbf{+1}$.</p>
+            <p class="card-text" style="margin-top: 8px;"><strong>$(-7) - (-5)$</strong>: Take away 5 negative tokens from 7 negatives $\implies \mathbf{-2}$.</p>
+            <div class="formula-box">$$(-7) - (-5) = -2$$</div>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-title">The Clever Trick: Introducing Zero Pairs!</div>
+            <p class="card-text">
+              What if you need to subtract tokens that aren't there?<br>
+              <strong>Calculate: $(+4) - (-6)$</strong>
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.5; margin-top: 6px;">
+              <li>Start with 4 positives: $\oplus\,\oplus\,\oplus\,\oplus$</li>
+              <li>Need to remove 6 negatives, but there are none!</li>
+              <li><strong>Solution:</strong> Add 6 zero pairs (value = 0).</li>
+              <li>Now remove the 6 negatives!</li>
+              <li>You are left with $4 + 6 = \mathbf{+10}$!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card card-green">
+          <div class="card-title">Subtracting a Positive from a Negative: $(-3) - (+5)$</div>
+          <p class="card-text">
+            Start with 3 negatives. To take away 5 positives, introduce <strong>5 zero pairs</strong>. Remove the 5 positives. Left with $3 + 5 = 8$ negatives $\implies \mathbf{-8}$.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 22 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 23: QUICK BOX — Token Subtraction
+         ========================================== -->
+    <section class="slide" id="slide-23">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Token Subtraction</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 258–259</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">To calculate $(+5) - (+6)$ with tokens, how many zero pairs must you introduce? What is the final result?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">How many zero pairs are needed to evaluate $(+8) - (-7)$ using tokens?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What is the result of $(-2) - (-6)$? Does this match the rule $(-2) + (+6)$?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 23 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 24: 10.3 Integers in Other Places — Banking & Geography
+         ========================================== -->
+    <section class="slide" id="slide-24">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Section 10.3</span>
+          <span class="slide-title">Real-World Integers: Money & Elevation</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 259–261</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-green">
+            <div class="card-title">💰 Credits and Debits</div>
+            <p class="card-text">
+              In banking and passbooks:<br>
+              • <strong>Credits (Deposits):</strong> Positive numbers ($+$)<br>
+              • <strong>Debits (Payments/Withdrawals):</strong> Negative numbers ($-$)
+            </p>
+            <div class="formula-box">
+              $$\text{Balance} = \sum \text{Credits} - \sum \text{Debits}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              If balance goes below zero (e.g., $-\text{₹}20$), it means an overdraft/debt!
+            </p>
+          </div>
+
+          <div class="card card-accent">
+            <div class="card-title">🏔️ Geographical Cross Sections</div>
+            <p class="card-text">
+              Reference baseline is <strong>Sea Level = $0\,\text{m}$</strong>:<br>
+              • Mountains/hills: Positive elevations ($+1500\,\text{m}$)<br>
+              • Trenches/ocean floors: Negative depths ($-1200\,\text{m}$)
+            </p>
+            <div class="formula-box">
+              $$\text{Mt. Everest: } +8848\,\text{m} \quad\mid\quad \text{Mariana: } -10994\,\text{m}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Challenger Deep is the lowest known point on Earth!
+            </p>
+          </div>
+        </div>
+
+        <div class="card" style="background: #f8fafc;">
+          <p class="card-text" style="text-align: center; font-weight: 600; color: #334155;">
+            🌡️ <strong>Temperature:</strong> Measured in Celsius ($^\circ\text{C}$). $0^\circ\text{C}$ is the freezing point of water. Hot summer days rise to $+45^\circ\text{C}$, while winter in Leh/Ladakh drops below zero to $-4^\circ\text{C}$ or $-15^\circ\text{C}$!
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 24 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 25: QUICK BOX — Integers in Other Places
+         ========================================== -->
+    <section class="slide" id="slide-25">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Real-World Integers</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 260–262</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">You start with ₹0, receive credits of ₹30, ₹40, ₹50, and have debits of ₹40, ₹50, ₹60. What is your net bank balance?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">In a geographic cross-section, which point is higher: point B at $-500\,\text{m}$ or point F at $-200\,\text{m}$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">In Leh, which temperature is colder: $-2^\circ\text{C}$ at 11:00 p.m. or $-4^\circ\text{C}$ at 02:00 a.m.?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 25 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 26: 10.4 Explorations — Grids & Magic Puzzles
+         ========================================== -->
+    <section class="slide" id="slide-26">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Section 10.4</span>
+          <span class="slide-title">Explorations: Hollow Grids & Magic Grids</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 263–265</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent">
+            <div class="card-title">🔲 Hollow Integer Grid (Border Sum)</div>
+            <p class="card-text">
+              In a $3 \times 3$ hollow frame, every outer row and column adds up to the identical number called the <strong>Border Sum</strong>!
+            </p>
+            <div style="background: #f1f5f9; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 0.95rem; text-align: center; margin: 8px 0;">
+              [ 4 ]  [ -1 ]  [ -3 ]<br>
+              [-3 ]  [    ]  [  1 ]<br>
+              [-1 ]  [ -1 ]  [  2 ]
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Top row: $4 + (-1) + (-3) = \mathbf{0}$<br>
+              Left col: $4 + (-3) + (-1) = \mathbf{0}$<br>
+              Border sum $= 0$!
+            </p>
+          </div>
+
+          <div class="card card-green">
+            <div class="card-title">✨ Amazing Number Grid Game</div>
+            <p class="card-text">
+              Follow these simple steps on a $4 \times 4$ grid:
+            </p>
+            <ol style="padding-left: 20px; font-size: 0.88rem; line-height: 1.5;">
+              <li>Circle any number.</li>
+              <li>Strike out its entire row and column.</li>
+              <li>Circle any remaining unstruck number.</li>
+              <li>Repeat until 4 numbers are circled.</li>
+            </ol>
+            <div class="formula-box">$$\text{Sum of circled numbers is ALWAYS constant!}$$</div>
+            <p class="card-text" style="font-size: 0.86rem;">
+              No matter which numbers you pick, the sum never changes!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 26 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 27: QUICK BOX — Grids & Puzzles
+         ========================================== -->
+    <section class="slide" id="slide-27">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Integer Grid Explorations</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 263–265</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">In a hollow grid with numbers $5, -3, -5$ on the top row, what is the border sum?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Why does the $4 \times 4$ strike-out grid always yield the exact same sum regardless of which cells you circle?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can you give three distinct integers whose total sum is $-8$?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 27 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 28: 10.5 A Pinch of History — Brahmagupta's Groundbreaking Rules
+         ========================================== -->
+    <section class="slide" id="slide-28">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Section 10.5</span>
+          <span class="slide-title">A Pinch of History — Ancient Roots of Integers</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 266–268</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">📜 Ancient Accounting</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • <strong>China (c. 1st–2nd c. CE):</strong> <em>Nine Chapters on Mathematical Art</em> used red and black rods for positive & negative numbers.<br><br>
+              • <strong>India (c. 300 BCE):</strong> Kautilya's <em>Arthaśhāstra</em> recognized negative account balances.<br><br>
+              • <strong>Bakhshālī Manuscript (c. 300 CE):</strong> Marked negative numbers with a special symbol.
+            </p>
+          </div>
+
+          <div class="card card-green" style="grid-column: span 2;">
+            <div class="card-title">👑 Brahmagupta (628 CE) — Brāhma-sphuṭa-siddhānta</div>
+            <p class="card-text" style="font-size: 0.92rem;">
+              Brahmagupta gave the <strong>first general mathematical treatment</strong> treating positive numbers, negative numbers, and zero on an equal footing—forming what modern mathematicians call a <em>ring</em>!
+            </p>
+            <div class="formula-box" style="font-size: 1rem; text-align: left; line-height: 1.5;">
+              • <strong>Positive $+$ Positive $=$ Positive</strong> ($2 + 3 = 5$)<br>
+              • <strong>Negative $+$ Negative $=$ Negative</strong> ($(-2) + (-3) = -5$)<br>
+              • <strong>Number $+$ Inverse $= 0$</strong> ($a + (-a) = 0$)<br>
+              • <strong>Subtracting a negative is adding a positive:</strong> $a - (-b) = a + b$
+            </div>
+            <p class="card-text" style="font-size: 0.85rem; color: #64748b;">
+              European mathematicians took over 1,000 years to accept them; in the 18th century, Lazare Carnot still called negatives "absurd"!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 28 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 29: QUICK BOX — History & Brahmagupta
+         ========================================== -->
+    <section class="slide" id="slide-29">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Brahmagupta's Rules</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 267–268</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">How did ancient Chinese mathematicians represent positive and negative numbers in the <em>Nine Chapters</em>?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Explain Brahmagupta's rule: "Subtracting a number from zero gives the number's inverse" using an example.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why did it take European mathematicians until the 18th–19th century to fully accept negative numbers?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 29 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 30: Classroom Game: Integers Snakes & Ladders
+         ========================================== -->
+    <section class="slide" id="slide-30">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-purple">Interactive Game</span>
+          <span class="slide-title">Integers: Snakes and Ladders</span>
+        </div>
+        <span class="pill-tag pill-page">Page 271</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent">
+            <div class="card-title">🎲 Rules of the Game</div>
+            <ul style="padding-left: 20px; line-height: 1.6; font-size: 0.92rem;">
+              <li><strong>Players & Pawns:</strong> 2 players, 1 pawn each. Both start at <strong>$0$</strong>.</li>
+              <li><strong>Winning Goal:</strong> First player to reach <em>either</em> <strong>$+50$</strong> OR <strong>$-50$</strong> wins!</li>
+              <li><strong>Two Dice:</strong>
+                <br>• Die 1 has numbers $+1$ to $+6$
+                <br>• Die 2 has numbers $-1$ to $-6$
+              </li>
+              <li><strong>Strategic Choice:</strong> After each roll, you can <em>add or subtract</em> the two numbers in any order!</li>
+              <li>Positive total moves towards $+50$; negative total moves towards $-50$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-green">
+            <div class="card-title">🧠 Tactical Example</div>
+            <p class="card-text">
+              Suppose you roll <strong>$+4$</strong> and <strong>$-6$</strong>:
+            </p>
+            <div class="formula-box" style="text-align: left; font-size: 0.95rem;">
+              • Option A (Add): $(+4) + (-6) = \mathbf{-2}$ (Move 2 steps toward $-50$)<br>
+              • Option B (Subtract): $(+4) - (-6) = +4 + 6 = \mathbf{+10}$ (Move 10 steps toward $+50$!)<br>
+              • Option C (Subtract): $(-6) - (+4) = \mathbf{-10}$ (Move 10 steps toward $-50$!)
+            </div>
+            <p class="card-text" style="font-weight: 600; color: #15803d;">
+              Notice how subtracting a negative number gives a huge positive surge!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 30 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 31: Exercise Highlights (Worked Problems)
+         ========================================== -->
+    <section class="slide" id="slide-31">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-cyan">Worked Examples</span>
+          <span class="slide-title">Exercise Highlights & Problem Solving</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 265–266</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-accent">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 1: Sequences</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Complete the pattern:<br>
+              $(-40), (-34), (-28), (-22), \dots$
+            </p>
+            <div class="formula-box" style="font-size: 0.95rem;">
+              $$\text{Step: Add } +6$$
+              $$-22 + 6 = \mathbf{-16}$$
+              $$-16 + 6 = \mathbf{-10}$$
+              $$-10 + 6 = \mathbf{-4}$$
+            </div>
+            <p class="card-text" style="font-size: 0.82rem; color: #16a34a; font-weight: 700;">Answer: $-16, -10, -4$</p>
+          </div>
+
+          <div class="card card-accent">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 2: Card Target</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Cards:</strong> $(+1), (+7), (+18), (-5), (-2), (-9)$.<br>
+              Make an expression closest to $-30$.
+            </p>
+            <div class="formula-box" style="font-size: 0.92rem;">
+              $$(-2) + (-9) - (+18) - (+1)$$
+              $$= -11 - 18 - 1 = \mathbf{-30}$$
+            </div>
+            <p class="card-text" style="font-size: 0.82rem; color: #16a34a; font-weight: 700;">Result: Exactly $-30$!</p>
+          </div>
+
+          <div class="card card-accent">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 3: Token String</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> String of 100 tokens with repeating blocks of $(+++)$ and $(--)$. Value?
+            </p>
+            <div class="formula-box" style="font-size: 0.92rem;">
+              $$\text{Block: } 3 - 2 = +1 \text{ (per 5 tokens)}$$
+              $$100 / 5 = 20 \text{ blocks}$$
+              $$\text{Value} = 20 \times 1 = \mathbf{20}$$
+            </div>
+            <p class="card-text" style="font-size: 0.82rem; color: #16a34a; font-weight: 700;">Answer: $+20$</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 31 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 32: QUICK BOX — Exercise Highlights
+         ========================================== -->
+    <section class="slide" id="slide-32">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Problem Solving</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 265–266</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Is $(\text{negative}) - (\text{negative})$ always positive, always negative, or can it be either? Give an example of both.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What will be the calendar year exactly 320 years after 680 BCE? (Remember: there is no year 0!).</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">On a pair of special dice marked with numbers $1, 2, 3, 4, -5, 6$, why is it impossible to get a sum of 0?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 32 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 33: Chapter Summary Checklist
+         ========================================== -->
+    <section class="slide" id="slide-33">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-green">Chapter Summary</span>
+          <span class="slide-title">Core Takeaways & Rules Checklist</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 269–270</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-accent">
+            <div class="card-title">✅ Concept Recap</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Integers:</strong> $\dots, -3, -2, -1, 0, 1, 2, 3, \dots$</li>
+              <li><strong>Zero ($0$):</strong> Neither positive nor negative. The center reference.</li>
+              <li><strong>Additive Inverse:</strong> $a + (-a) = 0$. The opposite number.</li>
+              <li><strong>Order on Number Line:</strong> Left is smaller, right is greater ($a < b$).</li>
+              <li><strong>Zero Pair:</strong> $\oplus + \ominus = 0$. Can be added/removed freely.</li>
+            </ul>
+          </div>
+
+          <div class="card card-green">
+            <div class="card-title">✅ Operations Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Movement Rule:</strong> $\text{Start} + \text{Movement} = \text{Target}$</li>
+              <li><strong>Difference Rule:</strong> $\text{Target} - \text{Start} = \text{Movement}$</li>
+              <li><strong>Subtraction to Addition:</strong> $a - b = a + (-b)$</li>
+              <li><strong>Subtracting Negative:</strong> $a - (-b) = a + b$</li>
+              <li><strong>Real-world models:</strong> Lifts, mineshafts, banking (credits/debits), temperature ($^\circ\text{C}$), sea level.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 33 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 34: CLOSING SLIDE
+         ========================================== -->
+    <section class="slide closing-slide" id="slide-34">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-cyan">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-green">CHAPTER 10 COMPLETE</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 30px;">
+        <div class="eyebrow">Conclusion • Mastery of Integers</div>
+        <h1 class="cover-title" style="font-size: 3.2rem;">Congratulations!</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: #0284c7; margin-bottom: 16px; font-weight: 600;">
+          You Have Journeyed to the Other Side of Zero
+        </div>
+        <p class="cover-subtitle" style="font-size: 1.15rem; max-width: 780px;">
+          "The debt becomes a fortune when subtracted, and zero is the mirror through which numbers reflect their opposites."<br>
+          <span style="font-size: 0.95rem; font-style: normal; color: #64748b; margin-top: 6px; display: inline-block;">
+            — Inspired by Brahmagupta's <em>Brāhma-sphuṭa-siddhānta</em> (628 CE)
+          </span>
+        </p>
+
+        <!-- Mandatory Credit Pill (Closing Slide) -->
+        <div class="credit-pill" style="margin-top: 10px;">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 34 / 34</span>
+      </div>
+    </section>
+
+    <!-- Navigation Overlay Controls -->
+    <div id="controls">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+
+        // Re-render KaTeX if new elements are revealed
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentSlide], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ]
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          updateSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          updateSlide(currentSlide - 1);
+        }
+      }
+
+      // Event listeners for buttons
+      document.getElementById('next-btn').addEventListener('click', nextSlide);
+      document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
