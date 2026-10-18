@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 6 Mathematics • Chapter 8: Playing with Constructions</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for crisp math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    /* Design Variables - Teal / Cyan Theme */
+    :root {
+      --primary: #0f766e;
+      --primary-dark: #115e59;
+      --primary-light: #ccfbf1;
+      --primary-glow: rgba(15, 118, 110, 0.15);
+      --accent: #0284c7;
+      --accent-light: #e0f2fe;
+      --amber: #d97706;
+      --amber-light: #fef3c7;
+      --rose: #e11d48;
+      --rose-light: #ffe4e6;
+      --bg-page: #042f2e;
+      --slide-bg: #f8fafc;
+      --slide-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-subtle: #cbd5e1;
+      --border-accent: #99f6e4;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      --shadow-hover: 0 20px 25px -5px rgba(15, 118, 110, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+        body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc; /* Light background */
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      color: var(--text-main);
+      padding: 0; /* Padding hata dein */
+    }
+
+    /* 16:9 Presentation Stage */
+        .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: var(--slide-bg);
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* Individual Slide Styles */
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 30px 40px 30px 40px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      transform: scale(0.985);
+      transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+      background: linear-gradient(135deg, #f8fafc 0%, #f0fdfa 100%);
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    /* Top Bar Elements */
+    .slide-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .pill-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-primary {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid var(--border-accent);
+    }
+
+    .pill-page {
+      background: #f1f5f9;
+      color: var(--text-muted);
+      border: 1px solid #e2e8f0;
+    }
+
+    .pill-quick {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .pill-summary {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      margin-bottom: 14px;
+    }
+
+    .slide-title {
+      font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      line-height: 1.15;
+    }
+
+    .slide-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Slide Content Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .card-grid-1-2 {
+      display: grid;
+      grid-template-columns: 1.1fr 1.9fr;
+      gap: 18px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .card {
+      background: var(--slide-card);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .card-highlight {
+      border: 1.5px solid var(--primary);
+      background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+    }
+
+    .card-accent {
+      border: 1.5px solid #38bdf8;
+      background: linear-gradient(145deg, #ffffff 0%, #f0f9ff 100%);
+    }
+
+    .card-header-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .card-icon {
+      font-size: 1.15rem;
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 0.86rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 0.75rem;
+      top: 2px;
+    }
+
+    /* Math Box Container */
+    .formula-box {
+      background: #f8fafc;
+      border: 1.5px dashed var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      text-align: center;
+      margin-top: 4px;
+      font-size: 1.05rem;
+      color: var(--primary-dark);
+    }
+
+    /* Footer & Subtle Middle Slide Branding */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 18px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 5;
+    }
+
+    /* Cover Slide Enhancements */
+    .cover-slide {
+      background: linear-gradient(135deg, #042f2e 0%, #0f766e 60%, #115e59 100%);
+      color: #ffffff;
+      text-align: center;
+      justify-content: space-between;
+      padding: 44px 50px;
+    }
+
+    .cover-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin: auto 0;
+    }
+
+    .cover-eyebrow {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #99f6e4;
+      background: rgba(15, 118, 110, 0.45);
+      border: 1px solid rgba(153, 246, 228, 0.4);
+      padding: 6px 18px;
+      border-radius: 9999px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.1;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .cover-tagline {
+      font-size: 1.05rem;
+      color: #ccfbf1;
+      font-style: italic;
+      max-width: 720px;
+      line-height: 1.5;
+    }
+
+    .credit-badge-large {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(8px);
+      padding: 10px 24px;
+      border-radius: 9999px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-top: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .credit-badge-large span.site {
+      color: #99f6e4;
+      font-weight: 700;
+    }
+
+    /* Closing Slide */
+    .closing-slide {
+      background: linear-gradient(135deg, #042f2e 0%, #134e4a 100%);
+      color: #ffffff;
+      text-align: center;
+      justify-content: space-between;
+      padding: 44px 50px;
+    }
+
+    .closing-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      margin: auto 0;
+    }
+
+    .quote-box {
+      max-width: 760px;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #ccfbf1;
+      line-height: 1.6;
+      border-left: 4px solid #14b8a6;
+      padding-left: 20px;
+      text-align: left;
+    }
+
+    /* Quick Box Layout */
+    .quick-box-container {
+      background: #ffffff;
+      border: 2px solid #fde68a;
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 10px 14px;
+      background: #fffbeb;
+      border-radius: var(--radius-sm);
+      border-left: 4px solid #f59e0b;
+    }
+
+    .quick-badge {
+      background: #f59e0b;
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .quick-text {
+      font-size: 0.95rem;
+      color: #78350f;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    /* Construction Steps Component */
+    .step-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step-node {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-info {
+      font-size: 0.85rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .step-info strong {
+      color: var(--primary-dark);
+    }
+
+    /* Fixed UI Controls */
+    .deck-controls {
+      position: absolute;
+      bottom: 24px;
+      right: 28px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .btn-nav {
+      background: rgba(15, 118, 110, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-nav:hover {
+      background: var(--primary-dark);
+      transform: scale(1.08);
+    }
+
+    .nav-hint {
+      position: absolute;
+      bottom: 26px;
+      left: 28px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 100;
+      backdrop-filter: blur(4px);
+    }
+
+    /* SVG Geometric Diagrams */
+    .geo-sketch {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-sm);
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-container">
+    
+    <!-- SLIDE 1: COVER SLIDE -->
+    <section class="slide cover-slide active" id="slide-1">
+      <div class="slide-topbar">
+        <span class="pill pill-primary" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">
+          GANITA PRAKASH | GRADE 6
+        </span>
+        <span class="pill pill-page" style="background: rgba(255,255,255,0.15); color: #99f6e4; border-color: rgba(255,255,255,0.3);">
+          Chapter 8 • Cover
+        </span>
+      </div>
+
+      <div class="cover-center">
+        <div class="cover-eyebrow">NCERT Class 6 Mathematics • Chapter 8</div>
+        <h1 class="cover-title">PLAYING WITH<br>CONSTRUCTIONS</h1>
+        <p class="cover-tagline">
+          An exhaustive, step-by-step masterclass covering curves, circles, compass precision, square & rectangle geometry, diagonal properties, and equidistant intersections.
+        </p>
+
+        <!-- AUTHORSHIP PILL ONLY ON FIRST & LAST SLIDES -->
+        <div class="credit-badge-large">
+          <span>✦ Akash Srivastva</span>
+          <span class="site">(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="border-top-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);">
+        <span>Ganita Prakash • NCERT Class 6</span>
+        <span>Slide 1 / 28</span>
+      </div>
+    </section>
+
+
+    <!-- SLIDE 2: 8.1 ARTWORK & CURVES -->
+    <section class="slide" id="slide-2">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.1</span>
+          <span class="pill pill-primary" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">Introduction</span>
+        </div>
+        <span class="pill pill-page">Pages 188–189</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">🎨 Artwork, Freehand Sketches & Curves</h2>
+        <p class="slide-subtitle">Transitioning from intuitive hand-drawings to mathematical precision with geometric tools</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">✏️</span> What is a Curve in Geometry?
+            </div>
+            <ul class="bullet-list">
+              <li><strong>Broad Definition:</strong> Any continuous line or shape drawn smoothly on paper with a pencil without lifting it.</li>
+              <li>Includes <em>straight line segments</em>, <em>circular loops</em>, <em>wavy contours</em>, and <em>irregular closed shapes</em>.</li>
+              <li>Freehand drawing often lacks uniformity; compasses and rulers transform freeform art into rigorous geometry.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">📐</span> The Compass Tool Exploration
+            </div>
+            <ul class="bullet-list">
+              <li><strong>Structure:</strong> One arm has a metal needle tip (fixed pivot); the other holds a firmly clamped pencil.</li>
+              <li><strong>Fixed Center:</strong> Keeps the pivot point $P$ unmoved while sweeping the pencil along the plane.</li>
+              <li><strong>Constant Distance:</strong> Maintains an unvarying distance between needle point and pencil tip.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 2 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 3: QUICK BOX 1 -->
+    <section class="slide" id="slide-3">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 188</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Curves & Freehand Shapes</h2>
+        <p class="slide-subtitle">Immediate check for live classroom response</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">In mathematics, is a straight line segment considered a type of "curve"? Explain why.</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">Why does a freehand circle usually appear wobbly or distorted compared to one drawn with a compass?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">What must stay strictly fixed while sweeping a compass to draw a perfect round curve?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 3 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 4: DEFINING A CIRCLE & RADIUS -->
+    <section class="slide" id="slide-4">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.1</span>
+          <span class="pill pill-primary" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">Circle Concept</span>
+        </div>
+        <span class="pill pill-page">Page 189</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⭕ The Circle: Locus of Equidistant Points</h2>
+        <p class="slide-subtitle">Formally defining center, radius, and boundary distance</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-1-2">
+          <div class="geo-sketch">
+            <svg width="220" height="220" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="70" fill="#f0fdfa" stroke="#0f766e" stroke-width="2.5" />
+              <circle cx="100" cy="100" r="4" fill="#0f766e" />
+              <line x1="100" y1="100" x2="170" y2="100" stroke="#0284c7" stroke-width="2" stroke-dasharray="4" />
+              <circle cx="170" cy="100" r="3" fill="#0284c7" />
+              <text x="90" y="94" font-size="12" font-weight="700" fill="#0f766e">P (Center)</text>
+              <text x="122" y="93" font-size="11" font-weight="600" fill="#0284c7">r = 4 cm</text>
+              <text x="175" y="104" font-size="11" font-weight="700" fill="#0f172a">Q</text>
+            </svg>
+          </div>
+
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">⭐</span> Formal Geometric Properties
+            </div>
+            <ul class="bullet-list">
+              <li><strong>The Center ($P$):</strong> The unique fixed reference point about which all boundary points revolve.</li>
+              <li><strong>The Radius ($r$):</strong> The constant, fixed distance between the center $P$ and any point on the boundary circle ($r = PQ = 4\text{ cm}$).</li>
+              <li><strong>Boundary Invariance:</strong> Every point $X$ on the circle satisfies the equality:
+                <div class="formula-box">$$\text{Distance}(P, X) = r = \text{Constant}$$</div>
+              </li>
+              <li>If a point lies inside, $\text{dist} < r$; if outside, $\text{dist} > r$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 4 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 5: QUICK BOX 2 -->
+    <section class="slide" id="slide-5">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 189</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Circle & Radius</h2>
+        <p class="slide-subtitle">Oral questions for students</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">A point $K$ is marked on a circle with center $P$ and radius $5\text{ cm}$. What is the exact length of line segment $PK$?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">If a point $M$ is at a distance of $6.2\text{ cm}$ from center $P$ ($r = 5\text{ cm}$), does $M$ lie inside, on, or outside the circle?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">How many points exist on the plane that are located at exactly $4\text{ cm}$ away from a single point $P$?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 5 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 6: COMPOSITE ARTWORK: PERSON & WAVY WAVES -->
+    <section class="slide" id="slide-6">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.1</span>
+          <span class="pill pill-primary" style="background:#fff1f2; color:#be123c; border-color:#fecdd3;">Composite Figures</span>
+        </div>
+        <span class="pill pill-page">Pages 190–191</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">🌊 Composite Art: A Person, Waves & Curves</h2>
+        <p class="slide-subtitle">Deconstructing intricate artworks into constituent arcs and line segments</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">👤</span> Figure 1: "A Person"
+            </div>
+            <ul class="bullet-list">
+              <li><strong>Head:</strong> Complete circle drawn with a fixed compass radius centered at a point above the neck.</li>
+              <li><strong>Body:</strong> Straight vertical line segment (neck/torso) joined to an outer rectangle.</li>
+              <li><strong>Concave Neck Curve:</strong> Upward-curving circular arc whose center is placed above the collar.</li>
+            </ul>
+          </div>
+
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">〰️</span> Figure 2: "The Wavy Wave"
+            </div>
+            <ul class="bullet-list">
+              <li>Constructed along a baseline segment $AB = 8\text{ cm}$ divided into two equal segments of $4\text{ cm}$.</li>
+              <li><strong>Wave 1:</strong> Semicircle on $AX$ (radius $r = 2\text{ cm}$) drawn above the baseline.</li>
+              <li><strong>Wave 2:</strong> Inverted semicircle on $XB$ (radius $r = 2\text{ cm}$) drawn below the baseline.</li>
+              <li>Points where arcs reverse directions are called smooth inflection junctures.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 6 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 7: QUICK BOX 3 -->
+    <section class="slide" id="slide-7">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 191</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — The Wavy Wave Construction</h2>
+        <p class="slide-subtitle">Quick classroom diagnostic questions</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">If a central baseline $AB$ is $8\text{ cm}$ long and consists of two identical semicircular waves, what is the length of $AX$?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">What compass radius is required to draw each semicircular crest of span $AX = 4\text{ cm}$?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">Where must the compass needle be placed to draw the crest above $AX$?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 7 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 8: 8.2 SQUARES & RECTANGLES FOUNDATIONS -->
+    <section class="slide" id="slide-8">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.2</span>
+          <span class="pill pill-primary" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">Quadrilaterals</span>
+        </div>
+        <span class="pill pill-page">Pages 192–193</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">🔲 Fundamental Properties: Rectangles & Squares</h2>
+        <p class="slide-subtitle">Strict mathematical definitions distinguishing opposite and adjacent properties</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">▭</span> Properties of a Rectangle
+            </div>
+            <ul class="bullet-list">
+              <li><strong>R1 (Opposite Sides Equal):</strong> Side $AB = CD$ and Side $AD = BC$.</li>
+              <li><strong>R2 (All Right Angles):</strong> Every interior angle is strictly a right angle:
+                <div class="formula-box">$$\angle A = \angle B = \angle C = \angle D = 90^\circ$$</div>
+              </li>
+              <li>Opposite sides never meet and maintain a constant separation distance.</li>
+            </ul>
+          </div>
+
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">⏹️</span> Properties of a Square
+            </div>
+            <ul class="bullet-list">
+              <li><strong>S1 (All Four Sides Equal):</strong> Every boundary segment is congruent:
+                <div class="formula-box">$$AB = BC = CD = DA$$</div>
+              </li>
+              <li><strong>S2 (All Right Angles):</strong> $\angle A = \angle B = \angle C = \angle D = 90^\circ$.</li>
+              <li><strong>Core Insight:</strong> Every square is a special rectangle where adjacent sides happen to be equal!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 8 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 9: QUICK BOX 4 -->
+    <section class="slide" id="slide-9">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 193</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Rectangles vs. Squares</h2>
+        <p class="slide-subtitle">Check conceptual understanding of quadrilateral rules</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">Is every square a rectangle? Is every rectangle a square? State the geometric condition.</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">Can you name a rectangle with corners $P, Q, R, S$ as $PRQS$? Why or why not?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">How many cyclic permutations exist for naming rectangle $ABCD$ in clockwise and counterclockwise order?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 9 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 10: ROTATED SQUARES & RECTANGLES -->
+    <section class="slide" id="slide-10">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.2</span>
+          <span class="pill pill-primary" style="background:#f1f5f9; color:#334155;">Spatial Geometry</span>
+        </div>
+        <span class="pill pill-page">Pages 193–194</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">🔄 Rotated Squares: Invariance Under Rotation</h2>
+        <p class="slide-subtitle">Why orientation changes on a dot grid do not alter geometric classification</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">💎</span> The "Diamond" Fallacy
+            </div>
+            <ul class="bullet-list">
+              <li>When a square is rotated by $45^\circ$, children often mistakenly call it a "diamond" or assume it ceased to be a square.</li>
+              <li><strong>Rigid Motion Principle:</strong> Rotating a 2D shape does not alter any side length or interior angle.</li>
+              <li>Since all sides remain equal and all four corner angles remain $90^\circ$, it remains 100% a <strong>square</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">🎯</span> Dot Grid Corner Analysis
+            </div>
+            <ul class="bullet-list">
+              <li><strong>Slope & Right Angles:</strong> On an isometric or square dot paper, a tilted segment moving 2 right, 1 up is perpendicular to 1 right, 2 down.</li>
+              <li>Equal step vectors ($\Delta x^2 + \Delta y^2$) guarantee equal sides.</li>
+              <li>You can prove whether a tilted shape is a square purely from dot coordinates without using a ruler!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 10 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 11: QUICK BOX 5 -->
+    <section class="slide" id="slide-11">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 194</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Rotated Shapes</h2>
+        <p class="slide-subtitle">Oral questions for students</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">A sheet of square paper is rotated by $35^\circ$ on a desk. Did its side lengths or interior angles change?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">What two conditions must you verify on a dot grid before confirming a tilted figure is a square?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">Can a quadrilateral have all 4 angles equal to $90^\circ$ but opposite sides not equal? Why or why not?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 11 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 12: 8.3 STEP-BY-STEP SQUARE CONSTRUCTION -->
+    <section class="slide" id="slide-12">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.3</span>
+          <span class="pill pill-primary" style="background:#ccfbf1; color:#115e59;">Construction Algorithm</span>
+        </div>
+        <span class="pill pill-page">Pages 195–196</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">📐 Constructing a Square of Side 6 cm</h2>
+        <p class="slide-subtitle">Step-by-step procedure using ruler, protractor, and compass</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-3">
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">1️⃣</span> Base & Right Angle
+            </div>
+            <div class="step-flow">
+              <div class="step-node">
+                <div class="step-num">1</div>
+                <div class="step-info">Draw segment $PQ = 6\text{ cm}$ using a ruler.</div>
+              </div>
+              <div class="step-node">
+                <div class="step-num">2</div>
+                <div class="step-info">At point $P$, erect a perpendicular ray ($90^\circ$) using a protractor.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">2️⃣</span> Marking Vertical Arms
+            </div>
+            <div class="step-flow">
+              <div class="step-node">
+                <div class="step-num">3</div>
+                <div class="step-info">Open compass to $6\text{ cm}$. With center $P$, cut the ray at point $S$ ($PS = 6\text{ cm}$).</div>
+              </div>
+              <div class="step-node">
+                <div class="step-num">4</div>
+                <div class="step-info">At $Q$, construct a perpendicular ray ($90^\circ$) pointing upwards.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">3️⃣</span> Completing Vertex R
+            </div>
+            <div class="step-flow">
+              <div class="step-node">
+                <div class="step-num">5</div>
+                <div class="step-info">With compass radius $6\text{ cm}$, center $Q$, cut the ray at $R$ ($QR = 6\text{ cm}$).</div>
+              </div>
+              <div class="step-node">
+                <div class="step-num">6</div>
+                <div class="step-info">Join points $S$ and $R$. Measure $SR = 6\text{ cm}$ and $\angle S = \angle R = 90^\circ$.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 12 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 13: QUICK BOX 6 -->
+    <section class="slide" id="slide-13">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 196</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Constructing Squares</h2>
+        <p class="slide-subtitle">Direct verification of construction logic</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">Why is a compass arc preferable to a ruler when marking off $6\text{ cm}$ along a perpendicular line?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">Once points $P, Q, S$ are established, what alternative arc method can locate $R$ without measuring $90^\circ$ at $Q$?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">If you measure line segment $SR$ and find it equals $6.3\text{ cm}$, where did the construction error occur?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 13 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 14: 8.4 AN EXPLORATION IN RECTANGLES -->
+    <section class="slide" id="slide-14">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.4</span>
+          <span class="pill pill-primary" style="background:#e0f2fe; color:#0284c7;">Geometric Exploration</span>
+        </div>
+        <span class="pill pill-page">Pages 197–199</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">🔍 Dynamic Exploration: Moving Points on Opposing Sides</h2>
+        <p class="slide-subtitle">Analyzing distance variations between point $X$ on $AD$ and point $Y$ on $BC$</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">📏</span> Shortest & Longest Distances
+            </div>
+            <ul class="bullet-list">
+              <li>Let rectangle $ABCD$ have sides $AB = 7\text{ cm}$ and $BC = 4\text{ cm}$.</li>
+              <li><strong>Minimum Separation:</strong> When $X$ and $Y$ are directly opposite ($\text{dist}(A,X) = \text{dist}(B,Y)$):
+                <div class="formula-box">$$\text{Length}(XY) = AB = 7\text{ cm} \quad (\text{forms rectangle } ABYX)$$</div>
+              </li>
+              <li><strong>Maximum Separation:</strong> When $X$ and $Y$ reach opposite corner extremes ($X=D, Y=B$):
+                <div class="formula-box">$$\text{Length}(XY) = \text{Diagonal } DB \approx 8.06\text{ cm}$$</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">📊</span> Observation Log Table
+            </div>
+            <ul class="bullet-list">
+              <li>If $X$ moves $5\text{ mm}$ from $A$, and $Y$ moves $3\text{ cm}$ from $B$: slanted line $XY = 7.4\text{ cm}$.</li>
+              <li>If $X$ moves $1\text{ cm}$ from $A$, and $Y$ moves $1\text{ cm}$ from $B$: parallel line $XY = 7.0\text{ cm}$.</li>
+              <li><strong>Fundamental Theorem:</strong> The perpendicular distance between two parallel lines is the shortest possible path connecting them.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 14 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 15: QUICK BOX 7 -->
+    <section class="slide" id="slide-15">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Pages 198–199</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — The Moving Points Exploration</h2>
+        <p class="slide-subtitle">Engaging questions on geometric distance bounds</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">When $X$ on $AD$ and $Y$ on $BC$ are placed such that $AX = BY$, what special 4-sided figure is formed by $ABYX$?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">Can the distance between any point $X$ on $AD$ and $Y$ on $BC$ ever be strictly less than $AB = 7\text{ cm}$? Why?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">At which exact positions of $X$ and $Y$ will their straight distance reach the absolute maximum value?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 15 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 16: PARTITIONING RECTANGLES INTO SQUARES -->
+    <section class="slide" id="slide-16">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.4</span>
+          <span class="pill pill-primary" style="background:#fef3c7; color:#92400e;">Decomposition</span>
+        </div>
+        <span class="pill pill-page">Pages 200–201</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">🧩 Breaking Rectangles into Identical Squares</h2>
+        <p class="slide-subtitle">Reverse engineering side-ratio constraints for exact modular decomposition</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">🪟</span> Division into 2 Identical Squares
+            </div>
+            <ul class="bullet-list">
+              <li>Let rectangle $ACDF$ be split by middle line $BE$ into squares $ABEF$ and $BCDE$.</li>
+              <li>Since $AB = AF$ and $BC = AF$, the total length must be:
+                <div class="formula-box">$$AC = AB + BC = 2 \times AF$$</div>
+              </li>
+              <li><strong>Criterion:</strong> The rectangle length must be <em>exactly twice</em> its breadth ($\text{Ratio } 2:1$).</li>
+              <li>Example: If $AF = 4\text{ cm}$, then $AC = 8\text{ cm}$.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">🧱</span> Generalization to $n$ Squares
+            </div>
+            <ul class="bullet-list">
+              <li><strong>Three Squares ($n = 3$):</strong> Length must equal $3 \times \text{breadth}$ ($\text{Ratio } 3:1$). Example: $9\text{ cm} \times 3\text{ cm}$.</li>
+              <li><strong>Non-decomposable Examples:</strong>
+                <ul style="padding-left:14px; margin-top:4px;">
+                  <li>A rectangle of $4\text{ cm} \times 2.5\text{ cm}$ cannot be split into 2 squares ($4 \ne 2 \times 2.5$).</li>
+                  <li>A rectangle of $7\text{ cm} \times 2\text{ cm}$ cannot be split into 3 squares ($7 \ne 3 \times 2$).</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 16 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 17: QUICK BOX 8 -->
+    <section class="slide" id="slide-17">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 201</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Partitioning into Squares</h2>
+        <p class="slide-subtitle">Oral ratio questions</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">A rectangle has a breadth of $5\text{ cm}$. What must its length be so it can be cleanly divided into 2 identical squares?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">Can a rectangle measuring $10\text{ cm}$ by $3\text{ cm}$ be divided into 3 identical squares? Justify mathematically.</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">How do you use a compass to mark the side lengths without measuring with a ruler?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 17 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 18: CONCENTRIC HOLES & ARTISTIC PATTERNS -->
+    <section class="slide" id="slide-18">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.4</span>
+          <span class="pill pill-primary" style="background:#fdf2f8; color:#9d174d;">Geometric Art</span>
+        </div>
+        <span class="pill pill-page">Pages 202–203</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">🎯 Nested Shapes: Concentric Holes & Staircases</h2>
+        <p class="slide-subtitle">Constructing squares with central holes, falling squares, and curved bulges</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-3">
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">⭕</span> Square with a Hole
+            </div>
+            <ul class="bullet-list">
+              <li><strong>Locating Center:</strong> Draw diagonals $PR$ and $QS$ of the square.</li>
+              <li>Their intersection point $O$ marks the exact geometric center.</li>
+              <li>Place compass needle at $O$ to draw the concentric circular hole.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">🪜</span> Falling Squares
+            </div>
+            <ul class="bullet-list">
+              <li>Series of consecutive squares placed corner-to-corner ($4\text{ cm}$, $4\text{ cm}$, $4\text{ cm}$).</li>
+              <li>Or descending sequence: $7\text{ cm} \to 5\text{ cm} \to 3\text{ cm}$.</li>
+              <li>Requires precise $90^\circ$ baseline steps so vertical edges remain aligned.</li>
+            </ul>
+          </div>
+
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">🌸</span> Square with Curves
+            </div>
+            <ul class="bullet-list">
+              <li>A square of $8\text{ cm}$ side with outwardly bulging arcs on all four sides.</li>
+              <li>Compass tip is placed on perpendicular bisectors or opposite midpoints.</li>
+              <li>Identical radius ensures 4-fold rotational and reflection symmetry.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 18 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 19: QUICK BOX 9 -->
+    <section class="slide" id="slide-19">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 203</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Finding the Geometric Center</h2>
+        <p class="slide-subtitle">Oral questions for students</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">How do you pinpoint the exact center of a square without calculating coordinates?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">If a circular hole touches all four inner edges of an $8\text{ cm}$ square, what is its radius?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">How many identical circular holes can be placed symmetrically in a $2 \times 2$ square grid?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 19 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 20: 8.5 EXPLORING DIAGONALS -->
+    <section class="slide" id="slide-20">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.5</span>
+          <span class="pill pill-primary" style="background:#ccfbf1; color:#0f766e;">Diagonal Geometry</span>
+        </div>
+        <span class="pill pill-page">Pages 203–204</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">✖️ Diagonals of Rectangles & Squares</h2>
+        <p class="slide-subtitle">Investigating length equality and corner angle split behaviors</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">📏</span> Diagonal Length Equality
+            </div>
+            <ul class="bullet-list">
+              <li>In any rectangle $PQRS$, connect opposite vertices $PR$ and $QS$.</li>
+              <li><strong>Equality Rule:</strong> The two diagonals are always equal in length:
+                <div class="formula-box">$$\text{Diagonal } PR = \text{Diagonal } QS$$</div>
+              </li>
+              <li>They bisect each other at the geometric midpoint.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">📐</span> Corner Angle Split: Rectangle vs. Square
+            </div>
+            <ul class="bullet-list">
+              <li><strong>General Rectangle:</strong> A diagonal divides $90^\circ$ into unequal complementary angles ($c \ne d$ and $g \ne h$):
+                <div class="formula-box">$$c + d = 90^\circ \quad (\text{e.g., } 60^\circ \text{ and } 30^\circ)$$</div>
+              </li>
+              <li><strong>Special Square Case:</strong> Because adjacent sides are equal, the diagonal bisects the corner angles:
+                <div class="formula-box">$$c = d = 45^\circ \quad \text{and} \quad g = h = 45^\circ$$</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 20 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 21: QUICK BOX 10 -->
+    <section class="slide" id="slide-21">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Page 204</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Diagonals & Angle Bisectors</h2>
+        <p class="slide-subtitle">Check student mastery of diagonal properties</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">A rectangle has diagonal $PR = 9.4\text{ cm}$. Without measuring, what is the length of diagonal $QS$?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">If a diagonal divides a rectangle's right angle into $40^\circ$ and another angle, what is the measure of the other angle?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">Under what exact condition does a diagonal divide the $90^\circ$ corner angle into two equal parts of $45^\circ$?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 21 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 22: CONSTRUCTING GIVEN SIDE & DIAGONAL -->
+    <section class="slide" id="slide-22">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.5</span>
+          <span class="pill pill-primary" style="background:#e0f2fe; color:#0369a1;">Advanced Construction</span>
+        </div>
+        <span class="pill pill-page">Pages 208–210</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">📐 Constructing a Rectangle Given One Side & Diagonal</h2>
+        <p class="slide-subtitle">Constructing rectangle $ABCD$ where base $CD = 5\text{ cm}$ and diagonal $DB = 7\text{ cm}$</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-3">
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">1️⃣</span> Base & Normal Ray
+            </div>
+            <ul class="bullet-list">
+              <li>Draw base line segment $CD = 5\text{ cm}$.</li>
+              <li>At point $C$, erect a perpendicular ray line $l$ ($\angle C = 90^\circ$).</li>
+              <li>Point $B$ must lie somewhere along this vertical ray $l$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">2️⃣</span> Compass Arc for Vertex B
+            </div>
+            <ul class="bullet-list">
+              <li>Open compass to diagonal length $7\text{ cm}$.</li>
+              <li>Set needle at $D$ and strike an arc intersecting ray $l$ at point $B$.</li>
+              <li>No trial and error needed: the arc intersection point is uniquely $B$!</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">3️⃣</span> Completing Vertex A
+            </div>
+            <ul class="bullet-list">
+              <li>Erect perpendiculars at $D$ and $B$, or use opposite side compass arcs ($5\text{ cm}$ from $B$, $BC$ from $D$).</li>
+              <li>Their intersection establishes vertex $A$. Join $AB$ and $AD$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 22 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 23: QUICK BOX 11 -->
+    <section class="slide" id="slide-23">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Pages 209–210</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Diagonal Arc Intersection</h2>
+        <p class="slide-subtitle">Oral questions for students</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">Is it necessary to draw a complete circle of $7\text{ cm}$ radius to find point $B$, or does an arc suffice?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">Can you construct a rectangle where base is $6\text{ cm}$ and diagonal is $5\text{ cm}$? Why is this impossible?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">In a right triangle $\triangle BCD$, which side is always the longest: base, height, or diagonal?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 23 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 24: 8.6 EQUIDISTANT POINTS & THE HOUSE CONSTRUCTION -->
+    <section class="slide" id="slide-24">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Section 8.6</span>
+          <span class="pill pill-primary" style="background:#fee2e2; color:#991b1b;">Equidistant Points</span>
+        </div>
+        <span class="pill pill-page">Pages 211–214</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">🏠 Points Equidistant from Two Points: The "House"</h2>
+        <p class="slide-subtitle">Locating a point $A$ at equal distance from two given base points $B$ and $C$</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">🏠</span> Roof Peak Construction (Point A)
+            </div>
+            <ul class="bullet-list">
+              <li>Given two wall tops $B$ and $C$ ($BC = 5\text{ cm}$). We need roof vertex $A$ such that $AB = 5\text{ cm}$ and $AC = 5\text{ cm}$.</li>
+              <li>With center $B$ and radius $5\text{ cm}$, draw an arc above $BC$.</li>
+              <li>With center $C$ and radius $5\text{ cm}$, draw another arc intersecting the first arc at $A$.</li>
+              <li>Join $AB$ and $AC$. Triangle $\triangle ABC$ is an equilateral triangle!</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">🏹</span> The Curved Ceiling Arc
+            </div>
+            <ul class="bullet-list">
+              <li>To draw the ceiling arc curving downward from $B$ to $C$:</li>
+              <li>Place compass needle at apex $A$.</li>
+              <li>With radius $r = AB = AC = 5\text{ cm}$, sweep the arc between $B$ and $C$.</li>
+              <li><strong>Rhombal Geometry:</strong> The same intersecting arc technique constructs a <em>rhombus</em> (all sides equal, angles not $90^\circ$).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 24 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 25: QUICK BOX 12 -->
+    <section class="slide" id="slide-25">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-quick">⚡ Quick Box</span>
+          <span class="pill pill-page">Classroom Check</span>
+        </div>
+        <span class="pill pill-page">Pages 214–216</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">⚡ Quick Box — Equidistant Points & Rhombus</h2>
+        <p class="slide-subtitle">Oral questions for students</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q 1</span>
+            <span class="quick-text">How many points on a flat sheet of paper are simultaneously $5\text{ cm}$ away from both $B$ and $C$?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 2</span>
+            <span class="quick-text">What type of 4-sided figure has all 4 sides equal in length ($5\text{ cm}$) but angles not equal to $90^\circ$?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q 3</span>
+            <span class="quick-text">Where must the compass needle be positioned to draw a curved arc passing through both $B$ and $C$ of radius $5\text{ cm}$?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 25 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 26: EXERCISE HIGHLIGHTS (WORKED EXAMPLES) -->
+    <section class="slide" id="slide-26">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-primary">Worked Exercises</span>
+          <span class="pill pill-primary" style="background:#f0fdf4; color:#166534;">Exemplary Solutions</span>
+        </div>
+        <span class="pill pill-page">Pages 191, 204, 211</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">📝 Exercise Highlights: Step-by-Step Solutions</h2>
+        <p class="slide-subtitle">Representative problems worked out from textbook exercises</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-3">
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">1️⃣</span> Semicircular Wave Radius
+            </div>
+            <p style="font-size:0.8rem; color:#475569;"><strong>Q:</strong> Given baseline $AB = 8\text{ cm}$ with two identical waves. Find length of $AX$ and radius.</p>
+            <div style="font-size:0.82rem; line-height:1.4; color:#334155;">
+              • Baseline is halved: $AX = 8 \div 2 = 4\text{ cm}$.<br>
+              • Semicircle diameter is $AX = 4\text{ cm}$.<br>
+              • Compass radius $r = 4 \div 2 = 2\text{ cm}$.
+            </div>
+            <div class="formula-box" style="font-size:0.9rem; padding:6px;">$$r = 2\text{ cm}, \quad AX = 4\text{ cm}$$</div>
+          </div>
+
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">2️⃣</span> Diagonal $45^\circ$ Split
+            </div>
+            <p style="font-size:0.8rem; color:#475569;"><strong>Q:</strong> A diagonal divides a rectangle's corner into $45^\circ$ and $45^\circ$. What shape is it?</p>
+            <div style="font-size:0.82rem; line-height:1.4; color:#334155;">
+              • In $\triangle ABC$, $\angle B = 90^\circ$, $\angle CAB = 45^\circ$.<br>
+              • $\angle BCA = 180^\circ - (90^\circ + 45^\circ) = 45^\circ$.<br>
+              • Isosceles triangle: $AB = BC$.
+            </div>
+            <div class="formula-box" style="font-size:0.9rem; padding:6px;">$$\text{Sides equal } \implies \text{It is a Square!}$$</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header-line">
+              <span class="card-icon">3️⃣</span> Rectangle (Side 4, Diag 8)
+            </div>
+            <p style="font-size:0.8rem; color:#475569;"><strong>Q:</strong> Construct rectangle $PQRS$ with side $4\text{ cm}$ and diagonal $8\text{ cm}$.</p>
+            <div style="font-size:0.82rem; line-height:1.4; color:#334155;">
+              • Draw base $PQ = 4\text{ cm}$, ray at $P \perp PQ$.<br>
+              • Arc from $Q$ with radius $8\text{ cm}$ cuts ray at $S$.<br>
+              • Height $PS = \sqrt{8^2 - 4^2} \approx 6.93\text{ cm}$.
+            </div>
+            <div class="formula-box" style="font-size:0.9rem; padding:6px;">$$\text{Height } PS \approx 6.93\text{ cm}$$</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 26 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 27: CHAPTER SUMMARY -->
+    <section class="slide" id="slide-27">
+      <div class="slide-topbar">
+        <div class="pill-group">
+          <span class="pill pill-summary">Chapter Summary</span>
+          <span class="pill pill-page">Key Concepts Recap</span>
+        </div>
+        <span class="pill pill-page">Page 216</span>
+      </div>
+
+      <div class="slide-header">
+        <h2 class="slide-title">📋 Comprehensive Chapter Synthesis</h2>
+        <p class="slide-subtitle">All fundamental theorems and construction techniques in one checklist</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="card-grid-2">
+          <div class="card card-highlight">
+            <div class="card-header-line">
+              <span class="card-icon">✅</span> Circle & Quadrilateral Rules
+            </div>
+            <ul class="bullet-list">
+              <li><strong>Circle Locus:</strong> All points on a circle lie at the exact same radial distance $r$ from the fixed center point $P$.</li>
+              <li><strong>Rectangle:</strong> Opposite sides equal ($AB = CD$, $AD = BC$) and all four angles equal $90^\circ$.</li>
+              <li><strong>Square:</strong> All four sides equal and all four angles $90^\circ$. A rotated square remains a square.</li>
+              <li><strong>Modular Partition:</strong> A rectangle divides into $n$ identical squares if and only if $\text{length} = n \times \text{breadth}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-accent">
+            <div class="card-header-line">
+              <span class="card-icon">✅</span> Diagonals & Compass Intersections
+            </div>
+            <ul class="bullet-list">
+              <li><strong>Diagonal Equality:</strong> Diagonals of a rectangle are always equal in length ($PR = QS$).</li>
+              <li><strong>Angle Bisector Property:</strong> Diagonals bisect corner angles ($45^\circ, 45^\circ$) if and only if the rectangle is a square.</li>
+              <li><strong>Arc Intersection Method:</strong> Locates a point at distance $d$ along a perpendicular ray without ruler trial and error.</li>
+              <li><strong>Equidistant Points:</strong> Intersecting two arcs of identical radius locates vertices equidistant from two reference points.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span>Slide 27 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+
+    <!-- SLIDE 28: CLOSING SLIDE -->
+    <section class="slide closing-slide" id="slide-28">
+      <div class="slide-topbar">
+        <span class="pill pill-primary" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">
+          GANITA PRAKASH | GRADE 6
+        </span>
+        <span class="pill pill-page" style="background: rgba(255,255,255,0.15); color: #99f6e4; border-color: rgba(255,255,255,0.3);">
+          End of Chapter 8
+        </span>
+      </div>
+
+      <div class="closing-content">
+        <h1 class="cover-title" style="font-size: 3.2rem;">THANK YOU!</h1>
+        
+        <div class="quote-box">
+          “Geometry is the archetypal beauty of the world. With just a ruler to guide straightness and a compass to guard equal distance, one can construct the entire universe of form.”
+        </div>
+
+        <!-- AUTHORSHIP PILL ONLY ON FIRST & LAST SLIDES -->
+        <div class="credit-badge-large">
+          <span>✦ Akash Srivastva</span>
+          <span class="site">(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="border-top-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);">
+        <span>Ganita Prakash • NCERT Class 6</span>
+        <span>Slide 28 / 28</span>
+      </div>
+    </section>
+
+    <!-- Navigation Controls -->
+    <div class="nav-hint">Use ◀ / ▶ or Space to navigate</div>
+    <div class="deck-controls">
+      <button class="btn-nav" id="prevBtn" title="Previous Slide (ArrowLeft)">❮</button>
+      <button class="btn-nav" id="nextBtn" title="Next Slide (ArrowRight or Space)">❯</button>
+    </div>
+
+  </div>
+
+  <!-- JavaScript Slide Controller -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      const totalSlides = slides.length;
+      let currentSlide = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      function updateSlides(index) {
+        if (index < 0) index = 0;
+        if (index >= totalSlides) index = totalSlides - 1;
+
+        slides.forEach((slide, idx) => {
+          if (idx === index) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        currentSlide = index;
+
+        // Render any late math if auto-render did not catch newly active elements
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentSlide], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ]
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          updateSlides(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          updateSlides(currentSlide - 1);
+        }
+      }
+
+      // Event Listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlides(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlides(totalSlides - 1);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
