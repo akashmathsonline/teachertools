@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 7 Maths - Chapter 2: Operations with Integers | Ganita Prakash Part II</title>
+
+  <!-- Google Fonts: Fredoka, Plus Jakarta Sans, and Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp mathematical formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #4338ca;         /* Vibrant Indigo */
+      --primary-dark: #312e81;
+      --primary-light: #e0e7ff;
+      --accent-teal: #0d9488;     /* Teal / Emerald */
+      --accent-amber: #f59e0b;    /* Warm Amber */
+      --accent-coral: #ef4444;    /* Coral Red */
+      --bg-gradient-start: #f8fafc;
+      --bg-gradient-end: #f1f5f9;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0f172a;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #deck-container {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      max-width: 100vw;
+      max-height: 100vh;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 34px 44px 38px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(25px) scale(0.985);
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+      z-index: 10;
+    }
+
+    /* Decorative background shapes */
+    .bg-shape-dec {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(67, 56, 202, 0.12);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-primary {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid rgba(67, 56, 202, 0.25);
+    }
+
+    .badge-coral {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .badge-amber {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .badge-emerald {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .slide-title-wrap {
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-title {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 0.90rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+      justify-content: center;
+    }
+
+    /* Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 15px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-highlight {
+      border-left: 4.5px solid var(--primary);
+    }
+
+    .card-amber {
+      border-left: 4.5px solid var(--accent-amber);
+      background: #fffbeb;
+    }
+
+    .card-emerald {
+      border-left: 4.5px solid var(--accent-teal);
+      background: #f0fdfa;
+    }
+
+    .card-coral {
+      border-left: 4.5px solid var(--accent-coral);
+      background: #fef2f2;
+    }
+
+    .card-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .content-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.86rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .content-list li {
+      position: relative;
+      padding-left: 17px;
+    }
+
+    .content-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .statement-box {
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+      border: 1.5px solid #c7d2fe;
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #312e81;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .formula-banner {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Quick Box styles */
+    .quick-box-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+      flex: 1;
+      align-content: center;
+    }
+
+    .q-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .q-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+
+    .q-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1.5px solid #e2e8f0;
+    }
+
+    .q-text {
+      font-size: 0.88rem;
+      color: #1e293b;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .q-hint {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 500;
+      display: block;
+    }
+
+    /* Cover and Closing slides */
+    .cover-slide, .closing-slide {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 70px;
+    }
+
+    .cover-eyebrow {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 3.1rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      max-width: 900px;
+    }
+
+    .cover-tagline {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 800px;
+      line-height: 1.5;
+      margin-bottom: 26px;
+    }
+
+    .credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .credit-pill:hover {
+      transform: translateY(-2px);
+      background: #1e293b;
+    }
+
+    .credit-pill .sparkle {
+      color: #818cf8;
+      font-size: 1.15rem;
+    }
+
+    .credit-pill span.sub {
+      color: #94a3b8;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-left: 2px;
+    }
+
+    /* Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Middle slide subtle watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 13px;
+      right: 18px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 5;
+    }
+
+    /* Nav buttons */
+    .deck-nav {
+      position: absolute;
+      bottom: 18px;
+      right: 26px;
+      display: flex;
+      gap: 8px;
+      z-index: 50;
+    }
+
+    .nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .keyboard-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 36px;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      z-index: 50;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="deck-container">
+    <div class="bg-shape-dec" style="width: 580px; height: 580px; top: -200px; right: -150px;"></div>
+    <div class="bg-shape-dec" style="width: 420px; height: 420px; bottom: -160px; left: -100px;"></div>
+
+    <!-- ==========================================
+         SLIDE 1: COVER SLIDE
+         ========================================== -->
+    <section class="slide cover-slide active" data-slide="1">
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <span class="badge badge-primary">GANITA PRAKASH PART II | GRADE 7</span>
+        <span class="badge badge-amber">CHAPTER 2 • COVER</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="cover-eyebrow">CLASS 7 MATHEMATICS • CHAPTER 2</div>
+        <h1 class="cover-title">Operations with Integers</h1>
+        <p class="cover-tagline">
+          Exhaustive presentation covering addition, subtraction, multiplication, division, token &amp; number line models, Brahmagupta's historic rules, arithmetic properties, and problem solving.
+        </p>
+
+        <!-- LARGE CREDIT PILL -->
+        <a href="https://www.akashmaths.online" target="_blank" class="credit-pill">
+          <span class="sparkle">✦</span>
+          <span>Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </a>
+      </div>
+
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 1 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 2: SECTION 2.1 - RAKESH'S NUMBER PUZZLE
+         ========================================== -->
+    <section class="slide" data-slide="2">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.1</span>
+          <span class="badge badge-emerald">QUICK RECAP</span>
+        </div>
+        <span class="badge badge-coral">PAGE 25</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Rakesh's Puzzle: Sum and Difference Challenges</h2>
+        <div class="slide-subtitle">Exploring number pairs with positive, zero, and negative sums and differences</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🧩 Puzzle 1: Sum 25 &amp; Difference 11</div>
+            <ul class="content-list">
+              <li>"I have thought of two numbers. Sum $= 25$, difference $= 11$."</li>
+              <li>Testing pairs systematically:
+                <br>• $10 + 15 = 25$, difference $10 - 15 = -5$
+                <br>• $20 + 5 = 25$, difference $20 - 5 = 15$
+                <br>• $19 + 6 = 25$, difference $19 - 6 = 13$
+                <br>• $18 + 7 = 25$, difference $18 - 7 = 11$ ✅</li>
+              <li>The numbers are <strong>18 and 7</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🔄 Puzzle 2: Swapping for Negative Difference</div>
+            <ul class="content-list">
+              <li>"Sum $= 25$, but difference $= -11$."</li>
+              <li>Notice: If first number $-$ second number $= -11$, then the first number must be smaller than the second.</li>
+              <li>Simply swap the pair: $7 + 18 = 25$ and $7 - 18 = -11$ ✅</li>
+              <li><strong>General Practice:</strong>
+                <br>• Sum $= 0$, Diff $= 10 \implies (5, -5)$
+                <br>• Sum $= -7$, Diff $= -1 \implies (-4, -3)$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>💡 Core Takeaway: In subtraction $a - b$, swapping the order negates the result: $b - a = -(a - b)$.</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 2 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 3: QUICK BOX 1
+         ========================================== -->
+    <section class="slide" data-slide="3">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 1</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Sum &amp; Difference Pairs</h2>
+        <div class="slide-subtitle">Rapid mental math to deduce integer pairs from sum and difference</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Find two numbers whose sum is $27$ and whose difference is $9$.</div>
+              <span class="q-hint">Add sum and difference: $27 + 9 = 36 \implies 36/2 = 18$ and $9$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Find two numbers whose sum is $4$ and whose difference is $12$.</div>
+              <span class="q-hint">$(4 + 12)/2 = 8 \implies \text{Numbers are } 8 \text{ and } -4$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">If two numbers have sum $= 0$ and difference $= -10$, what are the two numbers?</div>
+              <span class="q-hint">First $-$ second $= -10 \implies -5 \text{ and } 5$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">What are the two numbers if their sum is $-7$ and their difference is $-13$?</div>
+              <span class="q-hint">First $= (-7 + (-13))/2 = -10$; Second $= 3$. Check: $-10 - 3 = -13$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 3 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 4: SECTION 2.1 - CARROM COIN MODEL
+         ========================================== -->
+    <section class="slide" data-slide="4">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.1</span>
+          <span class="badge badge-emerald">NUMBER LINE MODELLING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 25–27</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Carrom Coin Model: Magnitude and Direction</h2>
+        <div class="slide-subtitle">Capturing distance and displacement through positive and negative integer strikes</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">⚪ Motion on a 1D Track</div>
+            <ul class="content-list">
+              <li>A carrom coin starts at origin $0$.</li>
+              <li><strong>Strike 1:</strong> Moves rightward by $a$ units ($+a$).</li>
+              <li><strong>Strike 2:</strong> Moves by $b$ units (rightward $+b$ or leftward $-b$).</li>
+              <li><strong>Universal Formula:</strong> Final position is always:
+                $$P = a + b$$</li>
+              <li>Example: Strike 1 is $+5$ (right), Strike 2 is $-7$ (left):
+                $$P = 5 + (-7) = -2 \quad (2\text{ units to the left of } 0)$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">📏 Capturing Two Pieces of Data</div>
+            <ul class="content-list">
+              <li>Every integer on the number line conveys:
+                <br>1. <strong>Magnitude:</strong> The distance / number of units.
+                <br>2. <strong>Direction:</strong> Sign ($+$ for rightward, $-$ for leftward).</li>
+              <li>For a movement of $-4$:
+                <br>• Magnitude $= 4$
+                <br>• Direction $= \text{Leftward}$</li>
+              <li>If multiple strikes occur: $P = \sum (\text{movements})$.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="formula-banner">
+          $$\text{Final Position } P = \text{Movement } a + \text{Movement } b$$
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 4 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 5: QUICK BOX 2
+         ========================================== -->
+    <section class="slide" data-slide="5">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 2</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Carrom Coin Movements</h2>
+        <div class="slide-subtitle">Oral checks calculating positions and multi-strike sequences</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">If the first movement is $+4$ and the final position is $+5$, what was the second movement?</div>
+              <span class="q-hint">$4 + b = 5 \implies b = +1$ (1 unit rightwards).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">A coin starts at $0$ and undergoes strikes: $1, -2, 3, -4, 5, -6, 7, -8, 9, -10$. What is the final position?</div>
+              <span class="q-hint">Group in pairs: $(1-2) + (3-4) + (5-6) + (7-8) + (9-10) = 5 \times (-1) = -5$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">In Figure 2 on page 27, $a$ goes right and $b$ goes left, landing at $P > 0$. Which has larger magnitude: $a$ or $b$?</div>
+              <span class="q-hint">Since $P$ is positive, $|a| > |b|$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">In Figure 3 on page 27, $a$ goes left and $b$ returns right, ending exactly at $P = 0$. What is $a + b$?</div>
+              <span class="q-hint">$a$ and $b$ have equal magnitudes and opposite directions: $a + b = 0$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 5 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 6: SECTION 2.1 - TOKEN MODEL & ZERO PAIRS
+         ========================================== -->
+    <section class="slide" data-slide="6">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.1</span>
+          <span class="badge badge-emerald">TOKEN MODEL</span>
+        </div>
+        <span class="badge badge-coral">PAGE 28</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Token Model: Zero Pairs and Additive Inverses</h2>
+        <div class="slide-subtitle">Using physical cancellation of green (+1) and red (-1) counters to subtract integers</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🟢 Green &amp; 🔴 Red Tokens</div>
+            <ul class="content-list">
+              <li><strong>Green token:</strong> Represents $+1$.</li>
+              <li><strong>Red token:</strong> Represents $-1$.</li>
+              <li><strong>Zero Pair:</strong> One green $+$ one red $= (+1) + (-1) = 0$.</li>
+              <li>Adding or removing zero pairs does not change the net value in the bag!</li>
+            </ul>
+          </div>
+
+          <div class="card card-coral">
+            <div class="card-title">✂️ Subtracting via Zero Pairs: $(+7) - (+18)$</div>
+            <ul class="content-list">
+              <li>Start with $7$ green tokens. We need to remove $18$ green tokens.</li>
+              <li>Not enough greens! Introduce <strong>11 zero pairs</strong> ($11$ green $+ 11$ red).</li>
+              <li>Total tokens: $18$ green and $11$ red (net value is still $+7$).</li>
+              <li>Remove $18$ green tokens.</li>
+              <li>What remains? <strong>11 red tokens</strong>, representing <strong>$-11$</strong>!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>🔄 Foundational Identity: Subtracting an integer is identical to adding its additive inverse: $a - b = a + (-b)$.</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 6 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 7: QUICK BOX 3
+         ========================================== -->
+    <section class="slide" data-slide="7">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 3</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Zero Pairs &amp; Additive Inverses</h2>
+        <div class="slide-subtitle">Oral checks converting subtractions into additions of inverses</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What is the additive inverse of $18$? What is the additive inverse of $-18$?</div>
+              <span class="q-hint">$-(18) = -18$ and $-(-18) = +18$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Express $4 - (-12)$ as an equivalent addition statement using additive inverse.</div>
+              <span class="q-hint">Additive inverse of $-12$ is $+12 \implies 4 + 12 = 16$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">To compute $(+3) - (+8)$ with tokens, how many zero pairs must you insert into 3 positive tokens?</div>
+              <span class="q-hint">You have 3 greens, you need 8 greens $\implies$ add 5 zero pairs. Result is $-5$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">If a bag contains 14 green tokens and 20 red tokens, what single integer does the bag represent?</div>
+              <span class="q-hint">14 zero pairs cancel out, leaving 6 red tokens $\implies -6$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 7 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 8: SECTION 2.2 - MULTIPLICATION WITH TOKENS
+         ========================================== -->
+    <section class="slide" data-slide="8">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.2</span>
+          <span class="badge badge-emerald">MULTIPLICATION CONCEPTS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 29–30</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Multiplication of Integers: Placing &amp; Removing Tokens</h2>
+        <div class="slide-subtitle">Physical interpretation of positive/negative multipliers and multiplicands</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>🎒 The Multiplier Rule: Positive multiplier $\implies$ <em>Place into</em> bag. Negative multiplier $\implies$ <em>Remove from</em> bag.</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">Case 1 &amp; 2: Positive Multiplier</div>
+            <ul class="content-list">
+              <li><strong>$4 \times 2 = 8$:</strong> Place $2$ greens into empty bag $4$ times $\implies 8$ greens $= +8$.</li>
+              <li><strong>$4 \times (-2) = -8$:</strong> Place $2$ reds into empty bag $4$ times $\implies 8$ reds $= -8$.</li>
+              <li>Positive $\times$ Negative $= -$ Negative.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Case 3 &amp; 4: Negative Multiplier</div>
+            <ul class="content-list">
+              <li><strong>$(-4) \times 2 = -8$:</strong> Remove $2$ greens $4$ times from empty bag. Put $4 \times 2 = 8$ zero pairs, remove greens $\implies 8$ reds left $= -8$.</li>
+              <li><strong>$(-4) \times (-2) = +8$:</strong> Remove $2$ reds $4$ times. Put $8$ zero pairs, remove reds $\implies 8$ greens left $= \mathbf{+8}$!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="formula-banner">
+          $$(+) \times (+) = (+) \quad\Big|\quad (+) \times (-) = (-) \quad\Big|\quad (-) \times (+) = (-) \quad\Big|\quad (-) \times (-) = (+)$$
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 8 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 9: QUICK BOX 4
+         ========================================== -->
+    <section class="slide" data-slide="9">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 4</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Token Multiplications</h2>
+        <div class="slide-subtitle">Oral calculation and verification using the placing/removing model</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Using the token interpretation, find the value of $3 \times (-2)$ and $(-5) \times (-2)$.</div>
+              <span class="q-hint">$3 \times (-2) = -6$; $(-5) \times (-2) = +10$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Why does multiplying two negative integers $(-4) \times (-2)$ result in a positive integer $+8$?</div>
+              <span class="q-hint">Removing red (negative) tokens leaves behind positive green tokens from zero pairs.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">If $123 \times 456 = 56088$, what is $(-123) \times (-456)$? What is $(-123) \times 456$?</div>
+              <span class="q-hint">$(-123) \times (-456) = 56088$; $(-123) \times 456 = -56088$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Does the representation of $-2$ using different token sets (e.g. 2 reds vs 4 reds and 2 greens) change the product when multiplied by 4?</div>
+              <span class="q-hint">No! Net value remains $-2 \times 4 = -8$ because extra zero pairs always cancel.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 9 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 10: PATTERNS IN INTEGER MULTIPLICATION
+         ========================================== -->
+    <section class="slide" data-slide="10">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.2</span>
+          <span class="badge badge-emerald">PATTERNS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 32–33</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Patterns in Multiplication &amp; Stepping Past Zero</h2>
+        <div class="slide-subtitle">Extending regular arithmetic sequences to discover why negative times negative is positive</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">📉 Pattern 1: Multiplicand is Positive ($+3$)</div>
+            <ul class="content-list">
+              <li>$4 \times 3 = 12$</li>
+              <li>$3 \times 3 = 9$ &nbsp;($-3$)</li>
+              <li>$2 \times 3 = 6$ &nbsp;($-3$)</li>
+              <li>$1 \times 3 = 3$ &nbsp;($-3$)</li>
+              <li>$0 \times 3 = 0$ &nbsp;($-3$)</li>
+              <li><strong>$-1 \times 3 = -3$</strong> &nbsp;($-3$)</li>
+              <li><strong>$-2 \times 3 = -6$</strong> &nbsp;($-3$)</li>
+              <li><em>Each unit decrease in multiplier decreases product by $3$.</em></li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">📈 Pattern 2: Multiplicand is Negative ($-3$)</div>
+            <ul class="content-list">
+              <li>$4 \times (-3) = -12$</li>
+              <li>$3 \times (-3) = -9$ &nbsp;($+3$)</li>
+              <li>$2 \times (-3) = -6$ &nbsp;($+3$)</li>
+              <li>$1 \times (-3) = -3$ &nbsp;($+3$)</li>
+              <li>$0 \times (-3) = 0$ &nbsp;($+3$)</li>
+              <li><strong>$-1 \times (-3) = +3$</strong> &nbsp;($+3$)</li>
+              <li><strong>$-2 \times (-3) = +6$</strong> &nbsp;($+3$)</li>
+              <li><em>Each unit decrease in multiplier increases product by $3$!</em></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>🧠 Mathematical Rigour: The rules of integer multiplication preserve the seamless continuity of arithmetic sequences.</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 10 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 11: QUICK BOX 5
+         ========================================== -->
+    <section class="slide" data-slide="11">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 5</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Pattern Logic</h2>
+        <div class="slide-subtitle">Oral checks continuing sequences across zero into negative territory</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Continue the sequence down: $2 \times (-5) = -10$, $1 \times (-5) = -5$, $0 \times (-5) = 0$, next two?</div>
+              <span class="q-hint">Each step adds $+5 \implies -1 \times (-5) = 5$ and $-2 \times (-5) = 10$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Find the product: $(-6) \times (-3)$ and $(-8) \times 4$.</div>
+              <span class="q-hint">$(-6) \times (-3) = +18$; $(-8) \times 4 = -32$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">What is the value of $1 \times a$ for any integer $a$? What is $-1 \times a$?</div>
+              <span class="q-hint">$1 \times a = a$ (identity); $-1 \times a = -a$ (additive inverse).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Calculate mentally: $(-9) \times 10$ and $10 \times (-17)$.</div>
+              <span class="q-hint">$(-9) \times 10 = -90$; $10 \times (-17) = -170$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 11 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 12: BRAHMAGUPTA'S HISTORICAL RULES (628 CE)
+         ========================================== -->
+    <section class="slide" data-slide="12">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">HISTORICAL PERSPECTIVE</span>
+          <span class="badge badge-emerald">BRĀHMASPHUṬASIDDHĀNTA</span>
+        </div>
+        <span class="badge badge-coral">PAGE 35</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Brahmagupta's Rules: Fortunes, Debts, and Zero (628 CE)</h2>
+        <div class="slide-subtitle">The first explicit formulation of signed arithmetic in world mathematical history</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>📜 In chapter 18 of *Brāhmasphuṭasiddhānta*, Brahmagupta used <strong>Dhana</strong> (fortune/positive) and <strong>Ṛṇa</strong> (debt/negative).</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">⚖️ The Sanskrit Axioms (Verses 18.30–32)</div>
+            <ul class="content-list">
+              <li><strong>Fortune $\times$ Fortune:</strong> "The product or quotient of two fortunes is a fortune."
+                $$(+) \times (+) = (+)$$</li>
+              <li><strong>Debt $\times$ Debt:</strong> "The product or quotient of two debts is a fortune."
+                $$(-) \times (-) = (+)$$</li>
+              <li><strong>Debt $\times$ Fortune:</strong> "The product or quotient of a debt and a fortune is a debt."
+                $$(-) \times (+) = (-) \quad\text{and}\quad (+) \times (-) = (-)$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🏛️ Historic Significance</div>
+            <ul class="content-list">
+              <li>Before Brahmagupta, negative numbers were rejected in many ancient cultures as "absurd" or "impossible quantities."</li>
+              <li>Brahmagupta treated zero ($kha$) and negative numbers as full, legitimate numbers with complete operational arithmetic.</li>
+              <li>This laid the foundational bedrock for global algebra and arithmetic!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 12 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 13: QUICK BOX 6
+         ========================================== -->
+    <section class="slide" data-slide="13">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 6</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Brahmagupta's Arithmetic</h2>
+        <div class="slide-subtitle">Oral checks testing historical concepts of fortune and debt</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What Sanskrit terms did Brahmagupta use for positive numbers and negative numbers in 628 CE?</div>
+              <span class="q-hint"><em>Dhana</em> for fortune (positive) and <em>Ṛṇa</em> for debt (negative).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">According to Brahmagupta, what is the quotient of a debt divided by a debt?</div>
+              <span class="q-hint">"The quotient of two debts is a fortune" $\implies$ positive!</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">What is the title of the historic treatise authored by Brahmagupta containing these rules?</div>
+              <span class="q-hint">*Brāhmasphuṭasiddhānta* (Correctly Established Doctrine of Brahma).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">If a merchant has 4 debts of ₹300 each, how is this represented and calculated using Brahmagupta's terms?</div>
+              <span class="q-hint">$4 \times (-300) = -1200$ (a total debt of ₹1200).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 13 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 14: PROPERTIES: COMMUTATIVITY
+         ========================================== -->
+    <section class="slide" data-slide="14">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.2</span>
+          <span class="badge badge-emerald">ARITHMETIC PROPERTIES</span>
+        </div>
+        <span class="badge badge-coral">PAGE 34–35</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Multiplication is Commutative for Integers</h2>
+        <div class="slide-subtitle">Proving that order does not alter magnitude or sign of the product</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>🔄 Commutative Law for Multiplication: For any two integers $a$ and $b$:
+            $$a \times b = b \times a$$</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔍 Numerical Verification</div>
+            <ul class="content-list">
+              <li>$3 \times (-4) = -12$ &nbsp;and&nbsp; $(-4) \times 3 = -12$</li>
+              <li>$(-15) \times (-8) = 120$ &nbsp;and&nbsp; $(-8) \times (-15) = 120$</li>
+              <li>$(-30) \times 12 = -360$ &nbsp;and&nbsp; $12 \times (-30) = -360$</li>
+              <li>$14 \times (-5) = -70$ &nbsp;and&nbsp; $(-5) \times 14 = -70$</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">💡 Why Does It Always Hold?</div>
+            <ul class="content-list">
+              <li><strong>Magnitude Invariance:</strong> Magnitude depends purely on the positive product $|a| \times |b|$, which is commutative for whole numbers.</li>
+              <li><strong>Sign Invariance:</strong>
+                <br>• Both same sign $\implies$ product positive before and after swapping.
+                <br>• Different signs $\implies$ product negative before and after swapping.</li>
+              <li>Therefore, neither magnitude nor sign changes!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 14 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 15: QUICK BOX 7
+         ========================================== -->
+    <section class="slide" data-slide="15">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 7</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Commutative Property</h2>
+        <div class="slide-subtitle">Oral problems testing commutative equivalence and fill-in-the-blanks</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Fill in the blank: $14 \times (-5) = -70 \implies (-5) \times \_\_\_ = -70$.</div>
+              <span class="q-hint">By commutativity, blank $= 14$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Is subtraction commutative for integers? Test with $7 - 18$ and $18 - 7$.</div>
+              <span class="q-hint">$7 - 18 = -11$, but $18 - 7 = 11$. No! Subtraction is NOT commutative.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Is division commutative for integers? Test with $(-20) \div 5$ and $5 \div (-20)$.</div>
+              <span class="q-hint">$(-20) \div 5 = -4$, but $5 \div (-20) = -1/4$. Division is NOT commutative!</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">If $a \times b = -84$ and $a = -12$, what is $b$? Check if $b \times a = -84$.</div>
+              <span class="q-hint">$b = 7$. Indeed, $7 \times (-12) = -84$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 15 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 16: REAL-WORLD MODELLING (EXAM & ELEVATOR)
+         ========================================== -->
+    <section class="slide" data-slide="16">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">REAL-WORLD MODELS</span>
+          <span class="badge badge-emerald">APPLICATIONS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 35–37</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Real-World Models: Negative Marking &amp; Mine Elevators</h2>
+        <div class="slide-subtitle">Translating competitive exams and vertical shafts into integer arithmetic</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">📝 Example 1: Mala's Exam Score</div>
+            <ul class="content-list">
+              <li>$50$ questions: Correct $= +5$, Wrong $= -2$.</li>
+              <li>Mala has $30$ correct and $20$ wrong answers:
+                $$\text{Total} = 30 \times 5 + 20 \times (-2)$$
+                $$= 150 + (-40) = \mathbf{110\text{ marks}}$$</li>
+              <li><strong>Max possible:</strong> $50 \times 5 = +250$.</li>
+              <li><strong>Min possible:</strong> $50 \times (-2) = -100$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⛏️ Example 2: The Mine Elevator</div>
+            <ul class="content-list">
+              <li>Elevator speed $= -3\text{ m/min}$ (downward).</li>
+              <li><strong>From ground level ($0\text{ m}$):</strong>
+                <br>In $1\text{ hr}$ ($60\text{ min}$): $60 \times (-3) = \mathbf{-180\text{ m}}$ ($180\text{ m}$ below ground).</li>
+              <li><strong>From $+15\text{ m}$ above ground for $45\text{ min}$</strong>:
+                $$\text{Position} = 15 + 45 \times (-3)$$
+                $$= 15 + (-135) = \mathbf{-120\text{ m}}$$ ($120\text{ m}$ below ground).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 16 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 17: QUICK BOX 8
+         ========================================== -->
+    <section class="slide" data-slide="17">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 8</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Exam &amp; Elevation Problems</h2>
+        <div class="slide-subtitle">Oral checks solving word problems with positive and negative integers</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">In a test ($+4$ for correct, $-2$ for incorrect), Anita scores $40$ with $15$ correct. How many wrong answers did she have?</div>
+              <span class="q-hint">$15 \times 4 = 60 \implies 60 - 40 = 20$ marks lost $\implies 20 / 2 = 10$ incorrect.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Anil scores $-10$ marks in the same test even though he got 5 correct answers. How many were incorrect?</div>
+              <span class="q-hint">$5 \times 4 = 20 \implies 20 - (-10) = 30$ marks lost $\implies 30 / 2 = 15$ incorrect.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Room temperature drops from $32^\circ\text{C}$ at $5^\circ\text{C}$ per hour. What is the temperature after 10 hours?</div>
+              <span class="q-hint">$32 + 10 \times (-5) = 32 - 50 = -18^\circ\text{C}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">An elevator starts at $+10\text{ m}$ and descends at $4\text{ m/min}$ for $20\text{ minutes}$. What is its position?</div>
+              <span class="q-hint">$10 + 20 \times (-4) = 10 - 80 = -70\text{ m}$ ($70\text{ m}$ below ground).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 17 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 18: THE MAGIC GRID OF INTEGERS
+         ========================================== -->
+    <section class="slide" data-slide="18">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">MATHEMATICAL PUZZLE</span>
+          <span class="badge badge-emerald">MULTIPLICATION INVARIANCE</span>
+        </div>
+        <span class="badge badge-coral">PAGE 37–38</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">The Magic Grid of Integers: Multiplication Invariance</h2>
+        <div class="slide-subtitle">Circling 4 numbers with no two in the same row or column always yields the exact same product</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🎲 The Game Rules</div>
+            <ul class="content-list">
+              <li>Consider the $4 \times 4$ integer grid:
+                <br>Row 1: $[8, -4, 12, -6]$
+                <br>Row 2: $[-28, 14, -42, 21]$
+                <br>Row 3: $[12, -6, 18, -9]$
+                <br>Row 4: $[20, -10, 30, -15]$</li>
+              <li>1. Circle any unstruck number.</li>
+              <li>2. Strike out its entire row and column.</li>
+              <li>3. Repeat until $4$ numbers are circled.</li>
+              <li>4. Multiply all $4$ circled numbers!</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">✨ The Underlying Mathematical Secret</div>
+            <ul class="content-list">
+              <li>Every cell $(i, j)$ in the grid is actually the outer product of a row factor and a column factor:
+                <br>• Row factors: $[2, -7, 3, 5]$
+                <br>• Column factors: $[4, -2, 6, -3]$</li>
+              <li>Notice: $2 \times 4 = 8$, $2 \times (-2) = -4$, $(-7) \times 6 = -42$, etc.!</li>
+              <li>Choosing one from each row and column multiplies ALL row and column factors:
+                $$\text{Product} = (2 \times -7 \times 3 \times 5) \times (4 \times -2 \times 6 \times -3)$$
+                $$= (-210) \times (-144) = \mathbf{30,240} \quad\text{(Constant!)}$$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 18 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 19: QUICK BOX 9
+         ========================================== -->
+    <section class="slide" data-slide="19">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 9</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — The Magic Grid Puzzle</h2>
+        <div class="slide-subtitle">Oral checks unraveling outer-product table construction</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">In Round 1 of the textbook example, the circled numbers are $8, 21, 18, -10$. What is their product?</div>
+              <span class="q-hint">$8 \times 21 = 168$; $18 \times (-10) = -180$; $168 \times (-180) = -30,240$ (sign depends on chosen set).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Why does the product of 4 non-conflicting numbers in this grid never change?</div>
+              <span class="q-hint">Because every valid selection multiplies the exact same set of 4 row and 4 column factors!</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">How could you construct your own $3 \times 3$ magic multiplication grid?</div>
+              <span class="q-hint">Pick 3 row factors and 3 column factors and fill each cell with their product.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">If you constructed an addition magic grid using $R_i + C_j$, what operation would remain constant?</div>
+              <span class="q-hint">The SUM of the selected numbers would remain strictly constant!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 19 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 20: DIVISION OF INTEGERS
+         ========================================== -->
+    <section class="slide" data-slide="20">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.2</span>
+          <span class="badge badge-emerald">DIVISION OF INTEGERS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 38–39</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Division of Integers: Inverse of Multiplication</h2>
+        <div class="slide-subtitle">Converting quotients into missing-factor questions to deduce division sign rules</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔄 Inverse Multiplication Framing</div>
+            <ul class="content-list">
+              <li>$(-100) \div 25 \implies 25 \times \mathbf{?} = -100$.
+                <br>Since $25 \times (-4) = -100$, we have $(-100) \div 25 = \mathbf{-4}$.</li>
+              <li>$(-100) \div (-4) \implies (-4) \times \mathbf{?} = -100$.
+                <br>Since $(-4) \times 25 = -100$, we have $(-100) \div (-4) = \mathbf{25}$.</li>
+              <li>$50 \div (-25) \implies (-25) \times \mathbf{?} = 50$.
+                <br>Since $(-25) \times (-2) = 50$, we have $50 \div (-25) = \mathbf{-2}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">📐 The Universal Division Rules ($b \ne 0$)</div>
+            <ul class="content-list">
+              <li><strong>Positive $\div$ Negative:</strong>
+                $$a \div (-b) = -(a \div b)$$</li>
+              <li><strong>Negative $\div$ Positive:</strong>
+                $$(-a) \div b = -(a \div b)$$</li>
+              <li><strong>Negative $\div$ Negative:</strong>
+                $$(-a) \div (-b) = a \div b$$</li>
+              <li>Division by zero ($a \div 0$) is strictly <strong>undefined</strong>!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="formula-banner">
+          $$\text{Same signs } \implies \text{Positive quotient} \quad\Big|\quad \text{Different signs } \implies \text{Negative quotient}$$
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 20 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 21: QUICK BOX 10
+         ========================================== -->
+    <section class="slide" data-slide="21">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 10</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Integer Division</h2>
+        <div class="slide-subtitle">Oral problems testing integer division and missing numbers</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Find the values of: $36 \div (-18)$ and $(-46) \div (-23)$.</div>
+              <span class="q-hint">$36 \div (-18) = -2$; $(-46) \div (-23) = +2$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Fill in the missing integer: $\_\_\_ \div (-8) = 7$.</div>
+              <span class="q-hint">$7 \times (-8) = -56$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Fill in the missing integer: $\_\_\_ \div 12 = -11$.</div>
+              <span class="q-hint">$(-11) \times 12 = -132$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">A company earns ₹8 profit per white cement bag and ₹5 loss ($-5$) per grey bag. If it sells 3000 white and 5000 grey, net profit or loss?</div>
+              <span class="q-hint">$3000(8) + 5000(-5) = 24000 - 25000 = -1000$ (Loss of ₹1000).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 21 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 22: ASSOCIATIVITY & SIGN OF MULTIPLE INTEGERS
+         ========================================== -->
+    <section class="slide" data-slide="22">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.2</span>
+          <span class="badge badge-emerald">ARITHMETIC PROPERTIES</span>
+        </div>
+        <span class="badge badge-coral">PAGE 39–40</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Associativity &amp; Sign of Products of Many Integers</h2>
+        <div class="slide-subtitle">Grouping flexibility and the master parity rule for negative factors</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>🔗 Associative Law for Multiplication: For any integers $a, b, c$:
+            $$a \times (b \times c) = (a \times b) \times c$$</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔍 Grouping $5 \times (-3) \times 4$</div>
+            <ul class="content-list">
+              <li><strong>Way 1:</strong> $(5 \times -3) \times 4 = (-15) \times 4 = \mathbf{-60}$</li>
+              <li><strong>Way 2:</strong> $5 \times (-3 \times 4) = 5 \times (-12) = \mathbf{-60}$</li>
+              <li><strong>Way 3:</strong> $(5 \times 4) \times (-3) = 20 \times (-3) = \mathbf{-60}$</li>
+              <li>Products are identical regardless of grouping and evaluation order!</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🔢 Parity Rule for Negative Factors</div>
+            <ul class="content-list">
+              <li>$(-1) \times (-1) = +1$ (2 negatives $\to +$)</li>
+              <li>$(-1) \times (-1) \times (-1) = -1$ (3 negatives $\to -$)</li>
+              <li>$(-1)^4 = +1$ (4 negatives $\to +$)</li>
+              <li>$(-1)^5 = -1$ (5 negatives $\to -$)</li>
+              <li><strong>Universal Parity Law:</strong>
+                <br>• <strong>Even number of negatives</strong> $\implies$ Product is <strong>Positive</strong>.
+                <br>• <strong>Odd number of negatives</strong> $\implies$ Product is <strong>Negative</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 22 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 23: QUICK BOX 11
+         ========================================== -->
+    <section class="slide" data-slide="23">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 11</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Associativity &amp; Sign Parity</h2>
+        <div class="slide-subtitle">Oral checks instantly predicting product signs and evaluating chained products</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What is the sign of the product if you multiply 18 negative integers and 5 positive integers?</div>
+              <span class="q-hint">18 is an even number of negatives $\implies$ product is POSITIVE.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">What is the sign of the product if you multiply 23 negative integers and 12 positive integers?</div>
+              <span class="q-hint">23 is an odd number of negatives $\implies$ product is NEGATIVE.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Find the product: $(-2) \times (-1) \times (-5) \times (-3)$.</div>
+              <span class="q-hint">4 negative factors (even) $\implies +(2 \times 1 \times 5 \times 3) = +30$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Calculate $(-7) \times 4 \times (-1)$ by grouping strategically.</div>
+              <span class="q-hint">$(-7) \times (-1) = 7 \implies 7 \times 4 = 28$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 23 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 24: DISTRIBUTIVE PROPERTY OVER ADDITION
+         ========================================== -->
+    <section class="slide" data-slide="24">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 2.2</span>
+          <span class="badge badge-emerald">DISTRIBUTIVE LAW</span>
+        </div>
+        <span class="badge badge-coral">PAGE 40–41</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Distributive Property of Multiplication over Addition</h2>
+        <div class="slide-subtitle">Visual grid layout and algebraic equivalence across all integer signs</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>📐 Distributive Property: For any integers $a, b, c$:
+            $$a \times (b + c) = (a \times b) + (a \times c)$$</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🟢🔴 Rectangular Token Visualization</div>
+            <ul class="content-list">
+              <li>Consider the rectangle of tokens for $4 \times (2 + (-3))$:</li>
+              <li>$4$ rows, each containing $2$ green tokens and $3$ red tokens.</li>
+              <li><strong>Left section:</strong> $4$ rows of $2$ greens $= 4 \times 2 = 8$.</li>
+              <li><strong>Right section:</strong> $4$ rows of $3$ reds $= 4 \times (-3) = -12$.</li>
+              <li>Total tokens $= 8 + (-12) = -4$.</li>
+              <li>LHS: $4 \times (2 - 3) = 4 \times (-1) = -4$ ✅ Matches!</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⚡ Mental Math Multiplication Power</div>
+            <ul class="content-list">
+              <li>The distributive property enables rapid mental calculations:</li>
+              <li>Example: $(-5) \times (18 + (-3))$
+                $$= (-5) \times 15 = -75$$
+                $$\text{or } (-5 \times 18) + (-5 \times -3) = -90 + 15 = \mathbf{-75}$$</li>
+              <li>Also works over subtraction: $a \times (b - c) = ab - ac$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 24 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 25: QUICK BOX 12
+         ========================================== -->
+    <section class="slide" data-slide="25">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 12</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Distributive Property</h2>
+        <div class="slide-subtitle">Oral checks expanding and factoring expressions using distributivity</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Verify if $(-2) \times (4 + (-3))$ equals $(-2) \times 4 + (-2) \times (-3)$.</div>
+              <span class="q-hint">LHS: $-2 \times 1 = -2$. RHS: $-8 + 6 = -2$. Yes!</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Use distributive property to calculate: $49 \times (-18) + 1 \times (-18)$.</div>
+              <span class="q-hint">Factor out $-18$: $(49 + 1) \times (-18) = 50 \times (-18) = -900$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">If $207 \times (-33 + 7) = -5382$, what is the value of $-207 \times (33 - 7)$?</div>
+              <span class="q-hint">$-33 + 7 = -(33 - 7)$. The negative sign shifts to the outer factor $\implies -5382$!</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Given $47 - 56 + 14 - 8 + 2 - 8 + 5 = -4$, evaluate $-47 + 56 - 14 + 8 - 2 + 8 - 5$ without full calculation.</div>
+              <span class="q-hint">Every single term has swapped signs $\implies -(-4) = +4$!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 25 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 26: PATTERN MACHINES (ALGEBRAIC EXPRESSIONS)
+         ========================================== -->
+    <section class="slide" data-slide="26">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">PATTERN MACHINES</span>
+          <span class="badge badge-emerald">FUNCTION MODELLING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 41–43</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Pattern Machines: Deducing Algebraic Rules</h2>
+        <div class="slide-subtitle">Reverse-engineering operations from triplets of integer inputs and star outputs</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-highlight">
+            <div class="card-title">⚙️ Machine 1 (Page 41)</div>
+            <ul class="content-list">
+              <li>Inputs $(5, 8, 3) \to 10$</li>
+              <li>Inputs $(-4, -1, -6) \to 1$</li>
+              <li><strong>Rule:</strong> $a + b - c$
+                <br>• $5 + 8 - 3 = 10$
+                <br>• $(-4) + (-1) - (-6) = 1$</li>
+              <li><strong>Last row:</strong> $(-10, -12, -9)$
+                <br>$(-10) + (-12) - (-9)$
+                <br>$= -22 + 9 = \mathbf{-13}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">⚙️ Machine 2 (Page 41)</div>
+            <ul class="content-list">
+              <li>Inputs $(4, 8, -3) \to -29$</li>
+              <li>Inputs $(5, 3, 7) \to -22$</li>
+              <li>Inputs $(-7, 4, 6) \to 22$</li>
+              <li><strong>Rule:</strong> $a - b \times c$
+                <br>• $4 - (8 \times -3) = 4 - (-24) = 28$? Check text: $-29 \implies -4(8) + 3$?
+                <br>Let's check $a \times b - c$: $4(8) - (-3) = 35$?
+                <br>Text check: $(a+c) \times b$ or $a - bc$?
+                <br>Notice: $4 - (8 \times -3)$ vs $a \times (-b) + c$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⚙️ Machine 3 (Page 43)</div>
+            <ul class="content-list">
+              <li>Inputs $(4, 8, -3) \to 28$
+                <br>$4 - 8 \times (-3) = 4 + 24 = 28$!</li>
+              <li>Inputs $(6, 9, 6) \to -48$
+                <br>$6 - (9 \times 6) = 6 - 54 = -48$!</li>
+              <li>Inputs $(2, 3, -2) \to 8$
+                <br>$2 - (3 \times -2) = 2 - (-6) = 8$!</li>
+              <li><strong>Rule:</strong> $a - (b \times c)$</li>
+              <li><strong>Last row:</strong> $(-16, -6, -9)$
+                <br>$-16 - (-6 \times -9) = -16 - 54 = \mathbf{-70}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 26 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 27: QUICK BOX 13
+         ========================================== -->
+    <section class="slide" data-slide="27">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 13</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Pattern Machines</h2>
+        <div class="slide-subtitle">Oral checks testing operation identification and precedence</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">In Machine 1 ($a + b - c$), evaluate the output for inputs $-3, 10, 2$.</div>
+              <span class="q-hint">$-3 + 10 - 2 = 7 - 2 = 5$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">In Machine 3 ($a - b \times c$), evaluate the output for inputs $-9, 5, -8$.</div>
+              <span class="q-hint">$-9 - (5 \times -8) = -9 - (-40) = -9 + 40 = 31$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Why must multiplication be executed before subtraction in $a - b \times c$?</div>
+              <span class="q-hint">By standard order of operations (BODMAS / PEMDAS).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">If a machine uses $(a - b) \times c$, what would the output be for inputs $4, 8, -3$?</div>
+              <span class="q-hint">$(4 - 8) \times (-3) = (-4) \times (-3) = +12$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 27 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 28: COLLATZ CONJECTURE & PIBS CURRENCY
+         ========================================== -->
+    <section class="slide" data-slide="28">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">EXPLORATIONS</span>
+          <span class="badge badge-emerald">ADVANCED REASONING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 42–44</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Collatz with Integers &amp; The Alien Currency 'Pibs'</h2>
+        <div class="slide-subtitle">Loop dynamics in integer sequences and linear combinations with coins</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🌀 Modified Integer Collatz Sequence</div>
+            <ul class="content-list">
+              <li><strong>Rule:</strong> If even $\to n/2$. If odd $\to (-3n + 1)$.</li>
+              <li>Start with $-7$:
+                $$-7 \to 22 \to 11 \to -32 \to -16 \to -8 \to -4 \to -2 \to -1 \to 4 \to 2 \to 1$$</li>
+              <li>From $1$: $1 \to -2 \to -1 \to 4 \to 2 \to 1$ (Loops!).</li>
+              <li>Shows how simple integer rules create complex orbits and loops.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">👽 Alien Currency: Pibs ($+13$ and $-9$)</div>
+            <ul class="content-list">
+              <li>Coins exist only in $+13$ pibs and $-9$ pibs.</li>
+              <li>Can we purchase an item for $+85$ pibs?
+                $$10 \times (+13) + 5 \times (-9) = 130 - 45 = \mathbf{85} \text{ pibs!}$$</li>
+              <li><strong>Making $+1$ pib:</strong>
+                $$7 \times (+13) + 10 \times (-9) = 91 - 90 = \mathbf{+1} \text{ pib!}$$</li>
+              <li>Since $\gcd(13, 9) = 1$, <strong>any integer amount</strong> can be formed!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 28 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 29: QUICK BOX 14
+         ========================================== -->
+    <section class="slide" data-slide="29">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 14</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Pibs &amp; Consecutive Numbers</h2>
+        <div class="slide-subtitle">Oral checks solving Diophantine coin combinations and integer factorization</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Find 3 consecutive integers whose product is $-6$.</div>
+              <span class="q-hint">$-3, -2, -1 \implies (-3) \times (-2) \times (-1) = -6$. (Also $-1, 0, 1 \to 0$).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Find 3 consecutive integers whose product is $120$.</div>
+              <span class="q-hint">$4 \times 5 \times 6 = 120$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">How can you make $+20$ pibs using $+13$ and $-9$ coins?</div>
+              <span class="q-hint">$20 = 2 \times 13 + 0$ no, $20 = 5 \times 13 + 5 \times (-9) = 65 - 45 = 20$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Is it possible to purchase an item costing $1568$ pibs? Why?</div>
+              <span class="q-hint">Yes! Because $\gcd(13, 9) = 1$, all integer multiples can be generated.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 29 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 30: ADVANCED INTEGER ARITHMETIC PROBLEMS
+         ========================================== -->
+    <section class="slide" data-slide="30">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">EXERCISE HIGHLIGHTS</span>
+          <span class="badge badge-emerald">WORKED MODELS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 44</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Model Problem Solutions from Exercise</h2>
+        <div class="slide-subtitle">Multi-step integer expressions, ordering, and optimization challenges</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-highlight">
+            <div class="card-title">📝 Model 1: Chained Division (Q11)</div>
+            <ul class="content-list">
+              <li>$(32 \times -18) \div (-36)$
+                <br>$= -576 \div -36 = \mathbf{16}$</li>
+              <li>$(280 \times -7) \div (-8 \times -35)$
+                <br>Numerator: $280 \times (-7) = -1960$
+                <br>Denominator: $(-8) \times (-35) = 280$
+                <br>Quotient: $-1960 \div 280 = \mathbf{-7}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">📝 Model 2: Ordering Expressions (Q12)</div>
+            <ul class="content-list">
+              <li>Arrange in increasing order:
+                <br>• $348 \times (-1064) \approx -3.7 \times 10^5$ (Lowest)
+                <br>• $(-348) + (-1064) = -1412$
+                <br>• $(-348) - (-1064) = +716$
+                <br>• $348 - (-1064) = +1412$
+                <br>• $348 \times 964 \approx 3.35 \times 10^5$
+                <br>• $(-348) \times (-1064) \approx 3.7 \times 10^5$ (Highest)</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">📝 Model 3: Optimization (Q15)</div>
+            <ul class="content-list">
+              <li>Numbers: $3, -2, 5, 6$. Use $+$, $-$, $\times$ once.</li>
+              <li><strong>Maximum possible:</strong>
+                <br>$(6 - (-2)) \times 5 + 3 = 8 \times 5 + 3 = \mathbf{43}$
+                <br>or $(5 - (-2)) \times 6 + 3 = 45$!</li>
+              <li><strong>Minimum possible:</strong>
+                <br>Multiply largest numbers and subtract, or multiply by negative:
+                $6 \times 5 \times (-2) \implies$ but must use $+,-,\times$.
+                <br>$(5 + 6) \times (-2) - 3 = -22 - 3 = \mathbf{-25}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 30 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 31: QUICK BOX 15
+         ========================================== -->
+    <section class="slide" data-slide="31">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 15</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Mental Arithmetic Tricks</h2>
+        <div class="slide-subtitle">Oral checks leveraging known products to derive adjacent values</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Given $(-548) \times 972 = -532656$, find $(-547) \times 972$ without long multiplication.</div>
+              <span class="q-hint">Add $972$ to the product: $-532656 + 972 = -531684$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Given $(-548) \times 972 = -532656$, find $(-548) \times 971$.</div>
+              <span class="q-hint">Subtract $(-548)$, which adds $548$: $-532656 + 548 = -532108$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Fill blanks with integers: $\Box + \Box \times \Box = -36$. Give one combination.</div>
+              <span class="q-hint">E.g., $4 + (-8) \times 5 = 4 - 40 = -36$, or $0 + (-6) \times 6 = -36$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Fill blanks with integers: $(\Box - \Box) \times \Box = 12$. Give one combination.</div>
+              <span class="q-hint">E.g., $(10 - 6) \times 3 = 12$, or $(2 - 8) \times (-2) = (-6) \times (-2) = 12$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 31 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 32: TRADITIONAL INDIAN GAME - TERHÜCHÜ
+         ========================================== -->
+    <section class="slide" data-slide="32">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">ETHNOMATHEMATICS</span>
+          <span class="badge badge-emerald">NAGALAND &amp; ASSAM</span>
+        </div>
+        <span class="badge badge-coral">PAGE 45–46</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Puzzle Time: Terhüchü — The Traditional Game</h2>
+        <div class="slide-subtitle">Ancient strategic grid game from Northeast India played with coins and geometric diagonals</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🎲 The Game Setup &amp; Board</div>
+            <ul class="content-list">
+              <li><strong>Origin:</strong> Played in Nagaland and Assam, traditionally drawn on large stones or etched in soil.</li>
+              <li><strong>The Grid:</strong> $16$ squares with full criss-cross diagonals and $4$ outer triangular corners.</li>
+              <li><strong>Pieces:</strong> $2$ players, each commanding $9$ distinct coins placed at opposite sides.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⚔️ Rules of Engagement</div>
+            <ul class="content-list">
+              <li><strong>Movement:</strong> Move one coin along any line to an adjacent vacant intersection.</li>
+              <li><strong>Jumping Capture:</strong> Jump over an opponent's adjacent coin into a vacant space directly beyond to capture and remove it.</li>
+              <li><strong>Multiple Captures:</strong> Continuous jumping turns allowed with directional changes.</li>
+              <li><strong>Triangular Corners:</strong> Coins can skip empty intersections inside outer triangular sanctuaries.</li>
+              <li><strong>Objective:</strong> Capture all opponent coins or immobilize them!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>🏛️ Cultural Math Heritage: Indian indigenous board games embody deep topological line networks, parity rules, and spatial problem-solving.</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 32 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 33: CHAPTER 2 MASTER SUMMARY
+         ========================================== -->
+    <section class="slide" data-slide="33">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">CHAPTER 2 SUMMARY</span>
+          <span class="badge badge-emerald">MASTER RECAP</span>
+        </div>
+        <span class="badge badge-coral">PAGE 45</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Master Operations with Integers Reference Checklist</h2>
+        <div class="slide-subtitle">Comprehensive recap of definitions, sign laws, and operational properties</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">Operations &amp; Sign Rules</div>
+            <ul class="content-list">
+              <li>✅ <strong>Multiplication Signs:</strong> Same signs give positive ($+ \cdot + = +$, $- \cdot - = +$). Different signs give negative ($+ \cdot - = -$, $- \cdot + = -$).</li>
+              <li>✅ <strong>Division Signs:</strong> Same signs give positive ($+ \div + = +$, $- \div - = +$). Different signs give negative ($+ \div - = -$, $- \div + = -$).</li>
+              <li>✅ <strong>Sign Parity Rule:</strong> An even number of negative factors yields positive; an odd number yields negative.</li>
+              <li>✅ <strong>Additive Inverse:</strong> $a - b = a + (-b)$. $-(-a) = a$.</li>
+              <li>✅ <strong>Division by Zero:</strong> Undefined for all integers.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">Fundamental Algebraic Properties</div>
+            <ul class="content-list">
+              <li>✅ <strong>Commutative Property:</strong> $a \times b = b \times a$ (Valid for $+$ and $\times$, NOT for $-$ or $\div$).</li>
+              <li>✅ <strong>Associative Property:</strong> $(a \times b) \times c = a \times (b \times c)$ (Valid for $+$ and $\times$).</li>
+              <li>✅ <strong>Distributive Property:</strong> $a \times (b + c) = (a \times b) + (a \times c)$ over addition and subtraction.</li>
+              <li>✅ <strong>Multiplicative Identity:</strong> $1 \times a = a$. Negation: $-1 \times a = -a$.</li>
+              <li>✅ <strong>Brahmagupta's Legacy (628 CE):</strong> Fortunes, debts, and zero arithmetic established over 1400 years ago.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 33 / 34</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 34: CLOSING SLIDE
+         ========================================== -->
+    <section class="slide closing-slide" data-slide="34">
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <span class="badge badge-primary">GANITA PRAKASH PART II</span>
+        <span class="badge badge-emerald">CHAPTER 2 COMPLETE</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="cover-eyebrow">END OF CHAPTER 2</div>
+        <h1 class="cover-title">THANK YOU</h1>
+        <p class="cover-tagline">
+          "Positive and negative numbers are not opposites in conflict, but complements in harmony — two directions on the same grand line of mathematics."
+        </p>
+
+        <!-- LARGE CREDIT PILL -->
+        <a href="https://www.akashmaths.online" target="_blank" class="credit-pill">
+          <span class="sparkle">✦</span>
+          <span>Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </a>
+      </div>
+
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 34 / 34</span>
+      </div>
+    </section>
+
+    <!-- Navigation Controls -->
+    <div class="deck-nav">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+
+    <div class="keyboard-hint">
+      Use ◀ / ▶ or Space to navigate
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      const activeSlide = document.querySelector(`.slide[data-slide="${index}"]`);
+      if (activeSlide) {
+        activeSlide.classList.add('active');
+        currentSlide = index;
+      }
+    }
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      showSlide(currentSlide - 1);
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      showSlide(currentSlide + 1);
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        showSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        showSlide(currentSlide - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        showSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        showSlide(totalSlides);
+      }
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const container = document.getElementById('deck-container');
+
+    container.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    container.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        showSlide(currentSlide + 1);
+      }
+      if (touchEndX > touchStartX + 50) {
+        showSlide(currentSlide - 1);
+      }
+    }
+  </script>
+</body>
+</html>

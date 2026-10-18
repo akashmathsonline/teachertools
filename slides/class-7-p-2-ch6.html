@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 7 Math Chapter 6 Slide Deck</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #0d9488;
+      --amber: #f59e0b;
+      --amber-soft: #fef3c7;
+      --rose: #e11d48;
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #eff6ff 100%);
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      color: var(--text-main);
+    }
+
+    .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: var(--bg-gradient);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      padding: 40px 60px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      opacity: 0; visibility: hidden;
+      transform: translateY(12px) scale(0.99);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+
+    .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    
+    .pill-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 9999px;
+      background: var(--primary-light); color: var(--primary-dark); border: 1px solid rgba(2, 132, 199, 0.2);
+    }
+    .pill-tag.quick { background: var(--amber-soft); color: #b45309; border-color: #fde68a; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border-color: rgba(185, 28, 28, 0.2); font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 9999px; }
+
+    .slide-title { font-family: 'Baloo 2', cursive, sans-serif; font-size: 2.1rem; line-height: 1.15; font-weight: 800; color: #0f172a; margin-bottom: 14px; }
+    .slide-subtitle { font-size: 0.98rem; color: var(--text-muted); font-weight: 500; margin-bottom: 20px; }
+    
+    .slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+
+    .card { background: var(--card-bg); border-radius: 16px; padding: 18px 22px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
+    .card.highlight { border-left: 5px solid var(--primary); background: linear-gradient(to right, #f8fafc, #ffffff); }
+    .card.emerald-highlight { border-left: 5px solid var(--accent); background: linear-gradient(to right, #f0fdf4, #ffffff); }
+    .card.amber-highlight { border-left: 5px solid var(--amber); background: linear-gradient(to right, #fffbeb, #ffffff); }
+    
+    .card-title { font-family: 'Baloo 2', cursive; font-size: 1.25rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+    
+    .formula-box { background: #f1f5f9; border: 1.5px dashed #94a3b8; border-radius: 12px; padding: 12px 16px; margin: 4px 0; text-align: center; }
+    
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .bullet-list li { position: relative; padding-left: 24px; font-size: 0.92rem; line-height: 1.45; color: var(--text-muted); }
+    .bullet-list li::before { content: '✦'; position: absolute; left: 2px; color: var(--primary); font-size: 0.85rem; }
+    
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .step-list li { position: relative; padding-left: 24px; font-size: 0.9rem; line-height: 1.45; color: var(--text-muted); }
+    .step-list li::before { content: '▪'; position: absolute; left: 2px; color: var(--primary); font-size: 0.85rem; }
+
+    .slide-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 600; color: #64748b; letter-spacing: 0.03em; }
+
+    .slide-watermark { position: absolute; bottom: 12px; right: 18px; font-size: 0.74rem; font-weight: 600; color: #94a3b8; opacity: 0.35; pointer-events: none; }
+
+    .nav-controls { position: absolute; bottom: 14px; right: 28px; display: flex; gap: 8px; z-index: 50; }
+    .nav-btn { background: #ffffff; border: 1px solid #cbd5e1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; color: #334155; box-shadow: var(--shadow-sm); transition: all 0.2s ease; }
+    .nav-btn:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); transform: translateY(-2px); }
+    .keyboard-hint { position: absolute; bottom: 14px; left: 28px; font-size: 0.72rem; color: #94a3b8; font-weight: 600; z-index: 50; pointer-events: none; }
+
+    .credit-pill { display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1.5px solid #0284c7; padding: 10px 24px; border-radius: 9999px; font-size: 1.05rem; font-weight: 700; color: #0369a1; box-shadow: var(--shadow-md); margin-top: 10px; }
+    .cover-layout { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+    .cover-eyebrow { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .cover-title { font-family: 'Baloo 2', cursive; font-size: 3.5rem; font-weight: 800; color: #0f172a; line-height: 1.1; margin-bottom: 12px; }
+    .cover-tagline { font-style: italic; font-size: 1.15rem; color: #475569; max-width: 800px; margin: 0 auto; }
+
+    .quick-box-container { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+    .quick-item { background: #fffbeb; border: 1px solid #fde68a; padding: 14px 18px; border-radius: 12px; display: flex; gap: 14px; align-items: flex-start; }
+    .quick-badge { background: #d97706; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+    .quick-text { font-size: 1rem; font-weight: 600; color: #78350f; line-height: 1.4; }
+    
+    .diagram-panel { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 10px; display: flex; justify-content: center; align-items: center; }
+
+    @media (max-width: 900px) {
+      .slide { padding: 20px; }
+      .slide-title { font-size: 1.5rem; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .cover-title { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck-container">
+  <div class="controls">
+    <button class="nav-btn" id="prevBtn" title="Previous Slide">❮</button>
+    <button class="nav-btn" id="nextBtn" title="Next Slide">❯</button>
+  </div>
+
+  <!-- SLIDE 1: COVER -->
+  <section class="slide active">
+    <div class="cover-layout">
+      <div style="width: 100%; display: flex; justify-content: space-between;">
+        <span class="pill-tag">GANITA PRAKASH | GRADE 7 PART-II</span>
+        <span class="pill-tag">Chapter 6 • Cover</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <span class="cover-eyebrow">CLASS 7 MATHEMATICS • CHAPTER 6</span>
+        <h1 class="cover-title">Constructions and Tilings</h1>
+        <p class="cover-tagline">
+          "From the Geometry of Arcs & Altars to the Art of Tessellation. Exhaustive point-by-point presentation covering every concept, theorem, historical method, and geometric exploration directly from the textbook."
+        </p>
+        <div class="credit-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sublink">(www.akashmaths.online)</span>
+        </div>
+      </div>
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 1 / 28</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">The 'Eyes' Construction</span>
+        <h2 class="slide-title">Symmetry & The 'Eyes' Construction</h2>
+      </div>
+      <span class="pill-page">Slide 2 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">👁️ The 'Eyes' Construction</div>
+          <ul class="bullet-list">
+            <li>In Grade 6, we drew symmetrical eyes using spatial estimation to pick centres $A$ (for the lower arc) and $B$ (for the upper arc).</li>
+            <li>The arcs intersect at endpoints $X$ and $Y$, defining a <strong>supporting line $XY$</strong> which serves as the axis of symmetry.</li>
+            <li>For exact symmetry, the upper and lower arcs must have the identical radius:
+              <div class="formula-box">$$AX = AY = BX = BY$$</div>
+            </li>
+            <li>The supporting line $XY$ guides the accurate placement of centres $A$ and $B$.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">📐 Geometric Setup</div>
+          <div class="diagram-panel">
+            <!-- SVG Diagram Code from Gemini -->
+            <svg class="geom-fig" viewBox="0 0 300 130" style="width:100%; height:auto;">
+              <line x1="20" y1="65" x2="280" y2="65" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1.5"/>
+              <path d="M 60,65 Q 150,20 240,65" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+              <path d="M 60,65 Q 150,110 240,65" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+              <circle cx="150" cy="65" r="10" fill="#0f172a"/>
+              <circle cx="150" cy="18" r="4" fill="#e11d48"/>
+              <text x="156" y="20" font-size="12" fill="#e11d48" font-weight="bold">A</text>
+              <circle cx="150" cy="112" r="4" fill="#e11d48"/>
+              <text x="156" y="118" font-size="12" fill="#e11d48" font-weight="bold">B</text>
+              <text x="48" y="70" font-size="12" font-weight="bold">X</text>
+              <text x="248" y="70" font-size="12" font-weight="bold">Y</text>
+            </svg>
+          </div>
+          <p style="font-size: 0.88rem; color: #475569; text-align: center;">
+            Drawing equal arcs from endpoints $X$ and $Y$ above and below $XY$ gives exact centres $A$ and $B$.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 2 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — The 'Eyes' Construction</h2>
+      </div>
+      <span class="pill-page">Slide 3 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Recall</span>
+          <span class="quick-text">Why must the radii of the two arcs from centres $A$ and $B$ be equal for the constructed eye to look symmetrical?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Geometry</span>
+          <span class="quick-text">What role does the line segment $XY$ play in this construction, even though it is not part of the final face drawing?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Think & Reflect</span>
+          <span class="quick-text">If $AX = AY$ and $BX = BY$, what type of geometric quadrilateral is formed by joining $A, X, B, Y$?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 3 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Perpendicular Bisector</span>
+        <h2 class="slide-title">Perpendicular Bisector & Congruence Proof</h2>
+      </div>
+      <span class="pill-page">Slide 4 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">✨ Definitions & Observations</div>
+          <ul class="bullet-list">
+            <li><strong>Bisection:</strong> Dividing a line segment or geometric object into two identical parts.</li>
+            <li><strong>Perpendicular Bisector:</strong> A line that bisects a segment at $90^\circ$.</li>
+            <li>When $A$ and $B$ are joined, $AB$ intersects $XY$ at point $O$.</li>
+            <li>$O$ is the midpoint of $XY$ ($OX = OY$) and $AB \perp XY$.</li>
+          </ul>
+        </div>
+        <div class="card emerald-highlight">
+          <div class="card-title">⚖️ Proof via Congruence</div>
+          <ul class="step-list">
+            <li>In $\triangle ABX$ and $\triangle ABY$: $AX = AY$, $BX = BY$, and $AB$ is common. Thus, by <strong>SSS Congruence</strong>:
+              $$\triangle ABX \cong \triangle ABY \implies \angle XAO = \angle YAO$$
+            </li>
+            <li>In $\triangle AOX$ and $\triangle AOY$: $AX = AY$, $\angle XAO = \angle YAO$, and side $AO$ is common. By <strong>SAS Congruence</strong>:
+              $$\triangle AOX \cong \triangle AOY$$
+            </li>
+            <li>Hence, $OX = OY$ and $\angle AOX = \angle AOY = 90^\circ$ (linear pair sums to $180^\circ$).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 4 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Perpendicular Bisector</h2>
+      </div>
+      <span class="pill-page">Slide 5 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Logic Flow</span>
+          <span class="quick-text">Why was it necessary to prove $\triangle ABX \cong \triangle ABY$ before proving $\triangle AOX \cong \triangle AOY$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Congruence</span>
+          <span class="quick-text">Which congruence condition was used in step 1, and which in step 2 of the textbook's proof?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Linear Pair</span>
+          <span class="quick-text">Since $\angle AOX = \angle AOY$ and they lie on a straight line, what calculation proves each angle is exactly $90^\circ$?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 5 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Fundamental Locus</span>
+        <h2 class="slide-title">Varying Eye Shapes & The Fundamental Locus</h2>
+      </div>
+      <span class="pill-page">Slide 6 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">🎨 Different Eye Expressions</div>
+          <ul class="bullet-list">
+            <li>Human eyes, owl eyes, cat eyes, and folk-art eyes (e.g. Kathakali, Jamini Roy style) have different proportions.</li>
+            <li>By choosing points $C$ and $D$ further away or closer, we obtain different arc curvatures for wide or narrow eyes.</li>
+            <li>As long as $CX = CY$ and $DX = DY$, the eye remains perfectly symmetrical.</li>
+          </ul>
+        </div>
+        <div class="card amber-highlight">
+          <div class="card-title">🔑 The Fundamental Theorem</div>
+          <div class="formula-box" style="font-weight: 700; font-size: 1.05rem; line-height: 1.4;">
+            "Any point that is equidistant from endpoints $X$ and $Y$ MUST lie on the perpendicular bisector of $XY$."
+          </div>
+          <ul class="bullet-list">
+            <li>Since a segment has only <strong>one unique perpendicular bisector</strong>, all such equidistant pairs ($A, B, C, D\dots$) lie on the same straight line $AB$.</li>
+            <li>This turns the perpendicular bisector into a line of centres for countless creative designs.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 6 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — The Equidistant Property</h2>
+      </div>
+      <span class="pill-page">Slide 7 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Locus</span>
+          <span class="quick-text">If a point $P$ has $PX = 7\text{ cm}$ and $PY = 7\text{ cm}$, does $P$ lie on the perpendicular bisector of segment $XY$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Uniqueness</span>
+          <span class="quick-text">Can a given line segment have more than one perpendicular bisector? Why or why not?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Design</span>
+          <span class="quick-text">What happens to the shape of an eye if the centre is chosen very far away from the line $XY$ versus very close to it?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 7 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 8 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Construction</span>
+        <h2 class="slide-title">Constructing a Perpendicular Bisector</h2>
+      </div>
+      <span class="pill-page">Slide 8 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🧭 Step-by-Step Algorithm</div>
+          <ul class="step-list">
+            <li><strong>Given:</strong> A line segment $XY$.</li>
+            <li><strong>Step 1:</strong> With centre $X$ and fixed compass radius $r > \frac{1}{2}XY$, draw arcs on both sides of $XY$.</li>
+            <li><strong>Step 2:</strong> With centre $Y$ and the <em>exact same radius</em>, draw intersecting arcs to locate points $A$ (above) and $B$ (below).</li>
+            <li><strong>Step 3:</strong> Join $A$ and $B$ using an unmarked ruler. Line $AB$ is the required perpendicular bisector.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">💡 "Figure it Out" Explorations</div>
+          <ul class="bullet-list">
+            <li><strong>Different radii above and below?</strong> Yes! The radius for arc $A$ can differ from arc $B$, as long as each pair uses equal distance from $X$ and $Y$.</li>
+            <li><strong>Arcs on the same side?</strong> Yes! Two points $A$ and $C$ on the same side of $XY$ (with different radii) still uniquely define the line $AC$.</li>
+            <li><strong>Why radius $> \frac{1}{2}XY$?</strong> If radius is smaller, the arcs will never meet!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 8 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Bisector Construction</h2>
+      </div>
+      <span class="pill-page">Slide 9 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Radius</span>
+          <span class="quick-text">What would happen during construction if the compass radius chosen was exactly equal to $\frac{1}{2}XY$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Variation</span>
+          <span class="quick-text">Can we find the perpendicular bisector by drawing two pairs of intersecting arcs on the UPPER side of $XY$ only?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Flower Design</span>
+          <span class="quick-text">In the 4-petalled flower design (Page 140), what geometric lines serve as the axes of symmetry for the petals?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 9 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 10 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">90° Angle</span>
+        <h2 class="slide-title">Constructing a $90^\circ$ Angle at a Given Point</h2>
+      </div>
+      <span class="pill-page">Slide 10 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">📐 The Underlying Strategy</div>
+          <ul class="bullet-list">
+            <li>To construct a perpendicular at a point $O$ on line $m$, we turn $O$ into the midpoint of an auxiliary segment $XY$.</li>
+            <li>With centre $O$ and any convenient radius, swing arcs cutting the line on both sides at $X$ and $Y$ so that $OX = OY$.</li>
+            <li>Now, construct the perpendicular bisector of this created segment $XY$.</li>
+            <li>Since $O$ is already known to be on the bisector, we need only <strong>one point of intersection ($A$)</strong> above the line!</li>
+          </ul>
+        </div>
+        <div class="card emerald-highlight">
+          <div class="card-title">🎯 Construction Steps</div>
+          <ul class="step-list">
+            <li>Mark point $O$ on given line $m$.</li>
+            <li>Swing arcs with centre $O$ to mark points $X$ and $Y$ on line $m$.</li>
+            <li>With radius $> OX$, swing arcs from $X$ and $Y$ intersecting at $A$.</li>
+            <li>Draw ray $OA$. Then $\angle AOX = \angle AOY = 90^\circ$.</li>
+          </ul>
+          <div class="formula-box">$$OA \perp m \quad \text{at point } O$$</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 10 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 11: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Right Angle Construction</h2>
+      </div>
+      <span class="pill-page">Slide 11 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Efficiency</span>
+          <span class="quick-text">Why don't we need to draw a second intersection point below the line when erecting a $90^\circ$ angle at point $O$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Accuracy</span>
+          <span class="quick-text">Why is compass-based midpoint determination considered more geometrically exact than using a standard graduated plastic scale?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Extension</span>
+          <span class="quick-text">How can you use the $90^\circ$ construction at point $O$ to create a straight line of length $2 \times OX$?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 11 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 12 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Śulba-Sūtras</span>
+        <h2 class="slide-title">Vedic Geometry: The Śulba-Sūtras</h2>
+      </div>
+      <span class="pill-page">Slide 12 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card amber-highlight">
+          <div class="card-title">📜 The Śulba-Sūtra Tradition</div>
+          <ul class="bullet-list">
+            <li>The <strong>Śulba-Sūtras</strong> (Baudhāyana, Āpastamba, Kātyāyana, Mānava) belong to the <em>Kalpa Vedānga</em>.</li>
+            <li>The Sanskrit word <em>śulba</em> literally means a <strong>cord or rope</strong>.</li>
+            <li>Ancient Indian mathematicians used a rope with pegs as a versatile tool: it served both as a straightedge (when taut) and as a compass (to swing arcs on the ground).</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">🪢 Kātyāyana-Śulbasūtra Method</div>
+          <ul class="step-list">
+            <li>Drive pegs into the ground at the endpoints $X$ and $Y$.</li>
+            <li>Take a long rope, form loops at both ends, and fold it in half to mark its exact <strong>midpoint</strong>.</li>
+            <li>Fasten loops to pegs at $X$ and $Y$. Stretch the rope tight by pulling the midpoint upwards to point $A$.</li>
+            <li>Similarly, pull the midpoint downwards until both halves are taut to point $B$.</li>
+            <li>Line $AB$ is the perpendicular bisector! (Since $AX = AY$ and $BX = BY$).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 12 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 13: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Śulba-Sūtra Geometry</h2>
+      </div>
+      <span class="pill-page">Slide 13 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Rigour</span>
+          <span class="quick-text">Why does pulling the midpoint of a folded rope taut between two pegs guarantee that $AX = AY$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Real-World</span>
+          <span class="quick-text">Why was rope geometry particularly suited for large-scale outdoor projects like Vedic fire altars compared to compasses?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Challenge</span>
+          <span class="quick-text">Can you describe how two students could use a single rope to lay out the square boundary of a playground?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 13 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 14 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Angle Bisection</span>
+        <h2 class="slide-title">Angle Bisection & Creating $45^\circ$ Angles</h2>
+      </div>
+      <span class="pill-page">Slide 14 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">✂️ Steps for Bisecting $\angle XOY$</div>
+          <ul class="step-list">
+            <li>With vertex $O$ as centre, draw an arc intersecting arms at $A$ and $B$, making $OA = OB$.</li>
+            <li>With centres $A$ and $B$ and equal radius, draw arcs intersecting at point $C$.</li>
+            <li>Draw ray $OC$. Then $OC$ bisects $\angle AOB$.</li>
+          </ul>
+          <div class="formula-box">$$\triangle OBC \cong \triangle OAC \text{ (SSS)} \implies \angle BOC = \angle AOC$$</div>
+        </div>
+        <div class="card emerald-highlight">
+          <div class="card-title">🌸 Applications & Halving</div>
+          <ul class="bullet-list">
+            <li><strong>Constructing $45^\circ$:</strong> Construct a $90^\circ$ angle first, then bisect it:
+              $$\frac{90^\circ}{2} = 45^\circ, \quad \frac{45^\circ}{2} = 22.5^\circ$$
+            </li>
+            <li><strong>8-Petalled Flower Design:</strong> Divide the full $360^\circ$ circle into 8 equal sectors of $45^\circ$ each by successively bisecting straight and right angles.</li>
+            <li>Petal arcs are then drawn using radial centres on each ray.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 14 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 15: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Angle Bisection Mechanics</h2>
+      </div>
+      <span class="pill-page">Slide 15 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • SSS Justification</span>
+          <span class="quick-text">Identify the three pairs of equal corresponding sides that prove $\triangle OBC \cong \triangle OAC$.</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Inverse Arcs</span>
+          <span class="quick-text">If the intersecting arcs from $A$ and $B$ are drawn on the opposite side of vertex $O$, does ray $OC$ still bisect the angle?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Constructibility</span>
+          <span class="quick-text">Can an angle of $65.5^\circ$ be constructed using only angle bisections starting from standard whole angles? Why or why not?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 15 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 16 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Copying Angles</span>
+        <h2 class="slide-title">Copying a Given Angle (SSS Method)</h2>
+      </div>
+      <span class="pill-page">Slide 16 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🔄 Steps to Copy $\angle A$ to Ray $XZ$</div>
+          <ul class="step-list">
+            <li>Draw an arc of radius $r$ centered at vertex $A$, intersecting the arms at points $B$ and $C$.</li>
+            <li>Draw an arc of the <em>same radius $r$</em> centered at new vertex $X$, intersecting ray $X$ at point $Z$.</li>
+            <li>Measure distance $BC$ with the compass.</li>
+            <li>Place compass point at $Z$ and swing an arc of length $BC$ to cut the first arc at point $Y$.</li>
+            <li>Draw ray $XY$. Then $\angle YXZ = \angle CAB$.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🔍 Why It Works: SSS</div>
+          <p style="font-size: 0.95rem; line-height: 1.5; color: #334155;">
+            By construction, we have built two triangles with identical corresponding side lengths:
+          </p>
+          <div class="formula-box">$$AB = XY = r, \quad AC = XZ = r, \quad BC = YZ$$</div>
+          <p style="font-size: 0.92rem; color: #475569;">
+            Therefore, $\triangle ABC \cong \triangle XYZ$ by the <strong>SSS condition</strong>, guaranteeing corresponding angles $\angle A = \angle X$.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 16 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 17: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Copying Angles</h2>
+      </div>
+      <span class="pill-page">Slide 17 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Measurement</span>
+          <span class="quick-text">Is it necessary to know the degree measure of an angle before making an exact copy of it?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Congruence Link</span>
+          <span class="quick-text">Which geometric theorem assures us that transferring chord length $BC$ creates an identical opening?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Practical Art</span>
+          <span class="quick-text">How does copying angles allow artists to create frieze patterns and repeating wave designs?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 17 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 18 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Parallel Lines</span>
+        <h2 class="slide-title">Constructing Parallel Lines</h2>
+      </div>
+      <span class="pill-page">Slide 18 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">📏 Corresponding Angles Principle</div>
+          <ul class="bullet-list">
+            <li>If two lines are cut by a transversal such that a pair of <strong>corresponding angles are equal</strong>, then the two lines are parallel.</li>
+            <li>To draw a line parallel to $m$ through an external point $B$:
+              <ol style="margin-left: 20px; margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
+                <li>Draw any transversal line $l$ passing through $B$ and cutting line $m$ at $A$.</li>
+                <li>At point $B$, copy the angle formed at $A$ (angle $a$) on the same side of transversal $l$.</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">✨ Construction Steps</div>
+          <ul class="step-list">
+            <li>Draw arc from $A$ cutting line $m$ at $C$ and line $l$ at $D$.</li>
+            <li>With the same radius, draw an arc from point $B$ cutting line $l$ at $F$.</li>
+            <li>Set compass to distance $CD$. From $F$, cut the arc at point $E$.</li>
+            <li>Draw line $n$ through points $B$ and $E$.</li>
+          </ul>
+          <div class="formula-box">$$n \parallel m \quad (\text{since corresponding } \angle a = \angle a)$$</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 18 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 19: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Parallel Lines</h2>
+      </div>
+      <span class="pill-page">Slide 19 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Alternative Angles</span>
+          <span class="quick-text">Could we have constructed parallel lines by copying <em>alternate interior angles</em> instead of corresponding angles?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Transversal</span>
+          <span class="quick-text">Does the angle at which the transversal line $l$ intersects line $m$ affect whether the resulting lines are parallel?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Star Design</span>
+          <span class="quick-text">Look at the 8-pointed star. Which pairs of line segments are parallel to each other?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 19 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 20 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Architectural Arches</span>
+        <h2 class="slide-title">Architectural Arches: Trefoil & Pointed</h2>
+      </div>
+      <span class="pill-page">Slide 20 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🏛️ Trefoil Arch (Diwan-i-Aam)</div>
+          <ul class="bullet-list">
+            <li><strong>Supporting Skeleton:</strong> An isosceles trapezoid $ABCD$ where base angles are equal:
+              <div class="formula-box">$$\angle BAD = \angle CDA \quad \text{and} \quad AB = CD$$</div>
+            </li>
+            <li>Side arcs are drawn from centres on the supporting legs.</li>
+            <li>A central circular arc connects points $B$ and $C$ to form the majestic multi-lobed trefoil crown.</li>
+          </ul>
+        </div>
+        <div class="card amber-highlight">
+          <div class="card-title">🕌 Pointed Arch & Wavy Waves</div>
+          <ul class="bullet-list">
+            <li>Seen throughout medieval Indian & Gothic architecture.</li>
+            <li>Built on two inclined line segments of equal length meeting at an apex peak.</li>
+            <li>Finding the midpoints of both segments allows arcs of equal radii to be drawn on either side, producing an inflection curve or smooth pointed cusp.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 20 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 21: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Architectural Geometry</h2>
+      </div>
+      <span class="pill-page">Slide 21 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Architecture</span>
+          <span class="quick-text">Why did ancient architects use supporting geometric lines on paper/stone before cutting the actual building blocks?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Symmetry</span>
+          <span class="quick-text">In a trefoil arch, what single vertical line serves as the global line of symmetry for the entire structure?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Radius Variation</span>
+          <span class="quick-text">What visual change occurs in a pointed arch if the radius of the circular arcs is made significantly larger?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 21 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 22 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Regular Hexagon</span>
+        <h2 class="slide-title">Regular Hexagon & The $60^\circ$ Angle</h2>
+      </div>
+      <span class="pill-page">Slide 22 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">📐 Why 6 Equilateral Triangles Fit</div>
+          <ul class="bullet-list">
+            <li>The total angle around any point in a plane is $360^\circ$.</li>
+            <li>Each angle of an equilateral triangle is $60^\circ$.</li>
+            <li>Since $6 \times 60^\circ = 360^\circ$, six congruent equilateral triangles fit perfectly around a central vertex without gaps or overlaps.</li>
+            <li>Each interior corner angle of the resulting hexagon is:
+              <div class="formula-box">$$60^\circ + 60^\circ = 120^\circ$$</div>
+            </li>
+          </ul>
+        </div>
+        <div class="card emerald-highlight">
+          <div class="card-title">🧭 Constructing $60^\circ$ and Hexagon</div>
+          <ul class="step-list">
+            <li>Draw an arc of radius $r$ centered at $A$ cutting ray at $B$.</li>
+            <li>With the same radius $r$, swing an arc from $B$ cutting the first arc at $C$. Since $AB = BC = CA = r$, $\triangle ABC$ is equilateral $\implies \angle CAB = 60^\circ$.</li>
+            <li><strong>Angle Bisections:</strong>
+              $$\frac{60^\circ}{2} = 30^\circ, \quad \frac{30^\circ}{2} = 15^\circ$$
+            </li>
+            <li>Hexagon of side $s$: Draw circle of radius $s$. Step off chords equal to $s$ around the circumference!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 22 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 23: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Regular Hexagons</h2>
+      </div>
+      <span class="pill-page">Slide 23 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Equilateral Triangles</span>
+          <span class="quick-text">Why is the radius of the circumscribed circle of a regular hexagon exactly equal to the length of its side?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • $360^\circ$ Check</span>
+          <span class="quick-text">On Page 152, angles of $40^\circ, 60^\circ, 50^\circ, 30^\circ, 40^\circ, 90^\circ$ surround a point. What is the remaining gap angle? Does a $70^\circ$ piece fit?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • 6-Pointed Star</span>
+          <span class="quick-text">How can an equilateral triangle and its inverted copy be combined to create the 6-pointed star?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 23 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 24 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Tangrams & Tiling</span>
+        <h2 class="slide-title">Tangrams & Rectangular Grid Tiling</h2>
+      </div>
+      <span class="pill-page">Slide 24 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🧩 The 7 Tangram Pieces</div>
+          <ul class="bullet-list">
+            <li>An ancient Chinese dissection puzzle consisting of 7 shapes cut from a single square: 5 triangles (2 large, 1 medium, 2 small), 1 square, and 1 parallelogram.</li>
+            <li>Rearranged into birds, fish, running figures, letters, and animals without overlapping.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">🔲 Tiling $m \times n$ Grids</div>
+          <ul class="bullet-list">
+            <li><strong>Both $m$ and $n$ Even:</strong> Always tileable! (Fill each column using vertical tiles since row count is even).</li>
+            <li><strong>One Even, One Odd:</strong> Always tileable! Lay tiles along the even dimension.</li>
+            <li><strong>Both $m$ and $n$ Odd:</strong> <strong>IMPOSSIBLE!</strong>
+              <div class="formula-box">$$\text{Total squares} = m \times n = \text{Odd}$$</div>
+              Each $2 \times 1$ tile covers 2 squares. An integer sum of 2s is always even, so an odd grid can never be covered!
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 24 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 25 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">The Power of Coloring</span>
+        <h2 class="slide-title">Invariant Proofs: The Chessboard</h2>
+      </div>
+      <span class="pill-page">Slide 25 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card amber-highlight">
+          <div class="card-title">♟️ The Invariant Principle</div>
+          <ul class="bullet-list">
+            <li>Consider a $5 \times 3$ grid with 1 corner square removed: total squares = $15 - 1 = 14$ (an even number!).</li>
+            <li>Even though 14 is divisible by 2, is it always tileable with $2 \times 1$ dominoes?</li>
+            <li><strong>Color the grid like a chessboard:</strong> Adjacent squares have opposite colors (black and white).</li>
+            <li><strong>Crucial Invariant:</strong> Every single $2 \times 1$ tile, placed horizontally or vertically, MUST cover <strong>exactly 1 black and 1 white square</strong>.</li>
+          </ul>
+        </div>
+        <div class="card emerald-highlight">
+          <div class="card-title">⚖️ The Impossibility Proof</div>
+          <ul class="bullet-list">
+            <li>Any valid tiling with $k$ dominoes must cover exactly $k$ black and $k$ white squares.</li>
+            <li>Therefore, a necessary condition for tileability is:
+              <div class="formula-box">$$\text{Number of White} = \text{Number of Black}$$</div>
+            </li>
+            <li>In the $5 \times 3$ grid of Fig. 6.14, there are <strong>8 white squares and only 6 black squares</strong> ($8 \neq 6$).</li>
+            <li><strong>Conclusion:</strong> It is mathematically impossible to tile! Introducing color turns an elusive puzzle into a trivial count.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 25 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 26: QUICK BOX -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Tiling & Invariants</h2>
+      </div>
+      <span class="pill-page">Slide 26 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1 • Parity</span>
+          <span class="quick-text">Why can an $8 \times 8$ chessboard with two diagonally opposite corners removed never be tiled by $2 \times 1$ dominoes?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2 • Regular Tilings</span>
+          <span class="quick-text">Which three regular polygons can tile the entire infinite 2D plane on their own without gaps or overlaps?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3 • Nature's Math</span>
+          <span class="quick-text">Why do honeybees construct hexagonal cells instead of square or circular cells to store honey?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 26 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 27: SUMMARY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Summary</span>
+        <h2 class="slide-title">Chapter Summary & Core Takeaways</h2>
+      </div>
+      <span class="pill-page">Slide 27 / 28</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">✅ Geometric Constructions</div>
+          <ul class="bullet-list">
+            <li><strong>Bisection:</strong> Dividing an object into two identical parts.</li>
+            <li><strong>Perpendicular Bisector Locus:</strong> Any point equidistant from endpoints $X$ and $Y$ lies on the perpendicular bisector ($AX = AY$).</li>
+            <li><strong>$90^\circ$ at a Point:</strong> Extend line around $O$ to make $OX = OY$, then erect bisector.</li>
+            <li><strong>Angle Bisection:</strong> SSS triangle congruence condition ($\triangle OBC \cong \triangle OAC$).</li>
+            <li><strong>Angle Duplication:</strong> Transfer arc radius and chord length to duplicate angles ($SSS$).</li>
+            <li><strong>Parallel Lines:</strong> Constructing equal corresponding angles along a transversal.</li>
+          </ul>
+        </div>
+        <div class="card emerald-highlight">
+          <div class="card-title">✅ Regular Polygons & Tilings</div>
+          <ul class="bullet-list">
+            <li><strong>$60^\circ$ Angle:</strong> Equilateral triangle construction with compass. Repeated halving yields $30^\circ, 15^\circ$.</li>
+            <li><strong>Regular Hexagon:</strong> Formed by 6 congruent equilateral triangles meeting at a central point ($6 \times 60^\circ = 360^\circ$).</li>
+            <li><strong>Tiling:</strong> Covering a flat region with shapes without gaps or overlaps.</li>
+            <li><strong>Grid Parity:</strong> An $m \times n$ grid is tileable by $2 \times 1$ dominoes if and only if $m \times n$ is even.</li>
+            <li><strong>Coloring Invariant:</strong> Domino tiling requires equal counts of black and white squares.</li>
+            <li><strong>Plane Tilings:</strong> Squares, equilateral triangles, hexagons, and Escher art.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 27 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 28: CLOSING -->
+  <section class="slide">
+    <div class="cover-layout">
+      <div style="width: 100%; display: flex; justify-content: space-between;">
+        <span class="pill-tag">GANITA PRAKASH • GRADE 7</span>
+        <span class="pill-tag" style="background:#dcfce7; color:#15803d; border-color:#86efac;">End of Chapter 6</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <span class="cover-eyebrow">THANK YOU</span>
+        <h1 class="cover-title">Keep Exploring Geometry!</h1>
+        <p class="cover-tagline">
+          "Geometry is knowledge of the eternally existent." — Pythagoras. From simple arcs drawn in sand with a rope to the infinite beauty of tessellating nature, geometry unites practical tools with purest logic.
+        </p>
+        <div class="credit-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sublink">(www.akashmaths.online)</span>
+        </div>
+      </div>
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 28 / 28</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nav -->
+  <div class="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+  <div class="nav-controls">
+    <button class="nav-btn" id="prev-btn">❮</button>
+    <button class="nav-btn" id="next-btn">❯</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+    currentSlide = index;
+    
+    if (window.renderMathInElement) {
+        renderMathInElement(slides[currentSlide], {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });
+    }
+  }
+
+  function nextSlide() { if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1); }
+  function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  });
+
+  document.getElementById('next-btn').addEventListener('click', nextSlide);
+  document.getElementById('prev-btn').addEventListener('click', prevSlide);
+</script>
+</body>
+</html>

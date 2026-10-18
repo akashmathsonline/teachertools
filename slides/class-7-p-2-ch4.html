@@ -1,0 +1,2409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 7 Maths - Chapter 4: Another Peek Beyond the Point | Ganita Prakash Part II</title>
+
+  <!-- Google Fonts: Fredoka & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0284c7;         /* Deep Sky / Ocean Cyan */
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent-teal: #0d9488;     /* Emerald / Teal */
+      --accent-amber: #f59e0b;    /* Warm Amber */
+      --accent-coral: #ef4444;    /* Coral Red */
+      --bg-gradient-start: #f8fafc;
+      --bg-gradient-end: #f0fdf4;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0f172a;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #deck-container {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      max-width: 100vw;
+      max-height: 100vh;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 34px 44px 38px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(25px) scale(0.985);
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+      z-index: 10;
+    }
+
+    .bg-shape-dec {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(2, 132, 199, 0.15);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-primary {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid rgba(2, 132, 199, 0.25);
+    }
+
+    .badge-coral {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .badge-amber {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .badge-emerald {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .slide-title-wrap {
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-title {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 0.90rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+      justify-content: center;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 15px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-highlight {
+      border-left: 4.5px solid var(--primary);
+    }
+
+    .card-amber {
+      border-left: 4.5px solid var(--accent-amber);
+      background: #fffbeb;
+    }
+
+    .card-emerald {
+      border-left: 4.5px solid var(--accent-teal);
+      background: #f0fdfa;
+    }
+
+    .card-coral {
+      border-left: 4.5px solid var(--accent-coral);
+      background: #fef2f2;
+    }
+
+    .card-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .content-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.86rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .content-list li {
+      position: relative;
+      padding-left: 17px;
+    }
+
+    .content-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .statement-box {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1.5px solid #bae6fd;
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #0369a1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .formula-banner {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: var(--shadow-md);
+    }
+
+    .quick-box-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+      flex: 1;
+      align-content: center;
+    }
+
+    .q-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .q-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+
+    .q-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1.5px solid #e2e8f0;
+    }
+
+    .q-text {
+      font-size: 0.88rem;
+      color: #1e293b;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .q-hint {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 500;
+      display: block;
+    }
+
+    .cover-slide, .closing-slide {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 70px;
+    }
+
+    .cover-eyebrow {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 3.1rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      max-width: 900px;
+    }
+
+    .cover-tagline {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 800px;
+      line-height: 1.5;
+      margin-bottom: 26px;
+    }
+
+    .credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .credit-pill:hover {
+      transform: translateY(-2px);
+      background: #1e293b;
+    }
+
+    .credit-pill .sparkle {
+      color: #38bdf8;
+      font-size: 1.15rem;
+    }
+
+    .credit-pill span.sub {
+      color: #94a3b8;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-left: 2px;
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-watermark {
+      position: absolute;
+      bottom: 13px;
+      right: 18px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 5;
+    }
+
+    .deck-nav {
+      position: absolute;
+      bottom: 18px;
+      right: 26px;
+      display: flex;
+      gap: 8px;
+      z-index: 50;
+    }
+
+    .nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .keyboard-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 36px;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      z-index: 50;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="deck-container">
+    <div class="bg-shape-dec" style="width: 580px; height: 580px; top: -200px; right: -150px;"></div>
+    <div class="bg-shape-dec" style="width: 420px; height: 420px; bottom: -160px; left: -100px;"></div>
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover-slide active" data-slide="1">
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <span class="badge badge-primary">GANITA PRAKASH PART II | GRADE 7</span>
+        <span class="badge badge-amber">CHAPTER 4 • COVER</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="cover-eyebrow">CLASS 7 MATHEMATICS • CHAPTER 4</div>
+        <h1 class="cover-title">Another Peek Beyond the Point</h1>
+        <p class="cover-tagline">
+          Exhaustive presentation covering decimal place value, decimal multiplication &amp; division, powers-of-10 scaling, non-terminating cyclic decimals ($142857$), calendar leap-year astronomy, and Śrīdharācārya's heritage problems.
+        </p>
+
+        <!-- EXACT CREDIT PILL -->
+        <a href="https://www.akashmaths.online" target="_blank" class="credit-pill">
+          <span class="sparkle">✦</span>
+          <span>Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </a>
+      </div>
+
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 1 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: SECTION 4.1 PLACE VALUE RECAP -->
+    <section class="slide" data-slide="2">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.1</span>
+          <span class="badge badge-emerald">DECIMAL RECAP</span>
+        </div>
+        <span class="badge badge-coral">PAGE 67–68</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Decimals: Extending the Indian Place Value System</h2>
+        <div class="slide-subtitle">Natural extension of positional base-10 notation to tenths, hundredths, and thousandths</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔢 Place Value Breakdown: $27.53$</div>
+            <ul class="content-list">
+              <li>Decimals represent decimal fractions: $\frac{1}{10}, \frac{1}{100}, \frac{1}{1000}, \dots$</li>
+              <li>For $27.53$:
+                <br>• $2$ Tens ($2 \times 10 = 20$)
+                <br>• $7$ Units / Ones ($7 \times 1 = 7$)
+                <br>• $5$ Tenths ($5 \times \frac{1}{10} = 0.5$)
+                <br>• $3$ Hundredths ($3 \times \frac{1}{100} = 0.03$)</li>
+              <li>$$27.53 = 20 + 7 + \frac{5}{10} + \frac{3}{100}$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⚖️ Spice Weights in Kilograms (Page 67)</div>
+            <ul class="content-list">
+              <li>Since $1\text{ kg} = 1000\text{ g}$, each gram is $\frac{1}{1000}\text{ kg}$:</li>
+              <li>• Cinnamon: $50\text{ g} = \frac{50}{1000}\text{ kg} = \mathbf{0.05\text{ kg}}$</li>
+              <li>• Cumin: $100\text{ g} = \frac{100}{1000}\text{ kg} = \mathbf{0.1\text{ kg}}$</li>
+              <li>• Cardamom: $25\text{ g} = \frac{25}{1000}\text{ kg} = \mathbf{0.025\text{ kg}}$</li>
+              <li>• Pepper: $250\text{ g} = \frac{250}{1000}\text{ kg} = \mathbf{0.25\text{ kg}}$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>💡 Positional Law: Moving one place to the right divides the place value by $10$ ($\text{Tens} \to \text{Ones} \to \text{Tenths} \to \text{Hundredths} \to \text{Thousandths}$).</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 2 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX 1 -->
+    <section class="slide" data-slide="3">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 1</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Decimal Place Value &amp; Expansions</h2>
+        <div class="slide-subtitle">Oral checks on fraction-to-decimal conversion and metric units</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What decimal values correspond to Jonali's fractions $\frac{4}{100}$ and $\frac{67}{1000}$?</div>
+              <span class="q-hint">$\frac{4}{100} = \mathbf{0.04}$ and $\frac{67}{1000} = \mathbf{0.067}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Write the expanded fraction sum for $\frac{254}{1000}$ as tenths, hundredths, and thousandths.</div>
+              <span class="q-hint">$\frac{2}{10} + \frac{5}{100} + \frac{4}{1000} = 0.2 + 0.05 + 0.004 = 0.254$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Convert $457/100$ into a decimal. How many units (ones) does it contain?</div>
+              <span class="q-hint">$457/100 = 4.57$, which contains $4$ ones, $5$ tenths, and $7$ hundredths.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Why does multiplying the denominator by $10$ shift the decimal point one place to the left?</div>
+              <span class="q-hint">Because dividing by $10$ moves every digit to a place value ten times smaller.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 3 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: DIVIDING BY POWERS OF 10 -->
+    <section class="slide" data-slide="4">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.1</span>
+          <span class="badge badge-emerald">POWERS OF 10 RULE</span>
+        </div>
+        <span class="badge badge-coral">PAGE 68–69</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">The Master Rule: Dividing by 10, 100, 1000, ...</h2>
+        <div class="slide-subtitle">Shifting the decimal point leftward by counting zeros in the divisor</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>📏 Left-Shift Rule: To divide any number by $10, 100, 1000, \dots$, write the number and shift its decimal point to the <strong>left</strong> by as many places as there are zeros in the divisor. Add leading zeros if needed.</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🪜 Three-Step Systematic Execution</div>
+            <ul class="content-list">
+              <li><strong>Step 1:</strong> Place an explicit decimal at the end of whole numbers (e.g., $123 \implies 123.$).</li>
+              <li><strong>Step 2:</strong> Count zeros in divisor ($10 \to 1\text{ zero}$, $1000 \to 3\text{ zeros}$).</li>
+              <li><strong>Step 3:</strong> Shift decimal left by that count:
+                <br>• $123 \div 10 = \mathbf{12.3}$ ($1$ shift)
+                <br>• $24 \div 100 = \mathbf{0.24}$ ($2$ shifts)
+                <br>• $12 \div 1000 = \mathbf{0.012}$ ($3$ shifts, prepend $0$)</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">📊 Multi-Digit Demonstrations</div>
+            <ul class="content-list">
+              <li>$678 \div 1000 = \mathbf{0.678}$</li>
+              <li>$12345 \div 1000 = \mathbf{12.345}$</li>
+              <li>$847 \div 10000 = \mathbf{0.0847}$ ($4$ zeros $\implies 4$ shifts)</li>
+              <li>$23 \div 1000 = \mathbf{0.023}$ ($3$ zeros $\implies 3$ shifts)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="formula-banner">
+          $$n \div 10^k \iff \text{Shift decimal point } k \text{ places to the left}$$
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 4 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX 2 -->
+    <section class="slide" data-slide="5">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 2</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Powers of 10 Shifts</h2>
+        <div class="slide-subtitle">Oral checks executing mental left-shifts with zeros</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Evaluate $5 \div 1000$. How many leading zeros must you insert after the decimal point?</div>
+              <span class="q-hint">$5 \div 1000 = \mathbf{0.005}$ (insert two leading zeros).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">What is $18.7 \div 100$? What is $18.7 \div 10000$?</div>
+              <span class="q-hint">$18.7 \div 100 = \mathbf{0.187}$; $18.7 \div 10000 = \mathbf{0.00187}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Fill in the blank: $24.67 \div \Box = 0.2467$. What is the divisor?</div>
+              <span class="q-hint">Decimal shifted $2$ places left $\implies \Box = \mathbf{100}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">If a decimal point shifts $3$ places to the left, has the number been multiplied or divided by $1000$?</div>
+              <span class="q-hint">Left shift represents <strong>division</strong> by $1000$ (value shrinks).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 5 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: SECTION 4.2 DECIMAL MULTIPLICATION INTRO -->
+    <section class="slide" data-slide="6">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.2</span>
+          <span class="badge badge-emerald">MULTIPLICATION CONCEPTS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 69–70</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Decimal Multiplication: Repeated Addition &amp; Fractions</h2>
+        <div class="slide-subtitle">Bridging physical real-world purchases and fractional multiplication rules</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🖊️ Arshad's Pens ($5 \times \text{₹}9.5$)</div>
+            <ul class="content-list">
+              <li>Arshad buys $5$ pens at ₹$9.5$ ($9\text{ rupees } 50\text{ paise}$) each.</li>
+              <li><strong>Repeated Addition:</strong>
+                $$9.5 + 9.5 + 9.5 + 9.5 + 9.5 = \mathbf{47.5}$$</li>
+              <li><strong>Fractional Conversion:</strong>
+                $$9.5 = \frac{95}{10} \implies \frac{5}{1} \times \frac{95}{10} = \frac{475}{10} = \mathbf{47.5}$$</li>
+              <li>He pays ₹$47.50$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⛽ Fuel Mileage ($12.5\text{ km/L} \times 7.5\text{ L}$)</div>
+            <ul class="content-list">
+              <li>A car travels $12.5\text{ km}$ per litre; tank has $7.5\text{ litres}$.</li>
+              <li>Convert both to decimal fractions:
+                $$12.5 = \frac{125}{10}, \quad 7.5 = \frac{75}{10}$$</li>
+              <li>Multiply numerators and denominators:
+                $$\text{Distance} = \frac{125 \times 75}{10 \times 10} = \frac{9375}{100} = \mathbf{93.75\text{ km}}$$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>💡 Core Mechanism: Decimals multiply exactly like counting numbers in the numerator, while denominators multiply powers of $10$ ($10 \times 10 = 100$).</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 6 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX 3 -->
+    <section class="slide" data-slide="7">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 3</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Multiplication via Fractions</h2>
+        <div class="slide-subtitle">Oral checks testing decimal-to-fraction multiplication and geometry</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Ajay walks $827\text{ m}$ to school and back, $6$ days a week. What is his weekly distance in km?</div>
+              <span class="q-hint">$0.827 \times 2 \times 6 = 1.654 \times 6 = \mathbf{9.924\text{ km}}$ (Example 3).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">A rectangle has length $13.3\text{ cm}$ and breadth $5.7\text{ cm}$. Find its area.</div>
+              <span class="q-hint">$\frac{133 \times 57}{100} = \frac{7581}{100} = \mathbf{75.81\text{ cm}^2}$ (Example 4).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Can the product of two decimals ever be a whole natural number? Give an example.</div>
+              <span class="q-hint">Yes! E.g., $2.5 \times 0.4 = 1.0 = \mathbf{1}$, or $0.25 \times 4 = \mathbf{1}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">What is $6 \times 4\text{ tenths}$ in decimal form?</div>
+              <span class="q-hint">$6 \times 0.4 = 24\text{ tenths} = \mathbf{2.4}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 7 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: THE DECIMAL PLACE COUNTING LAW -->
+    <section class="slide" data-slide="8">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.2</span>
+          <span class="badge badge-emerald">DECIMAL PLACES LAW</span>
+        </div>
+        <span class="badge badge-coral">PAGE 70–71</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">The Master Rule for Decimal Multiplication</h2>
+        <div class="slide-subtitle">Summing decimal places of factors to position the point in the final product</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="formula-banner">
+          $$\text{Total Decimal Places in Product} = (\text{Places in Multiplier}) + (\text{Places in Multiplicand})$$
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔍 Step-by-Step Procedure</div>
+            <ul class="content-list">
+              <li><strong>Step 1:</strong> Ignore decimal points completely and multiply as counting whole numbers.</li>
+              <li><strong>Step 2:</strong> Count the digits after the decimal point in both numbers.</li>
+              <li><strong>Step 3:</strong> Place the decimal point in the product so that it has the sum of those decimal places, counting from the right!</li>
+              <li>Example: $5.96 \times 24.8$
+                <br>• $596 \times 248 = 147808$
+                <br>• Places: $2 + 1 = 3 \implies \mathbf{147.808}$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">📝 Worked Example 5 ($5.8 \times 1.24$)</div>
+            <ul class="content-list">
+              <li>Whole number product:
+                $$58 \times 124 = 7192$$</li>
+              <li>Counting decimal places:
+                <br>• $5.8 \implies 1\text{ decimal place}$
+                <br>• $1.24 \implies 2\text{ decimal places}$
+                <br>• Total places $= 1 + 2 = 3$</li>
+              <li>Count $3$ digits from right:
+                $$\mathbf{5.8 \times 1.24 = 7.192}$$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 8 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX 4 -->
+    <section class="slide" data-slide="9">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 4</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Decimal Place Placement</h2>
+        <div class="slide-subtitle">Oral checks leveraging known integer products to place decimal points</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Given $18 \times 12 = 216$, what is $1.8 \times 1.2$? What is $0.18 \times 0.12$?</div>
+              <span class="q-hint">$1.8 \times 1.2 = \mathbf{2.16}$ ($2$ places); $0.18 \times 0.12 = \mathbf{0.0216}$ ($4$ places).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Given $18 \times 12 = 216$, what is $0.018 \times 0.012$?</div>
+              <span class="q-hint">$3 + 3 = 6$ places $\implies \mathbf{0.000216}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Calculate $4.23 \times 3.7$. How many decimal places will the product have?</div>
+              <span class="q-hint">$423 \times 37 = 15651$. Total $2 + 1 = 3$ places $\implies \mathbf{15.651}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Can we write ₹$56.50$ as ₹$56.5$ and $2.250\text{ kg}$ as $2.25\text{ kg}$ before multiplying? Why?</div>
+              <span class="q-hint">Yes! Trailing zeros after the last non-zero decimal digit do not change numeric value.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 9 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: PRODUCT MAGNITUDE RELATIONSHIPS -->
+    <section class="slide" data-slide="10">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.2</span>
+          <span class="badge badge-emerald">PRODUCT SIZE BEHAVIOUR</span>
+        </div>
+        <span class="badge badge-coral">PAGE 72</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Is the Product Always Greater than the Factors?</h2>
+        <div class="slide-subtitle">Analyzing how numbers smaller than 1 contract the size of their product</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>🧠 Unlike whole number multiplication (where $a \times b \ge a, b$), multiplying by a decimal less than $1$ <strong>scales down</strong> the quantity!</span>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-highlight">
+            <div class="card-title">📈 Situation 1: Both $> 1$</div>
+            <ul class="content-list">
+              <li>Both factors $> 1$:
+                <br>• $3.4 \times 6.5 = \mathbf{22.1}$
+                <br>• $2.25 \times 8 = \mathbf{18}$</li>
+              <li><strong>Result:</strong> Product is <strong>greater</strong> than both factors!</li>
+              <li>$$P > a \quad\text{and}\quad P > b$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-coral">
+            <div class="card-title">📉 Situation 2: Both in $(0, 1)$</div>
+            <ul class="content-list">
+              <li>Both factors between $0$ and $1$:
+                <br>• $0.75 \times 0.4 = \mathbf{0.3}$
+                <br>• $0.25 \times 0.8 = \mathbf{0.2}$</li>
+              <li><strong>Result:</strong> Product is <strong>strictly less</strong> than both factors!</li>
+              <li>$$P < a \quad\text{and}\quad P < b$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">⚖️ Situation 3: Mixed</div>
+            <ul class="content-list">
+              <li>One factor in $(0, 1)$, one $> 1$:
+                <br>• $0.75 \times 5 = \mathbf{3.75}$
+                <br>• $0.25 \times 8 = \mathbf{2}$</li>
+              <li><strong>Result:</strong> Product is between the two numbers:</li>
+              <li>$$0.75 < \mathbf{3.75} < 5$$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 10 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: QUICK BOX 5 -->
+    <section class="slide" data-slide="11">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 5</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Product Size Prediction</h2>
+        <div class="slide-subtitle">Oral checks predicting whether a product is greater or less than 1 without calculation</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Without multiplying, is $0.7 \times 0.6$ less than 1 or greater than 1? Why?</div>
+              <span class="q-hint">Both numbers are $< 1 \implies$ product must be $< 1$ ($0.42 < 1$).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Is $7 \times 0.6$ less than 1 or greater than 1?</div>
+              <span class="q-hint">$7 \times 0.6 = 4.2 > 1$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Thejus needs $1.65\text{ m}$ of cloth for a shirt. How many metres are needed for $3$ shirts?</div>
+              <span class="q-hint">$1.65 \times 3 = \mathbf{4.95\text{ metres}}$ of cloth.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">A 1-rupee coin is $1.45\text{ mm}$ thick. What is the height of 36 coins stacked, in centimetres?</div>
+              <span class="q-hint">$36 \times 1.45 = 52.2\text{ mm} \implies 52.2 / 10 = \mathbf{5.22\text{ cm}}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 11 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: MULTIPLYING BY 10, 100, 1000 -->
+    <section class="slide" data-slide="12">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.2</span>
+          <span class="badge badge-emerald">RIGHT-SHIFT RULE</span>
+        </div>
+        <span class="badge badge-coral">PAGE 73–74</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Multiplying by 10, 100, 1000: The Right Shift</h2>
+        <div class="slide-subtitle">How multiplication by powers of 10 shifts the decimal point to the right</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>⏩ Right-Shift Law: Multiplying a decimal by $10, 100, 1000, \dots$ moves the decimal point to the <strong>right</strong> by as many places as there are zeros in the multiplier.</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔍 Textbook Table Demonstration (Page 74)</div>
+            <ul class="content-list">
+              <li><strong>$5.7$:</strong>
+                <br>• $\times 10 = \mathbf{57}$
+                <br>• $\times 100 = \mathbf{570}$
+                <br>• $\times 1000 = \mathbf{5700}$</li>
+              <li><strong>$23.02$:</strong>
+                <br>• $\times 10 = \mathbf{230.2}$
+                <br>• $\times 100 = \mathbf{2302}$
+                <br>• $\times 1000 = \mathbf{23020}$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">✨ Small Decimals Scaled Up</div>
+            <ul class="content-list">
+              <li><strong>$0.92$:</strong>
+                <br>• $\times 10 = \mathbf{9.2}, \quad \times 100 = \mathbf{92}, \quad \times 1000 = \mathbf{920}$</li>
+              <li><strong>$0.306$:</strong>
+                <br>• $\times 10 = \mathbf{3.06}, \quad \times 100 = \mathbf{30.6}, \quad \times 1000 = \mathbf{306}$</li>
+              <li><strong>$24.67$:</strong>
+                <br>• $\times 10 = \mathbf{246.7}, \quad \times 100 = \mathbf{2467}, \quad \times 1000 = \mathbf{24670}$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 12 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: QUICK BOX 6 -->
+    <section class="slide" data-slide="13">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 6</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Right-Shift Operations</h2>
+        <div class="slide-subtitle">Oral checks testing decimal point movements under scaling</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What is $0.0058 \times 1000$? What is $0.0058 \times 10000$?</div>
+              <span class="q-hint">$0.0058 \times 1000 = \mathbf{5.8}$; $0.0058 \times 10000 = \mathbf{58}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Dwarakanath buys books at ₹$23.6$ wholesale and sells at ₹$30$. What is his profit on 50 books?</div>
+              <span class="q-hint">Profit per book $= 30 - 23.6 = 6.4 \implies 6.4 \times 50 = \mathbf{\text{₹}320}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Why does multiplying by 10 shift the point to the RIGHT, whereas dividing by 10 shifts it to the LEFT?</div>
+              <span class="q-hint">Multiplication increases place value ($10\times$); division decreases place value ($\frac{1}{10}\times$).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Fill in the blank: $0.039\text{ m} = \Box\text{ cm} = \Box\text{ mm}$.</div>
+              <span class="q-hint">$0.039 \times 100 = \mathbf{3.9\text{ cm}}$; $3.9 \times 10 = \mathbf{39\text{ mm}}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 13 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: SECTION 4.3 DECIMAL DIVISION BASICS -->
+    <section class="slide" data-slide="14">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.3</span>
+          <span class="badge badge-emerald">DECIMAL DIVISION</span>
+        </div>
+        <span class="badge badge-coral">PAGE 74–76</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Section 4.3: Decimal Division &amp; Reciprocal Multiplication</h2>
+        <div class="slide-subtitle">Dividing decimals by integers and converting fractions into equivalent powers of 10</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🎀 Anuja's Ribbon ($3.9\text{ m} \div 10$)</div>
+            <ul class="content-list">
+              <li>Anuja cuts a $3.9\text{ m}$ ribbon into $10$ equal pieces.</li>
+              <li>Division is multiplication by reciprocal:
+                $$3.9 \div 10 = \frac{39}{10} \times \frac{1}{10} = \frac{39}{100} = \mathbf{0.39\text{ m}}$$</li>
+              <li>Cut into $100$ pieces:
+                $$3.9 \div 100 = \frac{39}{10} \times \frac{1}{100} = \frac{39}{1000} = \mathbf{0.039\text{ m}}$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">✂️ Neenu's $29\text{ m}$ Ribbon ($29 \div 2$ and $29 \div 4$)</div>
+            <ul class="content-list">
+              <li><strong>Shared by 2 girls:</strong>
+                <br>$29 \div 2 = 14\text{ m}$ plus remainder $1\text{ m}$.
+                <br>$\frac{1}{2} = \frac{1 \times 5}{2 \times 5} = \frac{5}{10} = 0.5\text{ m} \implies \mathbf{14.5\text{ m}}$.</li>
+              <li><strong>Shared by 4 friends:</strong>
+                <br>$\frac{29}{4} = \frac{29 \times 25}{4 \times 25} = \frac{725}{100} = \mathbf{7.25\text{ m}}$.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>💡 Strategy 1 (Denominator Scaling): If denominator factors contain only $2$s and $5$s, multiply by powers of $2$ or $5$ to convert to $10, 100, 1000$!</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 14 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: QUICK BOX 7 -->
+    <section class="slide" data-slide="15">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 7</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Equivalent Denominators</h2>
+        <div class="slide-subtitle">Oral checks converting fractions to decimals via 10, 100, and 1000 denominators</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Convert $\frac{18}{5}$ into a decimal by finding an equivalent fraction with denominator 10.</div>
+              <span class="q-hint">$\frac{18 \times 2}{5 \times 2} = \frac{36}{10} = \mathbf{3.6}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Convert $\frac{415}{4}$ into a decimal using a denominator of 100.</div>
+              <span class="q-hint">$\frac{415 \times 25}{4 \times 25} = \frac{10375}{100} = \mathbf{103.75}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Convert $\frac{5}{8}$ into a decimal. By what factor must 8 be multiplied to reach 1000?</div>
+              <span class="q-hint">$8 \times 125 = 1000 \implies \frac{5 \times 125}{1000} = \frac{625}{1000} = \mathbf{0.625}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Can $\frac{10}{3}$ be converted to a decimal by making its denominator 10, 100, or 1000? Why not?</div>
+              <span class="q-hint">No! Powers of $10$ have only prime factors $2$ and $5$; $3$ is never a factor of $10^k$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 15 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: LONG DIVISION WITH PLACE VALUE REGROUPING -->
+    <section class="slide" data-slide="16">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.3</span>
+          <span class="badge badge-emerald">PLACE VALUE REGROUPING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 76–80</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Division with Decimal Quotients: Place Value Regrouping</h2>
+        <div class="slide-subtitle">Extending long division seamlessly past the ones place into tenths and hundredths</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>🌟 The Place Value Transition: When remainder in the Ones place cannot be divided, regroup $1\text{ One} = 10\text{ Tenths}$, and <strong>place a decimal point in the quotient</strong>!</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🪜 Deconstructing $1325 \div 4$ (Pages 78–80)</div>
+            <ul class="content-list">
+              <li>$1325 \div 4 = 331$ with remainder $1\text{ One}$.</li>
+              <li><strong>Regroup 1 One into 10 Tenths:</strong>
+                <br>• $10\text{ Tenths} \div 4 = \mathbf{2\text{ Tenths}}$ with remainder $2\text{ Tenths}$.
+                <br>• Place decimal in quotient: $331.2\dots$</li>
+              <li><strong>Regroup 2 Tenths into 20 Hundredths:</strong>
+                <br>• $20\text{ Hundredths} \div 4 = \mathbf{5\text{ Hundredths}}$, remainder $0$.</li>
+              <li>Final quotient $= \mathbf{331.25}$!</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🪜 Deconstructing $237 \div 8$ (Pages 81–82)</div>
+            <ul class="content-list">
+              <li>$237 \div 8 = 29$ with remainder $5\text{ Ones}$.</li>
+              <li>$5\text{ Ones} = 50\text{ Tenths} \div 8 = \mathbf{6\text{ Tenths}}$, rem $2$.</li>
+              <li>$2\text{ Tenths} = 20\text{ Hundredths} \div 8 = \mathbf{2\text{ Hundredths}}$, rem $4$.</li>
+              <li>$4\text{ Hundredths} = 40\text{ Thousandths} \div 8 = \mathbf{5\text{ Thousandths}}$.</li>
+              <li>Final quotient $= \mathbf{29.625}$!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 16 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: QUICK BOX 8 -->
+    <section class="slide" data-slide="17">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 8</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Regrouping to Tenths &amp; Hundredths</h2>
+        <div class="slide-subtitle">Oral checks testing when and why the decimal point enters the quotient</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">When performing long division, at what exact moment must you place a decimal point in the quotient?</div>
+              <span class="q-hint">The instant you regroup Ones into Tenths (or cross past the decimal point of the dividend).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Choose the correct quotient for $1526 \div 4$: (i) 38.15, (ii) 380.15, (iii) 381.5, (iv) 381.05.</div>
+              <span class="q-hint">$1526 \div 4 = \mathbf{381.5}$ (Option iii).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Given $132 \div 4 = 33$, evaluate $13.2 \div 4$, $1.32 \div 4$, and $0.132 \div 4$.</div>
+              <span class="q-hint">Quotients are $\mathbf{3.3}$, $\mathbf{0.33}$, and $\mathbf{0.033}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Divide $126$ by $8$. How many decimal places are required before the remainder becomes zero?</div>
+              <span class="q-hint">$126 \div 8 = \mathbf{15.75}$ ($2$ decimal places).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 17 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: DIVISION WITH DECIMAL DIVISOR -->
+    <section class="slide" data-slide="18">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.3</span>
+          <span class="badge badge-emerald">DECIMAL DIVISORS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 83–84</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Handling Decimal Divisors: Transforming into Whole Numbers</h2>
+        <div class="slide-subtitle">Multiplying both dividend and divisor by equal powers of 10 to clear decimal divisors</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>🔄 The Golden Rule of Division: Multiply both dividend and divisor by $10, 100, 1000, \dots$ until the <strong>divisor becomes a whole number</strong>. The quotient remains strictly invariant!</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🛵 Ravi's Scooter Trip ($126\text{ km} \div 2.5\text{ h}$)</div>
+            <ul class="content-list">
+              <li>Distance $= 126\text{ km}$, Time $= 2.5\text{ hours}$.</li>
+              <li>Multiply numerator and denominator by $10$:
+                $$\text{Speed} = \frac{126}{2.5} = \frac{126 \times 10}{2.5 \times 10} = \frac{1260}{25}$$</li>
+              <li>Carry out long division:
+                $$\frac{1260}{25} = \mathbf{50.4\text{ km/h}}$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🔍 Example 13: $4.68 \div 1.3$ and $4.68 \div 0.13$</div>
+            <ul class="content-list">
+              <li><strong>Case 1 ($4.68 \div 1.3$):</strong>
+                $$\frac{4.68 \times 10}{1.3 \times 10} = \frac{46.8}{13} = \mathbf{3.6}$$</li>
+              <li><strong>Case 2 ($4.68 \div 0.13$):</strong>
+                $$\frac{4.68 \times 100}{0.13 \times 100} = \frac{468}{13} = \mathbf{36}$$</li>
+              <li>Notice: An extra power of $10$ in the divisor scales the quotient by $10$!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 18 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: QUICK BOX 9 -->
+    <section class="slide" data-slide="19">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 9</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Decimal Divisor Clearing</h2>
+        <div class="slide-subtitle">Oral checks clearing decimal divisors and comparing equivalent quotients</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Is the quotient of $24.6 \div 1.5$ identical to $2.46 \div 0.15$? Why?</div>
+              <span class="q-hint">Yes! Both equal $\frac{246}{15} = \mathbf{16.4}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">A shopkeeper packs $9.5\text{ kg}$ of sugar equally into 4 bags. What is the weight of each bag?</div>
+              <span class="q-hint">$9.5 \div 4 = \mathbf{2.375\text{ kg}}$ (Example 10).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Evaluate $0.06 \div 5$ using long division.</div>
+              <span class="q-hint">$0.06 \div 5 = \mathbf{0.012}$ (Example 11).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Given $756 \div 36 = 21$, find $75.6 \div 3.6$ and $756 \div 0.36$.</div>
+              <span class="q-hint">$75.6 \div 3.6 = \mathbf{21}$; $756 \div 0.36 = \frac{75600}{36} = \mathbf{2100}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 19 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: NON-TERMINATING DECIMALS -->
+    <section class="slide" data-slide="20">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.3</span>
+          <span class="badge badge-emerald">NON-TERMINATING DECIMALS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 84–85</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">"Does This Ever End?" Non-Terminating Decimals</h2>
+        <div class="slide-subtitle">When remainders repeat forever in cyclic loops: Exploring $10 \div 3$ and $1 \div 7$</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">♾️ The Endless $10 \div 3$</div>
+            <ul class="content-list">
+              <li>$10 \div 3 = 3$ with remainder $1$.</li>
+              <li>Regroup $1\text{ One} = 10\text{ Tenths} \implies 10 \div 3 = 3$, rem $1$.</li>
+              <li>Regroup $1\text{ Tenth} = 10\text{ Hundredths} \implies 10 \div 3 = 3$, rem $1$.</li>
+              <li>At every step, the remainder is identically $1$!</li>
+              <li>The process never ends:
+                $$10 \div 3 = 3.333333\dots$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🔄 The 6-Digit Cycle of $1 \div 7$</div>
+            <ul class="content-list">
+              <li>Dividing $1$ by $7$:
+                $$1 \div 7 = 0.142857142857\dots$$</li>
+              <li><strong>Remainder Chain:</strong>
+                $$1 \to 3 \to 2 \to 6 \to 4 \to 5 \to 1 \to \dots$$</li>
+              <li>Because a divisor of $7$ has only $6$ non-zero possible remainders $\{1, 2, 3, 4, 5, 6\}$, by the pigeonhole principle it <strong>must repeat</strong>!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>💡 Core Theorem: Any rational fraction $p/q$ either terminates (if $q$ has only factors $2$ and $5$) or repeats in a periodic cycle of at most $q - 1$ digits!</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 20 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX 10 -->
+    <section class="slide" data-slide="21">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 10</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Recurring Decimal Patterns</h2>
+        <div class="slide-subtitle">Oral checks testing cyclic remainders and decimal patterns of 9 and 11</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What is the decimal expansion of $10 \div 9$? What is $100 \div 11$?</div>
+              <span class="q-hint">$10 \div 9 = \mathbf{1.111\dots}$; $100 \div 11 = \mathbf{9.0909\dots}$ (Page 85).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Why is the maximum possible length of a repeating remainder cycle for divisor $d$ equal to $d - 1$?</div>
+              <span class="q-hint">Because remainders can only be from $1$ to $d-1$; $0$ terminates the division.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Does $1/8$ terminate or repeat forever? Why?</div>
+              <span class="q-hint">$8 = 2^3$ contains only $2$s $\implies 1/8 = \mathbf{0.125}$ (terminates cleanly!).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">What is the value of the quotient in $25 \div 0.01$?</div>
+              <span class="q-hint">$25 \div 0.01 = 25 \times 100 = \mathbf{2500}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 21 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: THE MAGIC NUMBER 142857 -->
+    <section class="slide" data-slide="22">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">MATHEMATICAL WONDER</span>
+          <span class="badge badge-emerald">CYCLIC NUMBERS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 85–86</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">The Magic Number $142857$ &amp; Artin's Conjecture</h2>
+        <div class="slide-subtitle">A number whose multiples are cyclic permutations of itself, and an unsolved 1927 riddle</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🌀 Cyclic Wheel Multiplications</div>
+            <ul class="content-list">
+              <li>$142857 \times 1 = \mathbf{142857}$</li>
+              <li>$142857 \times 2 = \mathbf{285714}$</li>
+              <li>$142857 \times 3 = \mathbf{428571}$</li>
+              <li>$142857 \times 4 = \mathbf{571428}$</li>
+              <li>$142857 \times 5 = \mathbf{714285}$</li>
+              <li>$142857 \times 6 = \mathbf{857142}$</li>
+              <li>Every product rotates the same 6 digits in circular order!</li>
+              <li>Multiply by $7$: $142857 \times 7 = \mathbf{999999}$!</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🏛️ Emil Artin's Unsolved Conjecture (1927)</div>
+            <ul class="content-list">
+              <li>Other cyclic numbers arise from full-period primes (e.g., $1/17$ has a 16-digit cycle, $1/19$ has an 18-digit cycle).</li>
+              <li><strong>The Big Question:</strong> Are there infinitely many such cyclic numbers?</li>
+              <li>In 1927, Austrian mathematician Emil Artin conjectured that there are infinitely many.</li>
+              <li>Nearly a century later, <strong>Artin's conjecture remains unproven</strong>!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 22 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: QUICK BOX 11 -->
+    <section class="slide" data-slide="23">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 11</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — The Magic 142857</h2>
+        <div class="slide-subtitle">Oral checks testing digit cycling and division by fractions</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What remarkable integer do you get when you multiply $142857$ by $7$?</div>
+              <span class="q-hint">$142857 \times 7 = \mathbf{999999}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">From which fraction's decimal expansion was the cyclic number $142857$ originally derived?</div>
+              <span class="q-hint">From the decimal expansion of $\frac{1}{7} = 0.142857142857\dots$</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">When dividing $128$ by $0.4$, is the quotient smaller or greater than $128$?</div>
+              <span class="q-hint">$128 \div 0.4 = \mathbf{320}$ (greater than $128$!).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Under what condition on the divisor is the quotient strictly greater than the dividend?</div>
+              <span class="q-hint">Whenever the divisor is a positive number strictly <strong>less than 1</strong> ($0 < d < 1$).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 23 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: QUOTIENT SIZE DYNAMICS -->
+    <section class="slide" data-slide="24">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.3</span>
+          <span class="badge badge-emerald">QUOTIENT DYNAMICS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 86</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Dividend, Divisor, and Quotient Relationships</h2>
+        <div class="slide-subtitle">How dividing by decimals less than 1 magnifies the quotient</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>⚖️ Master Division Rule: Dividing by a fraction $< 1$ asks: <em>"How many tiny pieces fit inside the dividend?"</em> Hence, the quotient is <strong>larger</strong> than the dividend!</span>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-highlight">
+            <div class="card-title">Divisor $> 1$</div>
+            <ul class="content-list">
+              <li>Example: $128 \div 4 = \mathbf{32}$</li>
+              <li>$$32 < 128$$</li>
+              <li>Standard whole-number division: quotient is <strong>smaller</strong> than dividend.</li>
+            </ul>
+          </div>
+
+          <div class="card card-coral">
+            <div class="card-title">Divisor in $(0, 1)$</div>
+            <ul class="content-list">
+              <li>Example: $128 \div 0.4 = \mathbf{320}$</li>
+              <li>$$320 > 128$$</li>
+              <li>Dividing by tenths multiplies by $10/4 = 2.5$; quotient is <strong>larger</strong> than dividend!</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">Divisor $= 1$</div>
+            <ul class="content-list">
+              <li>Example: $128 \div 1 = \mathbf{128}$</li>
+              <li>$$Q = \text{Dividend}$$</li>
+              <li>The neutral threshold point between shrinking and magnifying.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 24 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 25: QUICK BOX 12 -->
+    <section class="slide" data-slide="25">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 12</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Quotient Comparisons</h2>
+        <div class="slide-subtitle">Oral problems comparing operations and word problem quotients</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">A $4\text{ m}$ wooden block is cut into $5$ equal pieces. What is the length of each piece?</div>
+              <span class="q-hint">$4 \div 5 = \frac{4 \times 2}{10} = \mathbf{0.8\text{ metres}}$ (or $80\text{ cm}$).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">A regular polygon with 12 sides has a perimeter of $208.8\text{ cm}$. Find the length of each side.</div>
+              <span class="q-hint">$208.8 \div 12 = \mathbf{17.4\text{ cm}}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">3 litres of juice is shared equally among 8 friends. How many millilitres does each get?</div>
+              <span class="q-hint">$3 \div 8 = 0.375\text{ litres} \implies 0.375 \times 1000 = \mathbf{375\text{ mL}}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">A car covers $234.45\text{ km}$ using $12.6\text{ litres}$ of petrol. What is its mileage per litre?</div>
+              <span class="q-hint">$234.45 \div 12.6 = 2344.5 \div 126 = \mathbf{18.607\text{ km/L}}$ (approx).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 25 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 26: SECTION 4.4 LEAP YEAR ASTRONOMY -->
+    <section class="slide" data-slide="26">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.4</span>
+          <span class="badge badge-emerald">ASTRONOMY &amp; DECIMALS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 88–89</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Section 4.4: Look Before You Leap! (The 365.2422 Day Year)</h2>
+        <div class="slide-subtitle">Why the Earth's true solar orbit requires mathematical calendar adjustments</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🌍 The Solar Orbit Reality</div>
+            <ul class="content-list">
+              <li>Earth takes exactly <strong>$365.2422\text{ days}$</strong> to complete one revolution around the Sun.</li>
+              <li>A standard calendar counts only $365$ days.</li>
+              <li>Each year, the calendar lags behind the Sun by:
+                $$365.2422 - 365 = \mathbf{0.2422\text{ days}}$$</li>
+              <li><strong>After 100 years:</strong>
+                $$100 \times 0.2422 = \mathbf{24.22\text{ days}}$$</li>
+              <li>Without corrections, calendar months would drift out of sync with seasons!</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">📅 Adjustment 1: The 4-Year Rule</div>
+            <ul class="content-list">
+              <li>$0.2422 \approx \frac{1}{4} = 0.25$ day per year.</li>
+              <li><strong>The Rule:</strong> Add $1$ extra day (February 29) every $4$th year ($366$ days).</li>
+              <li><strong>The Math after 100 years:</strong>
+                <br>• Calendar days $= 100 \times 365 + 25 = \mathbf{36,525\text{ days}}$
+                <br>• Earth solar days $= 100 \times 365.2422 = \mathbf{36,524.22\text{ days}}$</li>
+              <li><strong>Result:</strong> Calendar has overshot by $0.78$ days! We overcompensated!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 26 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 27: QUICK BOX 13 -->
+    <section class="slide" data-slide="27">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 13</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — The 4-Year Leap Rule</h2>
+        <div class="slide-subtitle">Oral checks calculating calendar drift and overcompensation</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Exactly how many days does the Earth take to complete one full revolution around the Sun?</div>
+              <span class="q-hint">$\mathbf{365.2422\text{ days}}$ (Page 88).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">In 4 calendar years with one leap year, how many total days pass? How many solar days pass?</div>
+              <span class="q-hint">Calendar: $3 \times 365 + 366 = \mathbf{1461}$. Earth: $4 \times 365.2422 = \mathbf{1460.9688\text{ days}}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Why does adding one leap day every 4 years lead to overcompensation after 100 years?</div>
+              <span class="q-hint">Because $0.2422 < 0.25$; adding $0.25$ day adds too much time ($0.78$ days extra).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Which month receives the extra leap day in our modern Gregorian calendar?</div>
+              <span class="q-hint">February (29 days instead of 28).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 27 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 28: CALENDAR ADJUSTMENTS 2 & 3 (100-YEAR & 400-YEAR RULES) -->
+    <section class="slide" data-slide="28">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 4.4</span>
+          <span class="badge badge-emerald">CALENDAR CORRECTIONS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 90–92</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Refining the Calendar: The 100-Year and 400-Year Rules</h2>
+        <div class="slide-subtitle">How Pope Gregory's astronomers balanced decimal astronomical fractions</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">⛔ Adjustment 2: Skip Century Years</div>
+            <ul class="content-list">
+              <li><strong>The Rule:</strong> If divisible by $100$, it is NOT a leap year!</li>
+              <li>In $100$ years: only $24$ leap years ($76$ regular).
+                $$\text{Days} = 24 \times 366 + 76 \times 365 = \mathbf{36,524\text{ days}}$$</li>
+              <li>Earth takes $36,524.22$ days $\implies$ difference is only $0.22$ days!</li>
+              <li><strong>After 1000 years:</strong> Difference $= 10 \times 0.22 = \mathbf{2.2\text{ days}}$ (lagging behind).</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🏛️ Adjustment 3: The 400-Year Rule</div>
+            <ul class="content-list">
+              <li><strong>The Rule:</strong> If divisible by $400$, it IS a leap year!</li>
+              <li>Years $1600, 2000, 2400 \implies$ <strong>Leap Years!</strong></li>
+              <li>Years $1700, 1800, 1900, 2100 \implies$ <strong>Not Leap Years!</strong></li>
+              <li><strong>In 1000 years:</strong>
+                $$\text{Calendar Days} = \mathbf{3,65,242\text{ days}}$$
+                $$\text{Earth Solar Days} = \mathbf{3,65,242.2\text{ days}}$$</li>
+              <li>Difference is only <strong>$0.2$ days in 1000 years</strong>!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="formula-banner">
+          $$\text{Leap Year Criteria: Divisible by 4 } \xrightarrow{\text{except century}} \text{Divisible by 100? } \xrightarrow{\text{unless}} \text{Divisible by 400!}$$
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 28 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 29: QUICK BOX 14 -->
+    <section class="slide" data-slide="29">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 14</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — The Gregorian Leap Flowchart</h2>
+        <div class="slide-subtitle">Oral checks testing leap year rules on specific historic years</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Was the year 2000 a leap year? Was 1900 a leap year? Explain using the flowchart.</div>
+              <span class="q-hint">2000 is divisible by 400 $\implies$ <strong>Yes</strong>. 1900 is divisible by 100 but not 400 $\implies$ <strong>No</strong>.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Will the year 2100 be a leap year?</div>
+              <span class="q-hint">No, because 2100 is divisible by 100 but not 400.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">How small is the difference between calendar days and solar days in 1000 years under the 400-year scheme?</div>
+              <span class="q-hint">Only $\mathbf{0.2\text{ days}}$ (less than 5 hours over a full millennium!).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">What would be the difference after 10,000 years? How could it be corrected?</div>
+              <span class="q-hint">$10 \times 0.2 = \mathbf{2\text{ days}}$. Drop leap years in years divisible by 4000.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 29 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 30: SRIDHARACHARYA'S PATIGANITA & HERITAGE -->
+    <section class="slide" data-slide="30">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">INDIAN MATHEMATICAL HERITAGE</span>
+          <span class="badge badge-emerald">ŚRĪDHARĀCĀRYA (PĀṬĪGAṆITA)</span>
+        </div>
+        <span class="badge badge-coral">PAGE 94 (Q6)</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Śrīdharācārya's Pāṭīgaṇita Problem &amp; Ancient Calendars</h2>
+        <div class="slide-subtitle">Converting classical fraction division into decimal arithmetic</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>📜 In *Pāṭīgaṇita*, Śrīdharācārya challenged: <em>"6 is divided by $\frac{1}{4}$ and $2\frac{1}{2}$; and 60 is divided by $\frac{1}{4}$ and $3\frac{1}{2}$. Tell the quotients separately."</em></span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🧮 Decimal Solutions to Śrīdharācārya's Problem</div>
+            <ul class="content-list">
+              <li><strong>Part 1:</strong> $6 \div \frac{1}{4} = 6 \div 0.25 = \frac{600}{25} = \mathbf{24}$</li>
+              <li><strong>Part 2:</strong> $6 \div 2\frac{1}{2} = 6 \div 2.5 = \frac{60}{25} = \mathbf{2.4}$</li>
+              <li><strong>Part 3:</strong> $60 \div \frac{1}{4} = 60 \div 0.25 = \frac{6000}{25} = \mathbf{240}$</li>
+              <li><strong>Part 4:</strong> $60 \div 3\frac{1}{2} = 60 \div 3.5 = \frac{600}{35} = \frac{120}{7} \approx \mathbf{17.142857\dots}$ (cyclic!)</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">☀️ Traditional Indian Astronomical Calendars</div>
+            <ul class="content-list">
+              <li>Ancient Indian astronomers used precise solar-lunar synchronizations (Sūrya Siddhānta).</li>
+              <li>Used *Adhikamāsa* (intercalary leap months) added periodically to keep lunar months in harmony with solar seasons.</li>
+              <li>Calculated the length of the solar year as $365.258756$ days with astonishing accuracy over a millennium ago!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 30 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 31: QUICK BOX 15 -->
+    <section class="slide" data-slide="31">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 15</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Heritage Problems &amp; Price Ratios</h2>
+        <div class="slide-subtitle">Oral checks on unit price comparison and mixed decimal fractions</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">A $210\text{ g}$ chikki packet costs ₹$70.50$, while a $110\text{ g}$ chips packet costs ₹$33.25$. Which has cheaper rate per gram?</div>
+              <span class="q-hint">Chikki: $\frac{70.5}{210} \approx \mathbf{0.336\text{ ₹/g}}$; Chips: $\frac{33.25}{110} \approx \mathbf{0.302\text{ ₹/g}}$ (Chips is cheaper per gram).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Shyamala bought $3\text{ kg}$ bananas at ₹$30/\text{kg}$ ($35$ bananas total) and sold each for ₹$5$. What is her profit?</div>
+              <span class="q-hint">Cost: ₹$90$; Revenue: $35 \times 5 = \text{₹}175 \implies \text{Profit} = 175 - 90 = \mathbf{\text{₹}85}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">How many $2.5\text{ cm}$ thick books can fit on a $160\text{ cm}$ bookshelf? Any space left?</div>
+              <span class="q-hint">$160 \div 2.5 = \frac{1600}{25} = \mathbf{64\text{ books}}$. Zero space left!</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Why does $6 \div 2.5 = 2.4$ give the exact same answer as $6 \div \frac{5}{2}$?</div>
+              <span class="q-hint">Because $6 \times \frac{2}{5} = \frac{12}{5} = \mathbf{2.4}$. Decimals and fractions are identical values.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 31 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 32: PUZZLE TIME - HIDATO -->
+    <section class="slide" data-slide="32">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">PUZZLE TIME</span>
+          <span class="badge badge-emerald">LOGICAL REASONING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 95–96</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Puzzle Time: Hidato (Consecutive Number Paths)</h2>
+        <div class="slide-subtitle">Connecting consecutive integers across horizontal, vertical, and diagonal adjacency</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🧩 Hidato Rules of Play</div>
+            <ul class="content-list">
+              <li>A grid of connected cells is given, with the lowest ($1$) and highest numbers circled.</li>
+              <li><strong>Objective:</strong> Form a single unbroken path of consecutive numbers from $1$ to the maximum number.</li>
+              <li><strong>Allowed Moves:</strong> From any cell, the next number can be placed in any horizontally, vertically, or <strong>diagonally adjacent cell</strong>.</li>
+              <li>Pre-filled clue numbers guarantee a unique valid path!</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">💡 Strategic Path Finding</div>
+            <ul class="content-list">
+              <li>Start from $1$ and look at fixed clues ($4, 7, 9, 11, \dots$).</li>
+              <li>Work backwards from maximum numbers where possible.</li>
+              <li>Corner cells with fewer neighbors must be filled first to prevent path blockage.</li>
+              <li>Develops topological connectivity and spatial constraint deduction!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>✨ Logic Connection: Just as decimals create smooth transitions between whole numbers, Hidato creates smooth continuous paths through geometric cells!</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 32 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 33: CHAPTER 4 MASTER SUMMARY -->
+    <section class="slide" data-slide="33">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">CHAPTER 4 SUMMARY</span>
+          <span class="badge badge-emerald">MASTER RECAP</span>
+        </div>
+        <span class="badge badge-coral">PAGE 95</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Master Decimals Reference Checklist</h2>
+        <div class="slide-subtitle">Comprehensive conceptual recap of place values, multiplication, division, and calendars</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">Multiplication &amp; Scaling</div>
+            <ul class="content-list">
+              <li>✅ <strong>Multiplication Law:</strong> Multiply as counting numbers; sum decimal places of both factors to place the point.</li>
+              <li>✅ <strong>Multiplying by $10^k$:</strong> Shift decimal point $k$ places to the <strong>right</strong>.</li>
+              <li>✅ <strong>Product Shrinking:</strong> Multiplying numbers in $(0, 1)$ yields a product strictly <em>smaller</em> than both factors!</li>
+              <li>✅ <strong>Mixed Scaling:</strong> Multiplying a number by a factor $< 1$ scales down its magnitude.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">Division &amp; Calendar Mathematics</div>
+            <ul class="content-list">
+              <li>✅ <strong>Dividing by $10^k$:</strong> Shift decimal point $k$ places to the <strong>left</strong>.</li>
+              <li>✅ <strong>Place Value Long Division:</strong> When Ones cannot be divided, regroup to Tenths and place decimal point in quotient.</li>
+              <li>✅ <strong>Decimal Divisor:</strong> Multiply dividend and divisor by $10^k$ to make divisor a whole number before dividing.</li>
+              <li>✅ <strong>Non-Terminating Cycles:</strong> Cyclic remainders create recurring repeating decimals ($1/7 = 0.\overline{142857}$).</li>
+              <li>✅ <strong>Leap Year Harmony:</strong> Divisible by $4 \to$ skip centuries $\to$ keep 400s ($365.2422\text{ days}$).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 33 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 34: CLOSING SLIDE -->
+    <section class="slide closing-slide" data-slide="34">
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <span class="badge badge-primary">GANITA PRAKASH PART II</span>
+        <span class="badge badge-emerald">CHAPTER 4 COMPLETE</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="cover-eyebrow">END OF CHAPTER 4</div>
+        <h1 class="cover-title">THANK YOU</h1>
+        <p class="cover-tagline">
+          "Beyond the point lies an infinite continuum of precision — where fractions become fluid numbers, cycles reveal hidden symmetries, and astronomy aligns with mathematics."
+        </p>
+
+        <!-- EXACT CREDIT PILL -->
+        <a href="https://www.akashmaths.online" target="_blank" class="credit-pill">
+          <span class="sparkle">✦</span>
+          <span>Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </a>
+      </div>
+
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 34 / 34</span>
+      </div>
+    </section>
+
+    <!-- Navigation Controls -->
+    <div class="deck-nav">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+
+    <div class="keyboard-hint">
+      Use ◀ / ▶ or Space to navigate
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      const activeSlide = document.querySelector(`.slide[data-slide="${index}"]`);
+      if (activeSlide) {
+        activeSlide.classList.add('active');
+        currentSlide = index;
+      }
+    }
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      showSlide(currentSlide - 1);
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      showSlide(currentSlide + 1);
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        showSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        showSlide(currentSlide - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        showSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        showSlide(totalSlides);
+      }
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const container = document.getElementById('deck-container');
+
+    container.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    container.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        showSlide(currentSlide + 1);
+      }
+      if (touchEndX > touchStartX + 50) {
+        showSlide(currentSlide - 1);
+      }
+    }
+  </script>
+</body>
+</html>

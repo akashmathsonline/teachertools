@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 7: Finding the Unknown — Class 7 Mathematics</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for crisp mathematical rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    /* CSS Reset & Variables */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-card: #ffffff;
+      --primary-color: #0d9488; /* Vibrant Teal */
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --primary-gradient: linear-gradient(135deg, #0d9488, #0284c7);
+      --accent-coral: #f43f5e;
+      --accent-amber: #f59e0b;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --text-dark: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --font-display: 'Baloo 2', cursive, sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -4px rgba(0,0,0,0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-body);
+      background: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Deck Viewport (Strict 16:9 Aspect Ratio) */
+    #presentation-container {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      background: var(--bg-primary);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Slide Management */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 44px 56px 40px 56px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateX(30px);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+      background: radial-gradient(circle at top right, rgba(13, 148, 136, 0.04), transparent 60%),
+                  radial-gradient(circle at bottom left, rgba(2, 132, 199, 0.04), transparent 60%),
+                  #f8fafc;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateX(0);
+      z-index: 2;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+
+    .header-pills {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pill-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: #fee2e2;
+      color: #b91c1c;
+      letter-spacing: 0.02em;
+    }
+
+    .quick-box-pill {
+      background: #fef3c7;
+      color: #b45309;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.15;
+      margin-bottom: 18px;
+      flex-shrink: 0;
+    }
+
+    .slide-subtitle {
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      margin-top: -12px;
+      margin-bottom: 18px;
+    }
+
+    /* Slide Content Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      overflow: hidden;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      height: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      height: 100%;
+    }
+
+    .grid-1-2 {
+      display: grid;
+      grid-template-columns: 1fr 1.7fr;
+      gap: 22px;
+      height: 100%;
+    }
+
+    .grid-2-1 {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 22px;
+      height: 100%;
+    }
+
+    /* Cards and Feature Boxes */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .card.accent-teal {
+      border-top: 4px solid var(--primary-color);
+    }
+
+    .card.accent-amber {
+      border-top: 4px solid var(--accent-amber);
+    }
+
+    .card.accent-coral {
+      border-top: 4px solid var(--accent-coral);
+    }
+
+    .card.accent-indigo {
+      border-top: 4px solid var(--accent-indigo);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      font-size: 0.94rem;
+      line-height: 1.55;
+      color: var(--text-body);
+    }
+
+    .highlight-box {
+      background: linear-gradient(to right, rgba(13, 148, 136, 0.08), rgba(2, 132, 199, 0.05));
+      border-left: 5px solid var(--primary-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 0.98rem;
+      color: var(--text-dark);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .formula-display {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-sm);
+      margin: 10px 0;
+      color: #0f172a;
+    }
+
+    /* Quick Box Elements */
+    .quickbox-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .quick-item {
+      background: #ffffff;
+      border: 1.5px solid #fed7aa;
+      border-left: 6px solid #f97316;
+      border-radius: 14px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .quick-badge {
+      background: #ffedd5;
+      color: #c2410c;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .quick-question {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.45;
+    }
+
+    /* Lists & Steps */
+    ul.stylish-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    ul.stylish-list li {
+      position: relative;
+      padding-left: 26px;
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    ul.stylish-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* Footers & Watermark */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-top: auto;
+    }
+
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+
+    /* Large Author Pill (Cover & Closing Only) */
+    .credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border: 1.5px solid var(--primary-color);
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      color: var(--text-dark);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
+      margin-top: 14px;
+    }
+
+    .credit-pill span.icon {
+      color: var(--primary-color);
+      font-size: 1.1rem;
+    }
+
+    .credit-pill span.site {
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* Global Navigation Controls */
+    #nav-controls {
+      position: absolute;
+      bottom: 24px;
+      right: 28px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background: white;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    #keyboard-hint {
+      position: absolute;
+      bottom: 14px;
+      left: 56px;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      z-index: 100;
+      font-weight: 500;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="presentation-container">
+    
+    <!-- SLIDE 1: Cover Slide -->
+    <section class="slide active" id="slide-1" style="justify-content: center; align-items: center; text-align: center;">
+      <div style="position: absolute; top: 40px; left: 56px; right: 56px; display: flex; justify-content: space-between;">
+        <span class="pill-tag">GANITA PRAKASH | GRADE 7 PART-II</span>
+        <span class="pill-tag" style="background: #e0f2fe; color: #0369a1;">Chapter 7 • Slide Deck</span>
+      </div>
+
+      <div style="max-width: 860px; margin-top: 30px;">
+        <div style="font-size: 0.95rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary-color); margin-bottom: 12px;">
+          CLASS 7 MATHEMATICS • CHAPTER 7
+        </div>
+        <h1 style="font-family: var(--font-display); font-size: 3.6rem; font-weight: 800; color: var(--text-dark); line-height: 1.1; margin-bottom: 14px;">
+          Finding the Unknown
+        </h1>
+        <p style="font-size: 1.15rem; font-style: italic; color: var(--text-muted); line-height: 1.5; margin-bottom: 28px;">
+          "Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook."
+        </p>
+
+        <!-- LARGE CREDIT PILL -->
+        <div class="credit-pill">
+          <span class="icon">✦</span>
+          <span>Akash Srivastva <span class="site">(www.akashmaths.online)</span></span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="position: absolute; bottom: 20px; left: 56px; right: 56px; width: auto;">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 1 / 28</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 7.1 Unknown Weights & Weighing Scales -->
+    <section class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.1</span>
+          <span class="pill-tag" style="background:#e0e7ff; color:#4338ca;">Foundational Concept</span>
+        </div>
+        <span class="page-pill">Page 165</span>
+      </div>
+      <h2 class="slide-title">Unknown Weights: The Balance Principle</h2>
+      <div class="slide-body">
+        <div class="highlight-box">
+          A physical balance scale serves as our fundamental geometric and algebraic model: **both plates must hold identical total weight to remain horizontal and balanced**[cite: 29].
+        </div>
+        <div class="grid-3">
+          <div class="card accent-teal">
+            <div class="card-title">⚖️ The Concept of Balance</div>
+            <p class="card-text">When equal weights sit on both sides, the scale is perfectly horizontal[cite: 29]. An unknown weight can be deduced directly if its counterpart is known[cite: 29].</p>
+            <div class="formula-display">$\text{LHS} = \text{RHS}$</div>
+          </div>
+          <div class="card accent-amber">
+            <div class="card-title">🥪 Slices & Fried Eggs</div>
+            <p class="card-text">Fig. 7.6 shows 3 slices of bread (weight 2 each) balancing 2 fried eggs[cite: 30, 33]:</p>
+            <div class="formula-display">$2 + 2 + 2 = e + e \implies 2e = 6$[cite: 33]</div>
+            <p class="card-text" style="font-size:0.85rem; color:var(--text-muted);">Each egg $e$ has an unknown weight of 3 units[cite: 30, 33].</p>
+          </div>
+          <div class="card accent-indigo">
+            <div class="card-title">🌸 Mobiles & Hanging Rods</div>
+            <p class="card-text">In hanging decorative mobiles (Figs. 7.1–7.5), a master rod splits total weight evenly across both branches[cite: 29, 30].</p>
+            <div class="formula-display">$\text{Branch Weight} = \frac{\text{Total}}{2}$</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 2 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 3: Quick Box 1 -->
+    <section class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 165</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Unknown Weights</h2>
+      <p class="slide-subtitle">Rapid-fire verbal questions to check foundational grasp of balance models:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">If a hanging mobile displays a total weight of 18 at the top, what must be the total combined weight hanging from each side branch[cite: 30]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">One plate of a balanced scale holds three identical sacks, and the other plate holds a single 15 kg block. What is the weight of one sack?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">If you remove a 4 kg weight from the left plate of a balanced scale, what action MUST you take on the right plate to keep it balanced[cite: 30, 34]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 3 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 4: Removing Equal Weights -->
+    <section class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.1</span>
+          <span class="pill-tag" style="background:#e0f2fe; color:#0369a1;">Scale Reduction</span>
+        </div>
+        <span class="page-pill">Pages 165–166</span>
+      </div>
+      <h2 class="slide-title">The Principle of Removing Equal Quantities</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent-teal">
+            <div class="card-title">⚖️ Sacks on Both Plates (Fig. 7.10)</div>
+            <p class="card-text">Consider 2 sacks on the left plate balancing 1 sack + a 10 kg block + a 4 kg weight on the right[cite: 30]:</p>
+            <div class="formula-display">$2s = s + 14$[cite: 30]</div>
+            <ul class="stylish-list" style="margin-top:10px;">
+              <li><strong>Physical Strategy:</strong> Remove exactly 1 sack from both plates simultaneously[cite: 30].</li>
+              <li>The scale remains completely horizontal[cite: 30, 34].</li>
+              <li>Leftover on left: 1 sack; leftover on right: 14 kg. Hence, $s = 14\text{ kg}$[cite: 30]!</li>
+            </ul>
+          </div>
+          <div class="card accent-coral">
+            <div class="card-title">📦 Large Sacks Problem (Fig. 7.12)</div>
+            <p class="card-text">Plate A has 90 sacks + a 50 kg block[cite: 31]. Plate B has 60 sacks + a 500 kg container[cite: 31].</p>
+            <div class="formula-display">$90s + 50 = 60s + 500$[cite: 31]</div>
+            <ul class="stylish-list" style="margin-top:10px;">
+              <li><strong>Step 1:</strong> Remove 60 sacks from both plates $\implies 30s + 50 = 500$[cite: 31].</li>
+              <li><strong>Step 2:</strong> Remove 50 kg from both plates $\implies 30s = 450$[cite: 31].</li>
+              <li><strong>Step 3:</strong> Divide equally $\implies s = 15\text{ kg}$ per sack[cite: 31]!</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <strong>Fundamental Rule of Algebra:</strong> Removing equal quantities from both sides leaves all unknowns grouped on one plate, isolating the value systematically[cite: 31, 34].
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 4 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 5: Quick Box 2 -->
+    <section class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 166</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Balancing Scales</h2>
+      <p class="slide-subtitle">Oral prompts to test algebraic intuition behind balance manipulation:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">In Fig. 7.10, why does removing one sack from each plate NOT tilt the scale either up or down[cite: 30, 34]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">If Left Plate has 5 identical bags and Right Plate has 2 identical bags plus 18 kg, what remains after removing 2 bags from both sides?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">Why is it beneficial to ensure all unknown sacks end up on ONLY ONE plate of the balance[cite: 31, 34]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 5 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 6: Matchstick Patterns & Equations -->
+    <section class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.1</span>
+          <span class="pill-tag" style="background:#ecfdf5; color:#065f46;">Pattern Generalisation</span>
+        </div>
+        <span class="page-pill">Pages 166–167</span>
+      </div>
+      <h2 class="slide-title">Matchstick Patterns: From Sequence to Equation</h2>
+      <div class="slide-body">
+        <div class="grid-1-2">
+          <div class="card accent-teal">
+            <div class="card-title">🔥 Growing Triangles</div>
+            <p class="card-text">Consider the sequence of joined matchstick triangles[cite: 31]:</p>
+            <ul class="stylish-list" style="margin-top:10px;">
+              <li>Position 1: $2(1) + 1 = 3$ sticks[cite: 32]</li>
+              <li>Position 2: $2(2) + 1 = 5$ sticks[cite: 32]</li>
+              <li>Position 3: $2(3) + 1 = 7$ sticks[cite: 32]</li>
+              <li>Position 4: $2(4) + 1 = 9$ sticks[cite: 31, 32]</li>
+            </ul>
+            <div class="formula-display" style="margin-top:14px;">$n^{\text{th}}\text{ pattern} = 2n + 1$[cite: 32]</div>
+          </div>
+          <div class="card accent-amber">
+            <div class="card-title">🧩 Jasmine's Challenge</div>
+            <p class="card-text">Jasmine decides to build an arrangement in this sequence using <strong>exactly 99 matchsticks</strong>[cite: 32]. What position number $n$ will it be[cite: 32]?</p>
+            <div class="formula-display">$\underbrace{2n + 1}_{\text{LHS}} = \underbrace{99}_{\text{RHS}}$[cite: 32]</div>
+            <p class="card-text" style="margin-top:8px;">
+              <strong>What is an Equation?</strong> A statement of equality between two algebraic expressions[cite: 32]. The letter-number (variable) $n$ represents the unknown position to be discovered[cite: 32].
+            </p>
+            <div class="highlight-box" style="margin-top:10px; background:#fffbeb;">
+              Can we have an arrangement with <strong>200 sticks</strong>[cite: 32]? Since $2n + 1 = 200 \implies 2n = 199 \implies n = 99.5$, which is not a whole number, <strong>no such pattern exists</strong>[cite: 32]!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 6 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 7: Quick Box 3 -->
+    <section class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 167</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Matchsticks & Equations</h2>
+      <p class="slide-subtitle">Oral engagement to consolidate expression framing and equations:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">For the rule $2n + 1$, how many matchsticks are needed to construct the 10th pattern in the sequence[cite: 32]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">In an equation like $2n + 1 = 99$, what does LHS stand for, and what does RHS stand for[cite: 32]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">Why is it impossible to form a pattern from the sequence $2n+1$ using exactly 50 matchsticks[cite: 32]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 7 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 8: 7.2 Trial & Error Method -->
+    <section class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.2</span>
+          <span class="pill-tag" style="background:#fee2e2; color:#b91c1c;">Method Analysis</span>
+        </div>
+        <span class="page-pill">Page 168</span>
+      </div>
+      <h2 class="slide-title">The Trial and Error Method & Its Limitations</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent-teal">
+            <div class="card-title">🔍 Testing Consecutive Values for $2n + 1 = 99$</div>
+            <p class="card-text">We substitute sample test values into the LHS to see when it reaches 99[cite: 33]:</p>
+            <ul class="stylish-list" style="margin-top:8px;">
+              <li>Try $n = 5 \implies \text{LHS} = 2(5) + 1 = 11$ (far too low)[cite: 33]</li>
+              <li>Try $n = 10 \implies \text{LHS} = 21$ (still too low)[cite: 33]</li>
+              <li>Try $n = 30 \implies \text{LHS} = 61$ (closer)[cite: 33]</li>
+              <li>Try $n = 40 \implies \text{LHS} = 81$[cite: 33]</li>
+              <li>Try $n = 50 \implies \text{LHS} = 101$ (slightly too high!)[cite: 33]</li>
+              <li>Try $n = 49 \implies \text{LHS} = 2(49) + 1 = 99 = \text{RHS}$ ✅[cite: 33]</li>
+            </ul>
+          </div>
+          <div class="card accent-coral">
+            <div class="card-title">⚠️ Why Trial & Error Is Inefficient</div>
+            <p class="card-text">Consider solving an equation like[cite: 33]:</p>
+            <div class="formula-display">$5x - 4 = 7$[cite: 33]</div>
+            <ul class="stylish-list" style="margin-top:10px;">
+              <li>If $x = 2 \implies 5(2) - 4 = 6$ (too small).</li>
+              <li>If $x = 3 \implies 5(3) - 4 = 11$ (too large!).</li>
+              <li>The actual solution is a fractional value: $x = \frac{11}{5} = 2.2$[cite: 35].</li>
+              <li><strong>Verdict:</strong> Guessing non-integer values is tedious and slow[cite: 33]. We need a guaranteed, systematic algebraic method[cite: 34]!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 8 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 9: Quick Box 4 -->
+    <section class="slide" id="slide-9">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 168</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Trial and Error</h2>
+      <p class="slide-subtitle">Rapid verbal prompts to assess awareness of method limitations:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">For $3x - 1 = 14$, test $x = 4$ and $x = 5$. Which one satisfies the equation?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">Can an equation like $2n + 1 = 99$ have more than one single numerical solution[cite: 33]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">Why does trial and error become exceptionally difficult when the answer is a fraction like $\frac{11}{5}$[cite: 33, 35]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 9 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 10: Inverse Operations & Balance of Equality -->
+    <section class="slide" id="slide-10">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.2</span>
+          <span class="pill-tag" style="background:#e0f2fe; color:#0369a1;">Core Principle</span>
+        </div>
+        <span class="page-pill">Pages 169–170</span>
+      </div>
+      <h2 class="slide-title">The Principle of Inverse Operations</h2>
+      <div class="slide-body">
+        <div class="highlight-box">
+          <strong>Axiom of Equality:</strong> If the same operation (addition, subtraction, multiplication, or non-zero division) is performed on both sides of an equation, equality is preserved[cite: 34, 56].
+        </div>
+        <div class="grid-2">
+          <div class="card accent-teal">
+            <div class="card-title">🔄 Inverse Arithmetic Operations</div>
+            <ul class="stylish-list">
+              <li><strong>Addition & Subtraction:</strong> Mutually undo each other[cite: 34]. To eliminate $+88$, subtract $88$ from both sides[cite: 34].</li>
+              <li><strong>Multiplication & Division:</strong> Mutually undo each other[cite: 34]. To eliminate a factor of $7$, divide both sides by $7$[cite: 34].</li>
+              <li><strong>Eliminating Negatives:</strong> To eliminate $-(-67)$, add $(-67)$ to both sides[cite: 35].</li>
+            </ul>
+          </div>
+          <div class="card accent-indigo">
+            <div class="card-title">🎯 Systematic Example: $5x - 4 = 7$</div>
+            <div class="formula-display">$5x - 4 + 4 = 7 + 4 \implies 5x = 11$[cite: 35]</div>
+            <div class="formula-display">$\frac{5x}{5} = \frac{11}{5} \implies x = \frac{11}{5}$[cite: 35]</div>
+            <p class="card-text" style="font-size: 0.88rem; color: var(--text-muted);">
+              <strong>Verification:</strong> $\text{LHS} = 5\left(\frac{11}{5}\right) - 4 = 11 - 4 = 7 = \text{RHS}$ ✅[cite: 36]
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 10 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 11: Quick Box 5 -->
+    <section class="slide" id="slide-11">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 170</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Inverse Operations</h2>
+      <p class="slide-subtitle">Oral checks on balancing equations using inverse operations:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">What is the inverse operation of adding 15 to a side of an equation[cite: 34]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">To isolate $x$ in the equation $\frac{x}{6} = 8$, what operation must be applied to both sides[cite: 38]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">If you multiply the LHS of an equation by 4, what MUST you do to the RHS to preserve true equality[cite: 34]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 11 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 12: Transposition & Variables on Both Sides -->
+    <section class="slide" id="slide-12">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.2</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Transposition Rules</span>
+        </div>
+        <span class="page-pill">Pages 171–173</span>
+      </div>
+      <h2 class="slide-title">Transposition & Unknowns on Both Sides</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent-teal">
+            <div class="card-title">⏩ The Rules of Transposition</div>
+            <ul class="stylish-list">
+              <li><strong>Additive Inverse:</strong> A term moved across the equals sign changes its sign: $+a$ becomes $-a$, and $-b$ becomes $+b$[cite: 38].
+                <div class="formula-display" style="font-size:1rem; margin:6px 0;">$2y + 7 = 21 \implies 2y = 21 - 7 = 14$[cite: 36, 37, 38]</div>
+              </li>
+              <li><strong>Multiplicative Inverse:</strong> A multiplying factor on one side becomes a divisor on the other side[cite: 38]:
+                <div class="formula-display" style="font-size:1rem; margin:6px 0;">$2y = 14 \implies y = \frac{14}{2} = 7$[cite: 37, 38]</div>
+              </li>
+              <li><strong>Divisor Transposition:</strong> A dividing term becomes a multiplier on the other side: $\frac{u}{15} = 6 \implies u = 6 \times 15 = 90$[cite: 37, 38].</li>
+            </ul>
+          </div>
+          <div class="card accent-coral">
+            <div class="card-title">👥 Variables on Both Sides: $6y + 7 = 4y + 21$</div>
+            <p class="card-text">When variables appear on both sides, subtract the smaller variable term from both sides first[cite: 36]:</p>
+            <div class="formula-display">
+              $6y - 4y + 7 = 21 \implies 2y + 7 = 21$[cite: 36, 38]
+            </div>
+            <div class="formula-display">
+              $2y = 21 - 7 = 14 \implies y = 7$[cite: 37, 38]
+            </div>
+            <div class="highlight-box" style="margin-top: 10px;">
+              <strong>Check:</strong> $\text{LHS} = 6(7) + 7 = 49$. $\text{RHS} = 4(7) + 21 = 49$. Balanced[cite: 36, 37]!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 12 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 13: Quick Box 6 -->
+    <section class="slide" id="slide-13">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 172</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Transposition Rules</h2>
+      <p class="slide-subtitle">Quick classroom diagnostic questions on transposing terms:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">When $+9$ on the LHS is transposed to the RHS, what does it become[cite: 38]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">In solving $3u - 7 = 2u + 3$, what is the first step to bring all variable terms to one side[cite: 36, 37]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">Can you frame an equation with variable $x$ that has NO solution at all (Hint: Can a number be equal to itself plus 4)[cite: 37]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 13 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 14: Real-Life Problem Modelling (Parties & Savings) -->
+    <section class="slide" id="slide-14">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.2</span>
+          <span class="pill-tag" style="background:#fdf4ff; color:#86198f;">Applications</span>
+        </div>
+        <span class="page-pill">Pages 174–176</span>
+      </div>
+      <h2 class="slide-title">Real-Life Modelling: Parties & Equal Savings</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent-teal">
+            <div class="card-title">🎉 Madhubanti's Party (Ex. 8)</div>
+            <p class="card-text">Budget = ₹500[cite: 40]. Snack plate = ₹25 each[cite: 40]. Delivery charge = ₹50[cite: 40]. Family members = 5[cite: 40].</p>
+            <div class="formula-display">$25p + 50 = 500$[cite: 41]</div>
+            <ul class="stylish-list">
+              <li>Subtract ₹50 delivery $\implies 25p = 450$[cite: 41].</li>
+              <li>Divide by ₹25 $\implies p = 18$ total plates[cite: 40, 41].</li>
+              <li>Friends invited: $18 - 5 = 13\text{ friends}$[cite: 40, 41]!</li>
+            </ul>
+          </div>
+          <div class="card accent-amber">
+            <div class="card-title">💰 Equal Savings Problem (Ex. 9)</div>
+            <p class="card-text">Jahnavi starts with ₹4,000, saves ₹650/month[cite: 41]. Sunita starts with ₹5,050, saves ₹500/month[cite: 41]. When are their savings equal[cite: 41]?</p>
+            <div class="formula-display">$4000 + 650m = 5050 + 500m$[cite: 41]</div>
+            <ul class="stylish-list">
+              <li>Subtract $500m \implies 4000 + 150m = 5050$[cite: 41].</li>
+              <li>Subtract $4000 \implies 150m = 1050$[cite: 41, 42].</li>
+              <li>Divide by $150 \implies m = 7\text{ months}$[cite: 42]!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 14 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 15: Quick Box 7 -->
+    <section class="slide" id="slide-15">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Pages 175–176</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Word Problem Modelling</h2>
+      <p class="slide-subtitle">Oral checks on setting up algebraic word problems:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">In Madhubanti's problem, why do we subtract the delivery charge of ₹50 BEFORE dividing by the snack price ₹25[cite: 40, 41]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">How would you set up an equation if a taxi charges ₹800 fixed plus ₹20 per km, and the total bill is ₹2,200[cite: 51]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">Ramesh and Suresh have 60 marbles; Ramesh has 30 more than Suresh. What is the single-variable equation for Suresh's marbles $y$[cite: 44]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 15 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 16: Math Tricks & Reversing Operations -->
+    <section class="slide" id="slide-16">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.2</span>
+          <span class="pill-tag" style="background:#ecfdf5; color:#065f46;">Number Tricks</span>
+        </div>
+        <span class="page-pill">Page 178</span>
+      </div>
+      <h2 class="slide-title">Algebraic Mind Games: Riyaz & Akash's Trick</h2>
+      <div class="slide-body">
+        <div class="grid-1-2">
+          <div class="card accent-indigo">
+            <div class="card-title">🎩 Riyaz's Mind Reader Steps</div>
+            <ul class="stylish-list">
+              <li><span class="step-badge">1</span> Think of any number $x$[cite: 43].</li>
+              <li><span class="step-badge">2</span> Subtract 3: $x - 3$[cite: 43].</li>
+              <li><span class="step-badge">3</span> Multiply by 4: $4(x - 3) = 4x - 12$[cite: 43].</li>
+              <li><span class="step-badge">4</span> Add 8: $4x - 12 + 8 = 4x - 4$[cite: 43].</li>
+              <li><span class="step-badge">5</span> Reveal final answer: $24$[cite: 43]!</li>
+            </ul>
+          </div>
+          <div class="card accent-teal">
+            <div class="card-title">🔓 The Secret Algebraic Model</div>
+            <p class="card-text">Riyaz easily unmasks the secret number by solving the linear equation[cite: 43]:</p>
+            <div class="formula-display">$4x - 4 = 24 \implies 4x = 28 \implies x = 7$[cite: 43]</div>
+            <div class="highlight-box" style="margin-top:14px;">
+              <strong>The Secret Formula:</strong> Notice that $4x - 4 = 4(x - 1)$[cite: 43]. Therefore:
+              $$\text{Starting Number } x = \frac{\text{Final Answer} + 4}{4} = \frac{\text{Final Answer}}{4} + 1$$
+              To reverse the trick instantly in your head: <strong>Divide by 4, then add 1</strong>!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 16 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 17: Quick Box 8 -->
+    <section class="slide" id="slide-17">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 178</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Algebraic Number Tricks</h2>
+      <p class="slide-subtitle">Oral questions exploring the mechanics of math tricks:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">If Akash's final announced result had been 36 instead of 24, what starting number did he think of[cite: 43]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">In algebraic terms, why does performing inverse operations in reverse order always restore the original secret input[cite: 34, 43]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">Think of a number, double it, add 10, divide by 2, and subtract your original number. Why is the answer ALWAYS 5[cite: 55]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 17 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 18: Generating Chains of Equations -->
+    <section class="slide" id="slide-18">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.2</span>
+          <span class="pill-tag" style="background:#e0e7ff; color:#4338ca;">Equation Chains</span>
+        </div>
+        <span class="page-pill">Pages 179–180</span>
+      </div>
+      <h2 class="slide-title">Generating Equations: Reversing the Path</h2>
+      <div class="slide-body">
+        <div class="highlight-box">
+          Starting from a fixed solution (such as $y = 5$), we can generate endlessly diverse equations by performing balanced operations on both sides[cite: 44, 45].
+        </div>
+        <div class="grid-2">
+          <div class="card accent-indigo">
+            <div class="card-title">⛓️ Chain A (Multiplication & Inversion)</div>
+            <ul class="stylish-list">
+              <li>Start with: $y = 5$[cite: 45]</li>
+              <li>Subtract 6 from both sides: $y - 6 = -1$[cite: 45]</li>
+              <li>Subtract $y$ from both sides: $-6 = -1 - y$[cite: 45]</li>
+              <li>Multiply by $-1$: $y + 1 = 6$[cite: 45]</li>
+            </ul>
+            <p class="card-text" style="margin-top:8px; font-size:0.86rem; color:var(--text-muted);">Every single intermediate equation maintains $y = 5$ as its unique solution[cite: 45]!</p>
+          </div>
+          <div class="card accent-teal">
+            <div class="card-title">⛓️ Chain B (Expansion & Regrouping)</div>
+            <ul class="stylish-list">
+              <li>Start with: $y = 5$[cite: 45]</li>
+              <li>Add 2 to both sides: $y + 2 = 7$[cite: 45]</li>
+              <li>Multiply both sides by 3: $3(y + 2) = 21 \implies 3y + 6 = 21$[cite: 45]</li>
+              <li>Subtract 6 from both sides: $3y = 15$[cite: 45]</li>
+            </ul>
+            <p class="card-text" style="margin-top:8px; font-size:0.86rem; color:var(--text-muted);">Moving top-to-bottom or bottom-to-top uses exact inverse operations[cite: 45].</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 18 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 19: Quick Box 9 -->
+    <section class="slide" id="slide-19">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Pages 180–181</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Generating Equations</h2>
+      <p class="slide-subtitle">Oral challenges on constructing equations from known roots:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">Give two completely different linear equations whose solution is $x = -2$[cite: 46].</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">If $4k + 1 = 13$, what is the direct value of $8k + 2$ without calculating $k$ first[cite: 46]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">Can you invent a real-life situation that matches the equation $100x + 75 = 250$[cite: 45]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 19 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 20: 7.3 Mind the Mistake, Mend the Mistake -->
+    <section class="slide" id="slide-20">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.3</span>
+          <span class="pill-tag" style="background:#fee2e2; color:#b91c1c;">Error Analysis</span>
+        </div>
+        <span class="page-pill">Pages 181–182</span>
+      </div>
+      <h2 class="slide-title">Mind the Mistake, Mend the Mistake</h2>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card accent-coral">
+            <div class="card-title">❌ Sign Error in Transposition</div>
+            <p class="card-text"><strong>Erroneous Step:</strong><br>$4x + 6 = 10 \implies 4x = 10 + 6 = 16$[cite: 46]</p>
+            <div class="formula-display" style="font-size:0.95rem; border-color:#fca5a5;">Mistake: $+6$ changed to $+6$[cite: 46]!</div>
+            <p class="card-text" style="color:var(--primary-dark);"><strong>Correction:</strong> Transposition requires additive inverse: $4x = 10 - 6 = 4 \implies x = 1$[cite: 38, 46].</p>
+          </div>
+          <div class="card accent-amber">
+            <div class="card-title">❌ Partial Distributive Division</div>
+            <p class="card-text"><strong>Erroneous Step:</strong><br>$2v - 4 = 6 \implies v - 4 = 6 - 2 = 4$[cite: 46]</p>
+            <div class="formula-display" style="font-size:0.95rem; border-color:#fcd34d;">Mistake: Subtracted 2 instead of dividing[cite: 46]!</div>
+            <p class="card-text" style="color:var(--primary-dark);"><strong>Correction:</strong> First transpose 4: $2v = 6 + 4 = 10 \implies v = 5$.</p>
+          </div>
+          <div class="card accent-indigo">
+            <div class="card-title">❌ Incomplete Term Division</div>
+            <p class="card-text"><strong>Erroneous Step:</strong><br>$3(7y + 4) = 9 + 5y \implies 7y + 4 = \frac{9}{3} + 5y$[cite: 47]</p>
+            <div class="formula-display" style="font-size:0.95rem; border-color:#c7d2fe;">Mistake: Only 9 divided by 3, not $5y$[cite: 47]!</div>
+            <p class="card-text" style="color:var(--primary-dark);"><strong>Correction:</strong> Expand parentheses first: $21y + 12 = 9 + 5y \implies 16y = -3 \implies y = -\frac{3}{16}$.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 20 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 21: Quick Box 10 -->
+    <section class="slide" id="slide-21">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 181</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Spotting Algebraic Errors</h2>
+      <p class="slide-subtitle">Oral checks to develop sharp error-hunting reflexes in students:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">In $7 - 8z = 5$, a student writes $8z = 7 - 5 = 2 \implies z = 4$. What arithmetic error occurred in the final step[cite: 46]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">When simplifying $-2(3 - 4x)$, why is $-6 - 8x$ completely incorrect[cite: 47]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">A student simplifies $6x + 9 = 66$ into $x + 9 = 11$. Which term failed to be divided by 6[cite: 52]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 21 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 22: 7.4 A Pinch of History (Bījagaṇita) -->
+    <section class="slide" id="slide-22">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.4</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">History of Algebra</span>
+        </div>
+        <span class="page-pill">Pages 182–183</span>
+      </div>
+      <h2 class="slide-title">A Pinch of History: The Origins of Bījagaṇita</h2>
+      <div class="slide-body">
+        <div class="highlight-box">
+          <strong>The Seed of Mathematics:</strong> <em>Bīja</em> means seed[cite: 47]. Just as a mighty tree is hidden within a tiny seed, the answer to a problem is concealed inside the unknown quantity[cite: 47]!
+        </div>
+        <div class="grid-3">
+          <div class="card accent-amber">
+            <div class="card-title">📜 Brahmagupta (628 CE)</div>
+            <p class="card-text">In Chapter 18 of <em>Brāhmasphuṭasiddhānta</em>, he pioneered rules for adding, subtracting, and multiplying unknown quantities using letter symbols[cite: 47]. Fields Medalist David Mumford hailed him as the central creator of modern algebra[cite: 47].</p>
+          </div>
+          <div class="card accent-teal">
+            <div class="card-title">🌍 Al-Khwarizmi & Europe</div>
+            <p class="card-text">In ~825 CE, Al-Khwarizmi wrote <em>Hisab al-jabr wal-muqabala</em> ("restoring and balancing"), influenced by Indian texts[cite: 47]. The Latin translation of <em>al-jabr</em> gave the modern world the word <strong>Algebra</strong>[cite: 47].</p>
+          </div>
+          <div class="card accent-indigo">
+            <div class="card-title">🔤 Ancient Indian Notation</div>
+            <p class="card-text">Unknowns were named after colours: <em>yā</em> for <em>yāvat-tāvat</em> ("as much as"), <em>kā</em> (kālaka/black), <em>nī</em> (nīlaka/blue)[cite: 47, 48]. Known constants were called <em>rūpa</em> (<em>rū</em>)[cite: 48].</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 22 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 23: Brahmagupta's General Linear Formula -->
+    <section class="slide" id="slide-23">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Section 7.4</span>
+          <span class="pill-tag" style="background:#e0f2fe; color:#0369a1;">Ancient Indian Formula</span>
+        </div>
+        <span class="page-pill">Pages 183–184</span>
+      </div>
+      <h2 class="slide-title">Brahmagupta's Universal Linear Equation Formula</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent-teal">
+            <div class="card-title">📐 The Master Formula for $Ax + B = Cx + D$</div>
+            <p class="card-text">First proposed by Aryabhata (499 CE) and systematised by Brahmagupta (628 CE)[cite: 49]:</p>
+            <div class="formula-display" style="font-size:1.35rem; color:#0f766e;">
+              $$x = \frac{D - B}{A - C}$$[cite: 49]
+            </div>
+            <p class="card-text" style="font-size:0.9rem; margin-top:8px;">
+              <strong>Proof by Transposition:</strong><br>
+              $Ax - Cx = D - B \implies x(A - C) = D - B \implies x = \frac{D - B}{A - C}$[cite: 49]
+            </p>
+          </div>
+          <div class="card accent-amber">
+            <div class="card-title">🐎 Bhāskarāchārya's Horse Riddle (1150 CE)</div>
+            <p class="card-text"><em>Bījagaṇita</em>: Person 1 has ₹300 and 6 horses[cite: 48]. Person 2 has 10 horses and a debt of ₹100[cite: 48]. If both are equally wealthy, find horse price $x$[cite: 48]:</p>
+            <div class="formula-display">$6x + 300 = 10x - 100$[cite: 48]</div>
+            <p class="card-text" style="font-size:0.9rem;">
+              Using Brahmagupta's formula with $A=6, B=300, C=10, D=-100$[cite: 48, 49]:
+              $$x = \frac{-100 - 300}{6 - 10} = \frac{-400}{-4} = ₹100\text{ per horse}$$[cite: 48]
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 23 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 24: Quick Box 11 -->
+    <section class="slide" id="slide-24">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 184</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — History & Brahmagupta's Rule</h2>
+      <p class="slide-subtitle">Oral checks connecting Indian history to algebra:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">What does the Sanskrit mathematical term <em>bīja</em> literally mean, and how does it relate to algebra[cite: 47]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">From which Arabic mathematical term in Al-Khwarizmi's treatise did our modern English word "Algebra" originate[cite: 47]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">Using Brahmagupta's formula $x = \frac{D - B}{A - C}$, solve $2x + 3 = 4x + 5$ in a single quick step[cite: 49]!</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 24 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 25: Exercise Highlights (Worked Problems) -->
+    <section class="slide" id="slide-25">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag">Exercise Highlights</span>
+          <span class="pill-tag" style="background:#ecfdf5; color:#065f46;">Worked Exemplars</span>
+        </div>
+        <span class="page-pill">Pages 186–188</span>
+      </div>
+      <h2 class="slide-title">Representative Worked Exercise Problems</h2>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card accent-teal">
+            <div class="card-title">🦒 The Tall Giraffe (Q15)</div>
+            <p class="card-text"><strong>Problem:</strong> A giraffe's height is $2.5\text{ m}$ more than half its height[cite: 53]. Find height $h$[cite: 53].</p>
+            <div class="formula-display" style="font-size:0.95rem;">$h = \frac{1}{2}h + 2.5$[cite: 53]</div>
+            <p class="card-text" style="font-size:0.86rem;">
+              Subtract $\frac{1}{2}h \implies \frac{1}{2}h = 2.5$<br>
+              Multiply by 2 $\implies h = 5\text{ metres}$ ✅
+            </p>
+          </div>
+          <div class="card accent-amber">
+            <div class="card-title">📜 Bakhshāli Manuscript (Q14)</div>
+            <p class="card-text"><strong>Problem:</strong> 4 shares: $x, 2x, 6x, 24x$ sum to 132[cite: 53]. Find share 1[cite: 53].</p>
+            <div class="formula-display" style="font-size:0.95rem;">$x + 2x + 6x + 24x = 132$[cite: 53]</div>
+            <p class="card-text" style="font-size:0.86rem;">
+              Combine terms $\implies 33x = 132$<br>
+              Divide by 33 $\implies x = 4$ ✅
+            </p>
+          </div>
+          <div class="card accent-coral">
+            <div class="card-title">🏖️ Beach Donkeys & Kids (Q20)</div>
+            <p class="card-text"><strong>Problem:</strong> 28 heads, 80 feet[cite: 54]. Donkeys $d$, children $28 - d$[cite: 54].</p>
+            <div class="formula-display" style="font-size:0.95rem;">$4d + 2(28 - d) = 80$[cite: 54]</div>
+            <p class="card-text" style="font-size:0.86rem;">
+              $2d + 56 = 80 \implies 2d = 24$<br>
+              Donkeys $d = 12$, Children $= 16$ ✅
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 25 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 26: Quick Box 12 -->
+    <section class="slide" id="slide-26">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="quick-box-pill">⚡ Quick Box</span>
+          <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        </div>
+        <span class="page-pill">Page 188</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Complex Word Problems</h2>
+      <p class="slide-subtitle">Oral challenges based on multi-step and geometric word problems:</p>
+      <div class="slide-body">
+        <div class="quickbox-container">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <span class="quick-question">The sum of two numbers is 76; one is three times the other. What equation gives the smaller number[cite: 52]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <span class="quick-question">The angles of a triangle are $x$, $x - 10^\circ$, and $x + 10^\circ$. What angle sum property equation solves for $x$[cite: 52]?</span>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <span class="quick-question">A number increased by 36 equals ten times itself. How would you frame and state this in symbolic algebra[cite: 53]?</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 26 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 27: Chapter Summary Slide -->
+    <section class="slide" id="slide-27">
+      <div class="slide-header">
+        <div class="header-pills">
+          <span class="pill-tag" style="background:#f1f5f9; color:#334155;">Review & Recap</span>
+          <span class="pill-tag" style="background:#dcfce7; color:#15803d;">Chapter Summary</span>
+        </div>
+        <span class="page-pill">Page 190</span>
+      </div>
+      <h2 class="slide-title">Chapter Summary & Core Takeaways</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card accent-teal">
+            <div class="card-title">📋 Algebraic Principles</div>
+            <ul class="stylish-list">
+              <li>✅ <strong>Equation Definition:</strong> A statement of equality between two algebraic expressions[cite: 32, 55].</li>
+              <li>✅ <strong>Balance of Equality:</strong> Applying identical operations to both sides leaves the equation fully balanced[cite: 34, 55].</li>
+              <li>✅ <strong>Transposition Rules:</strong> Transposing terms replaces them with their additive or multiplicative inverses[cite: 38].</li>
+              <li>✅ <strong>Root Verification:</strong> Substituting the solution back into the LHS must identically match the RHS[cite: 36, 55].</li>
+            </ul>
+          </div>
+          <div class="card accent-amber">
+            <div class="card-title">📜 Historical & Practical Roots</div>
+            <ul class="stylish-list">
+              <li>✅ <strong>Bījagaṇita:</strong> Indian algebra treats the unknown like a seed concealing the hidden tree[cite: 47].</li>
+              <li>✅ <strong>Brahmagupta's Rule:</strong> Any equation $Ax + B = Cx + D$ is solved directly by $x = \frac{D - B}{A - C}$[cite: 49].</li>
+              <li>✅ <strong>Global Impact:</strong> Arabic translations (<em>al-jabr</em>) preserved and spread ancient algebra to the world[cite: 47].</li>
+              <li>✅ <strong>Power of Algebra:</strong> Unlocks exact solutions to real-world riddles, patterns, and budgets[cite: 32, 39, 49].</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 27 / 28</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 28: Closing / Thank You Slide -->
+    <section class="slide" id="slide-28" style="justify-content: center; align-items: center; text-align: center;">
+      <div style="position: absolute; top: 40px; left: 56px; right: 56px; display: flex; justify-content: space-between;">
+        <span class="pill-tag">GANITA PRAKASH | GRADE 7</span>
+        <span class="pill-tag" style="background: #e0f2fe; color: #0369a1;">End of Chapter 7</span>
+      </div>
+
+      <div style="max-width: 820px;">
+        <div style="font-size: 3.5rem; margin-bottom: 12px;">🌟</div>
+        <h1 style="font-family: var(--font-display); font-size: 3.4rem; font-weight: 800; color: var(--text-dark); line-height: 1.1; margin-bottom: 16px;">
+          THANK YOU
+        </h1>
+        <p style="font-size: 1.25rem; font-style: italic; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;">
+          "Just as the mighty banyan tree is hidden within a tiny seed, the answer to every complex puzzle is waiting patiently inside the unknown."
+        </p>
+
+        <!-- LARGE CREDIT PILL -->
+        <div class="credit-pill">
+          <span class="icon">✦</span>
+          <span>Akash Srivastva <span class="site">(www.akashmaths.online)</span></span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="position: absolute; bottom: 20px; left: 56px; right: 56px; width: auto;">
+        <span>Ganita Prakash | Grade 7 Part-II</span>
+        <span>Slide 28 / 28</span>
+      </div>
+    </section>
+
+    <!-- Navigation Controls & Keyboard Hint -->
+    <div id="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+    <div id="nav-controls">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+
+  </div>
+
+  <!-- JavaScript Slide Controller -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      function updateSlide(index) {
+        slides.forEach((slide, idx) => {
+          slide.classList.remove('active');
+          if (idx === index) {
+            slide.classList.add('active');
+          }
+        });
+
+        // Trigger KaTeX rendering on the newly visible slide if needed
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[index], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ]
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          currentSlide++;
+          updateSlide(currentSlide);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide(currentSlide);
+        }
+      }
+
+      // Keyboard Controls
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          currentSlide = 0;
+          updateSlide(currentSlide);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          currentSlide = totalSlides - 1;
+          updateSlide(currentSlide);
+        }
+      });
+
+      // Button Controls
+      document.getElementById('next-btn').addEventListener('click', nextSlide);
+      document.getElementById('prev-btn').addEventListener('click', prevSlide);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 7 Maths - Chapter 3: Finding Common Ground | Ganita Prakash Part II</title>
+
+  <!-- Google Fonts: Fredoka & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #4338ca;         /* Vibrant Indigo */
+      --primary-dark: #312e81;
+      --primary-light: #e0e7ff;
+      --accent-teal: #0d9488;     /* Emerald / Teal */
+      --accent-amber: #f59e0b;    /* Warm Amber */
+      --accent-coral: #ef4444;    /* Coral Red */
+      --bg-gradient-start: #f8fafc;
+      --bg-gradient-end: #f1f5f9;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0f172a;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    #deck-container {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      max-width: 100vw;
+      max-height: 100vh;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 34px 44px 38px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(25px) scale(0.985);
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+      z-index: 10;
+    }
+
+    .bg-shape-dec {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(67, 56, 202, 0.12);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-primary {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid rgba(67, 56, 202, 0.25);
+    }
+
+    .badge-coral {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .badge-amber {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .badge-emerald {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .slide-title-wrap {
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-title {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 0.90rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      z-index: 2;
+      justify-content: center;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 15px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-highlight {
+      border-left: 4.5px solid var(--primary);
+    }
+
+    .card-amber {
+      border-left: 4.5px solid var(--accent-amber);
+      background: #fffbeb;
+    }
+
+    .card-emerald {
+      border-left: 4.5px solid var(--accent-teal);
+      background: #f0fdfa;
+    }
+
+    .card-coral {
+      border-left: 4.5px solid var(--accent-coral);
+      background: #fef2f2;
+    }
+
+    .card-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .content-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.86rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .content-list li {
+      position: relative;
+      padding-left: 17px;
+    }
+
+    .content-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .statement-box {
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+      border: 1.5px solid #c7d2fe;
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #312e81;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .formula-banner {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: var(--shadow-md);
+    }
+
+    .quick-box-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+      flex: 1;
+      align-content: center;
+    }
+
+    .q-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .q-card:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+
+    .q-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1.5px solid #e2e8f0;
+    }
+
+    .q-text {
+      font-size: 0.88rem;
+      color: #1e293b;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .q-hint {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 500;
+      display: block;
+    }
+
+    .cover-slide, .closing-slide {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 70px;
+    }
+
+    .cover-eyebrow {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 3.1rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      max-width: 900px;
+    }
+
+    .cover-tagline {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 800px;
+      line-height: 1.5;
+      margin-bottom: 26px;
+    }
+
+    .credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .credit-pill:hover {
+      transform: translateY(-2px);
+      background: #1e293b;
+    }
+
+    .credit-pill .sparkle {
+      color: #818cf8;
+      font-size: 1.15rem;
+    }
+
+    .credit-pill span.sub {
+      color: #94a3b8;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-left: 2px;
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-watermark {
+      position: absolute;
+      bottom: 13px;
+      right: 18px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 5;
+    }
+
+    .deck-nav {
+      position: absolute;
+      bottom: 18px;
+      right: 26px;
+      display: flex;
+      gap: 8px;
+      z-index: 50;
+    }
+
+    .nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .keyboard-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 36px;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      z-index: 50;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="deck-container">
+    <div class="bg-shape-dec" style="width: 580px; height: 580px; top: -200px; right: -150px;"></div>
+    <div class="bg-shape-dec" style="width: 420px; height: 420px; bottom: -160px; left: -100px;"></div>
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover-slide active" data-slide="1">
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <span class="badge badge-primary">GANITA PRAKASH PART II | GRADE 7</span>
+        <span class="badge badge-amber">CHAPTER 3 • COVER</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="cover-eyebrow">CLASS 7 MATHEMATICS • CHAPTER 3</div>
+        <h1 class="cover-title">Finding Common Ground</h1>
+        <p class="cover-tagline">
+          Exhaustive presentation covering HCF (GCD), LCM, prime factorisation, real-world tiling &amp; pacing problems, the product identity $\text{HCF} \times \text{LCM} = a \times b$, algebraic generalisations, and Mahāvīrāchārya's ancient fraction riddle.
+        </p>
+
+        <!-- EXACT CREDIT PILL -->
+        <a href="https://www.akashmaths.online" target="_blank" class="credit-pill">
+          <span class="sparkle">✦</span>
+          <span>Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </a>
+      </div>
+
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 1 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: SAMEEKSHA'S ROOM TILING -->
+    <section class="slide" data-slide="2">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.1</span>
+          <span class="badge badge-emerald">REAL-WORLD TILING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 47</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Sameeksha's Room: Tiling with Maximum Square Tiles</h2>
+        <div class="slide-subtitle">How physical tiling problems translate into common factors and greatest common divisors</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🏠 The Tiling Challenge ($12\text{ ft} \times 16\text{ ft}$)</div>
+            <ul class="content-list">
+              <li>Sameeksha wants to tile a room of dimension $12\text{ ft}$ (breadth) by $16\text{ ft}$ (length).</li>
+              <li><strong>Constraints:</strong> Must use identical square tiles of whole-number side lengths, without gaps or cutting, using as <em>few tiles as possible</em>.</li>
+              <li>To fit breadth ($12\text{ ft}$), tile side must be a factor of $12$:
+                $$\{1, 2, 3, 4, 6, 12\}\text{ ft}$$</li>
+              <li>To fit length ($16\text{ ft}$), tile side must be a factor of $16$:
+                $$\{1, 2, 4, 8, 16\}\text{ ft}$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">📐 Choosing the Optimal Size</div>
+            <ul class="content-list">
+              <li><strong>Common Factors:</strong> $\{1, 2, 4\}\text{ ft}$. Square tiles of $1\text{ ft}$, $2\text{ ft}$, or $4\text{ ft}$ will fit without any cuts.</li>
+              <li>To minimize the number of tiles, she must choose the <strong>largest side</strong>.</li>
+              <li>Largest common side $= \mathbf{4\text{ ft}}$.</li>
+              <li><strong>Total tiles required:</strong>
+                $$\text{Tiles along breadth} = \frac{12}{4} = 3, \quad \text{along length} = \frac{16}{4} = 4$$
+                $$\text{Total} = 3 \times 4 = \mathbf{12\text{ square tiles}}.$$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>💡 Definition: The <strong>Highest Common Factor (HCF)</strong> or <strong>Greatest Common Divisor (GCD)</strong> of two or more numbers is the greatest among all their common factors. Here, $\text{HCF}(12, 16) = 4$.</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 2 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX 1 -->
+    <section class="slide" data-slide="3">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 1</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Real-World HCF Problems</h2>
+        <div class="slide-subtitle">Oral checks testing factor identification and physical optimization</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">In Sameeksha's room ($12 \times 16\text{ ft}$), how many tiles would be needed if she chose $1\text{ ft}$ square tiles? $2\text{ ft}$ square tiles?</div>
+              <span class="q-hint">$1\text{ ft} \implies 12 \times 16 = 192$ tiles. $2\text{ ft} \implies 6 \times 8 = 48$ tiles.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Why does choosing the largest possible factor minimize the total count of tiles needed to cover an area?</div>
+              <span class="q-hint">Area of each tile is larger $\implies \text{Count} = \text{Total Room Area} / \text{Tile Area}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">What would happen to the maximum square tile size if fractional side lengths (like $0.5\text{ ft}$) were allowed?</div>
+              <span class="q-hint">Whole-number constraint would vanish; one could explore rational common divisors.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">If a rectangular room measures $15\text{ m} \times 25\text{ m}$, what is the largest square tile that can tile it without cuts?</div>
+              <span class="q-hint">$\text{HCF}(15, 25) = 5\text{ m}$. She would need $3 \times 5 = 15$ tiles.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 3 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: LEKHANA'S RICE & JUMP JACKPOT -->
+    <section class="slide" data-slide="4">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.1</span>
+          <span class="badge badge-emerald">FACTOR PACKAGING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 48</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Lekhana's Rice Bags &amp; Jump Jackpot Game</h2>
+        <div class="slide-subtitle">Equal-weight packing and number line jump lengths as dynamic HCF models</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🌾 Lekhana's Farm Rice ($84\text{ kg}$ &amp; $108\text{ kg}$)</div>
+            <ul class="content-list">
+              <li>Lekhana buys $84\text{ kg}$ and $108\text{ kg}$ of rice from two separate farms.</li>
+              <li>Wants identical bag weights with no mixing across farms, using as <strong>few bags as possible</strong>.</li>
+              <li>Factors of $84$: $\{1, 2, 3, 4, 6, 7, \mathbf{12}, 14, 21, 28, 42, 84\}$.</li>
+              <li>Factors of $108$: $\{1, 2, 3, 4, 6, 9, \mathbf{12}, 18, 27, 36, 54, 108\}$.</li>
+              <li>Common Factors: $\{1, 2, 3, 4, 6, 12\}$.</li>
+              <li>Maximum bag weight $= \mathbf{12\text{ kg}}$. Bags used: $\frac{84}{12} + \frac{108}{12} = 7 + 9 = 16$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🎯 Jump Jackpot: Landing on Both Treasures</div>
+            <ul class="content-list">
+              <li>Grumpy places treasures on two target numbers. Jumpy chooses a jump size $s$ starting from $0$.</li>
+              <li>Jumpy must land exactly on both treasure marks $\implies s$ must be a factor of both marks!</li>
+              <li><strong>Longest Jump Size = HCF:</strong>
+                <br>• $14$ and $30 \implies \text{HCF} = \mathbf{2}$
+                <br>• $7$ and $11 \implies \text{HCF} = \mathbf{1}$ (Co-primes!)
+                <br>• $30$ and $50 \implies \text{HCF} = \mathbf{10}$
+                <br>• $28$ and $42 \implies \text{HCF} = \mathbf{14}$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="formula-banner">
+          $$\text{Longest Common Jump from } 0 \iff \text{Highest Common Factor (HCF)}$$
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 4 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX 2 -->
+    <section class="slide" data-slide="5">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 2</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Jump Sizes &amp; Common Divisors</h2>
+        <div class="slide-subtitle">Quick classroom checks on step sizes and co-prime properties</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Why is the longest common jump size for $7$ and $11$ equal to only $1$?</div>
+              <span class="q-hint">Both $7$ and $11$ are prime numbers; their only common factor is $1$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">In Lekhana's rice problem, how many total bags would be required if she used $6\text{ kg}$ bags instead of $12\text{ kg}$ bags?</div>
+              <span class="q-hint">$84/6 = 14$ bags and $108/6 = 18$ bags $\implies 14 + 18 = 32$ bags (double!).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">What is the longest step length a surveyor can use to measure exactly $45\text{ m}$ and $75\text{ m}$ without fractions?</div>
+              <span class="q-hint">$\text{HCF}(45, 75) = 15\text{ m}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Why does listing all factors become inefficient or unreliable for very large numbers?</div>
+              <span class="q-hint">Large composite numbers have dozens of factors, making omissions and errors likely.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 5 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: PRIME FACTORISATION -->
+    <section class="slide" data-slide="6">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.1</span>
+          <span class="badge badge-emerald">PRIME FACTORISATION</span>
+        </div>
+        <span class="badge badge-coral">PAGE 49–50</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Prime Factorisation: The Building Blocks of Numbers</h2>
+        <div class="slide-subtitle">Expressing composite numbers uniquely as products of prime factors</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🧩 Prime Factorisation of $90$</div>
+            <ul class="content-list">
+              <li>Keep decomposing composite factors until only primes remain:
+                <br>• Path 1: $90 = 3 \times 30 = 3 \times (2 \times 15) = 3 \times 2 \times 3 \times 5$
+                <br>• Path 2: $90 = 2 \times 45 = 2 \times (3 \times 15) = 2 \times 3 \times 3 \times 5$
+                <br>• Path 3: $90 = 9 \times 10 = (3 \times 3) \times (2 \times 5) = 2 \times 3 \times 3 \times 5$</li>
+              <li><strong>Fundamental Invariance:</strong> Regardless of the factor tree followed, the prime factors are always identical:
+                $$90 = 2 \times 3^2 \times 5$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🪜 The Vertical Division Method</div>
+            <ul class="content-list">
+              <li>Successively divide by the smallest available prime:
+                <br>• $105 \div 3 = 35$
+                <br>• $35 \div 5 = 7$
+                <br>• $7 \div 7 = 1$
+                $$\implies 105 = 3 \times 5 \times 7$$</li>
+              <li>For $1200$:
+                $$1200 = 2^4 \times 3 \times 5^2$$
+                $$= (2 \times 2 \times 2 \times 2) \times 3 \times (5 \times 5)$$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>🌟 Fundamental Theorem of Arithmetic: Every integer greater than $1$ has a unique prime factorisation (up to the order of factors).</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 6 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX 3 -->
+    <section class="slide" data-slide="7">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 3</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Prime Decompositions</h2>
+        <div class="slide-subtitle">Oral checks testing prime factor trees and factor generation</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What is the prime factorisation of $30$? What is the prime factorisation of $105$?</div>
+              <span class="q-hint">$30 = 2 \times 3 \times 5$; $105 = 3 \times 5 \times 7$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Can a composite number ever have two different sets of prime factors?</div>
+              <span class="q-hint">No! The prime factor set is strictly unique (Fundamental Theorem of Arithmetic).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">What is the prime factorisation of the prime number $97$?</div>
+              <span class="q-hint">A prime number's factorisation is simply the number itself: $97$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Find the prime factorisation of $180$. How many total factors does $180$ have?</div>
+              <span class="q-hint">$180 = 2^2 \times 3^2 \times 5^1 \implies (2+1)(2+1)(1+1) = 3 \times 3 \times 2 = 18$ factors.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 7 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: SUBPARTS & ANSHU'S CONJECTURE -->
+    <section class="slide" data-slide="8">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.1</span>
+          <span class="badge badge-emerald">SUBPARTS &amp; CONJECTURES</span>
+        </div>
+        <span class="badge badge-coral">PAGE 50–51</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Generating Factors from Subparts &amp; Counterexamples</h2>
+        <div class="slide-subtitle">Forming all factors systematically and disproving mathematical claims</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔍 Factors of $840$ from Subparts</div>
+            <ul class="content-list">
+              <li>$840 = 2 \times 2 \times 2 \times 3 \times 5 \times 7$.</li>
+              <li>Every factor is an algebraic <strong>subpart</strong> (subset product):
+                <br>• Is $28$ a factor? Yes: $(2 \times 2 \times 7) = 28$. Co-factor is $(2 \times 3 \times 5) = 30$.
+                <br>• Is $14$ a factor? Yes: $(2 \times 7) = 14$.
+                <br>• Is $3 \times 3 \times 3 = 27$ a factor? <strong>No!</strong> The prime $3$ appears only once in $840$.</li>
+              <li>Systematic generation for $225 = 3^2 \times 5^2$:
+                <br>Single: $3, 5$; Pairs: $9, 15, 25$; Triplets: $45, 75$; All: $225$ (plus $1$).</li>
+            </ul>
+          </div>
+
+          <div class="card card-coral">
+            <div class="card-title">💡 Disproving Anshu's Conjecture</div>
+            <ul class="content-list">
+              <li><strong>Anshu's Claim:</strong> <em>"The larger a number is, the longer its prime factorisation will be."</em></li>
+              <li><strong>What is a Conjecture?</strong> A mathematical assertion made without proof.</li>
+              <li><strong>Refutation by Counterexample:</strong>
+                <br>• $96 = 2 \times 2 \times 2 \times 2 \times 2 \times 3$ ($6$ prime factors)
+                <br>• $121 = 11 \times 11$ ($2$ prime factors)</li>
+              <li>Notice: $121 > 96$, yet its factorisation has only $2$ factors! A single counterexample disproves a conjecture.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 8 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX 4 -->
+    <section class="slide" data-slide="9">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 4</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Factors &amp; Counterexamples</h2>
+        <div class="slide-subtitle">Oral checks on subpart testing and mathematical vocabulary</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Given $n = 2^3 \times 3 \times 5 \times 7$, is $20$ a factor of $n$? What about $18$?</div>
+              <span class="q-hint">$20 = 2^2 \times 5$ (subpart $\implies$ Yes). $18 = 2 \times 3^2$ ($3^2$ not present $\implies$ No).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">What is the difference between a mathematical "conjecture" and a "theorem"?</div>
+              <span class="q-hint">A conjecture is an unproven hypothesis; a theorem is proven with rigorous logic.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Can you give another counterexample to Anshu's conjecture comparing $64$ and $1000$?</div>
+              <span class="q-hint">$64 = 2^6$ ($6$ factors) vs $1009$ (prime, $1$ factor) or $1000 = 2^3 \times 5^3$ ($6$ factors).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Find the complete list of factors of $132$ using its prime factorisation $2^2 \times 3 \times 11$.</div>
+              <span class="q-hint">$(2+1)(1+1)(1+1) = 12$ factors: $1, 2, 3, 4, 6, 11, 12, 22, 33, 44, 66, 132$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 9 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: HCF VIA PRIME FACTORISATION -->
+    <section class="slide" data-slide="10">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.1</span>
+          <span class="badge badge-emerald">LARGEST COMMON SUBPART</span>
+        </div>
+        <span class="badge badge-coral">PAGE 52–54</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Finding HCF via Largest Common Prime Subpart</h2>
+        <div class="slide-subtitle">Extracting common prime powers with minimum occurrences</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>🎯 The HCF Rule: For each common prime factor, take the <strong>minimum exponent (minimum occurrences)</strong> present in either number's factorisation.</span>
+        </div>
+
+        <div class="grid-3">
+          <div class="card card-highlight">
+            <div class="card-title">📝 Example: $45$ and $75$</div>
+            <ul class="content-list">
+              <li>$45 = 3^2 \times 5$</li>
+              <li>$75 = 3 \times 5^2$</li>
+              <li>Common primes: $3$ and $5$.</li>
+              <li>Min occurrences:
+                <br>• $3$: appears once in $75$
+                <br>• $5$: appears once in $45$</li>
+              <li>$\text{HCF} = 3 \times 5 = \mathbf{15}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">📝 Example: $112$ and $84$</div>
+            <ul class="content-list">
+              <li>$112 = 2^4 \times 7$</li>
+              <li>$84 = 2^2 \times 3 \times 7$</li>
+              <li>Common primes: $2$ and $7$.</li>
+              <li>Min occurrences:
+                <br>• $2$: appears twice in $84$
+                <br>• $7$: appears once in both</li>
+              <li>$\text{HCF} = 2^2 \times 7 = \mathbf{28}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">📝 Co-prime: $96$ and $275$</div>
+            <ul class="content-list">
+              <li>$96 = 2^5 \times 3$</li>
+              <li>$275 = 5^2 \times 11$</li>
+              <li>No common prime factors!</li>
+              <li>When numbers share no prime factors, their only common factor is $1$.</li>
+              <li>$\mathbf{\text{HCF} = 1}$ (Co-primes).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 10 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: QUICK BOX 5 -->
+    <section class="slide" data-slide="11">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 5</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — HCF by Prime Factors</h2>
+        <div class="slide-subtitle">Oral checks finding HCF and evaluating co-prime states</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Find the HCF of $225 = 3^2 \times 5^2$ and $750 = 2 \times 3 \times 5^3$.</div>
+              <span class="q-hint">Min occurrences: one $3$ and two $5$s $\implies 3 \times 5^2 = 75$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Find the HCF of $24$ and $180$.</div>
+              <span class="q-hint">$24 = 2^3 \times 3$; $180 = 2^2 \times 3^2 \times 5 \implies \text{HCF} = 2^2 \times 3 = 12$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">If $72 = 6 \times 12$ and $144 = 8 \times 18$, can you conclude they have no common factors? Why not?</div>
+              <span class="q-hint">No! $6, 12, 8, 18$ are composite numbers. One must factorize fully into primes!</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Find the HCF of three numbers: $42, 75,$ and $24$.</div>
+              <span class="q-hint">$42 = 2 \times 3 \times 7$; $75 = 3 \times 5^2$; $24 = 2^3 \times 3 \implies \text{HCF} = 3$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 11 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: SECTION 3.2 LCM & REAL-WORLD SCENARIOS -->
+    <section class="slide" data-slide="12">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.2</span>
+          <span class="badge badge-emerald">LEAST COMMON MULTIPLE</span>
+        </div>
+        <span class="badge badge-coral">PAGE 55–56</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Section 3.2: Least, But Not Last! (Concept of LCM)</h2>
+        <div class="slide-subtitle">Finding synchronized cycles using cloth torans and Kabamai's Gajak visits</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🎏 Toran Making: Anshu &amp; Guna ($6\text{ cm}$ &amp; $8\text{ cm}$)</div>
+            <ul class="content-list">
+              <li>Stitching cloth strips end-to-end to make torans of equal length.</li>
+              <li>Anshu ($6\text{ cm}$ strips): lengths $= \{6, 12, 18, \mathbf{24}, 30, 36, 42, \mathbf{48}, \dots\}$.</li>
+              <li>Guna ($8\text{ cm}$ strips): lengths $= \{8, 16, \mathbf{24}, 32, 40, \mathbf{48}, \dots\}$.</li>
+              <li>Common lengths are common multiples: $\{24, 48, 72, \dots\}$.</li>
+              <li><strong>Shortest equal toran:</strong> $\mathbf{24\text{ cm}}$ ($\text{LCM}$).</li>
+              <li>Does a <em>largest</em> common multiple exist? <strong>No!</strong> Multiples extend to infinity ($\infty$).</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🍬 Kabamai's Gajak Schedule ($7\text{ days}$ &amp; $10\text{ days}$)</div>
+            <ul class="content-list">
+              <li>Sweet shop gives free gajak every Monday (every $7$ days):
+                $$\{7, 14, 21, 28, 35, 42, 49, 56, 63, \mathbf{70}, \dots\}$$</li>
+              <li>Kabamai visits the shop once every $10$ days:
+                $$\{10, 20, 30, 40, 50, 60, \mathbf{70}, \dots\}$$</li>
+              <li>When does she get free gajak next?
+                $$\text{LCM}(7, 10) = \mathbf{70\text{ days}}$$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>💡 Definition: The <strong>Lowest Common Multiple (LCM)</strong> of two or more numbers is the smallest non-zero common multiple.</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 12 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: QUICK BOX 6 -->
+    <section class="slide" data-slide="13">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 6</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Common Multiples &amp; Games</h2>
+        <div class="slide-subtitle">Oral checks testing LCM synchronization and the Idli-Vada game</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">In the Idli-Vada game, if Player A calls 'Idli' on multiples of 4 and B calls 'Vada' on 6, on what number is 'Idli-Vada' first called?</div>
+              <span class="q-hint">First common multiple $= \text{LCM}(4, 6) = 12$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">For the pairs $7$ and $11$, what is the first number where 'Idli-Vada' is shouted?</div>
+              <span class="q-hint">Since $7$ and $11$ are prime, $\text{LCM} = 7 \times 11 = 77$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Why does every pair of positive integers possess a lowest common multiple, but never a highest common multiple?</div>
+              <span class="q-hint">Multiples grow indefinitely toward positive infinity; there is no upper bound.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Two traffic lights blink every 15 seconds and 55 seconds respectively. When will they blink together?</div>
+              <span class="q-hint">$\text{LCM}(15, 55) = \text{LCM}(3 \times 5, 5 \times 11) = 3 \times 5 \times 11 = 165\text{ seconds}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 13 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: LCM VIA PRIME FACTORISATION -->
+    <section class="slide" data-slide="14">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.2</span>
+          <span class="badge badge-emerald">MAXIMUM OCCURRENCES</span>
+        </div>
+        <span class="badge badge-coral">PAGE 56–58</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Constructing the LCM: The Maximum Occurrence Law</h2>
+        <div class="slide-subtitle">Ensuring the prime factorisation of each number is fully contained in the LCM</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>📏 The LCM Rule: For each prime that appears in any of the factorisations, take the <strong>maximum exponent (maximum occurrences)</strong>.</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">📝 Example 6: $\text{LCM}(14, 35)$</div>
+            <ul class="content-list">
+              <li>$14 = 2 \times 7$</li>
+              <li>$35 = 5 \times 7$</li>
+              <li>To contain $14$, LCM needs $2 \times 7$.</li>
+              <li>To contain $35$, LCM needs $5 \times 7$.</li>
+              <li>Combining with minimum overlap:
+                $$\text{LCM} = 2 \times 5 \times 7 = \mathbf{70}.$$</li>
+              <li>Removing any factor makes it fail to be a common multiple!</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">📝 Example 7: $\text{LCM}(96, 360)$</div>
+            <ul class="content-list">
+              <li>$96 = 2^5 \times 3$</li>
+              <li>$360 = 2^3 \times 3^2 \times 5$</li>
+              <li>Max occurrences for each prime:
+                <br>• $2$: appears $5$ times in $96$ (take $2^5$)
+                <br>• $3$: appears $2$ times in $360$ (take $3^2$)
+                <br>• $5$: appears $1$ time in $360$ (take $5^1$)</li>
+              <li>$$\text{LCM} = 2^5 \times 3^2 \times 5 = 32 \times 9 \times 5 = \mathbf{1440}.$$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 14 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: QUICK BOX 7 -->
+    <section class="slide" data-slide="15">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 7</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — LCM Building Logic</h2>
+        <div class="slide-subtitle">Oral checks selecting maximum prime powers to compute LCM</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Find the LCM of $30$ and $72$ using prime factorisation.</div>
+              <span class="q-hint">$30 = 2 \times 3 \times 5$; $72 = 2^3 \times 3^2 \implies \text{LCM} = 2^3 \times 3^2 \times 5 = 360$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Find the LCM of $36$ and $54$.</div>
+              <span class="q-hint">$36 = 2^2 \times 3^2$; $54 = 2 \times 3^3 \implies \text{LCM} = 2^2 \times 3^3 = 4 \times 27 = 108$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">If two numbers $p$ and $q$ are distinct prime numbers, what is their HCF and LCM?</div>
+              <span class="q-hint">$\text{HCF} = 1$ and $\text{LCM} = p \times q$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Calculate the LCM of $105, 195,$ and $65$.</div>
+              <span class="q-hint">$105 = 3 \times 5 \times 7$; $195 = 3 \times 5 \times 13$; $65 = 5 \times 13 \implies \text{LCM} = 3 \times 5 \times 7 \times 13 = 1365$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 15 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: SECTION 3.3 FACTOR-MULTIPLE RELATIONSHIPS -->
+    <section class="slide" data-slide="16">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.3</span>
+          <span class="badge badge-emerald">ALGEBRAIC PATTERNS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 58–59</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">"Be My Factor, I'll Be Your Multiple!"</h2>
+        <div class="slide-subtitle">When one number is an exact multiple of another, HCF and LCM are instant</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🤝 Factor-Multiple Pairs: $(6, 18)$ and $(n, kn)$</div>
+            <ul class="content-list">
+              <li>Notice: $6$ is a factor of $18$; $18$ is a multiple of $6$.
+                <br>• $\text{HCF}(6, 18) = \mathbf{6}$ (the smaller number)
+                <br>• $\text{LCM}(6, 18) = \mathbf{18}$ (the larger number)</li>
+              <li><strong>Algebraic Generalisation:</strong>
+                <br>If $n$ is a positive integer and $kn$ is a multiple ($k \ge 1$):
+                $$\mathbf{\text{HCF}(n, kn) = n} \quad\text{and}\quad \mathbf{\text{LCM}(n, kn) = kn}$$</li>
+              <li>Example: $\text{HCF}(m, 5m) = m$, and $\text{LCM}(m, 5m) = 5m$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🔄 Scaling Property: Doubling Both Numbers</div>
+            <ul class="content-list">
+              <li>Consider $\text{HCF}(270, 50) = 10$.</li>
+              <li>Double both numbers: $540$ and $100$.
+                <br>Prime factorisations acquire an extra $2$.
+                $$\text{HCF}(540, 100) = 2 \times 10 = \mathbf{20}$$</li>
+              <li><strong>General Theorem:</strong> For any integer multiplier $k$:
+                $$\mathbf{\text{HCF}(ka, kb) = k \cdot \text{HCF}(a, b)}$$
+                $$\mathbf{\text{LCM}(ka, kb) = k \cdot \text{LCM}(a, b)}$$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 16 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: QUICK BOX 8 -->
+    <section class="slide" data-slide="17">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 8</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — General Statements on HCF &amp; LCM</h2>
+        <div class="slide-subtitle">Oral checks testing structural patterns of consecutive and special numbers</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What is the HCF of any two consecutive numbers, like $14$ and $15$?</div>
+              <span class="q-hint">Difference is $1 \implies$ their only common divisor is $\mathbf{1}$ (always co-prime!).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">What is the HCF of any two consecutive even numbers, like $2n$ and $2n+2$?</div>
+              <span class="q-hint">Difference is $2$, both divisible by $2 \implies \text{HCF} = \mathbf{2}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">What is the HCF of any two consecutive odd numbers, like $21$ and $23$?</div>
+              <span class="q-hint">Any divisor must divide difference ($2$); since odds are not even, $\text{HCF} = \mathbf{1}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">If $\text{HCF}(a, b) = 15$, what is $\text{HCF}(4a, 4b)$?</div>
+              <span class="q-hint">By the scaling theorem, $\text{HCF} = 4 \times 15 = \mathbf{60}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 17 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: THE DUAL LADDER PROCEDURE -->
+    <section class="slide" data-slide="18">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.3</span>
+          <span class="badge badge-emerald">EFFICIENT ALGORITHMS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 60–62</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">The Dual Ladder: Finding HCF and LCM Simultaneously</h2>
+        <div class="slide-subtitle">The compact division algorithm that solves both quantities in a single unified grid</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🪜 Standard Prime Division ($84, 180$)</div>
+            <ul class="content-list">
+              <li>Divide both numbers by common primes simultaneously:
+                <br>• Step 1: Divide by $2 \implies (42, 90)$
+                <br>• Step 2: Divide by $2 \implies (21, 45)$
+                <br>• Step 3: Divide by $3 \implies (7, 15)$
+                <br>• $7$ and $15$ share no common factors (stop!).</li>
+              <li><strong>HCF:</strong> Product of left-column common divisors:
+                $$\text{HCF} = 2 \times 2 \times 3 = \mathbf{12}$$</li>
+              <li><strong>LCM:</strong> Multiply left column AND bottom remainder row:
+                $$\text{LCM} = 12 \times (7 \times 15) = \mathbf{1260}$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⚡ Guna &amp; Anshu's Shortcut (Composite Factors)</div>
+            <ul class="content-list">
+              <li><strong>Guna's Insight:</strong> You don't have to restrict yourself to single primes! Divide by any recognized common factor:</li>
+              <li>For $(300, 150)$:
+                <br>• Divide by $50 \implies (6, 3)$
+                <br>• Divide by $3 \implies (2, 1)$
+                $$\text{HCF} = 50 \times 3 = \mathbf{150}$$
+                $$\text{LCM} = 150 \times 2 \times 1 = \mathbf{300}$$</li>
+              <li>For $(630, 770)$: Divide by $10 \implies (63, 77)$; divide by $7 \implies (9, 11)$. $\text{HCF} = 70$, $\text{LCM} = 6930$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 18 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: QUICK BOX 9 -->
+    <section class="slide" data-slide="19">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 9</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — The Simultaneous Ladder</h2>
+        <div class="slide-subtitle">Oral checks executing the simultaneous ladder method on number pairs</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Using the shortcut ladder, find the HCF and LCM of $90$ and $150$.</div>
+              <span class="q-hint">Divide by $30 \implies (3, 5)$. $\text{HCF} = 30$; $\text{LCM} = 30 \times 3 \times 5 = 450$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Why does dividing by a composite factor like $10$ or $50$ still yield the exact correct HCF?</div>
+              <span class="q-hint">Because dividing by $10$ is mathematically identical to dividing by $2$ and then by $5$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Find the HCF and LCM of $84$ and $132$ using the dual ladder.</div>
+              <span class="q-hint">Divide by $12 \implies (7, 11)$. $\text{HCF} = 12$; $\text{LCM} = 12 \times 7 \times 11 = 924$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Can the LCM of two numbers ever be strictly smaller than either of the two numbers?</div>
+              <span class="q-hint">No! A multiple of a positive number $n$ must always be $\ge n$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 19 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: THE MASTER PRODUCT THEOREM -->
+    <section class="slide" data-slide="20">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">SECTION 3.3</span>
+          <span class="badge badge-emerald">MASTER IDENTITY</span>
+        </div>
+        <span class="badge badge-coral">PAGE 62–63</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">The Master Identity: $\text{HCF} \times \text{LCM} = a \times b$</h2>
+        <div class="slide-subtitle">Why the product of the two numbers equals the product of their HCF and LCM</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="formula-banner">
+          $$\mathbf{\text{HCF}(a, b) \times \text{LCM}(a, b) = a \times b} \quad (\text{Valid for any two numbers})$$
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔍 Numerical Exploration: $105$ and $95$</div>
+            <ul class="content-list">
+              <li>$105 = 3 \times 5 \times 7$ and $95 = 5 \times 19$.</li>
+              <li>$\text{HCF} = 5$</li>
+              <li>$\text{LCM} = 3 \times 5 \times 7 \times 19 = 1995$</li>
+              <li>Product: $105 \times 95 = 9975$.</li>
+              <li>$\text{HCF} \times \text{LCM} = 5 \times 1995 = \mathbf{9975}$ ✅ Matches!</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🧠 Elegant Algebraic Proof</div>
+            <ul class="content-list">
+              <li>Let primes in $a$ and $b$ be categorized into:
+                <br>• Common primes (occur in both): product $= C$
+                <br>• Unique to $a$: product $= U_a$
+                <br>• Unique to $b$: product $= U_b$</li>
+              <li>Then $a = C \times U_a$ and $b = C \times U_b$.
+                <br>• $\text{HCF} = C$
+                <br>• $\text{LCM} = C \times U_a \times U_b$</li>
+              <li>$$\text{HCF} \times \text{LCM} = C \times (C \times U_a \times U_b) = (C \cdot U_a) \times (C \cdot U_b) = \mathbf{a \times b}!$$</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>⚠️ Critical Warning: This identity $\text{HCF} \times \text{LCM} = \text{Product}$ holds strictly for <strong>two numbers only</strong>; it does NOT directly hold for three or more numbers!</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 20 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX 10 -->
+    <section class="slide" data-slide="21">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 10</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — The Product Relationship</h2>
+        <div class="slide-subtitle">Oral problems finding missing terms using $\text{HCF} \times \text{LCM} = a \times b$</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">If the HCF of two numbers is $6$ and their product is $2160$, what is their LCM?</div>
+              <span class="q-hint">$\text{LCM} = \text{Product} / \text{HCF} = 2160 / 6 = \mathbf{360}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">The HCF of two numbers is $1$ and their LCM is $66$. Find two possible numbers.</div>
+              <span class="q-hint">$a \times b = 66$ and co-prime: $(1, 66), (2, 33), (3, 22), (6, 11)$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Can two numbers have an HCF of $18$ and an LCM of $380$? Why or why not?</div>
+              <span class="q-hint">No! HCF must always perfectly divide LCM. $380 / 18 = 21.11$ (not an integer!).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Does the identity $\text{HCF}(a,b,c) \times \text{LCM}(a,b,c) = a \times b \times c$ hold for three numbers? Test with $2, 4, 8$.</div>
+              <span class="q-hint">$\text{HCF} = 2, \text{LCM} = 8 \implies 2 \times 8 = 16 \ne 2 \times 4 \times 8 = 64$. It does NOT hold!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 21 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: REPEATING CYCLES & COWHERD FOLKLORE -->
+    <section class="slide" data-slide="22">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">PROBLEM SOLVING</span>
+          <span class="badge badge-emerald">PERIODIC PATTERNS</span>
+        </div>
+        <span class="badge badge-coral">PAGE 63–64</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Repeating Cycles: Star Ribbons &amp; Karnataka Folklore</h2>
+        <div class="slide-subtitle">Periodicity alignment and modular constraints from Indian folk mathematics</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">⭐ Synchronizing Coloured Star Ribbons</div>
+            <ul class="content-list">
+              <li>Two printed ribbons repeat star colours in repeating blocks:
+                <br>• Row 1 repeats in cycles of $6$ colours: [Yellow, Green, Orange, Blue, Pink, Grey]
+                <br>• Row 2 repeats in cycles of $4$ colours: [Green, Orange, Yellow, Blue]</li>
+              <li>Blue star appears at position $4$ in Row 1 (period $6$) and position $4$ in Row 2 (period $4$).</li>
+              <li>When do the blue stars align again?
+                <br>At common multiples of the cycle lengths:
+                $$\text{LCM}(6, 4) = \mathbf{12\text{ positions later}}.$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🐄 Folklore Mathematics: The Gate-Passing Cows</div>
+            <ul class="content-list">
+              <li>A cowherd in Karnataka takes his herd through three river crossings:
+                <br>• Crossing 1 ($3$ gates): Cows divide equally into $3$ paths.
+                <br>• Crossing 2 ($5$ gates): Cows divide equally into $5$ paths.
+                <br>• Crossing 3 ($7$ gates): Cows divide equally into $7$ paths.</li>
+              <li>Total cows must be a common multiple of $3, 5,$ and $7$:
+                $$\text{LCM}(3, 5, 7) = 3 \times 5 \times 7 = \mathbf{105}$$</li>
+              <li>Given: Total cows are <em>less than $200$</em>.</li>
+              <li>Multiples: $105, 210, \dots \implies$ Herd size $= \mathbf{105\text{ cows}}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 22 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: QUICK BOX 11 -->
+    <section class="slide" data-slide="23">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 11</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Periodic Cycles &amp; Constraints</h2>
+        <div class="slide-subtitle">Oral checks testing cycle synchronization and word-problem framing</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">In the Karnataka cowherd puzzle, if the cowherd had between $300$ and $400$ cows, how many cows did he have?</div>
+              <span class="q-hint">Next multiple of $105$ in range: $105 \times 3 = \mathbf{315\text{ cows}}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Three bells toll at intervals of $9, 12,$ and $15$ minutes. If they toll together now, after how many hours will they toll together next?</div>
+              <span class="q-hint">$\text{LCM}(9, 12, 15) = 180\text{ minutes} = \mathbf{3\text{ hours}}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Is $5 \times 7 \times 11 \times 11$ a multiple of $5 \times 7 \times 7 \times 11 \times 2$? Explain.</div>
+              <span class="q-hint">No! It does not contain the prime factors $2$ or $7^2$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">What is the smallest number of cows that could pass through $2, 3,$ and $4$ gates equally?</div>
+              <span class="q-hint">$\text{LCM}(2, 3, 4) = \mathbf{12\text{ cows}}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 23 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: 3D BOX PACKING & DIVISIBILITY -->
+    <section class="slide" data-slide="24">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">PROBLEM SOLVING</span>
+          <span class="badge badge-emerald">SPATIAL PACKING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 64</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Packing 3D Boxes with Cubes &amp; Divisibility Criteria</h2>
+        <div class="slide-subtitle">Why every dimension of a rectangular carton must be divisible by the cube side</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">📦 Packing Cubes into $12 \times 18 \times 36\text{ cm}$ Box</div>
+            <ul class="content-list">
+              <li>For a cube of side $s$ to pack without gaps or cutting:
+                <br>$s$ must perfectly divide length ($12$), width ($18$), and height ($36$).</li>
+              <li>Common factors of $\{12, 18, 36\}$:
+                $$\text{Factors} = \{1, 2, 3, 6\}\text{ cm}$$</li>
+              <li><strong>Testing Options (Q6):</strong>
+                <br>• $9\text{ cm}$: $12 \div 9$ has remainder $\implies$ ❌ Cannot fit
+                <br>• $6\text{ cm}$: Divides $12, 18, 36 \implies$ ✅ <strong>Fits!</strong>
+                <br>• $4\text{ cm}$: $18 \div 4$ has remainder $\implies$ ❌ Cannot fit
+                <br>• $3\text{ cm}$ &amp; $2\text{ cm}$: Divide all three $\implies$ ✅ <strong>Fit!</strong></li>
+              <li>Largest cube $= \text{HCF} = \mathbf{6\text{ cm}}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🎯 Remainder Puzzle (Q8)</div>
+            <ul class="content-list">
+              <li>Find the smallest number divisible by $3, 4, 5,$ and $7$, but leaving remainder $10$ when divided by $11$.</li>
+              <li>Divisible by $3, 4, 5, 7 \implies$ must be a multiple of their LCM:
+                $$\text{LCM}(3, 4, 5, 7) = 3 \times 4 \times 5 \times 7 = \mathbf{420}$$</li>
+              <li>Multiples: $420, 840, 1260, \dots$</li>
+              <li>Test remainders modulo $11$:
+                <br>• $420 = 11 \times 38 + \mathbf{2}$
+                <br>• $840 = 11 \times 76 + \mathbf{4}$
+                <br>• $1260 = 11 \times 114 + \mathbf{6}$
+                <br>• $2100 = 11 \times 190 + \mathbf{10}$ ✅</li>
+              <li>Answer $= \mathbf{2100}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 24 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 25: QUICK BOX 12 -->
+    <section class="slide" data-slide="25">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 12</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Cubes &amp; Remainders</h2>
+        <div class="slide-subtitle">Oral checks testing 3D common divisors and modular divisibility</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">How many $6\text{ cm}$ cubes fit inside the $12 \times 18 \times 36\text{ cm}$ box?</div>
+              <span class="q-hint">$\frac{12}{6} \times \frac{18}{6} \times \frac{36}{6} = 2 \times 3 \times 6 = \mathbf{36\text{ cubes}}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">What is the largest number that divides both $306$ and $36$ exactly?</div>
+              <span class="q-hint">$306 = 18 \times 17$ and $36 = 18 \times 2 \implies \text{HCF} = \mathbf{18}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">If a box has dimensions $10 \times 15 \times 20\text{ cm}$, what is the largest cube that can fill it completely?</div>
+              <span class="q-hint">$\text{HCF}(10, 15, 20) = \mathbf{5\text{ cm}}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">In 'Fire in the Mountain', groups of $6$ and $9$ leave no one out, but $10$ leaves people out. Initial children count?</div>
+              <span class="q-hint">Must be multiple of $\text{LCM}(6, 9) = 18$, but not multiple of $10$. Options: $\mathbf{72}$ or $\mathbf{36}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 25 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 26: RELATIVE SPEED & UNIVERSAL MULTIPLES -->
+    <section class="slide" data-slide="26">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">PROBLEM SOLVING</span>
+          <span class="badge badge-emerald">RELATIVE RATES &amp; LCM</span>
+        </div>
+        <span class="badge badge-coral">PAGE 64</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">The Dog &amp; Rabbit Chase &amp; The Universal Multiplier $2520$</h2>
+        <div class="slide-subtitle">Relative jump closure and the magic number divisible by all digits 1 through 10</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🐕 The Dog Chasing Rabbit (Q11)</div>
+            <ul class="content-list">
+              <li>Rabbit has a head start of $150\text{ ft}$.</li>
+              <li>Every time rabbit leaps $7\text{ ft}$, dog leaps $9\text{ ft}$.</li>
+              <li><strong>Net closure per leap:</strong>
+                $$9\text{ ft} - 7\text{ ft} = 2\text{ ft per leap}$$</li>
+              <li>To close the $150\text{ ft}$ gap:
+                $$\text{Leaps required} = \frac{150\text{ ft}}{2\text{ ft/leap}} = \mathbf{75\text{ leaps}}.$$</li>
+              <li>Total distance covered by dog: $75 \times 9 = 675\text{ ft}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🔢 Smallest Multiple of $1$ to $10$ (Q12)</div>
+            <ul class="content-list">
+              <li>Find the smallest number divisible by all numbers:
+                $$1, 2, 3, 4, 5, 6, 7, 8, 9, 10$$</li>
+              <li>Find maximum prime powers across $1$ to $10$:
+                <br>• $2$: max power is $2^3 = 8$ (from $8$)
+                <br>• $3$: max power is $3^2 = 9$ (from $9$)
+                <br>• $5$: max power is $5^1 = 5$ (from $5, 10$)
+                <br>• $7$: max power is $7^1 = 7$ (from $7$)</li>
+              <li>$$\text{LCM} = 2^3 \times 3^2 \times 5 \times 7 = 8 \times 9 \times 5 \times 7 = \mathbf{2520}$$</li>
+              <li>Famous historic constant praised by Ramanujan!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 26 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 27: QUICK BOX 13 -->
+    <section class="slide" data-slide="27">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 13</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — The Magic 2520 &amp; Pursuit</h2>
+        <div class="slide-subtitle">Oral checks on divisibility from 1 to 10 and pursuit algebra</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">Why is $2520$ such a historically celebrated number in mathematics and ancient calendar systems?</div>
+              <span class="q-hint">It is the smallest integer divisible by all numbers from $1$ through $10$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">In the dog-rabbit chase, if the dog leaped $10\text{ ft}$ while rabbit leaped $7\text{ ft}$, how many leaps would be needed?</div>
+              <span class="q-hint">Net closure $= 3\text{ ft/leap} \implies 150 / 3 = \mathbf{50\text{ leaps}}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Which prime numbers are factors of $2520$?</div>
+              <span class="q-hint">Only $2, 3, 5,$ and $7$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">What is the smallest number divisible by all numbers from $1$ to $6$?</div>
+              <span class="q-hint">$\text{LCM}(1, 2, 3, 4, 5, 6) = 2^2 \times 3 \times 5 = \mathbf{60}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 27 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 28: MAHAVIRACHARYA'S ANCIENT RIDDLE -->
+    <section class="slide" data-slide="28">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">INDIAN MATHEMATICAL HERITAGE</span>
+          <span class="badge badge-emerald">MAHĀVĪRĀCHĀRYA (850 CE)</span>
+        </div>
+        <span class="badge badge-coral">PAGE 64 (Q13)</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Mahāvīrāchārya's Fraction Riddle (850 CE)</h2>
+        <div class="slide-subtitle">Adding 5 unlike fractions efficiently using the Lowest Common Multiple of denominators</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="statement-box">
+          <span>📜 In the *Gaṇitasārasaṅgraha*, Mahāvīrāchārya posed the challenge:
+            $$\text{Sum} = \frac{7}{36} + \frac{8}{15} + \frac{1}{20} + \frac{11}{63} + \frac{1}{21}$$</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🔍 Step 1: Finding LCM of Denominators</div>
+            <ul class="content-list">
+              <li>Denominators: $36, 15, 20, 63, 21$.</li>
+              <li>Prime factorisations:
+                <br>• $36 = 2^2 \times 3^2$
+                <br>• $15 = 3 \times 5$
+                <br>• $20 = 2^2 \times 5$
+                <br>• $63 = 3^2 \times 7$
+                <br>• $21 = 3 \times 7$</li>
+              <li>Maximum prime powers:
+                $$\text{LCM} = 2^2 \times 3^2 \times 5 \times 7 = 4 \times 9 \times 5 \times 7 = \mathbf{1260}$$</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⚡ Step 2: Unifying into a Single Fraction</div>
+            <ul class="content-list">
+              <li>Convert each numerator:
+                <br>• $\frac{7 \times 35}{1260} = \frac{245}{1260}$
+                <br>• $\frac{8 \times 84}{1260} = \frac{672}{1260}$
+                <br>• $\frac{1 \times 63}{1260} = \frac{63}{1260}$
+                <br>• $\frac{11 \times 20}{1260} = \frac{220}{1260}$
+                <br>• $\frac{1 \times 60}{1260} = \frac{60}{1260}$</li>
+              <li>Sum of numerators:
+                $$245 + 672 + 63 + 220 + 60 = \mathbf{1260}!$$</li>
+              <li>$$\text{Final Sum} = \frac{1260}{1260} = \mathbf{1} \quad\text{(Breathtaking Elegance!)}$$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 28 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 29: QUICK BOX 14 -->
+    <section class="slide" data-slide="29">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 14</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — Mahāvīrāchārya's Fraction Mastery</h2>
+        <div class="slide-subtitle">Oral checks on fraction unification through denominator LCM</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What famous mathematical treatise was authored by Mahāvīrāchārya in 850 CE?</div>
+              <span class="q-hint">*Gaṇitasārasaṅgraha* (Compendium of the Essence of Mathematics).</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Why does finding the LCM of denominators simplify fraction addition compared to cross-multiplying all five denominators?</div>
+              <span class="q-hint">Product of denominators is $36 \times 15 \times 20 \times 63 \times 21 = 14,288,400$! LCM $1260$ avoids huge numbers.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">What stunning integer value does the sum of Mahāvīrāchārya's five fractions simplify to?</div>
+              <span class="q-hint">The sum simplifies to exactly $\mathbf{1}$.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">Add $\frac{1}{6} + \frac{1}{10} + \frac{1}{15}$ using denominator LCM.</div>
+              <span class="q-hint">$\text{LCM}(6, 10, 15) = 30 \implies \frac{5 + 3 + 2}{30} = \frac{10}{30} = \frac{1}{3}$.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 29 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 30: MODERN FRONTIER - 41 MILLION DIGIT PRIME -->
+    <section class="slide" data-slide="30">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">MODERN MATHEMATICAL DISCOVERIES</span>
+          <span class="badge badge-emerald">RECORD BREAKING</span>
+        </div>
+        <span class="badge badge-coral">PAGE 65</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">The Frontier of Primes: $41,024,320$ Digits! (Oct 2024)</h2>
+        <div class="slide-subtitle">The massive Mersenne prime $2^{136,279,841} - 1$ discovered on October 12, 2024</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🚀 The Milestone Discovery</div>
+            <ul class="content-list">
+              <li>On <strong>October 12, 2024</strong>, researchers in the GIMPS project discovered the largest prime number known to humanity:
+                $$M_{136279841} = 2^{136,279,841} - 1$$</li>
+              <li><strong>Length:</strong> Contains a staggering <strong>$41,024,320$ digits</strong>!</li>
+              <li>It shattered the previous world record by more than $16$ million digits!</li>
+              <li>It is the 52nd known Mersenne prime.</li>
+            </ul>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">📖 "How Long to Write It Out?"</div>
+            <ul class="content-list">
+              <li>Textbook child's question: <em>"If I start writing this number, how long could it take me?"</em></li>
+              <li><strong>Scale Calculation:</strong>
+                <br>• Writing $1$ digit per second without sleeping:
+                $$\frac{41,024,320}{3600 \times 24 \times 365.25} \approx \mathbf{1.3\text{ years!}}$$</li>
+              <li>Printed in a standard book ($3000$ digits per page), it would fill over <strong>$13,600$ thick book volumes</strong>!</li>
+              <li>Shows how modern computational power explores the infinite landscape of primes.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 30 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 31: QUICK BOX 15 -->
+    <section class="slide" data-slide="31">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-amber">⚡ QUICK BOX 15</span>
+          <span class="badge badge-primary">CLASSROOM CHECK</span>
+        </div>
+        <span class="badge badge-emerald">CLASSROOM Q&amp;A LIVE</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">⚡ Quick Box — The Frontier of Primes</h2>
+        <div class="slide-subtitle">Oral checks reflecting on prime infinity and computer-driven mathematics</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="quick-box-container">
+          <div class="q-card">
+            <div class="q-badge">1</div>
+            <div>
+              <div class="q-text">What special form of primes does the 41-million-digit prime belong to ($2^p - 1$)?</div>
+              <span class="q-hint">Mersenne primes.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">2</div>
+            <div>
+              <div class="q-text">Did Euclid prove that there is a largest prime number, or that primes go on forever?</div>
+              <span class="q-hint">Euclid proved over 2300 years ago that there are infinitely many primes!</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">3</div>
+            <div>
+              <div class="q-text">Why are massive prime numbers essential in modern computing and internet banking?</div>
+              <span class="q-hint">They form the mathematical cryptographic backbone of RSA encryption and online security.</span>
+            </div>
+          </div>
+
+          <div class="q-card">
+            <div class="q-badge">4</div>
+            <div>
+              <div class="q-text">On what exact date was the 41-million-digit prime discovered according to the textbook?</div>
+              <span class="q-hint">October 12, 2024.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 31 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 32: PUZZLE TIME - MYSTERY COLOURS -->
+    <section class="slide" data-slide="32">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">PUZZLE TIME</span>
+          <span class="badge badge-emerald">ETHNOMATHEMATICS &amp; ART</span>
+        </div>
+        <span class="badge badge-coral">PAGE 66</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Puzzle Time: Mystery Colours &amp; Prime Factor Wheels</h2>
+        <div class="slide-subtitle">Decoding the visual circle partitions decorating page numbers from 1 to 100</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">🎨 The Visual Code for Numbers 1 to 100</div>
+            <ul class="content-list">
+              <li>Every page number badge is a divided circle representing prime factorisation!</li>
+              <li><strong>The Colour Assignment:</strong>
+                <br>• $1$: Solid Grey circle (unit, neither prime nor composite).
+                <br>• $2$: Green
+                <br>• $3$: Purple
+                <br>• $5$: Orange / Amber
+                <br>• $7$: Dark Blue
+                <br>• Primes $> 7$ ($11, 13, 17, 19, \dots$): Solid Red</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🔍 Decoding Composite Factor Wheels</div>
+            <ul class="content-list">
+              <li>Circle slices correspond exactly to prime factor sectors:
+                <br>• $6 = 2 \times 3 \implies$ Half Green, Half Purple
+                <br>• $12 = 2 \times 2 \times 3 \implies$ Two Green quarters, one Purple half
+                <br>• $14 = 2 \times 7 \implies$ Half Green, Half Dark Blue
+                <br>• $15 = 3 \times 5 \implies$ Half Purple, Half Orange
+                <br>• $30 = 2 \times 3 \times 5 \implies$ Green, Purple, Orange thirds!</li>
+              <li>Primes always appear as solid uninterrupted rings!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <span>✨ Creative Math: Prime factorisation isn't just symbolic algebra — it creates beautiful geometric visualizations of number structure!</span>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 32 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 33: CHAPTER 3 MASTER SUMMARY -->
+    <section class="slide" data-slide="33">
+      <div class="slide-header">
+        <div class="badge-group">
+          <span class="badge badge-primary">CHAPTER 3 SUMMARY</span>
+          <span class="badge badge-emerald">MASTER RECAP</span>
+        </div>
+        <span class="badge badge-coral">PAGE 65</span>
+      </div>
+
+      <div class="slide-title-wrap">
+        <h2 class="slide-title">Master HCF &amp; LCM Reference Checklist</h2>
+        <div class="slide-subtitle">Comprehensive conceptual recap of definitions, factor laws, and operational procedures</div>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-highlight">
+            <div class="card-title">HCF &amp; Divisibility Laws</div>
+            <ul class="content-list">
+              <li>✅ <strong>HCF (GCD):</strong> Greatest common divisor among all common factors.</li>
+              <li>✅ <strong>Prime Factor Subparts:</strong> Every factor of $n$ is formed by taking a subpart of its prime factorisation.</li>
+              <li>✅ <strong>HCF Exponent Rule:</strong> Take the <em>minimum</em> power of each common prime factor across numbers.</li>
+              <li>✅ <strong>Co-prime Integers:</strong> Numbers sharing no common prime factor have $\text{HCF} = 1$.</li>
+              <li>✅ <strong>Consecutive Integers:</strong> $\text{HCF}(n, n+1) = 1$; $\text{HCF}(2n, 2n+2) = 2$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">LCM &amp; Fundamental Properties</div>
+            <ul class="content-list">
+              <li>✅ <strong>LCM:</strong> Smallest positive multiple common to all given numbers.</li>
+              <li>✅ <strong>LCM Exponent Rule:</strong> Take the <em>maximum</em> power of each prime appearing in any factorisation.</li>
+              <li>✅ <strong>Master Product Identity:</strong> $\text{HCF}(a, b) \times \text{LCM}(a, b) = a \times b$ (for two numbers).</li>
+              <li>✅ <strong>Factor-Multiple Pairs:</strong> If $a$ divides $b$, $\text{HCF}(a, b) = a$ and $\text{LCM}(a, b) = b$.</li>
+              <li>✅ <strong>Dual Ladder Algorithm:</strong> Left column product $= \text{HCF}$; multiplying remainder row gives $\text{LCM}$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 33 / 34</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 34: CLOSING SLIDE -->
+    <section class="slide closing-slide" data-slide="34">
+      <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <span class="badge badge-primary">GANITA PRAKASH PART II</span>
+        <span class="badge badge-emerald">CHAPTER 3 COMPLETE</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="cover-eyebrow">END OF CHAPTER 3</div>
+        <h1 class="cover-title">THANK YOU</h1>
+        <p class="cover-tagline">
+          "Numbers may seem separate and distinct, but through their common factors and multiples, they find their shared harmony on common ground."
+        </p>
+
+        <!-- EXACT CREDIT PILL -->
+        <a href="https://www.akashmaths.online" target="_blank" class="credit-pill">
+          <span class="sparkle">✦</span>
+          <span>Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </a>
+      </div>
+
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Prakash | Grade 7 | Part II</span>
+        <span>Slide 34 / 34</span>
+      </div>
+    </section>
+
+    <!-- Navigation Controls -->
+    <div class="deck-nav">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+
+    <div class="keyboard-hint">
+      Use ◀ / ▶ or Space to navigate
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+      
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      const activeSlide = document.querySelector(`.slide[data-slide="${index}"]`);
+      if (activeSlide) {
+        activeSlide.classList.add('active');
+        currentSlide = index;
+      }
+    }
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      showSlide(currentSlide - 1);
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      showSlide(currentSlide + 1);
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        showSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        showSlide(currentSlide - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        showSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        showSlide(totalSlides);
+      }
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const container = document.getElementById('deck-container');
+
+    container.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    container.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        showSlide(currentSlide + 1);
+      }
+      if (touchEndX > touchStartX + 50) {
+        showSlide(currentSlide - 1);
+      }
+    }
+  </script>
+</body>
+</html>
