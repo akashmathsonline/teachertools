@@ -51,26 +51,26 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    body {
+            body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: #0f172a;
+      background: #f8fafc; /* Background light kar diya */
       color: var(--text-main);
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
     }
 
-    #deck-container {
+        #deck-container {
       position: relative;
-      width: 1280px;
-      height: 720px;
-      max-width: 100vw;
-      max-height: 100vh;
-      aspect-ratio: 16 / 9;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
       background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      box-shadow: none; /* Box shadow hata dein */
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -82,7 +82,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      padding: 34px 44px 38px 44px;
+      padding: 30px 40px 30px 40px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
