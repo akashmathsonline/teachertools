@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 9 Math Chapter 9 Slide Deck</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #0d9488;
+      --amber: #f59e0b;
+      --amber-soft: #fef3c7;
+      --rose: #e11d48;
+      --rose-soft: #ffe4e6;
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #eff6ff 100%);
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b1329;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      color: var(--text-main);
+    }
+
+    .deck-container {
+      position: relative;
+      width: 100vw;
+      max-width: 1280px;
+      height: 56.25vw;
+      max-height: 720px;
+      background: var(--bg-gradient);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      padding: 38px 52px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      opacity: 0; visibility: hidden;
+      transform: translateY(12px) scale(0.99);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+
+    .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    
+    .pill-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 9999px;
+      background: var(--primary-light); color: var(--primary-dark); border: 1px solid rgba(2, 132, 199, 0.2);
+    }
+    .pill-tag.quick { background: var(--amber-soft); color: #b45309; border-color: #fde68a; }
+    .page-pill { background: #fee2e2; color: #b91c1c; border-color: rgba(185, 28, 28, 0.2); font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 9999px; }
+
+    .slide-title { font-family: 'Baloo 2', cursive, sans-serif; font-size: 2.1rem; line-height: 1.15; font-weight: 800; color: #0f172a; margin-bottom: 14px; }
+    .slide-subtitle { font-size: 0.98rem; color: var(--text-muted); font-weight: 500; margin-bottom: 20px; }
+
+    .content-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+
+    .card { background: var(--card-bg); border-radius: 16px; padding: 18px 22px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
+    .card.highlight { border-left: 5px solid var(--primary); background: linear-gradient(to right, #f8fafc, #ffffff); }
+    .card.danger { border-left: 5px solid var(--rose); background: linear-gradient(to right, #fff1f2, #ffffff); }
+    .card-title { font-family: 'Baloo 2', cursive; font-size: 1.25rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+    
+    .card-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-family: 'Plus Jakarta Sans'; }
+    
+    .theorem-box { background: #f1f5f9; border: 1.5px dashed #94a3b8; border-radius: 12px; padding: 12px 16px; margin: 4px 0; }
+    .theorem-statement { font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    .formula-display { background: #f8fafc; border-radius: 8px; text-align: center; padding: 10px; margin: 6px 0; border: 1px solid #e2e8f0; }
+
+    ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    ul li { position: relative; padding-left: 24px; font-size: 0.92rem; line-height: 1.45; color: var(--text-muted); }
+    ul li::before { content: '✦'; position: absolute; left: 2px; color: var(--primary); font-size: 0.85rem; }
+
+    .slide-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 600; color: #64748b; letter-spacing: 0.03em; }
+
+    .slide-watermark { position: absolute; bottom: 12px; right: 18px; font-size: 0.74rem; font-weight: 600; color: #94a3b8; opacity: 0.35; pointer-events: none; }
+
+    .nav-controls { position: absolute; bottom: 14px; right: 28px; display: flex; gap: 8px; z-index: 50; }
+    .nav-btn { background: #ffffff; border: 1px solid #cbd5e1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; color: #334155; box-shadow: var(--shadow-sm); transition: all 0.2s ease; }
+    .nav-btn:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); transform: translateY(-2px); }
+    .keyboard-hint { position: absolute; bottom: 14px; left: 28px; font-size: 0.72rem; color: #94a3b8; font-weight: 600; z-index: 50; pointer-events: none; }
+
+    .credit-pill { display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1.5px solid #0284c7; padding: 10px 24px; border-radius: 9999px; font-size: 1.05rem; font-weight: 700; color: #0369a1; box-shadow: var(--shadow-md); margin-top: 10px; }
+
+    .cover-layout { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+    .cover-eyebrow { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .cover-title { font-family: 'Baloo 2', cursive; font-size: 3.5rem; font-weight: 800; color: #0f172a; line-height: 1.1; margin-bottom: 12px; }
+    .cover-tagline { font-style: italic; font-size: 1.15rem; color: #475569; max-width: 800px; margin: 0 auto; }
+
+    .quick-box-container { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+    .quick-item { background: #fffbeb; border: 1px solid #fde68a; padding: 14px 18px; border-radius: 12px; display: flex; gap: 14px; align-items: flex-start; }
+    .quick-badge { background: #d97706; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+    .quick-text { font-size: 1rem; font-weight: 600; color: #78350f; line-height: 1.4; }
+
+    .solution-card { background: #ffffff; border-radius: 14px; padding: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 8px; }
+    .sol-step { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+    .sol-final { background: var(--primary-light); color: var(--primary-dark); padding: 8px; border-radius: 8px; text-align: center; font-weight: 700; font-size: 0.9rem; margin-top: auto; }
+
+    /* Mobile Responsive */
+    @media (max-aspect-ratio: 16/9) { .deck-container { height: 100vh; width: 177.77vh; } }
+    @media (max-width: 900px) {
+      .deck-container { border-radius: 0; width: 100vw; height: 100vh; }
+      .slide { padding: 20px; }
+      .slide-title { font-size: 1.5rem; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .cover-title { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck-container">
+  
+  <!-- SLIDE 1 -->
+  <section class="slide active" id="slide-1">
+    <div class="slide-header">
+      <div class="pill-tag">GANITA MANJARI PART II | GRADE 9</div>
+      <div class="pill-tag">Chapter 9 • Cover</div>
+    </div>
+    <div class="cover-layout">
+      <div class="cover-eyebrow">Class 9 Mathematics • Chapter 9</div>
+      <h1 class="cover-title">Propositions and their Converses</h1>
+      <p class="cover-tagline">Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook.</p>
+      <div class="credit-pill">
+        <span class="icon">✦</span>
+        <span>Akash Srivastva <strong>(www.akashmaths.online)</strong></span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div>Ganita Manjari | Grade 9 | Part II</div>
+      <div>Slide 1 / 22</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 -->
+  <section class="slide" id="slide-2">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Foundations</span>
+        <span class="pill-tag">Logic & Proof</span>
+      </div>
+      <span class="pill-tag page-pill">Page 1</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Propositions and Converses Defined</h2>
+      <p class="slide-subtitle">The structure of mathematical assertions and direction of implication</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title"><div class="card-icon">1</div> What is a Proposition?</div>
+          <p>A statement that is definitely either <strong>true</strong> or <strong>false</strong> is called a <strong>proposition</strong>.</p>
+          <div class="theorem-box">
+            <div class="theorem-statement">Original Proposition (If $X$ then $Y$):</div>
+            <p><em>"If two sides of a triangle are equal, then the angles opposite the equal sides are equal."</em></p>
+          </div>
+          <p style="font-size:0.92rem; color:var(--text-muted);">$X \implies Y$ : "Condition $X$ implies Result $Y$".</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><div class="card-icon">2</div> What is its Converse?</div>
+          <p>Swapping the condition and consequence creates the <strong>converse</strong> ($Y \implies X$).</p>
+          <div class="theorem-box">
+            <div class="theorem-statement">Converse Proposition (If $Y$ then $X$):</div>
+            <p><em>"If two angles of a triangle are equal, then the sides opposite the equal angles have equal lengths."</em></p>
+          </div>
+          <p style="font-size:0.92rem; color:var(--text-muted);"><strong>Core Question:</strong> If a proposition is true, is its converse always true?</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 2 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 3 -->
+  <section class="slide" id="slide-3">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 1</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Proposition & Converse Identification</h2>
+      <p class="slide-subtitle">Quick-fire verbal check to test student logic formulation</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Identify condition $X$ and conclusion $Y$ in the statement: "If a shape is a square, then all its angles are $90^\circ$." What is its converse?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Is every English sentence a mathematical proposition? Why is "Is it raining outside?" not a proposition?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 3</span>
+          <span class="quick-text">In $\triangle ABC$, if $\angle B = \angle C$, how would you construct an auxiliary line to prove $AB = AC$?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 3 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 4 -->
+  <section class="slide" id="slide-4">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Methodology</span>
+        <span class="pill-tag">Counterexamples</span>
+      </div>
+      <span class="pill-tag page-pill">Page 1–2</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Counterexamples: Disproving False Propositions</h2>
+      <p class="slide-subtitle">A single contradictory instance is sufficient to shatter a general claim</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card danger">
+          <div class="card-title">Example 1: The Wet Road</div>
+          <ul>
+            <li><strong>Proposition $P$:</strong> If it rains, then the road is wet. <span style="color:#16a34a; font-weight:700;">(True)</span></li>
+            <li><strong>Converse $Q$:</strong> If the road is wet, then it has rained. <span style="color:#dc2626; font-weight:700;">(Not necessarily true!)</span></li>
+            <li><strong>Counterexample:</strong> A municipal water tanker spilled water.</li>
+            <li><strong>Takeaway:</strong> Finding one valid counterexample proves the converse is false.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Euler Disproves Fermat's Prime Claim</div>
+          <ul>
+            <li>Pierre de Fermat conjectured:
+              <div class="formula-display">$$F_n = 2^{2^n} + 1 \quad \text{are prime for all } n = 0, 1, 2, \dots$$</div>
+            </li>
+            <li>Verified: $F_0=3, F_1=5, F_2=17, F_3=257, F_4=65537$ (all prime).</li>
+            <li><strong>Euler's Counterexample ($n=5$):</strong>
+              <div class="formula-display">$$2^{2^5} + 1 = 2^{32} + 1 = 641 \times 6{,}700{,}417$$</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 4 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 5 -->
+  <section class="slide" id="slide-5">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 2</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — The Power of Counterexamples</h2>
+      <p class="slide-subtitle">Testing student ability to falsify general statements</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">How many examples are needed to prove a general statement is always true? How many counterexamples are needed to prove it is false?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">A student claims: "Every odd number is a prime number." What is the simplest counterexample to disprove this?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 5 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 6 -->
+  <section class="slide" id="slide-6">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Example 2</span>
+        <span class="pill-tag">Divisibility</span>
+      </div>
+      <span class="pill-tag page-pill">Page 2</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Divisibility Implication: Multiples of 6 vs 3</h2>
+      <p class="slide-subtitle">When one direction holds, but the converse breaks</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">Proposition $P$ (True)</div>
+          <div class="theorem-box"><p><strong>"If a number is a multiple of 6, then it is a multiple of 3."</strong></p></div>
+          <ul>
+            <li>Let $n = 6k = 3(2k)$, where $k$ is an integer.</li>
+            <li>Since $2k$ is an integer, $n$ is divisible by 3.</li>
+          </ul>
+        </div>
+        <div class="card danger">
+          <div class="card-title">Converse $Q$ (False)</div>
+          <div class="theorem-box"><p><strong>"If a number is a multiple of 3, then it is a multiple of 6."</strong></p></div>
+          <ul>
+            <li><strong>Counterexamples:</strong>
+              <div class="formula-display">$n = 3, \quad n = 9, \quad n = 15$</div>
+            </li>
+            <li>They are multiples of 3, but not multiples of 6!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 6 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 7 -->
+  <section class="slide" id="slide-7">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 2</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Divisibility Chains</h2>
+      <p class="slide-subtitle">Classroom drill on subset relationships in multiples</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Is the statement "If $n$ is divisible by 10, then $n$ is divisible by 5" true? What is its converse?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Provide a counterexample to the converse: "If $n$ is divisible by 5, then $n$ is divisible by 10."</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 7 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 8 -->
+  <section class="slide" id="slide-8">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Example 3</span>
+        <span class="pill-tag">Factor-Partner Pairs</span>
+      </div>
+      <span class="pill-tag page-pill">Page 2–3</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Perfect Squares and Odd Number of Factors</h2>
+      <p class="slide-subtitle">When both proposition and converse are mutually true!</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">The Factor-Partner Principle</div>
+          <ul>
+            <li>Every factor of $n$ has a partner factor $g$ such that $f \times g = n$.</li>
+            <li>For $12$: $(1, 12), (2, 6), (3, 4) \implies 6$ factors (even).</li>
+            <li>For $36$: $(1, 36), (2, 18), (3, 12), (4, 9), (6, 6) \implies 9$ factors (odd).</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Bi-directional Implication ($P \iff Q$)</div>
+          <ul>
+            <li><strong>Proposition $P$:</strong> If $n$ is a perfect square, then $n$ has an odd number of factors. <span style="color:#16a34a; font-weight:700;">(True)</span></li>
+            <li><strong>Converse $Q$:</strong> If $n$ has an odd number of factors, then $n$ is a perfect square. <span style="color:#16a34a; font-weight:700;">(True)</span></li>
+            <li><strong>Conclusion:</strong> 'Perfect square' and 'odd number of factors' imply each other!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 8 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 9 -->
+  <section class="slide" id="slide-9">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 3</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Factors & Squares</h2>
+      <p class="slide-subtitle">Rapid mental factor pairing</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">List all factor-partner pairs of 16. Which pair repeats, and how many total factors does 16 have?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">If a positive integer $n$ has exactly 7 factors, can it be a non-square number? Explain.</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 9 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 10 -->
+  <section class="slide" id="slide-10">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Example 4</span>
+        <span class="pill-tag">Geometry & Area</span>
+      </div>
+      <span class="pill-tag page-pill">Page 3</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Area and Congruence: One-Way Implication</h2>
+      <p class="slide-subtitle">Examining shape superimposition versus numerical region measure</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card danger">
+          <div class="card-title">Proposition $P$ (False)</div>
+          <div class="theorem-box"><p><strong>"If two triangles have the same area, then they are congruent."</strong></p></div>
+          <ul>
+            <li><strong>Counterexample:</strong>
+              <br>• $\triangle T_1$: base $4\text{ cm}$, height $3\text{ cm} \implies \text{Area} = 6\text{ cm}^2$
+              <br>• $\triangle T_2$: base $12\text{ cm}$, height $1\text{ cm} \implies \text{Area} = 6\text{ cm}^2$
+            </li>
+            <li>Different shapes, same area!</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Converse $Q$ (True)</div>
+          <div class="theorem-box"><p><strong>"If two triangles are congruent, then they have the same area."</strong></p></div>
+          <ul>
+            <li>Congruent triangles can be exactly superimposed.</li>
+            <li>They enclose the exact same region of space.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 10 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 11 -->
+  <section class="slide" id="slide-11">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 3</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Area vs Perimeter vs Congruence</h2>
+      <p class="slide-subtitle">Testing geometric intuition</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">A median divides a triangle into two smaller triangles of equal area. Are these two smaller triangles always congruent?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">If two rectangles have the same perimeter, must they be congruent? Give a simple counterexample.</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 11 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 12 -->
+  <section class="slide" id="slide-12">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Example 5</span>
+        <span class="pill-tag">Baudhāyana-Pythagoras</span>
+      </div>
+      <span class="pill-tag page-pill">Page 4</span>
+    </div>
+    <div>
+      <h2 class="slide-title">The Baudhāyana-Pythagoras Theorem & Converse</h2>
+      <p class="slide-subtitle">Rigorous proof of the converse using auxiliary right triangle and SSS</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Theorem & its Converse Statement</div>
+          <div class="theorem-box">
+            <div class="theorem-statement">Baudhāyana-Pythagoras Theorem:</div>
+            <p>If $\angle C = 90^\circ$, then $a^2 + b^2 = c^2$.</p>
+          </div>
+          <div class="theorem-box" style="border-left-color:#0f766e; margin-top:8px;">
+            <div class="theorem-statement">Converse Statement:</div>
+            <p>If $a^2 + b^2 = c^2$, then the triangle is right-angled ($\angle C = 90^\circ$).</p>
+          </div>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Proof of the Converse</div>
+          <ul>
+            <li><strong>Given:</strong> $\triangle ABC$ satisfying $a^2 + b^2 = c^2$.</li>
+            <li><strong>Construction:</strong> Construct $\triangle XYZ$ with $\angle Z = 90^\circ$, legs $YZ = a$ and $XZ = b$.</li>
+            <li>In $\triangle XYZ$: $XY^2 = a^2 + b^2 = c^2 \implies XY = c$.</li>
+            <li>By <strong>SSS Congruence</strong>, $\triangle ABC \cong \triangle XYZ \implies \angle C = \angle Z = 90^\circ$!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 12 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 13 -->
+  <section class="slide" id="slide-13">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 4</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — The Converse Proof Steps</h2>
+      <p class="slide-subtitle">Verifying the logical steps of the converse proof</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Why can't we immediately assume $\triangle ABC$ is a right triangle when proving the converse?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">A triangle has sidelengths $5\text{ cm}, 12\text{ cm}, 13\text{ cm}$. Which specific theorem allows us to state with certainty that it contains a $90^\circ$ angle?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 13 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 14 -->
+  <section class="slide" id="slide-14">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Notation & Language</span>
+        <span class="pill-tag">Sentence Structure</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Expressing Implication in Different Ways</h2>
+      <p class="slide-subtitle">Recognizing logical equivalence across mathematical prose</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">Equivalent Formulations of $X \implies Y$</div>
+          <ul>
+            <li><strong>Standard conditional:</strong> "If $X$, then $Y$."</li>
+            <li><strong>Direct implication:</strong> "$X$ implies $Y$."</li>
+            <li><strong>Reversed order:</strong> "$Y$, when $X$." OR "$Y$ if $X$."</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Real-Life vs Mathematical Conditionals</div>
+          <ul>
+            <li><strong>Everyday language is often sloppy:</strong> People mistakenly assume the converse is implied too.</li>
+            <li><strong>In mathematics, precision is sacred:</strong> The converse must be treated as a brand-new proposition demanding its own independent proof.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 14 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 15 -->
+  <section class="slide" id="slide-15">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Rephrasing Conditionals</h2>
+      <p class="slide-subtitle">Testing verbal rephrasing and converse construction</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Rewrite using 'If-then': "A polygon has 3 sides when it is a triangle." What is its converse?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Does the statement "$Y$ whenever $X$" mean $X \implies Y$ or $Y \implies X$?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 15 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 16 -->
+  <section class="slide" id="slide-16">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Exercise 9.1</span>
+        <span class="pill-tag">Prime Claims</span>
+      </div>
+      <span class="pill-tag page-pill">Page 6</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Counterexamples in Prime Generation Claims</h2>
+      <p class="slide-subtitle">There are no simple neat algebraic formulas that generate only primes</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title" style="font-size:1.1rem;">Claim: $4n^2 + 1$ is Prime</div>
+          <ul>
+            <li>$n=1 \implies 5$ (Prime)</li>
+            <li>$n=2 \implies 17$ (Prime)</li>
+            <li><strong>Counterexample ($n=4$):</strong>
+              <div class="formula-display">$$4(4^2)+1 = 65 = 5 \times 13$$</div>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size:1.1rem;">Claim: $n^2 + n + 11$ is Prime</div>
+          <ul>
+            <li>$n=1 \implies 13$ (Prime)</li>
+            <li>$n=2 \implies 17$ (Prime)</li>
+            <li><strong>Counterexample ($n=11$):</strong>
+              <div class="formula-display">$$11(11+1+1) = 11 \times 13$$</div>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size:1.1rem;">Claim: $4^n + 3$ is Prime</div>
+          <ul>
+            <li>$n=1 \implies 7$ (Prime)</li>
+            <li>$n=2 \implies 19$ (Prime)</li>
+            <li><strong>Counterexample ($n=4$):</strong>
+              <div class="formula-display">$$4^4+3 = 259 = 7 \times 37$$</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 16 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 17 -->
+  <section class="slide" id="slide-17">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 6</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Mersenne & Fermat Primes</h2>
+      <p class="slide-subtitle">Rapid testing on prime counterexamples</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Statement: "If $n$ is prime, then $2^n - 1$ is prime." For what smallest prime value $n$ does this claim fail?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Why does substituting $n = 11$ automatically make the polynomial $n^2 + n + 11$ factorable?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 17 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 18 -->
+  <section class="slide" id="slide-18">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Activity / Modeling</span>
+        <span class="pill-tag">Diagonals & Sticks</span>
+      </div>
+      <span class="pill-tag page-pill">Page 7</span>
+    </div>
+    <div>
+      <h2 class="slide-title">The Two-Stick Quadrilateral Challenge</h2>
+      <p class="slide-subtitle">Analyzing how converses dictate construction requirements</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Scenario (i): Property of Class Q</div>
+          <div class="theorem-box"><p><em>"If a quadrilateral is of type Q, then it has equal-length diagonals."</em></p></div>
+          <ul>
+            <li><strong>Question (a):</strong> To build type Q, must sticks be equal? <br>• <strong>Yes!</strong> Otherwise it cannot be type Q.</li>
+            <li><strong>Question (b):</strong> Does crossing matter? <br>• <strong>Yes!</strong> Crossing at midpoints vs non-midpoints produces different shapes.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Scenario (ii): The Converse Condition</div>
+          <div class="theorem-box"><p><em>"If a quadrilateral has equal diagonals, then it is of type Q."</em></p></div>
+          <ul>
+            <li><strong>Question (a):</strong> Should sticks be equal? <br>• <strong>Yes!</strong> This triggers the sufficient condition.</li>
+            <li><strong>Question (b):</strong> Does crossing matter? <br>• <strong>No!</strong> ANY arrangement qualifies as type Q.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 18 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 19 -->
+  <section class="slide" id="slide-19">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 7</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Quadrilateral Implication</h2>
+      <p class="slide-subtitle">Verifying diagonal conditions across quadrilateral types</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Statement: "If a quadrilateral is a rectangle, its diagonals are equal." Is the converse true? What quadrilateral has equal diagonals but is NOT a rectangle?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Statement: "If a quadrilateral is a rhombus, its diagonals are perpendicular." What is the converse? Is the converse true or false?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 19 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 20 -->
+  <section class="slide" id="slide-20">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Exercise Highlights</span>
+        <span class="pill-tag">Worked Examples</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5, 6</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Exercise Highlights — Step-by-Step Analysis</h2>
+      <p class="slide-subtitle">Representative problems testing converse formulation and truth values</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-3">
+        <div class="solution-card">
+          <div class="card-title" style="font-size:1.05rem;">1. Real Numbers ($x^2 = y^2$)</div>
+          <p class="sol-step"><strong>Prop:</strong> If $x = y$, then $x^2 = y^2$. <span style="color:#16a34a; font-weight:700;">(True)</span></p>
+          <p class="sol-step"><strong>Converse:</strong> If $x^2 = y^2$, then $x = y$.</p>
+          <p class="sol-step"><strong>Counterexample:</strong> $x = 3, y = -3$. Then $3^2 = (-3)^2 = 9$, but $3 \neq -3$.</p>
+          <div class="sol-final">Converse is False</div>
+        </div>
+        <div class="solution-card">
+          <div class="card-title" style="font-size:1.05rem;">2. Primes & 3 Factors</div>
+          <p class="sol-step"><strong>Prop:</strong> If $n = p^2$ (prime $p$), then $n$ has exactly 3 factors.</p>
+          <p class="sol-step"><strong>Proof:</strong> Factors of $p^2$ are $\{1, p, p^2\}$. Total = 3. <span style="color:#16a34a; font-weight:700;">(True)</span></p>
+          <div class="sol-final">Both Prop & Converse True</div>
+        </div>
+        <div class="solution-card">
+          <div class="card-title" style="font-size:1.05rem;">3. Divisibility by 4 & 6</div>
+          <p class="sol-step"><strong>Prop:</strong> If $n$ is divisible by 24, then $n$ is divisible by 4 and 6. <span style="color:#16a34a; font-weight:700;">(True)</span></p>
+          <p class="sol-step"><strong>Counterexample:</strong> $n = 12$. $12$ is divisible by 4 and 6, but NOT by 24!</p>
+          <div class="sol-final">Converse is False</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 20 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 21 -->
+  <section class="slide" id="slide-21">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Summary</span>
+        <span class="pill-tag">Core Principles</span>
+      </div>
+      <span class="pill-tag page-pill">Page 7</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Chapter Summary: Logical Toolkit</h2>
+      <p class="slide-subtitle">Master recap of propositions, converses, and counterexamples</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Foundations of Mathematical Logic (✅)</div>
+          <ul>
+            <li><strong>Proposition:</strong> A declarative statement strictly True or False.</li>
+            <li><strong>Form of Implication:</strong> "If $X$ then $Y$" is written as $X \implies Y$.</li>
+            <li><strong>Converse Formation:</strong> Formed by reversing condition and result ($Y \implies X$).</li>
+            <li><strong>Independent Truth:</strong> Truth of proposition does NOT guarantee truth of converse.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Four Truth-Value Possibilities (✅)</div>
+          <ul>
+            <li><strong>Prop True, Converse False:</strong> Multiple of 6 implies multiple of 3; $x=y \implies x^2=y^2$.</li>
+            <li><strong>Both True:</strong> Perfect square $\iff$ odd number of factors.</li>
+            <li><strong>Both False:</strong> Statements where both directions fail.</li>
+            <li><strong>Counterexample Power:</strong> A single valid counterexample disproves an entire claim.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 21 / 22</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 22 -->
+  <section class="slide" id="slide-22">
+    <div class="slide-header">
+      <div class="pill-tag">GANITA MANJARI PART II | GRADE 9</div>
+      <div class="pill-tag">End of Chapter 9</div>
+    </div>
+    <div class="cover-layout">
+      <div class="cover-eyebrow">Logical Rigour in Mathematics</div>
+      <h1 class="cover-title">Thank You!</h1>
+      <p class="cover-tagline">"In mathematics, true insight begins when we distinguish between a condition that merely follows and one that truly leads the way."</p>
+      <div class="credit-pill">
+        <span class="icon">✦</span>
+        <span>Akash Srivastva <strong>(www.akashmaths.online)</strong></span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div>Ganita Manjari | Grade 9 | Part II</div>
+      <div>Slide 22 / 22</div>
+    </div>
+  </section>
+
+  <!-- Nav -->
+  <div class="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+  <div class="nav-controls">
+    <button class="nav-btn" id="prev-btn">❮</button>
+    <button class="nav-btn" id="next-btn">❯</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+    currentSlide = index;
+  }
+
+  function nextSlide() { if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1); }
+  function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  });
+
+  document.getElementById('next-btn').addEventListener('click', nextSlide);
+  document.getElementById('prev-btn').addEventListener('click', prevSlide);
+</script>
+</body>
+</html>

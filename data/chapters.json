@@ -13,7 +13,14 @@
         { "id": 5, "name": "I'm Up and Down, Round and Round", "pdf": "/pdfs/class-9/class-9-ch5.pdf" },
         { "id": 6, "name": "Measuring Space: Perimeter & Area", "pdf": "/pdfs/class-9/class-9-ch6.pdf" },
         { "id": 7, "name": "The Mathematics of Maybe: Probability", "pdf": "/pdfs/class-9/class-9-ch7.pdf" },
-        { "id": 8, "name": "Predicting What Comes Next?", "pdf": "/pdfs/class-9/class-9-ch8.pdf" }
+        { "id": 8, "name": "Predicting What Comes Next?", "pdf": "/pdfs/class-9/class-9-ch8.pdf" },
+        
+        { "id": 9, "name": "Propositions and their Converses", "html": "/slides/class-9-ch9.html" },
+        { "id": 10, "name": "How Quantities Combine: Understanding Data", "html": "/slides/class-9-ch10.html" },
+        { "id": 11, "name": "The World of Algorithms", "html": "/slides/class-9-ch11.html" },
+        { "id": 12, "name": "Quadrilaterals", "html": "/slides/class-9-ch12.html" },
+        { "id": 13, "name": "Two Variables, One Line", "html": "/slides/class-9-ch13.html" },
+        { "id": 14, "name": "Math of Space: Surface Area and Volume", "html": "/slides/class-9-ch14.html" }
       ]
     },
     {
@@ -36,6 +43,71 @@
         { "id": 12, "name": "Surface Areas and Volumes", "pdf": "/pdfs/class-10/class-10-ch12.pdf" },
         { "id": 13, "name": "Statistics", "pdf": "/pdfs/class-10/class-10-ch13.pdf" },
         { "id": 14, "name": "Probability", "pdf": "/pdfs/class-10/class-10-ch14.pdf" }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Class 8",
+      "icon": "8️⃣",
+      "color": "#8574E0",
+      "chapters": [
+        { "id": 1, "name": "A Square and a Cube", "html": "/slides/class-8-p-1-ch1.html" },
+        { "id": 2, "name": "Power Play", "html": "/slides/class-8-p-1-ch2.html" },
+        { "id": 3, "name": "A Story of Numbers", "html": "/slides/class-8-p-1-ch3.html" },
+        { "id": 4, "name": "Quadrilaterals", "html": "/slides/class-8-p-1-ch4.html" },
+        { "id": 5, "name": "Number Play", "html": "/slides/class-8-p-1-ch5.html" },
+        { "id": 6, "name": "We Distribute, Yet Things Multiply", "html": "/slides/class-8-p-1-ch6.html" },
+        { "id": 7, "name": "Proportional Reasoning-1", "html": "/slides/class-8-p-1-ch7.html" },
+        
+        { "id": 8, "name": "Fractions in Disguise", "html": "/slides/class-8-p-2-ch1.html" },
+        { "id": 9, "name": "The Baudhayana-Pythagoras Theorem", "html": "/slides/class-8-p-2-ch2.html" },
+        { "id": 10, "name": "Proportional Reasoning-2", "html": "/slides/class-8-p-2-ch3.html" },
+        { "id": 11, "name": "Exploring Some Geometric Themes", "html": "/slides/class-8-p-2-ch4.html" },
+        { "id": 12, "name": "Tales by Dots and Lines", "html": "/slides/class-8-p-2-ch5.html" },
+        { "id": 13, "name": "Algebra Play", "html": "/slides/class-8-p-2-ch6.html" },
+        { "id": 14, "name": "Area", "html": "/slides/class-8-p-2-ch7.html" }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Class 7",
+      "icon": "7️⃣",
+      "color": "#0284c7",
+      "chapters": [
+        { "id": 1, "name": "Large Numbers Around Us", "html": "/slides/class-7-p-1-ch1.html" },
+        { "id": 2, "name": "Arithmetic Expressions", "html": "/slides/class-7-p-1-ch2.html" },
+        { "id": 3, "name": "A Peek Beyond the Point", "html": "/slides/class-7-p-1-ch3.html" },
+        { "id": 4, "name": "Expressions using Letter-Numbers", "html": "/slides/class-7-p-1-ch4.html" },
+        { "id": 5, "name": "Parallel and Intersecting Lines", "html": "/slides/class-7-p-1-ch5.html" },
+        { "id": 6, "name": "Number Play", "html": "/slides/class-7-p-1-ch6.html" },
+        { "id": 7, "name": "A Tale of Three Intersecting Lines", "html": "/slides/class-7-p-1-ch7.html" },
+        { "id": 8, "name": "Working with Fractions", "html": "/slides/class-7-p-1-ch8.html" },
+        
+        { "id": 9, "name": "Geometric Twins", "html": "/slides/class-7-p-2-ch1.html" },
+        { "id": 10, "name": "Operations with Integers", "html": "/slides/class-7-p-2-ch2.html" },
+        { "id": 11, "name": "Finding Common Ground", "html": "/slides/class-7-p-2-ch3.html" },
+        { "id": 12, "name": "Another Peek Beyond the Point", "html": "/slides/class-7-p-2-ch4.html" },
+        { "id": 13, "name": "Connecting the Dots...", "html": "/slides/class-7-p-2-ch5.html" },
+        { "id": 14, "name": "Constructions and Tilings", "html": "/slides/class-7-p-2-ch6.html" },
+        { "id": 15, "name": "Finding the Unknown", "html": "/slides/class-7-p-2-ch7.html" }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Class 6",
+      "icon": "6️⃣",
+      "color": "#0d9488",
+      "chapters": [
+        { "id": 1, "name": "Patterns in Mathematics", "html": "/slides/class-6-ch1.html" },
+        { "id": 2, "name": "Lines and Angles", "html": "/slides/class-6-ch2.html" },
+        { "id": 3, "name": "Number Play", "html": "/slides/class-6-ch3.html" },
+        { "id": 4, "name": "Data Handling and Presentation", "html": "/slides/class-6-ch4.html" },
+        { "id": 5, "name": "Prime Time", "html": "/slides/class-6-ch5.html" },
+        { "id": 6, "name": "Perimeter and Area", "html": "/slides/class-6-ch6.html" },
+        { "id": 7, "name": "Fractions", "html": "/slides/class-6-ch7.html" },
+        { "id": 8, "name": "Playing with Constructions", "html": "/slides/class-6-ch8.html" },
+        { "id": 9, "name": "Symmetry", "html": "/slides/class-6-ch9.html" },
+        { "id": 10, "name": "The Other Side of Zero", "html": "/slides/class-6-ch10.html" }
       ]
     }
   ]

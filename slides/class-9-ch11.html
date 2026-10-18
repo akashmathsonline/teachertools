@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 9 Math Chapter 11 Slide Deck</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #0d9488;
+      --amber: #f59e0b;
+      --amber-soft: #fef3c7;
+      --rose: #e11d48;
+      --rose-soft: #ffe4e6;
+      --emerald: #059669;
+      --emerald-soft: #d1fae5;
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #eff6ff 100%);
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b1329;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      color: var(--text-main);
+    }
+
+    .deck-container {
+      position: relative;
+      width: 100vw;
+      max-width: 1280px;
+      height: 56.25vw;
+      max-height: 720px;
+      background: var(--bg-gradient);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      padding: 38px 52px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      opacity: 0; visibility: hidden;
+      transform: translateY(12px) scale(0.99);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+
+    .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    
+    .pill-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 9999px;
+      background: var(--primary-light); color: var(--primary-dark); border: 1px solid rgba(2, 132, 199, 0.2);
+    }
+    .pill-tag.quick { background: var(--amber-soft); color: #b45309; border-color: #fde68a; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border-color: rgba(185, 28, 28, 0.2); font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 9999px; }
+
+    .slide-title { font-family: 'Baloo 2', cursive, sans-serif; font-size: 2.1rem; line-height: 1.15; font-weight: 800; color: #0f172a; margin-bottom: 14px; }
+    
+    .slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; margin: 10px 0 14px 0; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+    .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: stretch; }
+
+    .card { background: var(--card-bg); border-radius: 16px; padding: 18px 22px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
+    .card-highlight { border-left: 5px solid var(--primary); background: linear-gradient(to right, #f8fafc, #ffffff); }
+    .card-emerald { border-left: 5px solid var(--emerald); background: linear-gradient(to right, #f0fdf4, #ffffff); }
+    .card-amber { border-left: 5px solid var(--amber); background: linear-gradient(to right, #fffbeb, #ffffff); }
+    .card-rose { border-left: 5px solid var(--rose); background: linear-gradient(to right, #fff1f2, #ffffff); }
+    
+    .card-title { font-family: 'Baloo 2', cursive; font-size: 1.25rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+    
+    .formula-box { background: #f1f5f9; border: 1.5px dashed #94a3b8; border-radius: 12px; padding: 12px 16px; margin: 4px 0; text-align: center; }
+    
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .bullet-list li { position: relative; padding-left: 24px; font-size: 0.92rem; line-height: 1.45; color: var(--text-muted); }
+    .bullet-list li::before { content: '✦'; position: absolute; left: 2px; color: var(--primary); font-size: 0.85rem; }
+    
+    .num-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .num-list li { position: relative; padding-left: 24px; font-size: 0.9rem; line-height: 1.45; color: var(--text-muted); }
+    .num-list li::before { content: '▪'; position: absolute; left: 2px; color: var(--primary); font-size: 0.85rem; }
+
+    .slide-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 600; color: #64748b; letter-spacing: 0.03em; }
+
+    .slide-watermark { position: absolute; bottom: 12px; right: 18px; font-size: 0.74rem; font-weight: 600; color: #94a3b8; opacity: 0.35; pointer-events: none; }
+
+    .nav-controls { position: absolute; bottom: 14px; right: 28px; display: flex; gap: 8px; z-index: 50; }
+    .nav-btn { background: #ffffff; border: 1px solid #cbd5e1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; color: #334155; box-shadow: var(--shadow-sm); transition: all 0.2s ease; }
+    .nav-btn:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); transform: translateY(-2px); }
+    .keyboard-hint { position: absolute; bottom: 14px; left: 28px; font-size: 0.72rem; color: #94a3b8; font-weight: 600; z-index: 50; pointer-events: none; }
+
+    .author-pill { display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1.5px solid #0284c7; padding: 10px 24px; border-radius: 9999px; font-size: 1.05rem; font-weight: 700; color: #0369a1; box-shadow: var(--shadow-md); margin-top: 10px; }
+    .author-pill .sublink { font-size: 0.9rem; color: #64748b; }
+
+    .cover-layout { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; gap: 20px; }
+    .cover-eyebrow { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .cover-title { font-family: 'Baloo 2', cursive; font-size: 3.5rem; font-weight: 800; color: #0f172a; line-height: 1.1; margin-bottom: 12px; }
+    .cover-tagline { font-style: italic; font-size: 1.15rem; color: #475569; max-width: 800px; margin: 0 auto; }
+
+    .quickbox-container { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+    .qb-item { background: #fffbeb; border: 1px solid #fde68a; padding: 14px 18px; border-radius: 12px; display: flex; gap: 14px; align-items: flex-start; }
+    .qb-badge { background: #d97706; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+    .qb-text { font-size: 1rem; font-weight: 600; color: #78350f; line-height: 1.4; }
+
+    .division-box { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px; font-family: monospace; font-size: 0.9rem; line-height: 1.6; }
+    .tile-demo { display: flex; gap: 2px; align-items: center; margin-bottom: 4px; }
+    .tile-block { width: 20px; height: 18px; background: #0284c7; border-radius: 2px; color: white; font-size: 9px; display: flex; align-items: center; justify-content: center; }
+
+    @media (max-aspect-ratio: 16/9) { .deck-container { height: 100vh; width: 177.77vh; } }
+    @media (max-width: 900px) {
+      .deck-container { border-radius: 0; width: 100vw; height: 100vh; }
+      .slide { padding: 20px; }
+      .slide-title { font-size: 1.5rem; }
+      .grid-2, .grid-3, .grid-2-1 { grid-template-columns: 1fr; }
+      .cover-title { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck-container">
+  <div class="controls">
+    <button class="nav-btn" id="prevBtn" title="Previous Slide">❮</button>
+    <button class="nav-btn" id="nextBtn" title="Next Slide">❯</button>
+  </div>
+
+  <!-- SLIDE 1: COVER SLIDE -->
+  <section class="slide active">
+    <div class="cover-layout">
+      <div style="width: 100%; display: flex; justify-content: space-between;">
+        <span class="pill-tag">GANITA MANJARI PART II • GRADE 9</span>
+        <span class="pill-tag">Chapter 11 • Cover</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <span class="cover-eyebrow">CLASS 9 MATHEMATICS • CHAPTER 11</span>
+        <h1 class="cover-title">The World of Algorithms</h1>
+        <p class="cover-tagline">
+          “Exhaustive point-by-point presentation covering every concept,
+          theorem, and formula directly from the textbook.”
+        </p>
+        <div class="author-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sublink">(www.akashmaths.online)</span>
+        </div>
+      </div>
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Manjari | Grade 9 Part-II</span>
+        <span>Slide 1 / 28</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: SECTION 11.1 ADDING NUMBERS -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.1</span>
+        <h2 class="slide-title">What is an Algorithm? Adding Numbers</h2>
+      </div>
+      <span class="pill-page">Page 37</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>🔢</span> The Naive Method: Explicit Counting</div>
+          <p>To add $5 + 7$, we initially learned to draw $5$ dots and $7$ dots, then count all $12$ dots.</p>
+          <div class="formula-box">
+            $\bullet\bullet\bullet\bullet\bullet \quad + \quad \bullet\bullet\bullet\bullet\bullet\bullet\bullet \quad = \quad 12$
+          </div>
+          <ul class="bullet-list">
+            <li>Imagine adding large numbers like $473 + 695$ by drawing dots!</li>
+            <li>Drawing and counting over a thousand dots is tedious, slow, and error-prone.</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>⚡</span> The Algorithmic Breakthrough</div>
+          <p>In the <strong>Indian base-ten place-value system</strong>, we write numbers aligned on the right and add column-by-column:</p>
+          <div class="formula-box" style="font-weight: 700; color: #047857; font-size: 1.3rem; font-family: monospace; letter-spacing: 0.1em;">
+  <div style="display: inline-block; text-align: right; line-height: 1.4;">
+    <div>&nbsp;&nbsp;1 1</div>
+    <div>&nbsp;&nbsp;4 7 3</div>
+    <div style="border-bottom: 2px solid #047857; padding-bottom: 2px;">+ 6 9 5</div>
+    <div>1 1 6 8</div>
+  </div>
+</div>
+          <p><strong>Definition:</strong> An <em>algorithm</em> is a precise, unambiguous step-by-step procedure to arrive at an answer.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 2 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: QUICK BOX 11.1 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Introduction to Algorithms</h2>
+      </div>
+      <span class="pill-page">Page 37</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">In simple words, what is an algorithm, and why do we describe it in written steps?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Why does drawing dots to calculate $473 + 695$ become completely impractical?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">What essential mathematical invention makes column-wise addition possible?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 3 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: SECTION 11.1.1 ADDING DIGIT BY DIGIT -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.1.1</span>
+        <h2 class="slide-title">The Formal Addition Algorithm</h2>
+      </div>
+      <span class="pill-page">Pages 37–38</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2-1">
+        <div class="card card-highlight">
+          <div class="card-title"><span>📋</span> Five Formal Steps to Add Two Numbers</div>
+          <ol class="num-list">
+            <li><strong>Step 1:</strong> Write numbers one below the other in the Indian base-ten system, aligned from right to left.</li>
+            <li><strong>Step 2:</strong> Add rightmost digits. If sum $< 10$, write sum below, $carry = 0$. If $\ge 10$, write units digit, $carry = 1$.</li>
+            <li><strong>Step 3:</strong> Move left one column. Add two digits plus $carry$. If sum $< 10$, write sum, $carry=0$; else write units digit, $carry=1$.</li>
+            <li><strong>Step 4:</strong> Repeat Step 3 until there are no more digits left on the left.</li>
+            <li><strong>Step 5:</strong> If final $carry = 1$, write $1$ to the left of the bottom row.</li>
+          </ol>
+        </div>
+        <div class="card card-amber">
+          <div class="card-title amber"><span>💡</span> Foundational Assumptions</div>
+          <ul class="bullet-list">
+            <li><strong>Primitive Step:</strong> We assume we already know how to add single-digit numbers directly without counting.</li>
+            <li><strong>Composition:</strong> Any algorithm is built from verified elementary atomic operations.</li>
+            <li><strong>Deterministic:</strong> Following rules rigorously ensures the exact same correct result every time.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 4 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: QUICK BOX 11.1.1 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Exercise 11.1 Prompts</span>
+        <h2 class="slide-title">⚡ Quick Box — The Addition Algorithm</h2>
+      </div>
+      <span class="pill-page">Page 38</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">Why is it strictly necessary to align columns from right to left rather than left to right?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">In Step 3, why can the value of carry never exceed 1 when adding two base-10 numbers?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">What happens if we omit Step 5? Give an example where it succeeds and one where it fails.</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q4</span>
+          <span class="qb-text">Does our written algorithm cleanly handle adding a 5-digit number to a 3-digit number?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 5 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: EFFICIENCY & JUSTIFICATION -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Analysis & Justification</span>
+        <h2 class="slide-title">Why the Algorithm Works & Efficiency Scaling</h2>
+      </div>
+      <span class="pill-page">Pages 38–39</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>⏱️</span> Counting Dots vs. Digit Columns</div>
+          <p>Suppose counting 1 dot takes 1 second, while single-digit addition takes 15 seconds:</p>
+          <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:0.86rem;">
+            <tr style="border-bottom: 1px solid #cbd5e1; text-align:left; color:#0369a1;">
+              <th style="padding:6px;">Operation</th>
+              <th style="padding:6px;">Explicit Counting</th>
+              <th style="padding:6px;">Algorithm Time</th>
+            </tr>
+            <tr style="border-bottom: 1px solid #f1f5f9;">
+              <td style="padding:6px;">$33 + 27$</td>
+              <td style="padding:6px;">$\approx 1\text{ minute}$</td>
+              <td style="padding:6px;">$\approx 30\text{ seconds}$</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #f1f5f9;">
+              <td style="padding:6px;">$334 + 272$</td>
+              <td style="padding:6px;">$\approx 10\text{ minutes}$</td>
+              <td style="padding:6px;">$\approx 45\text{ seconds}$</td>
+            </tr>
+            <tr>
+              <td style="padding:6px;">$3347 + 2729$</td>
+              <td style="padding:6px; color:#b91c1c; font-weight:700;">$> 1\text{ hr } 40\text{ min}$</td>
+              <td style="padding:6px; color:#047857; font-weight:700;">$\approx 1\text{ minute}$</td>
+            </tr>
+          </table>
+          <p style="font-size:0.84rem; margin-top:6px; color:var(--text-muted);">
+            Adding a digit multiplies dots by $10\times$, but only adds <strong>one single column</strong> of work!
+          </p>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>🎯</span> Mathematical Justification</div>
+          <p><strong>Why does adding digits column-wise give the true sum?</strong></p>
+          <ul class="bullet-list">
+            <li>We decompose numbers into units, tens, hundreds:
+              $$N = d_0 \cdot 10^0 + d_1 \cdot 10^1 + d_2 \cdot 10^2 + \dots$$
+            </li>
+            <li>Adding columns groups identical powers of ten.</li>
+            <li>Whenever a group sums to $\ge 10$, $10$ units of that power bundle into exactly $1$ unit of the next power of ten (the <strong>carry</strong>).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 6 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: QUICK BOX — EFFICIENCY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Think & Reflect</span>
+        <h2 class="slide-title">⚡ Quick Box — Efficiency & Place-Value Logic</h2>
+      </div>
+      <span class="pill-page">Page 39</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">When moving from 3-digit numbers to 5-digit numbers, by what factor does the number of dots grow vs. the number of columns?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">How would you modify our column-addition algorithm to handle decimal fractions like $14.28 + 7.9$?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">Why must every proposed algorithm provide both a termination guarantee and a mathematical correctness justification?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 7 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: SECTION 11.2 GCD DEFINITION -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.2</span>
+        <h2 class="slide-title">Greatest Common Divisor (GCD / HCF)</h2>
+      </div>
+      <span class="pill-page">Pages 39–40</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>🔍</span> Deconstructing the Definition</div>
+          <p>To find the <strong>Greatest Common Divisor</strong> directly from its definition:</p>
+          <ol class="num-list">
+            <li><strong>Compute Divisors:</strong> Calculate all positive factors of both numbers.</li>
+            <li><strong>Compare Collections:</strong> Identify the numbers that are present in both collections (common divisors).</li>
+            <li><strong>Find the Maximum:</strong> Pick the largest number among these common divisors.</li>
+          </ol>
+          <div class="formula-box">
+            $\gcd(m, n) = \max \big( \text{divisors}(m) \cap \text{divisors}(n) \big)$
+          </div>
+        </div>
+        <div class="card card-amber">
+          <div class="card-title amber"><span>🧩</span> Algorithmic Thinking in Action</div>
+          <p>Rather than relying on informal intuition, we break the task into precise programmable sub-goals:</p>
+          <ul class="bullet-list">
+            <li><strong>Sub-problem A:</strong> An algorithm to find all divisors of any given number $n$.</li>
+            <li><strong>Sub-problem B:</strong> An algorithm to systematically extract common elements from two lists.</li>
+            <li><strong>Sub-problem C:</strong> An algorithm to locate the greatest element.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 8 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: QUICK BOX 11.2 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — The GCD Concept</h2>
+      </div>
+      <span class="pill-page">Pages 39–40</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">What are the three core words that make up the name "Greatest Common Divisor", and what does each require us to do?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Can a common divisor of two positive integers ever be strictly larger than both numbers? Why or why not?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">What is always guaranteed to be the smallest positive common divisor of any two natural numbers?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 9 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 10: SECTION 11.2.1 DIVISORS OF A NUMBER -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.2.1</span>
+        <h2 class="slide-title">Algorithm: Generating Divisors of $n$</h2>
+      </div>
+      <span class="pill-page">Pages 40–41</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>📝</span> Algorithm to Find Divisors of $n$</div>
+          <ol class="num-list">
+            <li>Start with an empty $\text{list-of-divisors} = [\,]$.</li>
+            <li>For each number $j$ in the sequence $1, 2, 3, \dots, n$:
+              <ul style="margin-top:4px; list-style:disc; margin-left:18px;">
+                <li>If $j$ divides $n$, append $j$ to the end of $\text{list-of-divisors}$.</li>
+              </ul>
+            </li>
+          </ol>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin-top:8px;">
+            <strong>Key Concept:</strong> Using variable names ($j$, $\text{list-of-divisors}$) allows precise step-by-step description.
+          </p>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>⚙️</span> Execution Trace for $n = 18$</div>
+          <ul class="bullet-list" style="font-size:0.86rem; gap:4px;">
+            <li>Start: $[\,]$</li>
+            <li>$j=1 \implies [1]$ &nbsp;|&nbsp; $j=2 \implies [1, 2]$ &nbsp;|&nbsp; $j=3 \implies [1, 2, 3]$</li>
+            <li>$j=4, 5 \implies$ not divisors (list unchanged)</li>
+            <li>$j=6 \implies [1, 2, 3, 6]$</li>
+            <li>$j=7, 8 \implies$ not divisors &nbsp;|&nbsp; $j=9 \implies [1, 2, 3, 6, 9]$</li>
+            <li>$j=10\dots17 \implies$ no divisor &nbsp;|&nbsp; $j=18 \implies [1, 2, 3, 6, 9, 18]$</li>
+          </ul>
+          <div class="formula-box" style="margin-top:8px; font-size:0.95rem;">
+            $\text{divisors}(18) = [1, 2, 3, 6, 9, 18]$ (automatically sorted!)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 10 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 11: QUICK BOX 11.2.1 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Think & Reflect</span>
+        <h2 class="slide-title">⚡ Quick Box — Generating Divisors</h2>
+      </div>
+      <span class="pill-page">Page 41</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">What is the output list when executing this algorithm for $n = 15$?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Why does this algorithm naturally output the divisors in strictly ascending order?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">As $n$ grows from $15$ to $135$ and then to $775$, how many numbers $j$ must be tested for divisibility?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 11 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 12: SECTION 11.2.2 & 11.2.3 FIRST GCD ALGORITHM -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.2.2 – 11.2.3</span>
+        <h2 class="slide-title">First GCD Algorithm: List Intersection</h2>
+      </div>
+      <span class="pill-page">Pages 41–43</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>📜</span> The Complete Algorithm: $\gcd(m, n)$</div>
+          <ol class="num-list">
+            <li>Let $\text{divisors-of-}m = \text{divisors}(m)$.</li>
+            <li>Let $\text{divisors-of-}n = \text{divisors}(n)$.</li>
+            <li>Start with an empty list $\text{common-divisors} = [\,]$.</li>
+            <li>For each number $x$ in $\text{divisors-of-}m$:
+              <ul style="margin-top:2px; list-style:disc; margin-left:18px;">
+                <li>If $x$ appears in $\text{divisors-of-}n$, add $x$ to $\text{common-divisors}$.</li>
+              </ul>
+            </li>
+            <li>Report the <strong>rightmost element</strong> of $\text{common-divisors}$ as $\gcd(m, n)$.</li>
+          </ol>
+        </div>
+        <div class="card card-amber">
+          <div class="card-title amber"><span>🎯</span> Textbook Example: $\gcd(375, 825)$</div>
+          <p style="font-size:0.86rem;">$\text{divisors}(375) = [1, 3, 5, 15, 25, 75, 125, 375]$</p>
+          <p style="font-size:0.86rem;">$\text{divisors}(825) = [1, 3, 5, 11, 15, 25, 33, 55, 75, 165, 275, 825]$</p>
+          <div class="formula-box" style="margin: 6px 0; font-size:0.95rem;">
+            $\text{common-divisors} = [1, 3, 5, 15, 25, 75]$
+          </div>
+          <p style="font-size:0.9rem; font-weight:600; color:#047857;">
+            Rightmost element = <strong>75</strong> $\implies \gcd(375, 825) = 75$.
+          </p>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-top:4px;">
+            For large numbers like $(54000, 81000)$, checking by eye is impossible without this systematic list comparison!
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 12 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 13: QUICK BOX 11.2.3 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — List Intersection GCD</h2>
+      </div>
+      <span class="pill-page">Pages 42–43</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">Why are we certain that the rightmost element in the common-divisors list is the GCD?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Why will the common-divisors list never be empty for any pair of natural numbers?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">For $\gcd(54000, 81000)$, the common divisors list ends in 27000. How many total comparisons did this naive algorithm require?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 13 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 14: SECTION 11.3 DATA STRUCTURES -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.3</span>
+        <h2 class="slide-title">Data Structures & Intermediate Values</h2>
+      </div>
+      <span class="pill-page">Pages 43–44</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>🗄️</span> What is a Data Structure?</div>
+          <p>During execution, algorithms calculate intermediate values that must be tracked, organized, and retrieved later.</p>
+          <ul class="bullet-list">
+            <li><strong>Variables:</strong> Named placeholders ($j$, $m$, $carry$) representing values.</li>
+            <li><strong>Lists:</strong> Ordered collections of elements, written as $[a_1, a_2, \dots, a_k]$.</li>
+            <li>A <em>Data Structure</em> organizes information to make algorithmic storage and manipulation efficient.</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>💡</span> Insights from Exercise Set 11.2</div>
+          <ul class="bullet-list">
+            <li><strong>Sorted Lists:</strong> Because our lists are in ascending order, comparisons can be terminated early once elements exceed a target.</li>
+            <li><strong>Divisor Pairs:</strong> Every divisor $d$ of $n$ has a companion pair $n/d$. For $18$: $(1, 18), (2, 9), (3, 6)$.</li>
+            <li>Do we really need to check all numbers up to $n$, or can we stop at $\sqrt{n}$?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 14 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 15: QUICK BOX 11.3 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Exercise 11.2 Prompts</span>
+        <h2 class="slide-title">⚡ Quick Box — Data Structures & Divisor Pairs</h2>
+      </div>
+      <span class="pill-page">Pages 43–44</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">Given two sorted lists $L_1$ and $L_2$, how can you find elements in $L_1$ that are absent in $L_2$?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Since divisors occur in pairs $(d, n/d)$, how many numbers between $1$ and $n$ do we actually need to test to find all divisors?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">If we generate divisors in paired form, does our simple rightmost-element GCD lookup still work directly?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 15 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 16: SECTION 11.3.1 THREE REFINEMENTS -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.3.1</span>
+        <h2 class="slide-title">Refining the GCD Algorithm: Three Optimizations</h2>
+      </div>
+      <span class="pill-page">Pages 44–45</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-3">
+        <div class="card card-highlight">
+          <div class="card-title"><span>1️⃣</span> Single Combined Scan</div>
+          <p>Instead of two separate scans taking $m + n$ steps, test $j$ from $1$ to $\max(m, n)$.</p>
+          <p style="font-size:0.86rem; color:var(--text-muted);">If $j$ divides $m$, add to $m$'s list; if $j$ divides $n$, add to $n$'s list.</p>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>2️⃣</span> Direct Check up to $\min(m, n)$</div>
+          <p>A common divisor cannot exceed the smaller number!</p>
+          <p style="font-size:0.86rem; color:var(--text-muted);">Scan $j$ from $1$ to $\min(m, n)$. If $j$ divides both $m$ and $n$, add directly to $\text{common-divisors}$.</p>
+        </div>
+        <div class="card card-amber">
+          <div class="card-title amber"><span>3️⃣</span> Eliminating Lists</div>
+          <p>Past divisors are useless once a larger one is found!</p>
+          <p style="font-size:0.86rem; color:var(--text-muted);">Track a single variable:</p>
+          <div class="formula-box" style="font-size:0.85rem; padding:6px;">
+            $\text{most-recent-common-divisor}$
+          </div>
+          <p style="font-size:0.82rem;">Update whenever $k$ divides both $m$ and $n$. Final value is GCD!</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 16 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 17: QUICK BOX 11.3.1 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Exercise 11.3 Prompts</span>
+        <h2 class="slide-title">⚡ Quick Box — Optimization & Reverse Scans</h2>
+      </div>
+      <span class="pill-page">Page 45</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">What happens if we search for divisors in reverse order, scanning backwards from $n$ down to 1?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">In the list-free algorithm, what happens if we scan backwards from $\min(m, n)$ down to 1? When can we stop?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">Why is stopping at the first common divisor when scanning backwards so much faster for pairs like $(100, 50)$?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 17 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 18: SECTION 11.3.2 ANALYSING EFFICIENCY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.3.2</span>
+        <h2 class="slide-title">Analysis of Refined Algorithms: The Core Bottleneck</h2>
+      </div>
+      <span class="pill-page">Pages 45–46</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-rose">
+          <div class="card-title rose"><span>⚠️</span> The Unsolved Scaling Problem</div>
+          <p>Even after eliminating lists and scanning only up to $\min(m, n)$:</p>
+          <ul class="bullet-list">
+            <li>The work is still directly proportional to the <strong>value</strong> of the number, not the <strong>number of digits</strong>!</li>
+            <li>If the smaller number grows from 3 digits to 4 digits ($100 \to 1000$), work increases by <strong>10 times</strong>.</li>
+            <li>From 3 digits to 5 digits ($100 \to 10000$), work increases by <strong>100 times</strong>.</li>
+          </ul>
+        </div>
+        <div class="card card-highlight">
+          <div class="card-title"><span>🎯</span> The Ultimate Algorithmic Goal</div>
+          <p>Recall our base-10 addition algorithm:</p>
+          <div class="formula-box">
+            $\text{Work} \propto \text{Number of Digits (Length)}$
+          </div>
+          <p>Can we design a GCD algorithm where the number of computational steps depends only on the <strong>number of digits</strong> rather than the magnitude of the numbers?</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 18 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 19: SECTION 11.3.3 EUCLID'S SUBTRACTION ALGORITHM -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.3.3</span>
+        <h2 class="slide-title">Euclid’s Subtraction Algorithm & Geometric Tiling</h2>
+      </div>
+      <span class="pill-page">Pages 46–47</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>📐</span> Fundamental Theorem: $\gcd(m, n) = \gcd(n, m - n)$</div>
+          <p>Assume $m \ge n$. Let $d$ be a common divisor of $m$ and $n$:</p>
+          <ul class="bullet-list" style="font-size:0.88rem;">
+            <li>$m = a \cdot d$ and $n = b \cdot d$ for integers $a, b$.</li>
+            <li>$m - n = a\cdot d - b\cdot d = (a - b)d \implies d$ divides $(m - n)$.</li>
+            <li>Conversely, if $d$ divides $n$ and $m - n$, then $d$ divides $n + (m - n) = m$.</li>
+            <li>Hence, the common divisors of $(m, n)$ and $(n, m - n)$ are identical!</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>🧱</span> Geometric Visualisation: Tiling Rods</div>
+          <p style="font-size:0.88rem;">If a tile of length $d$ perfectly tiles both rods $m$ and $n$, it must perfectly tile the difference $(m - n)$:</p>
+          
+          <div style="background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #cbd5e1; margin-top:4px;">
+            <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-bottom:2px;">Rod m (Length = ad)</div>
+            <div class="tile-demo">
+              <span class="tile-block">d</span><span class="tile-block">d</span><span class="tile-block">d</span>
+              <span style="font-size:0.75rem; color:#64748b;">...</span>
+              <span class="tile-block">d</span><span class="tile-block">d</span>
+            </div>
+
+            <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin:4px 0 2px 0;">Rod n (Length = bd) &nbsp;|&nbsp; Remaining: (m - n)</div>
+            <div class="tile-demo" style="background:#e0f2fe;">
+              <span class="tile-block" style="background:#059669;">d</span><span class="tile-block" style="background:#059669;">d</span>
+              <span style="border-left: 2px dashed #e11d48; margin: 0 4px; height: 18px;"></span>
+              <span class="tile-block" style="background:#d97706;">d</span><span class="tile-block" style="background:#d97706;">d</span>
+              <span style="font-size:0.75rem; color:#64748b;">...</span>
+              <span class="tile-block" style="background:#d97706;">d</span>
+            </div>
+          </div>
+          <div class="formula-box" style="font-size:0.9rem; margin-top:8px;">
+            Stopping Condition: $\gcd(m, 0) = m$
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 19 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 20: QUICK BOX 11.3.3 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Euclid's Subtraction Logic</h2>
+      </div>
+      <span class="pill-page">Pages 46–47</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">If $d$ divides both $50$ and $20$, why does it mathematically have to divide $30$ as well?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Why does Euclid's algorithm stop when one of the numbers reaches $0$? What is $\gcd(k, 0)$?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">How many subtraction steps does Euclid's subtraction algorithm take to compute $\gcd(99, 2)$?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 20 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 21: SECTION 11.3.4 ARYABHATA'S DIVISION ALGORITHM -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 11.3.4</span>
+        <h2 class="slide-title">Āryabhaṭa’s Division Algorithm (499 CE)</h2>
+      </div>
+      <span class="pill-page">Pages 48–49</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>🇮🇳</span> From Repeated Subtraction to Remainder</div>
+          <p>Repeatedly subtracting $n$ from $m$ until we cannot subtract anymore is simply computing <strong>the remainder</strong>:</p>
+          <div class="formula-box">
+            $\gcd(m, n) = \gcd(n, m \bmod n)$
+          </div>
+          <p style="font-size:0.9rem;">
+            Featured in Indian treatises like <strong>Āryabhaṭa’s Āryabhaṭīya (499 CE)</strong>, replacing tedious subtraction with long division!
+          </p>
+          <ul class="bullet-list" style="margin-top:6px; font-size:0.86rem;">
+            <li>$\gcd(99, 2)$ took <strong>49 subtraction steps</strong>.</li>
+            <li>With remainder: $99 \bmod 2 = 1 \implies \gcd(2, 1) \implies 2 \bmod 1 = 0 \implies \mathbf{1}$. Solved in just <strong>2 steps!</strong></li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>⚡</span> Classic Long-Division Steps</div>
+          <div class="division-box">
+            <div style="font-weight:700; color:#0369a1; margin-bottom:4px;">Calculating $\gcd(825, 375)$</div>
+            <div>$825 = 375 \times 2 + 75$ &nbsp;$\longrightarrow$ remainder $= 75$</div>
+            <div>$375 = 75 \times 5 + 0$ &nbsp;&nbsp;&nbsp;$\longrightarrow$ remainder $= 0$</div>
+            <div style="color:#059669; font-weight:700; margin-top:6px;">Final Non-Zero Remainder $= 75$!</div>
+          </div>
+          <div class="card-highlight" style="margin-top:10px; padding:10px 14px;">
+            <p style="font-size:0.84rem; font-weight:600; color:#0369a1;">
+              🎉 <strong>Efficiency Achieved:</strong> The number of reduction steps is now proportional to the <strong>number of digits</strong> in $m$ and $n$!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 21 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 22: QUICK BOX 11.3.4 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Āryabhaṭa’s Remainder Step</h2>
+      </div>
+      <span class="pill-page">Pages 48–49</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">What is the value of $17 \bmod 5$ and $33 \bmod 7$?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Why does Āryabhaṭa's remainder reduction compute the exact same GCD as Euclid's repeated subtraction?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">For any odd number of the form $2k + 1$, how many reductions are needed to compute $\gcd(2k+1, 2)$ using division?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 22 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 23: A PINCH OF HISTORY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">A Pinch of History</span>
+        <h2 class="slide-title">Al-Khwārizmī & The Origins of the Word "Algorithm"</h2>
+      </div>
+      <span class="pill-page">Page 49</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>🏛️</span> The House of Wisdom, Baghdad</div>
+          <p><strong>Muhammad ibn Mūsā al-Khwārizmī (780–850 CE):</strong></p>
+          <ul class="bullet-list">
+            <li>Master Persian scholar who studied Indian astronomy and mathematics.</li>
+            <li>Learned Sanskrit and wrote a monumental treatise (~820 CE) introducing Indian place-value numerals and operations (addition, subtraction, multiplication, division).</li>
+            <li>12th-century Latin translation: <em>Liber Algorismi de numero Indorum</em> ("The Book of Al-Khwārizmī on Indian Numerals").</li>
+          </ul>
+        </div>
+        <div class="card card-amber">
+          <div class="card-title amber"><span>📜</span> Etymological Evolution</div>
+          <p style="font-size:0.9rem;">How the name of a scholar became a cornerstone of modern science:</p>
+          <div class="formula-box" style="font-size:1.05rem; font-weight:700; color:#b45309;">
+            Al-Khwārizmī $\longrightarrow$ Algoritmi $\longrightarrow$ Algorism $\longrightarrow$ Algorithm
+          </div>
+          <p style="font-size:0.9rem; line-height:1.5;">
+            Originally, <strong>"algorism"</strong> strictly denoted an Indian method of decimal arithmetic! Today, it represents any unambiguous, step-by-step computational procedure.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 23 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 24: QUICK BOX — HISTORY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">History Check</span>
+        <h2 class="slide-title">⚡ Quick Box — The Heritage of Algorithms</h2>
+      </div>
+      <span class="pill-page">Page 49</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">From which scholar's name is the modern mathematical word "algorithm" derived?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">What mathematical numeral system was described in the Latin treatise <em>Liber Algorismi de numero Indorum</em>?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">What did the word "algorism" specifically refer to in medieval Europe before it broadened to its modern meaning?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 24 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 25: EXERCISE HIGHLIGHTS -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Exercise Highlights</span>
+        <h2 class="slide-title">Worked Representative Problems from Exercises</h2>
+      </div>
+      <span class="pill-page">Pages 49–50</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-3">
+        <div class="card card-highlight">
+          <div class="card-title"><span>Problem 1</span> $\gcd(60, 16)$</div>
+          <p style="font-size:0.84rem;"><strong>Method:</strong> Āryabhaṭa’s division:</p>
+          <div style="font-size:0.84rem; line-height:1.45;">
+            • $60 = 16 \times 3 + 12 \implies \gcd(16, 12)$<br>
+            • $16 = 12 \times 1 + 4 \implies \gcd(12, 4)$<br>
+            • $12 = 4 \times 3 + 0 \implies \text{remainder } 0$
+          </div>
+          <div class="formula-box" style="padding:6px; font-weight:700; color:#0369a1;">
+            $\gcd(60, 16) = \mathbf{4}$
+          </div>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>Problem 2</span> $\gcd(51000, 81000)$</div>
+          <p style="font-size:0.84rem;"><strong>Method:</strong> Euclidean division:</p>
+          <div style="font-size:0.84rem; line-height:1.45;">
+            • $81000 = 51000 \times 1 + 30000$<br>
+            • $51000 = 30000 \times 1 + 21000$<br>
+            • $30000 = 21000 \times 1 + 9000$<br>
+            • $21000 = 9000 \times 2 + 3000$<br>
+            • $9000 = 3000 \times 3 + 0$
+          </div>
+          <div class="formula-box" style="padding:6px; font-weight:700; color:#047857;">
+            $\gcd = \mathbf{3000}$
+          </div>
+        </div>
+        <div class="card card-amber">
+          <div class="card-title amber"><span>Problem 3</span> $\text{prime}(n)$ Check</div>
+          <p style="font-size:0.84rem;"><strong>Specification:</strong> A prime has exactly two divisors: $1$ and itself.</p>
+          <div style="font-size:0.84rem; line-height:1.45;">
+            1. Compute $L = \text{divisors}(n)$.<br>
+            2. Count elements in $L$.<br>
+            3. If length is exactly 2, return <strong>True</strong>; else <strong>False</strong>.
+          </div>
+          <div class="formula-box" style="padding:6px; font-weight:700; color:#b45309;">
+            $\text{length}(L) == 2$
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 25 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 26: QUICK BOX — EXERCISE HIGHLIGHTS -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">⚡ Quick Box</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e;">End-of-Chapter Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Advanced Algorithm Design</h2>
+      </div>
+      <span class="pill-page">Page 50</span>
+    </div>
+    <div class="slide-body">
+      <div class="quickbox-container">
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">How would you filter the output of $\text{divisors}(n)$ to produce a new list called $\text{primedivisors}(n)$?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Given the prime factorisations $180 = 2^2 \times 3^2 \times 5^1$ and $120 = 2^3 \times 3^1 \times 5^1$, how does an algorithm determine their GCD?</span>
+        </div>
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">Why does finding GCD by prime factorisation become computationally difficult for numbers with hundreds of digits?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 26 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 27: CHAPTER SUMMARY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Chapter Summary</span>
+        <h2 class="slide-title">Key Takeaways & Concept Summary</h2>
+      </div>
+      <span class="pill-page">Page 50</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <div class="card-title"><span>✅</span> Core Foundations</div>
+          <ul class="bullet-list">
+            <li><strong>Algorithm Defined:</strong> A systematic, step-by-step procedure of primitive operations to solve a problem.</li>
+            <li><strong>Loops & Conditionals:</strong> We repeat instructions over ranges (e.g., for each $j \in [1, n]$) and execute steps conditionally (if $j$ divides $n$).</li>
+            <li><strong>Data Structures:</strong> Variables and sorted lists allow us to store, organize, and quickly retrieve intermediate results.</li>
+          </ul>
+        </div>
+        <div class="card card-emerald">
+          <div class="card-title emerald"><span>✅</span> Correctness & Efficiency</div>
+          <ul class="bullet-list">
+            <li><strong>Proof of Correctness:</strong> Every algorithm requires a mathematical justification explaining why it always produces the right answer.</li>
+            <li><strong>Efficiency Analysis:</strong> Naive algorithms take steps proportional to the <em>magnitude</em> of the number (e.g., $N$ steps).</li>
+            <li><strong>Place-Value Power:</strong> Āryabhaṭa’s division GCD reduces steps to be proportional to the <em>number of digits</em> ($\approx \log_{10} N$).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 27 / 28</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 28: CLOSING SLIDE -->
+  <section class="slide">
+    <div class="cover-layout">
+      <div style="width: 100%; display: flex; justify-content: space-between;">
+        <span class="pill-tag">GANITA MANJARI • GRADE 9</span>
+        <span class="pill-tag" style="background:#dcfce7; color:#15803d; border-color:#86efac;">End of Chapter 11</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <span class="cover-eyebrow">THANK YOU</span>
+        <h1 class="cover-title" style="font-size:3.2rem;">Keep Computing, Keep Exploring!</h1>
+        <p class="cover-tagline">
+          “An algorithm must be seen to be believed, and the best way to understand mathematics is to write down exactly how it works step by step.”
+        </p>
+        <div class="author-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sublink">(www.akashmaths.online)</span>
+        </div>
+      </div>
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Manjari | Grade 9 Part-II</span>
+        <span>Slide 28 / 28</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nav Controls -->
+  <div class="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+  <div class="nav-controls">
+    <button class="nav-btn" id="prev-btn">❮</button>
+    <button class="nav-btn" id="next-btn">❯</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+    currentSlide = index;
+    
+    // Force KaTeX to render math in the newly active slide
+    if (window.renderMathInElement) {
+        renderMathInElement(slides[currentSlide], {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });
+    }
+}
+
+  function nextSlide() { if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1); }
+  function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  });
+
+  document.getElementById('next-btn').addEventListener('click', nextSlide);
+  document.getElementById('prev-btn').addEventListener('click', prevSlide);
+</script>
+</body>
+</html>

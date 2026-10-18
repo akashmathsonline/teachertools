@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 14: Math of Space: Surface Area and Volume | Grade 9 Mathematics</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for pristine mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 15% 15%, #f5f3ff 0%, #ede9fe 40%, #f8fafc 100%);
+      --accent-primary: #6366f1; /* Modern Indigo */
+      --accent-secondary: #4f46e5;
+      --accent-dark: #312e81;
+      --accent-tint: #eef2ff;
+      --accent-border: #c7d2fe;
+      --accent-coral: #f43f5e;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --card-border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --font-display: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #0b0f19;
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    /* 16:9 Presentation Stage */
+    #presentation-viewport {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      max-width: 100vw;
+      max-height: 100vh;
+      background: var(--bg-gradient);
+      box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.55);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 34px 50px 30px 50px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.38s;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 2;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(99, 102, 241, 0.15);
+    }
+
+    .header-left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      background: #ede9fe;
+      color: var(--accent-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-tag.accent {
+      background: var(--accent-tint);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent-border);
+    }
+
+    .pill-tag.quick {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .page-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: #ffe4e6;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.68rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      line-height: 1.22;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 15px;
+      position: relative;
+      margin-top: 2px;
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-1-2 {
+      grid-template-columns: 1.15fr 1fr;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .content-card.highlight {
+      background: #f5f3ff;
+      border: 1.5px solid var(--accent-border);
+    }
+
+    .content-card.amber-highlight {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+    }
+
+    .content-card.teal-highlight {
+      background: #f0fdfa;
+      border: 1.5px solid #99f6e4;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .bullet-list li {
+      font-size: 0.875rem;
+      line-height: 1.48;
+      color: #334155;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 0.75rem;
+      color: var(--accent-primary);
+    }
+
+    .formula-banner {
+      background: linear-gradient(135deg, #312e81 0%, #4338ca 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin: 4px 0;
+    }
+
+    .formula-banner-light {
+      background: #ffffff;
+      border: 2px dashed var(--accent-primary);
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Subtle Watermark for Middle Slides */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+
+    .slide-footer {
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid rgba(203, 213, 225, 0.6);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .large-credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      border: 2px solid #a5b4fc;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .large-credit-pill span.symbol {
+      color: #c7d2fe;
+      font-size: 1.1rem;
+    }
+
+    .diagram-container {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      height: 100%;
+      min-height: 200px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* Quick Box Styles */
+    .quick-box-container {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid #fde68a;
+      box-shadow: var(--shadow-md);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .quick-q-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .quick-q-badge {
+      background: #f59e0b;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-q-text {
+      font-size: 0.95rem;
+      line-height: 1.48;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .nav-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 4px 8px;
+      border-radius: 30px;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .key-hint {
+      position: absolute;
+      bottom: 15px;
+      left: 24px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      pointer-events: none;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .slide-select {
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    @media (max-width: 1280px) {
+      #presentation-viewport {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Presentation Viewport -->
+  <div id="presentation-viewport">
+    <div class="slides-container" id="deckContainer">
+
+      <!-- SLIDE 1: COVER SLIDE -->
+      <section class="slide active" id="slide-1">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>📚</span> GANITA MANJARI PART II | GRADE 9
+          </div>
+          <div class="pill-tag">
+            Chapter 14 • Cover
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:20px;">
+          <div style="text-transform:uppercase; font-size:0.85rem; font-weight:800; letter-spacing:0.18em; color:var(--accent-secondary);">
+            CLASS 9 MATHEMATICS • CHAPTER 14
+          </div>
+          
+          <h1 style="font-family:var(--font-display); font-size:3.2rem; font-weight:700; color:var(--text-main); line-height:1.1; max-width:1000px;">
+            Math of Space: Surface Area and Volume
+          </h1>
+          
+          <p style="font-style:italic; font-size:1.12rem; color:var(--text-muted); max-width:860px; line-height:1.6;">
+            "Exhaustive point-by-point presentation covering every 3D geometric solid, net unrolling, calculus origins, hands-on derivations, and guesstimate models directly from the textbook."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:7px 16px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🧊 Cuboids, Cubes & Nets
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:7px 16px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🥫 Cylinders & Cones
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:7px 16px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🏔️ Pyramids & Spheres
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:7px 16px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🎯 Real-world Guesstimates
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 1 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: 14.1 Cuboids & Cubes -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.1 Cuboids & Cubes</span>
+            <h2 class="slide-title"><span class="icon">🧱</span> 3D Geometry of Cuboids and Cubes</h2>
+          </div>
+          <span class="page-pill">Page 123–124</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📦 Anatomy of a Cuboid</div>
+              <p class="card-desc">
+                A cuboid is the 3-dimensional analogue of a rectangle. It possesses <strong>6 rectangular faces</strong>, <strong>12 edges</strong>, and <strong>8 vertices</strong>, characterised by length $l$, width $w$, and height $h$.
+              </p>
+              <div class="formula-banner">
+                $$\text{TSA} = 2(lw + wh + lh)$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Net Construction:</strong> Unfolding the 6 connected rectangles demonstrates that opposite faces are congruent pairs with areas $lw$, $wh$, and $lh$.</li>
+                <li><strong>Cube as a Special Case ($l = w = h = a$):</strong></li>
+                <li>$\text{Total Surface Area} = 6a^2$</li>
+                <li>$\text{Volume of Cube} = a^3$</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Cuboid Net -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 300 210" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect x="90" y="20" width="80" height="40" fill="#ede9fe" stroke="#6366f1" stroke-width="1.8"/>
+                <text x="130" y="45" font-size="10" text-anchor="middle" fill="#4338ca">Top (w × l)</text>
+                
+                <rect x="20" y="60" width="70" height="60" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.8"/>
+                <text x="55" y="95" font-size="10" text-anchor="middle" fill="#4338ca">Left (h×w)</text>
+                
+                <rect x="90" y="60" width="80" height="60" fill="#c7d2fe" stroke="#4f46e5" stroke-width="2"/>
+                <text x="130" y="95" font-size="11" font-weight="bold" text-anchor="middle" fill="#1e1b4b">Base (w × l)</text>
+                
+                <rect x="170" y="60" width="70" height="60" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.8"/>
+                <text x="205" y="95" font-size="10" text-anchor="middle" fill="#4338ca">Right (h×w)</text>
+                
+                <rect x="240" y="60" width="50" height="60" fill="#ede9fe" stroke="#6366f1" stroke-width="1.8"/>
+                <text x="265" y="95" font-size="9" text-anchor="middle" fill="#4338ca">Back (h×l)</text>
+                
+                <rect x="90" y="120" width="80" height="60" fill="#ede9fe" stroke="#6366f1" stroke-width="1.8"/>
+                <text x="130" y="155" font-size="10" text-anchor="middle" fill="#4338ca">Front (h × l)</text>
+
+                <text x="130" y="198" font-size="11" font-weight="bold" text-anchor="middle" fill="#64748b">6 Rectangular Faces Net</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 2 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Quick Box - Cuboids & Cubes -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 123–124</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Cuboids & Cube Foundations</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                How many faces, edges, and vertices does a cuboid possess? Which faces are guaranteed to be congruent?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the side of a cube is doubled, how many times does its total surface area expand?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Show how the formula $2(lw + wh + lh)$ reduces algebraically to $6a^2$ when all dimensions equal $a$.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 3 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: Volume of Cuboid & Card Stacking Model -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.1 Volume Derivation</span>
+            <h2 class="slide-title"><span class="icon">🃏</span> The "Stack of Cards" Volume Model</h2>
+          </div>
+          <span class="page-pill">Page 124–125</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card">
+              <div class="card-title">🎴 The Intuitive Physical Model</div>
+              <p class="card-desc">
+                Consider a pack of playing cards. Each individual card has a 2D base area of length $l \times$ width $w$. As identical cards are stacked to a vertical height $h$:
+              </p>
+              <div class="formula-banner">
+                $$V = \text{Base Area} \times \text{Height} = (l \times w) \times h = lwh$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Unit Cube Definition:</strong> Volume is defined by how many unit cubes ($1\text{ cm}^3$ or $1\text{ m}^3$) fit into the space.</li>
+                <li><strong>Cavalieri's Spirit:</strong> Shearing or slanting the stack shifts the outer shape, but the total volume of cards remains identical.</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">⚖️ Volume vs Surface Area Trade-off</div>
+              <p class="card-desc">
+                <strong>Textbook Example 1:</strong> Compare Cube A ($a = 6\text{ cm}$) and Cuboid B ($9 \times 6 \times 4\text{ cm}$):
+              </p>
+              <div style="background:#ffffff; border:1px solid #c7d2fe; padding:10px 14px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                $$V_A = 6^3 = 216\text{ cm}^3, \quad \text{SA}_A = 6(6^2) = 216\text{ cm}^2$$
+                $$V_B = 9 \times 6 \times 4 = 216\text{ cm}^3$$
+                $$\text{SA}_B = 2(54 + 24 + 36) = 228\text{ cm}^2$$
+              </div>
+              <p class="card-desc" style="font-weight:600; color:var(--accent-dark); font-size:0.84rem;">
+                📌 Conclusion: For identical holding capacity, a cube minimizes surface area (material cost/heat loss), whereas flattened cuboids maximize environmental contact.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 4 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: Quick Box - Stacking & Volume -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 124–126</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Volume & Area Invariance</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Why does stacking a deck of playing cards justify the general formula $\text{Volume} = \text{Base Area} \times \text{Height}$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Two cubes each of volume $125\text{ cm}^3$ are joined end to end. Is the total surface area equal to $2 \times \text{SA of one cube}$? Why does it decrease?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                When a $4\text{ cm}$ cube is sliced into $1\text{ cm}$ unit cubes, the total volume remains unchanged. What happens to the total surface area?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 5 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: 14.2 Right Circular Cylinder -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.2 Cylinders</span>
+            <h2 class="slide-title"><span class="icon">🥫</span> Right Circular Cylinder: Anatomy & Slicing</h2>
+          </div>
+          <span class="page-pill">Page 127–128</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">📐 "Right" vs "Oblique"</div>
+              <p class="card-desc">
+                <strong>Circular:</strong> Cross-section parallel to the base is a circle.<br>
+                <strong>Right:</strong> The central rotational axis is strictly perpendicular ($90^\circ$) to its circular bases.<br>
+                <em>Oblique cylinders</em> have tilted axes and are outside our curriculum.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🔬 Cross-Section Concept</div>
+              <p class="card-desc">
+                An infinitely thin slice through an object:
+              </p>
+              <ul class="bullet-list">
+                <li>Slice parallel to base $\implies$ <strong>Circle</strong></li>
+                <li>Slice parallel to axis $\implies$ <strong>Rectangle</strong></li>
+                <li>Real-world: MRI medical body scans slice 3D anatomy into continuous 2D planar images.</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🥞 "Khakhra / Coin" Stack</div>
+              <p class="card-desc">
+                Just as cards form a cuboid, stacking identical thin circular discs (like coins or thin khakhras) of area $\pi r^2$ to height $h$ yields:
+                $$\text{Volume} = (\pi r^2) \times h = \pi r^2 h$$
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 6 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: Quick Box - Cylinder Anatomy -->
+      <section class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 127–128</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Cylinder Properties & Cross-Sections</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What geometrical condition makes a cylinder "right circular" rather than oblique?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                What shape results when a cylinder is sliced parallel to its axis? What shape results when sliced parallel to its base?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Explain how stacking thin circular biscuits of radius $r$ produces the volume formula $V = \pi r^2 h$.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 7 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: Surface Areas of Cylinders -->
+      <section class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.2 Surface Area</span>
+            <h2 class="slide-title"><span class="icon">📜</span> Unrolling the Curved Surface of a Cylinder</h2>
+          </div>
+          <span class="page-pill">Page 128–129</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">✂️ Unrolling into a Flat Rectangle</div>
+              <p class="card-desc">
+                Slitting the curved wall vertically and rolling it flat opens into a rectangle whose:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Length:</strong> Boundary circumference of base $= 2\pi r$</li>
+                <li><strong>Breadth:</strong> Height of cylinder $= h$</li>
+              </ul>
+              <div class="formula-banner" style="margin-top:10px;">
+                $$\text{Curved Surface Area (CSA)} = 2\pi rh$$
+              </div>
+              <p class="card-desc" style="font-size:0.86rem; margin-top:6px;">
+                <strong>Savitri's Project (Example 2):</strong> Kaleidoscope chart paper required with $r = 3.5\text{ cm}$, $h = 25\text{ cm}$:
+                $$\text{CSA} = 2 \times \frac{22}{7} \times 3.5 \times 25 = 550\text{ cm}^2$$
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🏷️ The Three Boundary Conditions</div>
+              <ul class="bullet-list">
+                <li>
+                  <strong>1. Open Pipe / Hollow Tube:</strong><br>
+                  $\text{Surface Area} = \text{CSA} = \mathbf{2\pi rh}$
+                </li>
+                <li>
+                  <strong>2. Tumbler / Open Top Bucket:</strong><br>
+                  One base closed: $\text{SA} = 2\pi rh + \pi r^2 = \mathbf{\pi r(2h + r)}$
+                </li>
+                <li>
+                  <strong>3. Closed Tin / Canister:</strong><br>
+                  Both circular lids closed:<br>
+                  $\text{TSA} = 2\pi rh + 2\pi r^2 = \mathbf{2\pi r(h + r)}$
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 8 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: Quick Box - Cylinder Surface Areas -->
+      <section class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 128–130</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Cylinder Surface Area Challenges</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                When a rectangular sheet of length $22\text{ cm}$ and breadth $10\text{ cm}$ is rolled along its length, what are the radius and height of the cylinder formed?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Cylinder B has twice the radius and half the height of Cylinder A. What is the ratio of their CSAs? What is the ratio of their volumes?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Why does a water tumbler require the formula $\pi r(2h + r)$ instead of $2\pi r(h + r)$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 9 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: 14.3 Right Circular Cones -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.3 Cones</span>
+            <h2 class="slide-title"><span class="icon">🍦</span> Cones: Revolution & The Triangle Relationship</h2>
+          </div>
+          <span class="page-pill">Page 130–131</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🔄 Solid of Revolution</div>
+              <p class="card-desc">
+                A right circular cone is generated when a right-angled triangle is rotated $360^\circ$ about one of its perpendicular legs.
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Base Radius ($r$):</strong> Rotating horizontal leg.</li>
+                <li><strong>Vertical Height ($h$):</strong> Axis of rotation.</li>
+                <li><strong>Slant Height ($l$):</strong> Rotating hypotenuse.</li>
+              </ul>
+              <div class="formula-banner" style="margin-top:10px;">
+                $$l^2 = h^2 + r^2 \iff l = \sqrt{h^2 + r^2}$$
+              </div>
+              <p class="card-desc" style="font-size:0.83rem;">
+                (Directly derived from Baudhayana-Pythagoras theorem).
+              </p>
+            </div>
+
+            <!-- SVG Diagram of Cone -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 280 200" width="100%" height="100%" style="font-family:var(--font-body);">
+                <!-- Cone ellipse base -->
+                <ellipse cx="140" cy="165" rx="80" ry="24" fill="#ede9fe" stroke="#6366f1" stroke-width="2"/>
+                <!-- Dashed back of base -->
+                <path d="M 60 165 A 80 24 0 0 1 220 165" fill="none" stroke="#a5b4fc" stroke-width="1.5" stroke-dasharray="4,4"/>
+                
+                <!-- Cone slant sides -->
+                <line x1="140" y1="30" x2="60" y2="165" stroke="#4f46e5" stroke-width="2.5"/>
+                <line x1="140" y1="30" x2="220" y2="165" stroke="#4f46e5" stroke-width="2.5"/>
+
+                <!-- Right triangle inside -->
+                <line x1="140" y1="30" x2="140" y2="165" stroke="#e11d48" stroke-width="2" stroke-dasharray="4,4"/>
+                <line x1="140" y1="165" x2="220" y2="165" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,4"/>
+                
+                <!-- Right angle marker -->
+                <rect x="140" y="153" width="10" height="12" fill="none" stroke="#475569" stroke-width="1.2"/>
+
+                <!-- Labels -->
+                <text x="148" y="105" font-size="12" font-weight="bold" fill="#e11d48">h (height)</text>
+                <text x="175" y="182" font-size="12" font-weight="bold" fill="#0284c7">r (radius)</text>
+                <text x="195" y="90" font-size="12" font-weight="bold" fill="#4f46e5">l (slant)</text>
+                <circle cx="140" cy="30" r="4" fill="#312e81"/>
+                <text x="140" y="20" font-size="11" font-weight="bold" text-anchor="middle" fill="#312e81">Apex</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 10 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: Quick Box - Cones & Slant Height -->
+      <section class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 130–131</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Cone Dimensions & Rotation</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                A right triangle with sides $5\text{ cm}$, $12\text{ cm}$, and $13\text{ cm}$ is rotated about its $12\text{ cm}$ leg. What are the radius $r$ and slant height $l$ of the resulting cone?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Can the vertical height $h$ of a right circular cone ever exceed or equal its slant height $l$? Justify!
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If the base radius is $7\text{ cm}$ and height is $24\text{ cm}$, what is its slant height $l$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 11 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: Cone Curved Surface Area Derivation -->
+      <section class="slide" id="slide-12">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.3 Area Derivation</span>
+            <h2 class="slide-title"><span class="icon">📐</span> Derivation of Cone Curved Surface Area ($\pi r l$)</h2>
+          </div>
+          <span class="page-pill">Page 130–131</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">Approach 1: Sum of Narrow Triangles</div>
+              <p class="card-desc">
+                Unroll the cone along slant edge $l$. Slice the sector into $n$ narrow isosceles triangles with bases $b_1, b_2, \dots, b_n$ and altitude $l$:
+              </p>
+              <div style="background:#ffffff; border:1px solid #c7d2fe; padding:8px 12px; border-radius:8px; font-size:0.84rem;">
+                $$\text{CSA} = \frac{1}{2}b_1 l + \frac{1}{2}b_2 l + \dots + \frac{1}{2}b_n l$$
+                $$= \frac{1}{2}(b_1 + b_2 + \dots + b_n)l$$
+                $$= \frac{1}{2}(\text{base perimeter})l = \frac{1}{2}(2\pi r)l = \mathbf{\pi rl}$$
+              </div>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">Approach 2: Sector of a Circle Ratio</div>
+              <p class="card-desc">
+                The unrolled surface is a circle sector of radius $l$ subtending angle $\theta$:
+              </p>
+              <div style="background:#ffffff; border:1px solid #99f6e4; padding:8px 12px; border-radius:8px; font-size:0.84rem;">
+                $$\text{Arc length } s = 2\pi r = \frac{\theta}{360^\circ} \times 2\pi l \implies \frac{\theta}{360^\circ} = \frac{r}{l}$$
+                $$\text{Area} = \pi l^2 \times \frac{\theta}{360^\circ} = \pi l^2 \left(\frac{r}{l}\right) = \mathbf{\pi rl}$$
+              </div>
+              <div class="formula-banner" style="margin-top:8px;">
+                $$\text{TSA} = \pi rl + \pi r^2 = \pi r(l + r)$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 12 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: Quick Box - Cone Surface Area -->
+      <section class="slide" id="slide-13">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 131–134</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Cone Surface Areas in Action</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                When a conical tent is erected on the ground, do you calculate its CSA or TSA to determine the canvas cloth required?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Find the CSA of a cone with slant height $10\text{ cm}$ and base radius $7\text{ cm}$ (using $\pi = 22/7$).
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If the radius and slant height of a cone are both doubled, by what multiple does its curved surface area expand?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 13 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: Volume of a Cone & The 1/3 Factor Experiments -->
+      <section class="slide" id="slide-14">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.3 Cone Volume</span>
+            <h2 class="slide-title"><span class="icon">🧪</span> Why the $\frac{1}{3}$ Factor? Hands-on Experiments</h2>
+          </div>
+          <span class="page-pill">Page 132–133</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="formula-banner">
+            $$V = \frac{1}{3}\pi r^2 h = \frac{1}{3} \times \text{Base Area} \times \text{Height}$$
+          </div>
+
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">🧂 Experiment 1: The Salt Pouring Test</div>
+              <p class="card-desc">
+                Construct a hollow cone and a cylinder having identical base radius $r$ and height $h$:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Fill the cone to the brim with fine salt $\to$ pour into cylinder ($1/3$ full).</li>
+                <li>Repeat a second time $\to$ cylinder is $2/3$ full.</li>
+                <li>Repeat a third time $\to$ cylinder is filled <strong>exactly to the brim</strong>!</li>
+                <li><strong>Empirical Law:</strong> $\text{Vol of Cylinder} = 3 \times \text{Vol of Cone}$.</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🏺 Experiment 2: Modelling Clay & Archimedes</div>
+              <p class="card-desc">
+                Mold plasticine clay into a cylinder of dimensions $r$ and $h$. Reshape the exact same clay into cones of identical $r$ and $h$. You will obtain <strong>exactly 3 cones</strong>!
+              </p>
+              <p class="card-desc" style="font-size:0.83rem; margin-top:6px;">
+                <strong>Archimedes (c. 225 BCE):</strong> First rigorously proved this ratio geometrically eighteen centuries prior to modern integral calculus.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 14 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: Quick Box - Cone Volume -->
+      <section class="slide" id="slide-15">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 132–134</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — The Cone Volume Ratio</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                A conical cup is filled with water to half its vertical depth ($h/2$). Does it contain half the volume of water? What fraction does it actually contain?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                A cylinder and a cone have the same base and height. If the cylinder holds 18 litres of milk, how much can the cone hold?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Calculate the volume of a cone formed by rotating a right triangle with legs $5\text{ cm}$ and $12\text{ cm}$ about its $12\text{ cm}$ leg in terms of $\pi$.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 15 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: 14.4 Pyramidal Shapes -->
+      <section class="slide" id="slide-16">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.4 Pyramids</span>
+            <h2 class="slide-title"><span class="icon">🏔️</span> Pyramidal Shapes in Geometry & Nature</h2>
+          </div>
+          <span class="page-pill">Page 134–135</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📐 Generalized Apex Geometry</div>
+              <p class="card-desc">
+                A pyramid consists of any polygonal base connected to a single point (the apex) lying in a different plane:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Square Base:</strong> The Great Pyramids of Giza (Egypt).</li>
+                <li><strong>Triangular Base (Tetrahedron):</strong> Rubik's Pyraminx puzzle.</li>
+                <li><strong>Connection to Cone:</strong> A cone is simply a pyramid whose base is a circle (infinite sides)!</li>
+              </ul>
+              <div class="formula-banner" style="margin-top:8px;">
+                $$V = \frac{1}{3} \times \text{Base Area} \times \text{Height}$$
+              </div>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🏔️ Glacial Pyramidal Peaks</div>
+              <p class="card-desc">
+                In geography and geomorphology, cirque glaciers erode mountainsides on 3 or 4 sides over millennia, carving sharp pyramid peaks:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Shivling Peak:</strong> Uttarakhand Himalayas, India.</li>
+                <li><strong>The Matterhorn:</strong> Pennine Alps, Switzerland.</li>
+                <li><strong>Surface Area:</strong> Sum of the base polygon plus all triangular lateral faces.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 16 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 17: Quick Box - Pyramidal Shapes -->
+      <section class="slide" id="slide-17">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 134–135</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Pyramids & Mountain Peaks</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Why does the volume formula $V = \frac{1}{3} \times \text{Base Area} \times h$ hold true for both cones and square pyramids?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Name two real-world mountain peaks carved into pyramidal horns by glacial action mentioned in the textbook.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                A square pyramid of base edge $6\text{ m}$ and height $10\text{ m}$ is built. What is its enclosed volume?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 17 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 18: 14.5 Spheres & Archimedes Theorem -->
+      <section class="slide" id="slide-18">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.5 Spheres</span>
+            <h2 class="slide-title"><span class="icon">⚽</span> The Sphere & Archimedes' Circumscribed Cylinder</h2>
+          </div>
+          <span class="page-pill">Page 135–136</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📜 Archimedes' Greatest Discovery</div>
+              <p class="card-desc">
+                Archimedes requested a sphere inside its tightly fitting circumscribed cylinder engraved on his tombstone:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Sphere radius $= r$</li>
+                <li>Cylinder radius $= r$, and Cylinder height $h = 2r$</li>
+                <li>$\text{Cylinder CSA} = 2\pi r h = 2\pi r(2r) = \mathbf{4\pi r^2}$</li>
+                <li><strong>Theorem:</strong> The surface area of the sphere is <em>identically equal</em> to the curved area of this enclosing cylinder!</li>
+              </ul>
+              <div class="formula-banner" style="margin-top:8px;">
+                $$\text{Surface Area of Sphere} = 4\pi r^2$$
+              </div>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🗺️ Cartography & Map Projections</div>
+              <p class="card-desc">
+                This exact theorem is the basis of the <strong>Cylindrical (Equirectangular) Map Projection</strong>:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Projecting radially outward from the Earth's polar axis onto a wrapped cylinder unrolls into a rectangular world map.</li>
+                <li><strong>Trade-off:</strong> Preserves equatorial shapes with high fidelity, but causes severe area distortion near the poles (e.g., Greenland appears gigantic).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 18 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 19: Quick Box - Spheres & Archimedes -->
+      <section class="slide" id="slide-19">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 136–137</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Spherical Surface & Map Projections</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What are the dimensions (radius and height) of the smallest cylinder that can completely enclose a sphere of radius $r$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why does an unrolled cylindrical map projection distort landmasses near the North and South poles?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If the radius of a sphere is doubled, how many times larger does its total surface area become?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 19 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 20: Visualizing Sphere Volume & Hands-on String Activity -->
+      <section class="slide" id="slide-20">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.5.1 Sphere Verification</span>
+            <h2 class="slide-title"><span class="icon">🧶</span> String Winding Activity & Cone Decomposition</h2>
+          </div>
+          <span class="page-pill">Page 137–139</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🧶 The 4-Circle String Experiment</div>
+              <p class="card-desc">
+                Wind a string tightly to cover a rubber ball of radius $r$. Mark the length and unwind.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Draw flat circles of radius $r$ on paper.</li>
+                <li>The unwound string from the sphere exactly fills <strong>four full circles</strong>!</li>
+                <li>$\text{Area} = 4 \times (\pi r^2) = \mathbf{4\pi r^2}$.</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🔺 Visualizing Volume: Tiny Cones</div>
+              <p class="card-desc">
+                Decompose the sphere surface into thousands of tiny polygonal patches of area $\Delta A_i$. Connect each to the center $O$:
+              </p>
+              <div style="background:#ffffff; border:1px solid #99f6e4; padding:8px 12px; border-radius:8px; font-size:0.84rem;">
+                $$V = \sum \frac{1}{3}(\Delta A_i) r = \frac{r}{3} \sum \Delta A_i = \frac{r}{3} (4\pi r^2) = \mathbf{\frac{4}{3}\pi r^3}$$
+              </div>
+              <p class="card-desc" style="font-size:0.83rem; margin-top:4px;">
+                This provides an intuitive, pre-calculus geometric proof of the sphere's volume formula!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 20 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 21: 14.5.2 Hemispheres -->
+      <section class="slide" id="slide-21">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.5.2 Hemispheres</span>
+            <h2 class="slide-title"><span class="icon">🥣</span> Hemispheres: Curved vs Total Surface Area</h2>
+          </div>
+          <span class="page-pill">Page 139–141</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Curved Surface (CSA)</div>
+              <p class="card-desc">
+                Exactly half the curved surface of a full sphere:
+              </p>
+              <div class="formula-banner">
+                $$\text{CSA} = \frac{1}{2}(4\pi r^2) = 2\pi r^2$$
+              </div>
+              <p class="card-desc" style="font-size:0.84rem;">
+                Applied for domes, bowl exteriors, and igloo roofs where the base is open to the ground.
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Total Surface Area (TSA)</div>
+              <p class="card-desc">
+                Curved hemisphere plus flat circular base cut:
+              </p>
+              <div class="formula-banner" style="background:#d97706;">
+                $$\text{TSA} = 2\pi r^2 + \pi r^2 = 3\pi r^2$$
+              </div>
+              <p class="card-desc" style="font-size:0.84rem;">
+                Crucial for solid hemispheres (e.g., solid wooden bowls, fruit halves).
+              </p>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Hemispherical Volume</div>
+              <p class="card-desc">
+                Half the cubic content of a full sphere:
+              </p>
+              <div class="formula-banner" style="background:#0d9488;">
+                $$V = \frac{1}{2}\left(\frac{4}{3}\pi r^3\right) = \frac{2}{3}\pi r^3$$
+              </div>
+              <p class="card-desc" style="font-size:0.84rem;">
+                Example: A $3.5\text{ cm}$ radius bowl holds $\frac{2}{3}\pi (3.5)^3 \approx 89.8\text{ cm}^3$ of water.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 21 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 22: Quick Box - Hemispheres -->
+      <section class="slide" id="slide-22">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 140–141</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Hemispherical Calculations</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Why is the total surface area of a solid hemisphere equal to $3\pi r^2$ and not $2\pi r^2$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                When painting the exterior dome of a building of radius $r$, which formula do we use: $2\pi r^2$ or $3\pi r^2$? Why?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                The moon's diameter is roughly $\frac{1}{4}$ of the earth's diameter. What is the approximate ratio of their surface areas?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 22 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 23: 14.6 Guesstimates & Real-World Modeling -->
+      <section class="slide" id="slide-23">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">14.6 Guesstimates</span>
+            <h2 class="slide-title"><span class="icon">🎯</span> Real-World Mathematical Guesstimates</h2>
+          </div>
+          <span class="page-pill">Page 141–143</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🥟 Lallan's Golgappa Stall</div>
+              <p class="card-desc">
+                Cylindrical container ($r = 10\text{ cm}, h = 50\text{ cm}$) has volume $V = 5000\pi \approx 15,708\text{ cm}^3$.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Student 1:</strong> Sphere $r = 1.5\text{ cm}$, 60% full of pani $\implies 8.5\text{ cm}^3/\text{serving} \implies \mathbf{\approx 1850\text{ golgappas}}$.</li>
+                <li><strong>Student 2:</strong> Sphere $r = 1.75\text{ cm}$, 80% full of pani $\implies 18\text{ cm}^3/\text{serving} \implies \mathbf{\approx 870\text{ golgappas}}$.</li>
+                <li><strong>Takeaway:</strong> Guesstimate answers vary with assumptions; rigorous mathematical reasoning is what matters.</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🎾 Tennis Balls & Sphere Packing Gaps</div>
+              <p class="card-desc">
+                Classroom: $30\text{ ft} \times 30\text{ ft} \times 15\text{ ft} \approx 3.78 \times 10^8\text{ cm}^3$. Tennis ball ($r = 3\text{ cm}$) volume $\approx 113\text{ cm}^3$.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Dividing volumes directly gives <strong>3.3 million</strong> (unrealistic upper bound).</li>
+                <li><strong>Sphere Packing Gaps:</strong> Spheres cannot pack without leaving air voids!</li>
+                <li>Grid arrangement ($150 \times 150 \times 75$) yields $\mathbf{\approx 1,687,500\text{ balls}}$.</li>
+                <li><em>Reason unit cubes are used for volume:</em> Cubes tile space with 100% packing efficiency (zero voids).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 23 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 24: Quick Box - Guesstimates -->
+      <section class="slide" id="slide-24">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 143–144</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Guesstimates & Packing Limits</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Why does dividing the room volume by the volume of one sphere give only an upper bound and not the real count?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why are cubes—and never spheres—chosen worldwide as the standard unit to measure 3D volume?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Which gives you more chocolate: one giant cube of side $50\text{ mm}$ or one hundred small cubes of side $10\text{ mm}$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 24 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 25: Exercise Highlights (Worked Problems) -->
+      <section class="slide" id="slide-25">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Key Worked Exemplars: Exercises 14.1 & 14.2</h2>
+          </div>
+          <span class="page-pill">Page 126, 129</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Problem 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Three Meeting Faces</div>
+              <p class="card-desc">
+                Areas of 3 adjacent faces meeting at a vertex are $6\text{ cm}^2, 15\text{ cm}^2, 10\text{ cm}^2$. Find volume.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$lw = 6, \quad wh = 15, \quad lh = 10$$
+                Multiply all three:
+                $$(lwh)^2 = 6 \times 15 \times 10 = 900$$
+                $$V = lwh = \sqrt{900} = \mathbf{30\text{ cm}^3}$$
+              </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Largest Cylinder in Cube</div>
+              <p class="card-desc">
+                A cube of edge $r\text{ cm}$ has the largest possible right circular cylinder carved out of it.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Cylinder diameter $= r \implies \text{radius} = \frac{r}{2}$<br>
+                Cylinder height $= r$<br>
+                $$V = \pi \left(\frac{r}{2}\right)^2 (r) = \mathbf{\frac{\pi r^3}{4}\text{ cm}^3}$$
+              </div>
+            </div>
+
+            <!-- Problem 3 -->
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Invariant Cylinder Volume</div>
+              <p class="card-desc">
+                Base radius increases by 10%. Height decreases by $x\%$. Volume is unchanged. Find $x$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$V_1 = \pi r^2 h = \pi (1.1r)^2 h'$$
+                $$h' = \frac{h}{1.21} \approx 0.8264 h$$
+                $$x\% = 1 - \frac{1}{1.21} = \frac{0.21}{1.21} \approx \mathbf{17.36\%}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 25 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 26: Exercise Highlights Part 2 -->
+      <section class="slide" id="slide-26">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Advanced Worked Exemplars: Exercises 14.3 to End</h2>
+          </div>
+          <span class="page-pill">Page 140, 145, 146</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Exemplar 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Crow & Marbles in Glass</div>
+              <p class="card-desc">
+                Glass ($r = 4\text{ cm}$) water must rise from $16\text{ cm}$ to $20\text{ cm}$ ($\Delta h = 4\text{ cm}$). Marbles of $r = 1\text{ cm}$.
+              </p>
+              <div style="font-size:0.8rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$\text{Volume needed} = \pi (4)^2 (4) = 64\pi\text{ cm}^3$$
+                $$\text{Volume of marble} = \frac{4}{3}\pi (1)^3 = \frac{4}{3}\pi$$
+                $$\text{Marbles} = \frac{64\pi}{(4/3)\pi} = \mathbf{48\text{ marbles}}$$
+              </div>
+            </div>
+
+            <!-- Exemplar 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Equator String Puzzle</div>
+              <p class="card-desc">
+                A string around Earth ($R$) is lengthened by $1\text{ m}$. How high ($h$) does it float uniformly above the surface?
+              </p>
+              <div style="font-size:0.8rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$2\pi(R + h) - 2\pi R = 1\text{ m}$$
+                $$2\pi h = 1 \implies h = \frac{1}{2\pi} \approx \mathbf{0.16\text{ m (16 cm)}}$$
+                <em>Universal for any sphere (Earth, Moon, or volleyball)!</em>
+              </div>
+            </div>
+
+            <!-- Exemplar 3 -->
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Sphere Circumscribed Cylinder</div>
+              <p class="card-desc">
+                Show sphere volume is $\frac{2}{3}$ of the smallest enclosing cylinder.
+              </p>
+              <div style="font-size:0.8rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$\text{Cylinder: } R = r, \ H = 2r$$
+                $$V_{\text{cyl}} = \pi r^2 (2r) = 2\pi r^3$$
+                $$V_{\text{sph}} = \frac{4}{3}\pi r^3 = \frac{2}{3}(2\pi r^3) = \mathbf{\frac{2}{3} V_{\text{cyl}}}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 26 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 27: Chapter Master Summary -->
+      <section class="slide" id="slide-27">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Chapter 14 Summary</span>
+            <h2 class="slide-title"><span class="icon">📋</span> Master Formula & Concept Checklist</h2>
+          </div>
+          <span class="page-pill">Page 147–148</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">✅ Prismatic & Revolution Solids</div>
+              <ul class="bullet-list">
+                <li><strong>Cuboid:</strong> $\text{TSA} = 2(lw+wh+lh)$; $\text{Volume} = lwh$.</li>
+                <li><strong>Cube ($a$):</strong> $\text{TSA} = 6a^2$; $\text{Volume} = a^3$.</li>
+                <li><strong>Right Circular Cylinder:</strong>
+                  $$\text{CSA} = 2\pi rh, \quad \text{TSA} = 2\pi r(h+r), \quad V = \pi r^2 h$$
+                </li>
+                <li><strong>Right Circular Cone:</strong>
+                  $$l = \sqrt{r^2+h^2}, \quad \text{CSA} = \pi rl, \quad V = \frac{1}{3}\pi r^2 h$$
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">✅ Pyramidal, Spherical & Packing Principles</div>
+              <ul class="bullet-list">
+                <li><strong>Pyramids:</strong> $V = \frac{1}{3} \times \text{Base Area} \times h$ (true for any flat base).</li>
+                <li><strong>Sphere:</strong> $\text{Surface Area} = 4\pi r^2$; $V = \frac{4}{3}\pi r^3$.</li>
+                <li><strong>Hemisphere:</strong> $\text{CSA} = 2\pi r^2$; $\text{TSA} = 3\pi r^2$; $V = \frac{2}{3}\pi r^3$.</li>
+                <li><strong>Archimedes Theorem:</strong> $V_{\text{sph}} = \frac{2}{3} V_{\text{cyl}}$ of the circumscribed cylinder.</li>
+                <li><strong>Packing Principle:</strong> Cubes tile space 100%; spheres leave inherent void gaps.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 27 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 28: CLOSING SLIDE (THANK YOU) -->
+      <section class="slide" id="slide-28">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>🏁</span> End of Chapter 14
+          </div>
+          <div class="pill-tag">
+            Complete Deck Review
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:20px;">
+          <div style="font-size:0.9rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-secondary);">
+            NCERT • GANITA MANJARI GRADE 9
+          </div>
+
+          <h1 style="font-family:var(--font-display); font-size:3.5rem; font-weight:700; color:var(--text-main); line-height:1.1;">
+            Thank You!
+          </h1>
+
+          <p style="font-style:italic; font-size:1.18rem; color:var(--text-muted); max-width:840px; line-height:1.6;">
+            "Space is not merely an empty void; it is a canvas sculpted by geometric bounds, where every plane and curve holds a perfect mathematical harmony."
+          </p>
+
+          <div style="margin-top:10px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">✨ Interactive 3D Mensuration Deck</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">📐 Complete Section & Net Coverage</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">⚡ Quick Box Question Slides Included</span>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 28 / 28</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Slide Footer Keyboard Hint -->
+    <div class="key-hint">
+      Use ◀ / ▶ or Space to navigate • [F] Fullscreen
+    </div>
+
+    <!-- On-screen Navigation Controls (bottom-right) -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" title="Previous Slide (Left Arrow)">❮</button>
+      <select class="slide-select" id="slideSelect" title="Jump to Slide"></select>
+      <button class="nav-btn" id="nextBtn" title="Next Slide (Right Arrow / Space)">❯</button>
+      <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen" style="font-size:0.75rem;">⛶</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideSelect = document.getElementById('slideSelect');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const viewport = document.getElementById('presentation-viewport');
+
+      // Populate slide jump menu
+      slides.forEach((slide, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        const titleEl = slide.querySelector('.slide-title');
+        const titleText = titleEl ? titleEl.innerText.replace(/[\n\r]+/g, ' ').trim() : (idx === 0 ? 'Cover Slide' : 'Slide ' + (idx + 1));
+        option.textContent = `${idx + 1}. ${titleText.substring(0, 32)}...`;
+        slideSelect.appendChild(option);
+      });
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        slides[currentIndex].classList.add('active');
+        slideSelect.value = currentIndex;
+
+        // Render KaTeX dynamic formulas
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentIndex], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      // Event Listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      slideSelect.addEventListener('change', (e) => {
+        updateSlide(parseInt(e.target.value, 10));
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullScreen();
+        }
+      });
+
+      // Touch / Swipe Navigation for tablets & boards
+      let touchStartX = 0;
+      let touchStartY = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        const diffY = e.changedTouches[0].screenY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+          if (diffX < 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Fullscreen support
+      function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+          viewport.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullScreen);
+    });
+  </script>
+</body>
+</html>

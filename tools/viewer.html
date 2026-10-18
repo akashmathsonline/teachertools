@@ -9,9 +9,17 @@
 
   <!-- PDF.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  
+  <!-- KaTeX for Math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Library to convert HTML to Image -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
-    :root {
+        :root {
       --orange: #FF6B35;
       --orange-dark: #E85524;
       --orange-soft: #FFF0E8;
@@ -33,9 +41,7 @@
       overscroll-behavior: none;
     }
 
-    /* ============================================
-       16:9 VIEWPORT
-       ============================================ */
+    /* 16:9 VIEWPORT */
     .presentation-viewport {
       position: fixed;
       top: 50%;
@@ -61,6 +67,34 @@
       display: block;
     }
 
+    #htmlContainer {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Hide HTML slide's internal navigation & footer */
+    #htmlContainer .nav-controls,
+    #htmlContainer .keyboard-hint,
+    #htmlContainer .slide-footer,
+    #htmlContainer .slide-watermark {
+      display: none !important;
+    }
+
+    #htmlContainer .deck-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 100% !important;
+      max-height: 100% !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
     #drawCanvas {
       position: absolute;
       top: 0;
@@ -74,38 +108,7 @@
     }
 
     #drawCanvas.active-interactive { pointer-events: auto; }
-/* Landscape rotation for mobile fullscreen */
-@media (max-width: 768px) and (orientation: portrait) {
-  body.fullscreen-active .presentation-viewport {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(90deg) scale(var(--slide-scale));
-    transform-origin: center center;
-    width: 100vh;
-    height: 100vw;
-    max-width: 100vh;
-    max-height: 100vw;
-  }
 
-  body.fullscreen-active .stylus-toolbar {
-    transform: rotate(90deg);
-    transform-origin: center center;
-    right: -20px;
-  }
-
-  body.fullscreen-active .hud-controls {
-    transform: rotate(90deg) translateX(-50%);
-    transform-origin: center center;
-    bottom: 20px;
-  }
-
-  body.fullscreen-active .back-btn,
-  body.fullscreen-active .top-actions {
-    display: none;
-  }
-}
-    /* Loading spinner */
     .loading {
       position: absolute;
       top: 50%;
@@ -129,13 +132,9 @@
       animation: spin 0.8s linear infinite;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ============================================
-       TOP-LEFT: CHAPTER HUB BUTTON
-       ============================================ */
+    /* TOP BUTTONS */
     .back-btn {
       position: fixed;
       top: 15px;
@@ -163,9 +162,6 @@
       transform: translateY(-2px);
     }
 
-    /* ============================================
-       TOP-RIGHT: DOWNLOAD & UNDO/REDO
-       ============================================ */
     .top-actions {
       position: fixed;
       top: 15px;
@@ -191,24 +187,11 @@
       transition: all 0.15s ease;
     }
 
-    .top-btn:hover {
-      background: var(--orange);
-      border-color: var(--orange);
-    }
+    .top-btn:hover { background: var(--orange); border-color: var(--orange); }
+    .top-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .top-btn:disabled:hover { background: rgba(34, 28, 51, 0.92); border-color: rgba(255, 255, 255, 0.25); }
 
-    .top-btn:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
-
-    .top-btn:disabled:hover {
-      background: rgba(34, 28, 51, 0.92);
-      border-color: rgba(255, 255, 255, 0.25);
-    }
-
-    /* ============================================
-       RIGHT SIDE VERTICAL DOCK (STYLUS TOOLS)
-       ============================================ */
+    /* RIGHT SIDE STYLUS TOOLBAR - DESKTOP */
     .stylus-toolbar {
       position: fixed;
       top: 50%;
@@ -226,7 +209,42 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       border: 1px solid rgba(255, 255, 255, 0.15);
       max-height: 95vh;
-      overflow-y: auto;
+      overflow-y: auto; /* Makes it scrollable */
+    }
+
+    /* Tool Grouping Styles */
+    .tool-group-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      width: 100%;
+      text-align: left;
+      padding-left: 4px;
+      margin-top: 6px;
+    }
+    
+    .tool-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+    
+    .color-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      width: 100%;
+      padding: 4px;
+    }
+    
+    .clear-btn {
+      width: 100%;
+      font-size: 12px;
+      gap: 6px;
+      margin-top: 6px;
     }
 
     .tool-btn {
@@ -245,24 +263,14 @@
       flex-shrink: 0;
     }
 
-    .tool-btn:hover {
-      background: rgba(244, 113, 75, 0.85);
-      border-color: transparent;
-    }
-
+    .tool-btn:hover { background: rgba(244, 113, 75, 0.85); border-color: transparent; }
     .tool-btn.active {
       background: var(--orange);
       border-color: var(--orange);
       box-shadow: 0 0 12px rgba(244, 113, 75, 0.7);
     }
 
-    .divider {
-      width: 24px;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.2);
-      margin: 4px 0;
-      flex-shrink: 0;
-    }
+    .divider { width: 24px; height: 1px; background: rgba(255, 255, 255, 0.2); margin: 4px 0; flex-shrink: 0; }
 
     .color-swatch {
       width: 18px;
@@ -274,35 +282,27 @@
       flex-shrink: 0;
     }
 
-    .color-swatch:hover {
-      transform: scale(1.2);
-    }
+    .color-swatch:hover { transform: scale(1.2); }
+    .color-swatch.active { transform: scale(1.3); box-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
 
-    .color-swatch.active {
-      transform: scale(1.3);
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-    }
-
-    /* ============================================
-       BOTTOM HUD CONTROLS
-       ============================================ */
+    /* BOTTOM HUD */
     .hud-controls {
-  position: fixed;
-  bottom: 15px;
-  left: 25%;
-  transform: translateX(-50%);
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(34, 28, 51, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 6px 18px;
-  border-radius: 9999px;
-  color: white;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
+      position: fixed;
+      bottom: 15px;
+      left: 25%;
+      transform: translateX(-50%);
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 28, 51, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 6px 18px;
+      border-radius: 9999px;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
 
     .hud-btn {
       background: transparent;
@@ -316,9 +316,7 @@
       transition: background 0.15s;
     }
 
-    .hud-btn:hover {
-      background: rgba(244, 113, 75, 0.85);
-    }
+    .hud-btn:hover { background: rgba(244, 113, 75, 0.85); }
 
     .hud-counter {
       font-size: 12px;
@@ -329,73 +327,87 @@
       text-align: center;
     }
 
-    .hud-divider {
-      width: 1px;
-      height: 16px;
-      background: rgba(255,255,255,0.3);
-      margin: 0 4px;
-    }
+    .hud-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.3); margin: 0 4px; }
+    
+    .mobile-tool-toggle { display: none; } /* Hidden on Desktop */
 
-    /* ============================================
-       MOBILE OPTIMIZATION
-       ============================================ */
+    /* ============================================================ */
+    /* MOBILE OPTIMIZATION (Max width 768px) */
+    /* ============================================================ */
     @media (max-width: 768px) {
+      .mobile-tool-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--orange);
+        color: white;
+        font-size: 24px;
+        border: none;
+        box-shadow: 0 4px 16px rgba(255, 107, 53, 0.4);
+        z-index: 80;
+        cursor: pointer;
+      }
+
       .stylus-toolbar {
-        right: 8px;
-        padding: 6px 5px;
-        gap: 4px;
+        display: none; 
+        position: fixed;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        background: rgba(34, 28, 51, 0.98);
+        width: 140px;
+        padding: 16px 12px;
+        border-radius: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        z-index: 90;
+        max-height: 80vh; /* Ensures it doesn't overflow */
+        overflow-y: auto;
+      }
+
+      .stylus-toolbar.active {
+        display: flex;
       }
 
       .tool-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 14px;
-      }
-
-      .color-swatch {
-        width: 16px;
-        height: 16px;
-      }
-
-      .back-btn {
-        top: 10px;
-        left: 10px;
-        padding: 6px 12px;
-        font-size: 11px;
-      }
-
-      .top-actions {
-        top: 10px;
-        right: 10px;
-        gap: 6px;
-      }
-
-      .top-btn {
-        width: 36px;
+        width: 100%;
         height: 36px;
-        font-size: 16px;
-      }
-
-      .hud-controls {
-  bottom: 10px;
-  left: 50%;
-  padding: 4px 12px;
-  gap: 4px;
-}
-
-      .hud-btn {
-        padding: 6px 10px;
+        justify-content: flex-start;
+        padding-left: 12px;
         font-size: 14px;
       }
 
-      .hud-counter {
-        font-size: 11px;
-        min-width: 60px;
-        padding: 0 6px;
+      .tool-btn::before {
+        content: attr(title);
+        margin-left: 8px;
       }
+
+      .color-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .color-swatch {
+        width: 22px;
+        height: 22px;
+      }
+      
+      .hud-controls { bottom: 10px; left: 50%; padding: 4px 12px; gap: 4px; }
+      .hud-btn { padding: 6px 10px; font-size: 14px; }
+      .hud-counter { font-size: 11px; min-width: 60px; padding: 0 6px; }
+      
+      .back-btn { top: 10px; left: 10px; padding: 6px 12px; font-size: 11px; }
+      .top-actions { top: 10px; right: 10px; gap: 6px; }
+      .top-btn { width: 36px; height: 36px; font-size: 16px; }
     }
 
-    /* Hide scrollbars */
     ::-webkit-scrollbar { width: 0; height: 0; }
   </style>
 </head>
@@ -409,52 +421,78 @@
 
   <!-- TOP-RIGHT: DOWNLOAD, UNDO, REDO -->
   <div class="top-actions">
-    <button class="top-btn" id="btnUndo" title="Undo (Ctrl+Z)" disabled>↶</button>
-    <button class="top-btn" id="btnRedo" title="Redo (Ctrl+Y)" disabled>↷</button>
+    <button class="top-btn" id="btnUndo" title="Undo" disabled>↶</button>
+    <button class="top-btn" id="btnRedo" title="Redo" disabled>↷</button>
     <button class="top-btn" id="btnDownload" title="Download PNG">⬇</button>
   </div>
 
   <!-- RIGHT SIDE: STYLUS TOOLS -->
-  <div class="stylus-toolbar" id="stylusToolbar">
+  <!-- MOBILE TOOL TOGGLE BUTTON -->
+<button class="mobile-tool-toggle" id="mobileToolToggle" title="Tools">🛠️</button>
+
+<!-- RIGHT SIDE: STYLUS TOOLS -->
+<div class="stylus-toolbar" id="stylusToolbar">
+  
+  <!-- Group 1: Zoom -->
+  <div class="tool-group-title">Zoom</div>
+  <div class="tool-group">
     <button class="tool-btn" id="btnZoomIn" title="Zoom In">🔍+</button>
     <button class="tool-btn" id="btnZoomOut" title="Zoom Out">🔍−</button>
+  </div>
 
-    <div class="divider"></div>
+  <div class="divider"></div>
 
+  <!-- Group 2: Draw -->
+  <div class="tool-group-title">Draw</div>
+  <div class="tool-group">
     <button class="tool-btn" id="btnPen" title="Pen">✏️</button>
     <button class="tool-btn" id="btnHighlighter" title="Highlighter">🖍️</button>
+    <button class="tool-btn" id="btnEraser" title="Eraser">🧹</button>
+  </div>
 
-    <div class="divider"></div>
+  <div class="divider"></div>
 
+  <!-- Group 3: Shapes -->
+  <div class="tool-group-title">Shapes</div>
+  <div class="tool-group">
     <button class="tool-btn" id="btnLine" title="Line">📏</button>
     <button class="tool-btn" id="btnRect" title="Rectangle">⬜</button>
     <button class="tool-btn" id="btnCircle" title="Circle">⭕</button>
     <button class="tool-btn" id="btnTriangle" title="Triangle">🔺</button>
+  </div>
 
-    <div class="divider"></div>
+  <div class="divider"></div>
 
-    <button class="tool-btn" id="btnEraser" title="Eraser">🧹</button>
-
-    <div class="divider"></div>
-
+  <!-- Group 4: Colors -->
+  <div class="tool-group-title">Colors</div>
+  <div class="color-grid">
     <div class="color-swatch active" style="background: #E85C5C" data-color="#E85C5C" title="Red"></div>
     <div class="color-swatch" style="background: #2F80ED" data-color="#2F80ED" title="Blue"></div>
     <div class="color-swatch" style="background: #27AE60" data-color="#27AE60" title="Green"></div>
     <div class="color-swatch" style="background: #F4714B" data-color="#F4714B" title="Coral"></div>
     <div class="color-swatch" style="background: #221C33" data-color="#221C33" title="Black"></div>
-<div class="color-swatch" style="background: #FFD93D" data-color="#FFD93D" title="Yellow"></div>
-<div class="color-swatch" style="background: #FFFFFF" data-color="#FFFFFF" title="White"></div>
-
-    <div class="divider"></div>
-
-    <button class="tool-btn" id="btnClear" title="Clear Slide">🗑️</button>
+    <div class="color-swatch" style="background: #FFD93D" data-color="#FFD93D" title="Yellow"></div>
+    <div class="color-swatch" style="background: #FFFFFF" data-color="#FFFFFF" title="White"></div>
   </div>
 
-  <!-- PDF VIEWPORT -->
+  <div class="divider"></div>
+
+  <!-- Group 5: Clear -->
+  <button class="tool-btn clear-btn" id="btnClear" title="Clear Slide">🗑️ Clear</button>
+</div>
+
+  <!-- VIEWPORT -->
   <div class="presentation-viewport" id="viewport">
+    <!-- PDF Canvas -->
     <canvas id="pdfCanvas"></canvas>
+    
+    <!-- HTML Slide Direct Container -->
+    <div id="htmlContainer"></div>
+    
+    <!-- Drawing Canvas -->
     <canvas id="drawCanvas"></canvas>
-    <div class="loading" id="loading">Loading PDF...</div>
+    
+    <div class="loading" id="loading">Loading...</div>
   </div>
 
   <!-- BOTTOM HUD -->
@@ -467,638 +505,597 @@
   </div>
 
   <script>
-/* ============================================================
-   SMART SLIDES VIEWER — Main Logic
-   ============================================================ */
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-// ============================================================
-// CONFIG
-// ============================================================
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const params = new URLSearchParams(window.location.search);
+    const classId = params.get('class') || '9';
+    const chapterId = params.get('chapter') || '1';
 
-// URL Parameters
-const params = new URLSearchParams(window.location.search);
-const classId = params.get('class') || '9';
-const chapterId = params.get('chapter') || '1';
+    let pdfDoc = null;
+    let currentPage = 1;
+    let totalPages = 0;
+    let currentZoom = 1.0;
+    let currentTool = 'none';
+    let currentColor = '#E85C5C';
+    let isDrawing = false;
+    let startX = 0, startY = 0;
+    let snapshot = null;
+    
+    let isHtmlMode = false;
+    let currentHtmlSlide = 0;
+    const slideDrawings = {};
+    const slideHistory = {};
 
-// ============================================================
-// STATE
-// ============================================================
-let pdfDoc = null;
-let currentPage = 1;
-let totalPages = 0;
-let currentZoom = 1.0;
-let currentTool = 'none';
-let currentColor = '#E85C5C';
-let isDrawing = false;
-let startX = 0, startY = 0;
-let snapshot = null;
+    const pdfCanvas = document.getElementById('pdfCanvas');
+    const pdfCtx = pdfCanvas.getContext('2d');
+    const htmlContainer = document.getElementById('htmlContainer');
+    const drawCanvas = document.getElementById('drawCanvas');
+    const ctx = drawCanvas.getContext('2d');
+    const viewport = document.getElementById('viewport');
+    const loading = document.getElementById('loading');
+    const hudCounter = document.getElementById('hudCounter');
+    const backBtn = document.getElementById('backBtn');
+    const backLabel = document.getElementById('backLabel');
 
-// Per-slide drawings (base64 images)
-const slideDrawings = {};
-// Per-slide undo/redo history
-const slideHistory = {};
-// PDF file path (from JSON)
-let pdfPath = '';
-
-// ============================================================
-// DOM ELEMENTS
-// ============================================================
-const pdfCanvas = document.getElementById('pdfCanvas');
-const pdfCtx = pdfCanvas.getContext('2d');
-const drawCanvas = document.getElementById('drawCanvas');
-const ctx = drawCanvas.getContext('2d');
-const viewport = document.getElementById('viewport');
-const loading = document.getElementById('loading');
-const hudCounter = document.getElementById('hudCounter');
-const backBtn = document.getElementById('backBtn');
-const backLabel = document.getElementById('backLabel');
-
-// ============================================================
-// LOAD CHAPTER DATA & PDF
-// ============================================================
-async function init() {
-  try {
-    // Load chapters.json
-    const response = await fetch('../data/chapters.json');
-    const data = await response.json();
-
-    const classData = data.classes.find(c => c.id === parseInt(classId));
-    if (!classData) {
-      showError('Class not found');
-      return;
-    }
-
-    const chapterData = classData.chapters.find(c => c.id === parseInt(chapterId));
-    if (!chapterData) {
-      showError('Chapter not found');
-      return;
-    }
-
-    pdfPath = chapterData.pdf;
-
-    // Update back button
-    backBtn.href = `smart-slides/class-${classId}.html`;
-    backLabel.textContent = `Class ${classId} · Ch ${chapterId}`;
-
-    // Update page title
-    document.title = `${chapterData.name} — Smart Slides`;
-
-    // Load PDF
-    await loadPDF(pdfPath);
-  } catch (error) {
-    console.error('Init error:', error);
-    showError('Could not load PDF');
-  }
-}
-
-async function loadPDF(url) {
-  try {
-    loading.style.display = 'block';
-    const loadingTask = pdfjsLib.getDocument(url);
-    pdfDoc = await loadingTask.promise;
-    totalPages = pdfDoc.numPages;
-
-    // Hide loading
-    loading.style.display = 'none';
-
-    // Resize canvases
-    resizeCanvases();
-
-    // Render first page
-    await renderPage(1);
-    updateCounter();
-
-  } catch (error) {
-    console.error('PDF load error:', error);
-    showError('Could not load PDF. Check file path.');
-  }
-}
-
-function showError(msg) {
-  loading.style.display = 'block';
-  loading.textContent = '⚠️ ' + msg;
-  loading.style.animation = 'none';
-}
-
-// ============================================================
-// RENDER PDF PAGE
-// ============================================================
-async function renderPage(pageNum) {
-  if (!pdfDoc) return;
-  if (pageNum < 1) pageNum = 1;
-  if (pageNum > totalPages) pageNum = totalPages;
-
-  const page = await pdfDoc.getPage(pageNum);
-  const viewport16by9 = viewport.getBoundingClientRect();
-  const pixelRatio = window.devicePixelRatio || 1;
-
-  // Base scale to fit 16:9 viewport
-  const baseViewport = page.getViewport({ scale: 1 });
-  const scaleX = viewport16by9.width / baseViewport.width;
-  const scaleY = viewport16by9.height / baseViewport.height;
-  const scale = Math.min(scaleX, scaleY) * pixelRatio;
-
-  const scaledViewport = page.getViewport({ scale });
-
-  pdfCanvas.width = scaledViewport.width;
-  pdfCanvas.height = scaledViewport.height;
-
-  const renderContext = {
-    canvasContext: pdfCtx,
-    viewport: scaledViewport
-  };
-
-  await page.render(renderContext).promise;
-
-  currentPage = pageNum;
-
-  // Resize draw canvas to match
-  resizeCanvases();
-  // Restore drawings for this page
-  restoreSlideCanvas(currentPage);
-  updateCounter();
-}
-
-// ============================================================
-// RESIZE CANVASES
-// ============================================================
-function resizeCanvases() {
-  const rect = viewport.getBoundingClientRect();
-  drawCanvas.width = rect.width;
-  drawCanvas.height = rect.height;
-  // Redraw existing drawings for current slide
-  restoreSlideCanvas(currentPage);
-}
-
-window.addEventListener('resize', () => {
-  resizeCanvases();
-  if (pdfDoc) renderPage(currentPage);
-});
-
-// ============================================================
-// NAVIGATION
-// ============================================================
-function nextSlide() {
-  if (currentPage < totalPages) {
-    saveSlideCanvas(currentPage);
-    renderPage(currentPage + 1);
-  }
-}
-
-function prevSlide() {
-  if (currentPage > 1) {
-    saveSlideCanvas(currentPage);
-    renderPage(currentPage - 1);
-  }
-}
-
-function updateCounter() {
-  const cur = String(currentPage).padStart(2, '0');
-  const tot = String(totalPages).padStart(2, '0');
-  hudCounter.textContent = `${cur} / ${tot}`;
-}
-
-document.getElementById('btnPrev').addEventListener('click', (e) => {
-  e.stopPropagation();
-  prevSlide();
-});
-
-document.getElementById('btnNext').addEventListener('click', (e) => {
-  e.stopPropagation();
-  nextSlide();
-});
-
-// Click on viewport to navigate (only when no tool active)
-viewport.addEventListener('click', (e) => {
-  if (currentTool !== 'none') return;
-  if (e.target.closest('.stylus-toolbar') || e.target.closest('.hud-controls')) return;
-
-  const rect = viewport.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  if (clickX < rect.width / 2) {
-    prevSlide();
-  } else {
-    nextSlide();
-  }
-});
-
-// Keyboard
-document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
-    e.preventDefault();
-    nextSlide();
-  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
-    e.preventDefault();
-    prevSlide();
-  } else if (e.key === 'f' || e.key === 'F') {
-    toggleFullscreen();
-  } else if (e.key === '+' || e.key === '=') {
-    updateZoom(0.1);
-  } else if (e.key === '-' || e.key === '_') {
-    updateZoom(-0.1);
-  } else if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
-    e.preventDefault();
-    undo();
-  } else if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.shiftKey && e.key === 'Z'))) {
-    e.preventDefault();
-    redo();
-  } else if (e.key === 'Escape') {
-    setActiveTool('none');
-  }
-});
-
-// ============================================================
-// TOUCH SWIPE NAVIGATION
-// ============================================================
-let touchStartX = 0;
-let touchStartY = 0;
-
-viewport.addEventListener('touchstart', (e) => {
-  if (currentTool !== 'none') return;
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
-}, { passive: true });
-
-viewport.addEventListener('touchend', (e) => {
-  if (currentTool !== 'none') return;
-  const touchEndX = e.changedTouches[0].clientX;
-  const touchEndY = e.changedTouches[0].clientY;
-  const diffX = touchStartX - touchEndX;
-  const diffY = touchStartY - touchEndY;
-
-  if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-    if (diffX > 0) nextSlide();
-    else prevSlide();
-  }
-}, { passive: true });
-
-// ============================================================
-// FULLSCREEN
-// ============================================================
-async function toggleFullscreen() {
-  const isMobile = window.innerWidth <= 768;
-  
-  if (!document.fullscreenElement) {
-    try {
-      // Request fullscreen
-      await document.documentElement.requestFullscreen();
-      
-      // Add class for mobile rotation
-      if (isMobile) {
-        document.body.classList.add('fullscreen-active');
-        
-        // Try to lock orientation to landscape
-        if (screen.orientation && screen.orientation.lock) {
-          try {
-            await screen.orientation.lock('landscape');
-          } catch (err) {
-            // Orientation lock not supported — CSS rotation will handle it
-            console.log('Orientation lock not supported:', err);
-          }
-        }
-      }
-    } catch (err) {
-      console.warn('Fullscreen failed:', err);
-    }
-  } else {
-    // Exit fullscreen
-    if (screen.orientation && screen.orientation.unlock) {
+    // ============================================================
+    // INIT
+    // ============================================================
+    async function init() {
       try {
-        screen.orientation.unlock();
-      } catch (err) {
-        // Ignore
+        const response = await fetch('../data/chapters.json');
+        const data = await response.json();
+
+        const classData = data.classes.find(c => c.id === parseInt(classId));
+        if (!classData) { showError('Class not found'); return; }
+
+        const chapterData = classData.chapters.find(c => c.id === parseInt(chapterId));
+        if (!chapterData) { showError('Chapter not found'); return; }
+
+        backBtn.href = `smart-slides/class-${classId}.html`;
+        backLabel.textContent = `Class ${classId} · Ch ${chapterId}`;
+        document.title = `${chapterData.name} — Smart Slides`;
+
+        if (chapterData.html) {
+          isHtmlMode = true;
+          const htmlPath = chapterData.html.startsWith('/') ? chapterData.html.substring(1) : chapterData.html;
+          loadHTML(htmlPath);
+        } else if (chapterData.pdf) {
+          isHtmlMode = false;
+          await loadPDF(chapterData.pdf);
+        } else {
+          showError('No content found for this chapter.');
+        }
+      } catch (error) {
+        console.error('Init error:', error);
+        showError('Could not load chapter data.');
       }
     }
-    
-    document.body.classList.remove('fullscreen-active');
-    
-    if (document.exitFullscreen) {
-      await document.exitFullscreen();
+
+    function showError(msg) {
+      loading.style.display = 'block';
+      loading.textContent = '⚠️ ' + msg;
+      loading.style.animation = 'none';
     }
-  }
-}
 
-document.getElementById('btnFullscreen').addEventListener('click', toggleFullscreen);
+    // ============================================================
+    // HTML SLIDES LOAD (Direct Injection)
+    // ============================================================
+    async function loadHTML(url) {
+      loading.style.display = 'none';
+      pdfCanvas.style.display = 'none';
+      htmlContainer.style.display = 'block';
+      
+      const finalUrl = url.startsWith('/') ? '..' + url : '../' + url;
+      
+      try {
+        const response = await fetch(finalUrl);
+        const htmlText = await response.text();
+        
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, 'text/html');
+        
+        // Inject CSS
+        doc.querySelectorAll('style').forEach(style => {
+          document.head.appendChild(style.cloneNode(true));
+        });
+        
+        // Inject Body
+        htmlContainer.innerHTML = doc.body.innerHTML;
+        
+        // Remove Scripts to avoid conflicts with viewer
+        const injectedScripts = htmlContainer.querySelectorAll('script');
+        injectedScripts.forEach(s => s.remove());
 
-// ============================================================
-// ZOOM
-// ============================================================
-function updateZoom(step) {
-  currentZoom = Math.min(Math.max(0.75, currentZoom + step), 2.0);
-  document.documentElement.style.setProperty('--slide-scale', currentZoom);
-}
+        // Ensure first slide is active
+        const slides = htmlContainer.querySelectorAll('.slide');
+        if (slides.length > 0) {
+          slides.forEach(s => s.classList.remove('active'));
+          slides[0].classList.add('active');
+          currentHtmlSlide = 0;
+          updateCounter();
+        }
 
-document.getElementById('btnZoomIn').addEventListener('click', () => updateZoom(0.1));
-document.getElementById('btnZoomOut').addEventListener('click', () => updateZoom(-0.1));
+        // Force KaTeX to render
+        setTimeout(() => {
+          if (window.renderMathInElement) {
+            renderMathInElement(htmlContainer, {
+              delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+              ]
+            });
+          }
+        }, 300);
 
-// ============================================================
-// DRAWING ENGINE
-// ============================================================
-function setActiveTool(tool) {
-  currentTool = tool;
-
-  const tools = ['Pen', 'Highlighter', 'Line', 'Rect', 'Circle', 'Triangle', 'Eraser'];
-  tools.forEach(t => {
-    const btn = document.getElementById('btn' + t);
-    if (btn) btn.classList.toggle('active', t.toLowerCase() === tool);
-  });
-
-  if (tool === 'none') {
-    drawCanvas.classList.remove('active-interactive');
-  } else {
-    drawCanvas.classList.add('active-interactive');
-  }
-}
-
-document.getElementById('btnPen').addEventListener('click', () => setActiveTool(currentTool === 'pen' ? 'none' : 'pen'));
-document.getElementById('btnHighlighter').addEventListener('click', () => setActiveTool(currentTool === 'highlighter' ? 'none' : 'highlighter'));
-document.getElementById('btnLine').addEventListener('click', () => setActiveTool(currentTool === 'line' ? 'none' : 'line'));
-document.getElementById('btnRect').addEventListener('click', () => setActiveTool(currentTool === 'rect' ? 'none' : 'rect'));
-document.getElementById('btnCircle').addEventListener('click', () => setActiveTool(currentTool === 'circle' ? 'none' : 'circle'));
-document.getElementById('btnTriangle').addEventListener('click', () => setActiveTool(currentTool === 'triangle' ? 'none' : 'triangle'));
-document.getElementById('btnEraser').addEventListener('click', () => setActiveTool(currentTool === 'eraser' ? 'none' : 'eraser'));
-
-// Color swatches
-document.querySelectorAll('.color-swatch').forEach(swatch => {
-  swatch.addEventListener('click', () => {
-    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-    swatch.classList.add('active');
-    currentColor = swatch.getAttribute('data-color');
-    if (currentTool === 'none' || currentTool === 'eraser') {
-      setActiveTool('pen');
+        resizeCanvases();
+      } catch (err) {
+        console.error('HTML Load Error:', err);
+        showError('Could not load HTML slides.');
+      }
     }
-  });
-});
 
-// Clear current slide
-document.getElementById('btnClear').addEventListener('click', () => {
-  saveHistory();
-  ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-  delete slideDrawings[currentPage];
-  updateUndoRedoButtons();
-});
+    // ============================================================
+    // PDF LOAD & RENDER
+    // ============================================================
+    async function loadPDF(url) {
+      try {
+        loading.style.display = 'block';
+        loading.textContent = 'Loading PDF...';
+        pdfCanvas.style.display = 'block';
+        htmlContainer.style.display = 'none';
 
-// ============================================================
-// POINTER COORDS (Mouse + Touch + Stylus)
-// ============================================================
-function getCoords(e) {
-  const rect = drawCanvas.getBoundingClientRect();
-  let clientX, clientY;
+        const finalUrl = url.startsWith('/') ? url : '../' + url;
+        const loadingTask = pdfjsLib.getDocument(finalUrl);
+        pdfDoc = await loadingTask.promise;
+        totalPages = pdfDoc.numPages;
+        loading.style.display = 'none';
 
-  if (e.touches && e.touches.length > 0) {
-    clientX = e.touches[0].clientX;
-    clientY = e.touches[0].clientY;
-  } else if (e.changedTouches && e.changedTouches.length > 0) {
-    clientX = e.changedTouches[0].clientX;
-    clientY = e.changedTouches[0].clientY;
-  } else {
-    clientX = e.clientX;
-    clientY = e.clientY;
-  }
+        resizeCanvases();
+        await renderPage(1);
+        updateCounter();
+      } catch (error) {
+        console.error('PDF load error:', error);
+        showError('Could not load PDF. Check file path.');
+      }
+    }
 
-  return {
-    x: clientX - rect.left,
-    y: clientY - rect.top
-  };
-}
+    async function renderPage(pageNum) {
+      if (!pdfDoc) return;
+      if (pageNum < 1) pageNum = 1;
+      if (pageNum > totalPages) pageNum = totalPages;
 
-// ============================================================
-// DRAWING EVENTS
-// ============================================================
-function applyToolSettings() {
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
+      const page = await pdfDoc.getPage(pageNum);
+      const viewport16by9 = viewport.getBoundingClientRect();
+      const pixelRatio = window.devicePixelRatio || 1;
 
-  if (currentTool === 'pen' || currentTool === 'line' || currentTool === 'rect' || currentTool === 'circle' || currentTool === 'triangle') {
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.strokeStyle = currentColor;
-    ctx.lineWidth = 3;
-  } else if (currentTool === 'highlighter') {
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.strokeStyle = currentColor + '55';
-    ctx.lineWidth = 18;
-  } else if (currentTool === 'eraser') {
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.lineWidth = 28;
-  }
-}
+      const baseViewport = page.getViewport({ scale: 1 });
+      const scaleX = viewport16by9.width / baseViewport.width;
+      const scaleY = viewport16by9.height / baseViewport.height;
+      const scale = Math.min(scaleX, scaleY) * pixelRatio;
+      const scaledViewport = page.getViewport({ scale });
 
-function startDraw(e) {
-  if (currentTool === 'none') return;
-  e.preventDefault();
-  isDrawing = true;
+      pdfCanvas.width = scaledViewport.width;
+      pdfCanvas.height = scaledViewport.height;
 
-  const pos = getCoords(e);
-  startX = pos.x;
-  startY = pos.y;
+      const renderContext = { canvasContext: pdfCtx, viewport: scaledViewport };
+      await page.render(renderContext).promise;
 
-  // Snapshot for shape preview & undo
-  snapshot = ctx.getImageData(0, 0, drawCanvas.width, drawCanvas.height);
+      currentPage = pageNum;
+      resizeCanvases();
+      restoreSlideCanvas(currentPage);
+      updateCounter();
+    }
 
-  ctx.beginPath();
-  ctx.moveTo(startX, startY);
-  applyToolSettings();
+    // ============================================================
+    // RESIZE CANVASES
+    // ============================================================
+    function resizeCanvases() {
+      const rect = viewport.getBoundingClientRect();
+      drawCanvas.width = rect.width * currentZoom;
+      drawCanvas.height = rect.height * currentZoom;
+      
+      const key = isHtmlMode ? `html-${currentHtmlSlide}` : currentPage;
+      restoreSlideCanvas(key);
+    }
 
-  if (currentTool === 'pen' || currentTool === 'highlighter' || currentTool === 'eraser') {
-    ctx.lineTo(startX, startY);
-    ctx.stroke();
-  }
-}
+    window.addEventListener('resize', () => {
+      resizeCanvases();
+      if (!isHtmlMode && pdfDoc) renderPage(currentPage);
+    });
 
-function draw(e) {
-  if (!isDrawing || currentTool === 'none') return;
-  e.preventDefault();
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
+    function nextSlide() {
+      if (isHtmlMode) {
+        const slides = htmlContainer.querySelectorAll('.slide');
+        if (slides.length > 0 && currentHtmlSlide < slides.length - 1) {
+          slides[currentHtmlSlide].classList.remove('active');
+          currentHtmlSlide++;
+          slides[currentHtmlSlide].classList.add('active');
+          updateCounter();
+          clearCanvas();
+        }
+        return; 
+      }
+      if (currentPage < totalPages) {
+        saveSlideCanvas(currentPage);
+        renderPage(currentPage + 1);
+      }
+    }
 
-  const pos = getCoords(e);
+    function prevSlide() {
+      if (isHtmlMode) {
+        const slides = htmlContainer.querySelectorAll('.slide');
+        if (slides.length > 0 && currentHtmlSlide > 0) {
+          slides[currentHtmlSlide].classList.remove('active');
+          currentHtmlSlide--;
+          slides[currentHtmlSlide].classList.add('active');
+          updateCounter();
+          clearCanvas();
+        }
+        return;
+      }
+      if (currentPage > 1) {
+        saveSlideCanvas(currentPage);
+        renderPage(currentPage - 1);
+      }
+    }
 
-  if (currentTool === 'pen' || currentTool === 'highlighter' || currentTool === 'eraser') {
-    ctx.lineTo(pos.x, pos.y);
-    ctx.stroke();
-  } else {
-    // Shape: restore snapshot & redraw
-    ctx.putImageData(snapshot, 0, 0);
-    drawShape(pos.x, pos.y);
-  }
-}
+    function updateCounter() {
+      if (isHtmlMode) {
+        const slides = htmlContainer.querySelectorAll('.slide');
+        const total = slides.length;
+        const cur = currentHtmlSlide + 1;
+        hudCounter.textContent = `${String(cur).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+        return;
+      }
+      const cur = String(currentPage).padStart(2, '0');
+      const tot = String(totalPages).padStart(2, '0');
+      hudCounter.textContent = `${cur} / ${tot}`;
+    }
 
-function drawShape(endX, endY) {
-  ctx.beginPath();
-  applyToolSettings();
+    document.getElementById('btnPrev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      prevSlide();
+    });
+    document.getElementById('btnNext').addEventListener('click', (e) => {
+      e.stopPropagation();
+      nextSlide();
+    });
 
-  if (currentTool === 'line') {
-    ctx.moveTo(startX, startY);
-    ctx.lineTo(endX, endY);
-    ctx.stroke();
-  } else if (currentTool === 'rect') {
-    ctx.strokeRect(startX, startY, endX - startX, endY - startY);
-  } else if (currentTool === 'circle') {
-    const radius = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
-    ctx.arc(startX, startY, radius, 0, 2 * Math.PI);
-    ctx.stroke();
-  } else if (currentTool === 'triangle') {
-    ctx.moveTo(startX, endY);
-    ctx.lineTo((startX + endX) / 2, startY);
-    ctx.lineTo(endX, endY);
-    ctx.closePath();
-    ctx.stroke();
-  }
-}
+    // Click on viewport to navigate (PDF mode only)
+    viewport.addEventListener('click', (e) => {
+      if (isHtmlMode) return;
+      if (currentTool !== 'none') return;
+      if (e.target.closest('.stylus-toolbar') || e.target.closest('.hud-controls')) return;
 
-function stopDraw(e) {
-  if (isDrawing) {
-    isDrawing = false;
-    saveHistory();
-    saveSlideCanvas(currentPage);
-    updateUndoRedoButtons();
-  }
-}
+      const rect = viewport.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      if (clickX < rect.width / 2) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
+    });
 
-// MOUSE EVENTS
-drawCanvas.addEventListener('mousedown', startDraw);
-drawCanvas.addEventListener('mousemove', draw);
-window.addEventListener('mouseup', stopDraw);
+    // ============================================================
+    // ZOOM
+    // ============================================================
+    function updateZoom(step) {
+      currentZoom = Math.min(Math.max(0.75, currentZoom + step), 2.0);
+      document.documentElement.style.setProperty('--slide-scale', currentZoom);
+      setTimeout(resizeCanvases, 50);
+    }
 
-// TOUCH EVENTS
-drawCanvas.addEventListener('touchstart', startDraw, { passive: false });
-drawCanvas.addEventListener('touchmove', draw, { passive: false });
-window.addEventListener('touchend', stopDraw);
+    document.getElementById('btnZoomIn').addEventListener('click', () => updateZoom(0.1));
+    document.getElementById('btnZoomOut').addEventListener('click', () => updateZoom(-0.1));
 
-// STYLUS EVENTS (Pointer Events — for tablets & smart boards)
-drawCanvas.addEventListener('pointerdown', (e) => {
-  if (e.pointerType === 'pen' || e.pointerType === 'mouse') return; // handled by mouse/touch
-  startDraw(e);
-});
-drawCanvas.addEventListener('pointermove', (e) => {
-  if (e.pointerType === 'pen') draw(e);
-});
+    // ============================================================
+    // FULLSCREEN
+    // ============================================================
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.warn(err));
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+    document.getElementById('btnFullscreen').addEventListener('click', toggleFullscreen);
 
-// ============================================================
-// SAVE / RESTORE SLIDE DRAWINGS
-// ============================================================
-function saveSlideCanvas(slideNum) {
-  slideDrawings[slideNum] = drawCanvas.toDataURL();
-}
+    // ============================================================
+    // DRAWING ENGINE
+    // ============================================================
+    function setActiveTool(tool) {
+      currentTool = tool;
+      const tools = ['Pen', 'Highlighter', 'Line', 'Rect', 'Circle', 'Triangle', 'Eraser'];
+      tools.forEach(t => {
+        const btn = document.getElementById('btn' + t);
+        if (btn) btn.classList.toggle('active', t.toLowerCase() === tool);
+      });
 
-function restoreSlideCanvas(slideNum) {
-  ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-  if (slideDrawings[slideNum]) {
-    const img = new Image();
-    img.onload = () => {
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.drawImage(img, 0, 0);
-    };
-    img.src = slideDrawings[slideNum];
-  }
-}
+      if (tool === 'none') {
+        drawCanvas.classList.remove('active-interactive');
+      } else {
+        drawCanvas.classList.add('active-interactive');
+      }
+    }
 
-// ============================================================
-// UNDO / REDO
-// ============================================================
-function saveHistory() {
-  if (!slideHistory[currentPage]) {
-    slideHistory[currentPage] = { stack: [], index: -1 };
-  }
-  const history = slideHistory[currentPage];
-  const currentData = drawCanvas.toDataURL();
+    document.getElementById('btnPen').addEventListener('click', () => setActiveTool(currentTool === 'pen' ? 'none' : 'pen'));
+    document.getElementById('btnHighlighter').addEventListener('click', () => setActiveTool(currentTool === 'highlighter' ? 'none' : 'highlighter'));
+    document.getElementById('btnLine').addEventListener('click', () => setActiveTool(currentTool === 'line' ? 'none' : 'line'));
+    document.getElementById('btnRect').addEventListener('click', () => setActiveTool(currentTool === 'rect' ? 'none' : 'rect'));
+    document.getElementById('btnCircle').addEventListener('click', () => setActiveTool(currentTool === 'circle' ? 'none' : 'circle'));
+    document.getElementById('btnTriangle').addEventListener('click', () => setActiveTool(currentTool === 'triangle' ? 'none' : 'triangle'));
+    document.getElementById('btnEraser').addEventListener('click', () => setActiveTool(currentTool === 'eraser' ? 'none' : 'eraser'));
 
-  // Trim forward history
-  history.stack = history.stack.slice(0, history.index + 1);
-  history.stack.push(currentData);
+    document.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        currentColor = swatch.getAttribute('data-color');
+        if (currentTool === 'none' || currentTool === 'eraser') {
+          setActiveTool('pen');
+        }
+      });
+    });
 
-  // Limit to 20 states
-  if (history.stack.length > 20) {
-    history.stack.shift();
-  } else {
-    history.index++;
-  }
-}
+    document.getElementById('btnClear').addEventListener('click', () => {
+      saveHistory();
+      clearCanvas();
+      const key = isHtmlMode ? `html-${currentHtmlSlide}` : currentPage;
+      delete slideDrawings[key];
+      updateUndoRedoButtons();
+    });
 
-function undo() {
-  const history = slideHistory[currentPage];
-  if (!history || history.index <= 0) return;
-  history.index--;
-  applyHistoryState(history.stack[history.index]);
-  updateUndoRedoButtons();
-}
+    // Pointer Events (Mouse + Touch + Stylus)
+    function getCoords(e) {
+      const rect = drawCanvas.getBoundingClientRect();
+      let clientX, clientY;
+      if (e.touches && e.touches.length > 0) {
+        clientX = e.touches[0].clientX; clientY = e.touches[0].clientY;
+      } else if (e.changedTouches && e.changedTouches.length > 0) {
+        clientX = e.changedTouches[0].clientX; clientY = e.changedTouches[0].clientY;
+      } else {
+        clientX = e.clientX; clientY = e.clientY;
+      }
+      return {
+        x: (clientX - rect.left) * (drawCanvas.width / rect.width),
+        y: (clientY - rect.top) * (drawCanvas.height / rect.height)
+      };
+    }
 
-function redo() {
-  const history = slideHistory[currentPage];
-  if (!history || history.index >= history.stack.length - 1) return;
-  history.index++;
-  applyHistoryState(history.stack[history.index]);
-  updateUndoRedoButtons();
-}
+    function applyToolSettings() {
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      if (currentTool === 'pen' || currentTool === 'line' || currentTool === 'rect' || currentTool === 'circle' || currentTool === 'triangle') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = 3 * currentZoom;
+      } else if (currentTool === 'highlighter') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.strokeStyle = currentColor + '55';
+        ctx.lineWidth = 18 * currentZoom;
+      } else if (currentTool === 'eraser') {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.lineWidth = 28 * currentZoom;
+      }
+    }
 
-function applyHistoryState(dataUrl) {
-  const img = new Image();
-  img.onload = () => {
-    ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.drawImage(img, 0, 0);
-    saveSlideCanvas(currentPage);
-  };
-  img.src = dataUrl;
-}
+    function startDraw(e) {
+      if (currentTool === 'none') return;
+      e.preventDefault();
+      isDrawing = true;
+      const pos = getCoords(e);
+      startX = pos.x; startY = pos.y;
+      snapshot = ctx.getImageData(0, 0, drawCanvas.width, drawCanvas.height);
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      applyToolSettings();
+      if (currentTool === 'pen' || currentTool === 'highlighter' || currentTool === 'eraser') {
+        ctx.lineTo(startX, startY);
+        ctx.stroke();
+      }
+    }
 
-function updateUndoRedoButtons() {
-  const history = slideHistory[currentPage];
-  const btnUndo = document.getElementById('btnUndo');
-  const btnRedo = document.getElementById('btnRedo');
+    function draw(e) {
+      if (!isDrawing || currentTool === 'none') return;
+      e.preventDefault();
+      const pos = getCoords(e);
+      if (currentTool === 'pen' || currentTool === 'highlighter' || currentTool === 'eraser') {
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      } else {
+        ctx.putImageData(snapshot, 0, 0);
+        drawShape(pos.x, pos.y);
+      }
+    }
 
-  if (!history) {
-    btnUndo.disabled = true;
-    btnRedo.disabled = true;
-    return;
-  }
+    function drawShape(endX, endY) {
+      ctx.beginPath();
+      applyToolSettings();
+      if (currentTool === 'line') {
+        ctx.moveTo(startX, startY); ctx.lineTo(endX, endY); ctx.stroke();
+      } else if (currentTool === 'rect') {
+        ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+      } else if (currentTool === 'circle') {
+        const radius = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+        ctx.arc(startX, startY, radius, 0, 2 * Math.PI); ctx.stroke();
+      } else if (currentTool === 'triangle') {
+        ctx.moveTo(startX, endY); ctx.lineTo((startX + endX) / 2, startY); ctx.lineTo(endX, endY); ctx.closePath(); ctx.stroke();
+      }
+    }
 
-  btnUndo.disabled = history.index <= 0;
-  btnRedo.disabled = history.index >= history.stack.length - 1;
-}
+    function stopDraw(e) {
+      if (isDrawing) {
+        isDrawing = false;
+        saveHistory();
+        const key = isHtmlMode ? `html-${currentHtmlSlide}` : currentPage;
+        saveSlideCanvas(key);
+        updateUndoRedoButtons();
+      }
+    }
 
-document.getElementById('btnUndo').addEventListener('click', undo);
-document.getElementById('btnRedo').addEventListener('click', redo);
+    drawCanvas.addEventListener('mousedown', startDraw);
+    drawCanvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDraw);
+    drawCanvas.addEventListener('touchstart', startDraw, { passive: false });
+    drawCanvas.addEventListener('touchmove', draw, { passive: false });
+    window.addEventListener('touchend', stopDraw);
 
-// ============================================================
-// DOWNLOAD ANNOTATED PNG
-// ============================================================
-document.getElementById('btnDownload').addEventListener('click', () => {
-  // Create combined canvas
+    // ============================================================
+    // SAVE / RESTORE
+    // ============================================================
+    function saveSlideCanvas(key) {
+      slideDrawings[key] = drawCanvas.toDataURL();
+    }
+
+    function restoreSlideCanvas(key) {
+      ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+      if (slideDrawings[key]) {
+        const img = new Image();
+        img.onload = () => {
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.drawImage(img, 0, 0, drawCanvas.width, drawCanvas.height);
+        };
+        img.src = slideDrawings[key];
+      }
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+    }
+
+    // ============================================================
+    // UNDO / REDO
+    // ============================================================
+    function saveHistory() {
+      const key = isHtmlMode ? `html-${currentHtmlSlide}` : currentPage;
+      if (!slideHistory[key]) slideHistory[key] = { stack: [], index: -1 };
+      const history = slideHistory[key];
+      const currentData = drawCanvas.toDataURL();
+      history.stack = history.stack.slice(0, history.index + 1);
+      history.stack.push(currentData);
+      if (history.stack.length > 20) history.stack.shift();
+      else history.index++;
+    }
+
+    function undo() {
+      const key = isHtmlMode ? `html-${currentHtmlSlide}` : currentPage;
+      const history = slideHistory[key];
+      if (!history || history.index <= 0) return;
+      history.index--;
+      applyHistoryState(history.stack[history.index], key);
+      updateUndoRedoButtons();
+    }
+
+    function redo() {
+      const key = isHtmlMode ? `html-${currentHtmlSlide}` : currentPage;
+      const history = slideHistory[key];
+      if (!history || history.index >= history.stack.length - 1) return;
+      history.index++;
+      applyHistoryState(history.stack[history.index], key);
+      updateUndoRedoButtons();
+    }
+
+    function applyHistoryState(dataUrl, key) {
+      const img = new Image();
+      img.onload = () => {
+        ctx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.drawImage(img, 0, 0, drawCanvas.width, drawCanvas.height);
+        saveSlideCanvas(key);
+      };
+      img.src = dataUrl;
+    }
+
+    function updateUndoRedoButtons() {
+      const key = isHtmlMode ? `html-${currentHtmlSlide}` : currentPage;
+      const history = slideHistory[key];
+      const btnUndo = document.getElementById('btnUndo');
+      const btnRedo = document.getElementById('btnRedo');
+      if (!history) { btnUndo.disabled = true; btnRedo.disabled = true; return; }
+      btnUndo.disabled = history.index <= 0;
+      btnRedo.disabled = history.index >= history.stack.length - 1;
+    }
+
+    document.getElementById('btnUndo').addEventListener('click', undo);
+    document.getElementById('btnRedo').addEventListener('click', redo);
+
+    // ============================================================
+    // DOWNLOAD PNG
+    // ============================================================
+    document.getElementById('btnDownload').addEventListener('click', () => {
   const combined = document.createElement('canvas');
+  
+  // Use drawCanvas dimensions for consistency
   combined.width = drawCanvas.width;
   combined.height = drawCanvas.height;
   const combinedCtx = combined.getContext('2d');
+  
+  // White Background (taaki transparent PNG black na dikhe)
+  combinedCtx.fillStyle = '#FFF4E9'; 
+  combinedCtx.fillRect(0, 0, combined.width, combined.height);
 
-  // Draw PDF page
-  combinedCtx.drawImage(pdfCanvas, 0, 0, combined.width, combined.height);
-  // Draw annotations
+  // Draw the base content
+  if (!isHtmlMode) {
+    combinedCtx.drawImage(pdfCanvas, 0, 0, combined.width, combined.height);
+  } else {
+    // For HTML Mode: capture the container. 
+    // Note: html2canvas library is needed for perfect HTML to image capture.
+    if (typeof html2canvas !== 'undefined') {
+      html2canvas(htmlContainer, { scale: 1, backgroundColor: null }).then(canvas => {
+        combinedCtx.drawImage(canvas, 0, 0, combined.width, combined.height);
+        combinedCtx.drawImage(drawCanvas, 0, 0); // Draw annotations on top
+        
+        const link = document.createElement('a');
+        link.download = `class-${classId}-ch${chapterId}-slide-${isHtmlMode ? currentHtmlSlide + 1 : currentPage}.png`;
+        link.href = combined.toDataURL('image/png');
+        link.click();
+      });
+      return;
+    }
+  }
+
+  // Draw annotations on top for PDF mode
   combinedCtx.drawImage(drawCanvas, 0, 0);
 
-  // Download
+  // Trigger Download
   const link = document.createElement('a');
-  link.download = `class-${classId}-ch${chapterId}-slide-${currentPage}.png`;
+  link.download = `class-${classId}-ch${chapterId}-slide-${isHtmlMode ? currentHtmlSlide + 1 : currentPage}.png`;
   link.href = combined.toDataURL('image/png');
   link.click();
 });
-// Handle fullscreen change (e.g., user presses ESC or system exits fullscreen)
-document.addEventListener('fullscreenchange', () => {
-  if (!document.fullscreenElement) {
-    document.body.classList.remove('fullscreen-active');
-    if (screen.orientation && screen.orientation.unlock) {
-      try {
-        screen.orientation.unlock();
-      } catch (err) {
-        // Ignore
-      }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+        // ============================================================
+    // MOBILE TOOLBAR TOGGLE
+    // ============================================================
+    const mobileToolToggle = document.getElementById('mobileToolToggle');
+    const stylusToolbar = document.getElementById('stylusToolbar');
+
+    if (mobileToolToggle && stylusToolbar) {
+      mobileToolToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        stylusToolbar.classList.toggle('active');
+      });
+
+      // Close toolbar when clicking outside of it
+      document.addEventListener('click', (e) => {
+        if (stylusToolbar.classList.contains('active') && 
+            !stylusToolbar.contains(e.target) && 
+            !mobileToolToggle.contains(e.target)) {
+          stylusToolbar.classList.remove('active');
+        }
+      });
     }
-  }
-});
-// ============================================================
-// INIT
-// ============================================================
-init();
-</script>
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    init();
+  </script>
 </body>
 </html>

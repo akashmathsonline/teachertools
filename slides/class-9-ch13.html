@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 13: Two Variables, One Line | Grade 9 Mathematics</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for pristine mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 15% 15%, #f0fdf4 0%, #ecfeff 45%, #f8fafc 100%);
+      --accent-primary: #059669; /* Emerald Primary */
+      --accent-secondary: #0d9488; /* Teal Secondary */
+      --accent-dark: #064e3b;
+      --accent-tint: #ecfdf5;
+      --accent-border: #a7f3d0;
+      --accent-coral: #e11d48;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --card-border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --font-display: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #090d16;
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    /* 16:9 Presentation Stage */
+    #presentation-viewport {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      max-width: 100vw;
+      max-height: 100vh;
+      background: var(--bg-gradient);
+      box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.5);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Slide Deck Switcher Container */
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Individual Slide */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 34px 50px 30px 50px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.38s;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 2;
+    }
+
+    /* Slide Header System */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(5, 150, 105, 0.12);
+    }
+
+    .header-left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-tag.accent {
+      background: var(--accent-tint);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent-border);
+    }
+
+    .pill-tag.quick {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .page-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: #ffe4e6;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      line-height: 1.22;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-title span.icon {
+      font-size: 1.5rem;
+    }
+
+    /* Content Area */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+      margin-top: 2px;
+    }
+
+    /* Card System */
+    .cards-grid {
+      display: grid;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-1-2 {
+      grid-template-columns: 1.1fr 1fr;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .content-card.highlight {
+      background: #f0fdf4;
+      border: 1.5px solid var(--accent-border);
+    }
+
+    .content-card.coral-highlight {
+      background: #fff1f2;
+      border: 1.5px solid #fecdd3;
+    }
+
+    .content-card.amber-highlight {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .bullet-list li {
+      font-size: 0.88rem;
+      line-height: 1.48;
+      color: #334155;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 0.75rem;
+      color: var(--accent-primary);
+    }
+
+    /* Math Formula Display Box */
+    .formula-banner {
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin: 4px 0;
+    }
+
+    .formula-banner-light {
+      background: #ffffff;
+      border: 2px dashed var(--accent-primary);
+      border-radius: 12px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Subtle Watermark for Middle Slides */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+
+    /* Slide Footer Standard */
+    .slide-footer {
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid rgba(203, 213, 225, 0.6);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    /* Credit Pill for Cover and Closing Only */
+    .large-credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      border: 2px solid #34d399;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .large-credit-pill span.symbol {
+      color: #a7f3d0;
+      font-size: 1.1rem;
+    }
+
+    /* SVG Diagram Container */
+    .graph-container {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      height: 100%;
+      min-height: 220px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* Quick Box Styles */
+    .quick-box-container {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid #fde68a;
+      box-shadow: var(--shadow-md);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .quick-q-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .quick-q-badge {
+      background: #f59e0b;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-q-text {
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    /* Global Navigation Controls */
+    .nav-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 4px 8px;
+      border-radius: 30px;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .key-hint {
+      position: absolute;
+      bottom: 15px;
+      left: 24px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      pointer-events: none;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    /* Slide Jumper Select */
+    .slide-select {
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1280px) {
+      #presentation-viewport {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Presentation Stage (16:9) -->
+  <div id="presentation-viewport">
+    <div class="slides-container" id="deckContainer">
+
+      <!-- ========================================================
+           SLIDE 1: COVER SLIDE
+           ======================================================== -->
+      <section class="slide active" id="slide-1">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>📚</span> GANITA MANJARI PART II | GRADE 9
+          </div>
+          <div class="pill-tag">
+            Chapter 13 • Cover
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:22px;">
+          <div style="text-transform:uppercase; font-size:0.85rem; font-weight:800; letter-spacing:0.18em; color:var(--accent-secondary);">
+            CLASS 9 MATHEMATICS • CHAPTER 13
+          </div>
+          
+          <h1 style="font-family:var(--font-display); font-size:3.4rem; font-weight:700; color:var(--text-main); line-height:1.1; max-width:980px;">
+            Two Variables, One Line
+          </h1>
+          
+          <p style="font-style:italic; font-size:1.15rem; color:var(--text-muted); max-width:850px; line-height:1.6;">
+            "Exhaustive point-by-point presentation covering every concept, geometric representation, slope derivation, and algebraic method directly from the textbook."
+          </p>
+
+          <div style="margin-top:10px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:16px; margin-top:10px;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:8px 18px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📐 Coordinate Geometry
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:8px 18px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📈 Rise over Run (Slope)
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:8px 18px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              ⚖️ Elimination & Substitution
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 1 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 2: 13.1 Real-World Context (Fruit Cart)
+           ======================================================== -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.1 Introduction</span>
+            <h2 class="slide-title"><span class="icon">🛒</span> The Fruit Cart: Framing Two Unknowns</h2>
+          </div>
+          <span class="page-pill">Page 85</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <!-- Left Narrative Card -->
+            <div class="content-card highlight" style="justify-content:center;">
+              <div class="card-title">🍎 The Market Scenario</div>
+              <p class="card-desc">
+                Radha visits a fruit vendor cart where <strong>mangoes cost ₹60/kg</strong> and <strong>bananas cost ₹50/kg</strong>. She purchases a certain quantity of both fruits and pays a total sum of <strong>₹280</strong>.
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>Let $x =$ number of kilograms of mangoes purchased</li>
+                <li>Let $y =$ number of kilograms of bananas purchased</li>
+                <li>Cost of mangoes $= 60x$ and cost of bananas $= 50y$</li>
+                <li>Total purchase equation: $60x + 50y = 280$</li>
+              </ul>
+            </div>
+
+            <!-- Right Visual Analysis Card -->
+            <div class="content-card">
+              <div class="card-title">🔍 Mathematical Dissection</div>
+              <div class="formula-banner">
+                $$60x + 50y = 280$$
+              </div>
+              <ul class="bullet-list">
+                <li><strong>LHS and RHS Harmony:</strong> Both sides represent the identical quantity—the <em>total expenditure in rupees</em>.</li>
+                <li><strong>Two Variables:</strong> Two distinct quantities ($x$ and $y$) can vary, but their combined cost is anchored to 280.</li>
+                <li><strong>Linear Degree:</strong> The exponent of both $x$ and $y$ is strictly $1$. Hence it represents a <em>linear relation</em>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 2 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 3: Quick Box - Section 13.1
+           ======================================================== -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 85</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Everyday Linear Modeling</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                In Radha's equation $60x + 50y = 280$, if Radha bought exactly 3 kg of mangoes, how many kilograms of bananas did she buy? Can this be fractional?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why can we not represent this situation using a single variable linear equation like $60x = 280$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If the vendor offers a flat ₹20 bag discount, how does the equation modify while maintaining two variables?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 3 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 4: 13.1.1 Standard Form ax + by + c = 0
+           ======================================================== -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.1.1 Standard Form</span>
+            <h2 class="slide-title"><span class="icon">📐</span> The General Standard Form: $ax + by + c = 0$</h2>
+          </div>
+          <span class="page-pill">Page 86</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="formula-banner">
+            $$ax + by + c = 0 \quad \text{where } a, b, c \in \mathbb{R} \text{ and } a^2 + b^2 \neq 0$$
+          </div>
+
+          <div class="cards-grid grid-3">
+            <div class="content-card">
+              <div class="card-title">📌 Real Coefficients</div>
+              <p class="card-desc">
+                $a$ and $b$ are the coefficients of $x$ and $y$ respectively, and $c$ is the constant term. They can be integers, fractions, or irrational numbers.
+              </p>
+            </div>
+            <div class="content-card highlight">
+              <div class="card-title">⚡ Clearing Fractions</div>
+              <p class="card-desc">
+                $\frac{1}{4}x + \frac{3}{5}y - \frac{1}{2} = 0$ is in standard form. Multiplying by $\text{LCM}(4,5,2)=20$ yields integer coefficients:
+                $$5x + 12y - 10 = 0$$
+              </p>
+            </div>
+            <div class="content-card amber-highlight">
+              <div class="card-title">🏷️ Special Case: One Variable</div>
+              <p class="card-desc">
+                $4x + 7 = 0$ is a valid linear equation in two variables written as:
+                $$4x + 0 \cdot y + 7 = 0$$
+                where $a=4, b=0, c=7$.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 4 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 5: Example 1 - Writing in Standard Form
+           ======================================================== -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Textbook Example 1</span>
+            <h2 class="slide-title"><span class="icon">✍️</span> Expressing Equations in Standard Form</h2>
+          </div>
+          <span class="page-pill">Page 86</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">(i) $5x + 2y = 2.7$</div>
+              <ul class="bullet-list">
+                <li>Rearrange: $5x + 2y - 2.7 = 0$</li>
+                <li>Coefficients: $\mathbf{a = 5,\ b = 2,\ c = -2.7}$</li>
+                <li><em>Alternative:</em> $-5x - 2y + 2.7 = 0$ with $a=-5, b=-2, c=2.7$</li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">(ii) $\frac{x}{2} - 4 = \frac{3}{2}y$</div>
+              <ul class="bullet-list">
+                <li>Rearrange: $\frac{1}{2}x - \frac{3}{2}y - 4 = 0$</li>
+                <li>Coefficients: $\mathbf{a = \frac{1}{2},\ b = -\frac{3}{2},\ c = -4}$</li>
+                <li>Clear denominators ($\times 2$): $x - 3y - 8 = 0$</li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">(iii) $4 = 1.5x - 1.3y$</div>
+              <ul class="bullet-list">
+                <li>Rearrange: $1.5x - 1.3y - 4 = 0$</li>
+                <li>Coefficients: $\mathbf{a = 1.5,\ b = -1.3,\ c = -4}$</li>
+                <li>Multiply by 10 for integers: $15x - 13y - 40 = 0$</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">(iv) $3y = 5$</div>
+              <ul class="bullet-list">
+                <li>Include missing variable $x$: $0 \cdot x + 3y - 5 = 0$</li>
+                <li>Coefficients: $\mathbf{a = 0,\ b = 3,\ c = -5}$</li>
+                <li>Represents a horizontal line parallel to the $x$-axis.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 5 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 6: Quick Box - Standard Form
+           ======================================================== -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 86–87</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Standard Form & Coefficients</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Can a linear equation in two variables have both $a=0$ and $b=0$? What happens to the equation if $0x + 0y + 5 = 0$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                The cost of a notebook ($t$) is twice the cost of a pen ($p$). Charlie wrote $t = 2p$, Meera wrote $p = 2t$. Who is correct and what is its standard form?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Identify $a, b, c$ for the equation $x = 8$. Is this a linear equation in two variables?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 6 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 7: 13.2.1 Algebraic Meaning of a Solution
+           ======================================================== -->
+      <section class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.2.1 Algebraic Meaning</span>
+            <h2 class="slide-title"><span class="icon">✨</span> What is a Solution to $ax + by + c = 0$?</h2>
+          </div>
+          <span class="page-pill">Page 88</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📖 Formal Definition</div>
+              <p class="card-desc">
+                A <strong>solution</strong> of a linear equation in two variables is an <em>ordered pair of real numbers $(u, v)$</em> such that substituting $x = u$ and $y = v$ makes $\text{LHS} = \text{RHS}$.
+              </p>
+              <div class="formula-banner-light" style="margin-top:10px;">
+                $$\text{Testing for } 3x + 2y = 12:$$
+              </div>
+              <ul class="bullet-list" style="margin-top:8px;">
+                <li>For $(2, 3)$: $3(2) + 2(3) = 6 + 6 = 12$ ✅ <strong>Solution!</strong></li>
+                <li>For $(4, 0)$: $3(4) + 2(0) = 12 + 0 = 12$ ✅ <strong>Solution!</strong></li>
+                <li>For $(1, 3)$: $3(1) + 2(3) = 3 + 6 = 9 \neq 12$ ❌ <strong>Not a solution!</strong></li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">♾️ Infinitely Many Solutions</div>
+              <p class="card-desc">
+                How many solutions exist for a single linear equation in two variables?
+              </p>
+              <div style="background:#f1f5f9; padding:12px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                For <strong>any assigned value</strong> $u$ for $x$:
+                $$y = \frac{12 - 3u}{2}$$
+                Since $u$ can be any real number on the continuous number line, there exist <strong>infinitely many pairs</strong> $(x, y)$ that satisfy the equation.
+              </div>
+              <ul class="bullet-list" style="margin-top:8px;">
+                <li>Ordered pairs $(0, 6)$, $(1, 4.5)$, $(4, 0)$, $(-2, 9)$ all satisfy $3x+2y=12$.</li>
+                <li>Order strictly matters: $(2, 3) \neq (3, 2)$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 7 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 8: 13.2.2 Geometric Visualisation of Solutions
+           ======================================================== -->
+      <section class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.2.2 Geometric Meaning</span>
+            <h2 class="slide-title"><span class="icon">📈</span> Every Solution is a Point on the Line</h2>
+          </div>
+          <span class="page-pill">Page 88–90</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card">
+              <div class="card-title">🎯 The Core Duality</div>
+              <ul class="bullet-list">
+                <li>Every solution $(x, y)$ of $ax + by + c = 0$ corresponds to a unique <strong>point on its straight line graph</strong>.</li>
+                <li>Conversely, <strong>every point on the line</strong> has coordinates that satisfy the algebraic equation.</li>
+                <li>Points lying outside the line <em>never</em> satisfy the equation.</li>
+              </ul>
+              
+              <div class="content-card highlight" style="margin-top:10px; padding:12px;">
+                <strong>Fastest Way to Plot a Line (Intercepts):</strong>
+                <ol style="margin-left:18px; margin-top:4px; font-size:0.85rem; line-height:1.45;">
+                  <li>Put $x = 0 \implies$ find $y$-intercept $(0, y_0)$</li>
+                  <li>Put $y = 0 \implies$ find $x$-intercept $(x_0, 0)$</li>
+                  <li>Connect these two points with a straight line.</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- SVG Graph Visualization for 3x + 2y = 12 -->
+            <div class="graph-container">
+              <svg viewBox="0 0 320 220" width="100%" height="100%" style="font-family:var(--font-body);">
+                <!-- Grid lines -->
+                <defs>
+                  <pattern id="grid1" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid1)" rx="8" />
+                
+                <!-- Axes -->
+                <line x1="30" y1="180" x2="300" y2="180" stroke="#0f172a" stroke-width="2"/>
+                <line x1="60" y1="20" x2="60" y2="210" stroke="#0f172a" stroke-width="2"/>
+                <text x="290" y="172" font-size="11" font-weight="bold" fill="#475569">x</text>
+                <text x="68" y="32" font-size="11" font-weight="bold" fill="#475569">y</text>
+                <text x="48" y="195" font-size="10" fill="#64748b">O(0,0)</text>
+
+                <!-- Line: 3x + 2y = 12 => y = -1.5x + 6 -->
+                <!-- Origin (60, 180). Scale: 1 unit = 26px x, 22px y -->
+                <!-- Point (0,6): x=60, y=180 - 6*22 = 48 -->
+                <!-- Point (4,0): x=60 + 4*26 = 164, y=180 -->
+                <line x1="38" y1="16" x2="210" y2="218" stroke="#059669" stroke-width="3"/>
+                
+                <!-- Points -->
+                <circle cx="60" cy="48" r="4.5" fill="#e11d48"/>
+                <text x="70" y="52" font-size="10" font-weight="bold" fill="#0f172a">B(0, 6)</text>
+
+                <circle cx="164" cy="180" r="4.5" fill="#e11d48"/>
+                <text x="160" y="200" font-size="10" font-weight="bold" fill="#0f172a">D(4, 0)</text>
+
+                <circle cx="112" cy="114" r="3.5" fill="#0284c7"/>
+                <text x="120" y="116" font-size="9" fill="#0369a1">C(2, 3)</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 8 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 9: Quick Box - Solutions & Graphs
+           ======================================================== -->
+      <section class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 89–90</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Points, Solutions & Geometry</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Does the point $(2, 3)$ lie on the line $2x + y = 7$? Show by mental substitution!
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Where does the graph of $4x + 3y = 12$ intersect the $y$-axis? What is its $x$-coordinate at that instant?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Can a linear equation in two variables have negative coordinates as a valid solution? Give an example for $2x + y = 7$.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 9 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 10: Special Case: When c = 0 (Passing Through Origin)
+           ======================================================== -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Think & Reflect</span>
+            <h2 class="slide-title"><span class="icon">💡</span> Special Case: When Constant $c = 0$</h2>
+          </div>
+          <span class="page-pill">Page 91–92</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card amber-highlight">
+              <div class="card-title">🗣️ The Four Friends Discussion</div>
+              <p class="card-desc">
+                Ranju, Meena, Farhan, and Toshi analyzed what happens when the constant term $c = 0$ in $ax + by + c = 0$:
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Ranju:</strong> If $c = 0$, substituting $(0,0)$ gives $a(0) + b(0) = 0$. The equation is identically satisfied!</li>
+                <li><strong>Farhan:</strong> For $2x + 3y = 0$, $x=0 \implies y=0$. Hence it passes through $(0,0)$.</li>
+                <li><strong>Toshi:</strong> If $b=c=0 \implies 5x = 0 \implies x = 0$ (the $y$-axis itself).</li>
+                <li><strong>Meena:</strong> If $a=c=0 \implies 7y = 0 \implies y = 0$ (the $x$-axis itself).</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight" style="justify-content:center;">
+              <div class="card-title">🔑 Fundamental Theorem of Origin Lines</div>
+              <div class="formula-banner">
+                $$ax + by = 0 \iff (0, 0) \text{ lies on the line}$$
+              </div>
+              <p class="card-desc">
+                Whenever $c = 0$, the straight line <strong>must pass through the origin $(0, 0)$</strong>, regardless of the non-zero values of $a$ and $b$.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 10 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 11: Quick Box - Origin & Single Variables
+           ======================================================== -->
+      <section class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 92–94</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Lines Passing Through Origin</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Does the line $3x - 5y = 0$ pass through the origin? Why or why not?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                What is the equation of the $x$-axis? What is the equation of the $y$-axis in two variables?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If $(k, 2k)$ lies on the line $4x + 3y = 20$, what is the value of $k$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 11 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 12: 13.3 Slope / Steepness of a Line
+           ======================================================== -->
+      <section class="slide" id="slide-12">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.3.1 Slope & Steepness</span>
+            <h2 class="slide-title"><span class="icon">🚵</span> Understanding Steepness: Rise over Run</h2>
+          </div>
+          <span class="page-pill">Page 94–96</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card">
+              <div class="card-title">🚴 Cycling Up a Hill: Rise and Run</div>
+              <p class="card-desc">
+                Walking on flat ground requires minimum effort. As hills get steeper, effort rises drastically. In mathematics, steepness is measured by <strong>slope</strong> (or <strong>gradient</strong>).
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Run $(\Delta x)$:</strong> Horizontal displacement $(x_2 - x_1)$. Moving right is positive; moving left is negative.</li>
+                <li><strong>Rise $(\Delta y)$:</strong> Vertical displacement $(y_2 - y_1)$. Moving up is positive; moving down is negative.</li>
+              </ul>
+              <div class="formula-banner" style="margin-top:10px;">
+                $$\text{Slope } (m) = \frac{\text{Rise}}{\text{Run}} = \frac{y_2 - y_1}{x_2 - x_1}$$
+              </div>
+            </div>
+
+            <!-- Visual Slope Triangle -->
+            <div class="graph-container">
+              <svg viewBox="0 0 320 220" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#f8fafc" rx="8" />
+                <line x1="30" y1="190" x2="300" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+                <line x1="40" y1="20" x2="40" y2="200" stroke="#94a3b8" stroke-width="1.5"/>
+                
+                <!-- Slope Triangle -->
+                <polygon points="70,160 250,160 250,50" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2"/>
+                
+                <!-- Hypotenuse line -->
+                <line x1="40" y1="180" x2="280" y2="30" stroke="#059669" stroke-width="3"/>
+                
+                <!-- Dotted right-angle lines -->
+                <line x1="70" y1="160" x2="250" y2="160" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="4,4"/>
+                <line x1="250" y1="160" x2="250" y2="50" stroke="#e11d48" stroke-width="2.5" stroke-dasharray="4,4"/>
+
+                <!-- Points & Labels -->
+                <circle cx="70" cy="160" r="4.5" fill="#0f172a"/>
+                <text x="50" y="150" font-size="11" font-weight="bold" fill="#0f172a">A(x₁, y₁)</text>
+
+                <circle cx="250" cy="50" r="4.5" fill="#0f172a"/>
+                <text x="235" y="40" font-size="11" font-weight="bold" fill="#0f172a">B(x₂, y₂)</text>
+
+                <text x="135" y="178" font-size="11" font-weight="bold" fill="#0284c7">Run = x₂ - x₁</text>
+                <text x="256" y="110" font-size="11" font-weight="bold" fill="#e11d48">Rise = y₂ - y₁</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 12 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 13: 4 Geometric Signatures of Slope
+           ======================================================== -->
+      <section class="slide" id="slide-13">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.3.1 Classifying Slopes</span>
+            <h2 class="slide-title"><span class="icon">🧭</span> The Four Geometric Behaviors of Slope</h2>
+          </div>
+          <span class="page-pill">Page 100–101</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">1. Positive Slope ($m > 0$) ↗️</div>
+              <p class="card-desc">
+                Line climbs <strong>upward from left to right</strong>. As $x$ increases, $y$ increases. Example: $y = 2x + 1$ ($m = 2$: 1 unit right $\implies$ 2 units up).
+              </p>
+            </div>
+
+            <div class="content-card coral-highlight">
+              <div class="card-title">2. Negative Slope ($m < 0$) ↘️</div>
+              <p class="card-desc">
+                Line descends <strong>downward from left to right</strong>. As $x$ increases, $y$ decreases. Example: $y = -3x + 4$ ($m = -3$: 1 unit right $\implies$ 3 units down).
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">3. Zero Slope ($m = 0$) ➡️</div>
+              <p class="card-desc">
+                <strong>Horizontal line parallel to the $x$-axis</strong>. Vertical rise is zero ($\Delta y = 0$). $y$ remains constant everywhere. Example: $y = 5$.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">4. Undefined Slope ($m$ is Undefined) ⬆️</div>
+              <p class="card-desc">
+                <strong>Vertical line parallel to the $y$-axis</strong>. Horizontal run is zero ($\Delta x = 0$). Since division by zero is undefined, slope is undefined. Example: $x = 2$.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 13 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 14: Quick Box - Slope & Gradient
+           ======================================================== -->
+      <section class="slide" id="slide-14">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 101–103</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Slope & Steepness Calculations</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Hill A rises 60 m over 70 m run. Hill B rises 60 m over 110 m run. Which hill is steeper for cycling?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                What is the slope of the $x$-axis? What is the slope of the line $x = -7$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                A ramp rises 2.5 m over a 4 m horizontal span. Calculate its numeric slope.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 14 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 15: 13.3.2 Slope-Intercept Form y = mx + d
+           ======================================================== -->
+      <section class="slide" id="slide-15">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.3.2 Slope-Intercept</span>
+            <h2 class="slide-title"><span class="icon">📐</span> Derivation: Why $m$ Represents the Slope</h2>
+          </div>
+          <span class="page-pill">Page 98–99</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="formula-banner">
+            $$y = mx + d \quad [m = \text{slope}, \ d = y\text{-intercept}]$$
+          </div>
+
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🔬 Proof that $m$ is the Slope</div>
+              <p class="card-desc">
+                Let points $A(x_1, y_1)$ and $B(x_2, y_2)$ lie on the line $y = mx + d$. Then:
+                $$y_1 = mx_1 + d \quad \text{and} \quad y_2 = mx_2 + d$$
+                Calculate the slope between points $A$ and $B$:
+                $$\frac{y_2 - y_1}{x_2 - x_1} = \frac{(mx_2 + d) - (mx_1 + d)}{x_2 - x_1} = \frac{m(x_2 - x_1)}{x_2 - x_1} = m$$
+                Thus, the coefficient of $x$ is <em>identically equal</em> to the slope!
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🔄 Converting Standard to Slope-Intercept</div>
+              <p class="card-desc">
+                Given $ax + by + c = 0$ with $b \neq 0$:
+                $$by = -ax - c \implies y = \left(-\frac{a}{b}\right)x + \left(-\frac{c}{b}\right)$$
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Slope:</strong> $m = -\frac{a}{b}$</li>
+                <li><strong>$y$-intercept:</strong> $d = -\frac{c}{b}$ (cuts $y$-axis at $(0, -\frac{c}{b})$)</li>
+                <li><strong>$x$-intercept:</strong> Set $y=0 \implies x = -\frac{c}{a}$</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 15 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 16: Quick Box - Slope-Intercept Form
+           ======================================================== -->
+      <section class="slide" id="slide-16">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 99–100</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Reading Off Slopes & Intercepts</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                For the line $5x + y = 3$, express it in slope-intercept form. What are its slope and $y$-intercept?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If a line has slope $m = -5$, what does this mean physically when $x$ increases by 1 unit?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Two lines have equations $y = 3x + 4$ and $y = 3x - 10$. Will these lines ever intersect? Justify!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 16 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 17: 13.4 Simultaneous Linear Systems
+           ======================================================== -->
+      <section class="slide" id="slide-17">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.4 Linear Systems</span>
+            <h2 class="slide-title"><span class="icon">🍱</span> Pair of Linear Equations in Two Variables</h2>
+          </div>
+          <span class="page-pill">Page 103–105</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🫓 The Paratha & Dahi Problem</div>
+              <p class="card-desc">
+                A dhaba menu features two bundled offers:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Order 1:</strong> 1 Paratha $+ 2$ Bowls Dahi $= ₹90$</li>
+                <li><strong>Order 2:</strong> 2 Parathas $+ 7$ Bowls Dahi $= ₹260$</li>
+              </ul>
+              <div class="formula-banner-light" style="margin-top:8px;">
+                $$\begin{cases} 1p + 2d = 90 \\ 2p + 7d = 260 \end{cases}$$
+              </div>
+              <p class="card-desc" style="font-size:0.83rem;">
+                A single equation has infinite solutions. But <em>both equations together</em> constrain the prices to a single common pair $(p, d)$.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">📜 General Mathematical Definition</div>
+              <div class="formula-banner">
+                $$\begin{cases} a_1 x + b_1 y + c_1 = 0 \\ a_2 x + b_2 y + c_2 = 0 \end{cases}$$
+              </div>
+              <p class="card-desc">
+                Where $a_1, b_1, c_1, a_2, b_2, c_2 \in \mathbb{R}$ and $a_1^2 + b_1^2 \neq 0$, $a_2^2 + b_2^2 \neq 0$.
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Simultaneous Solution:</strong> An ordered pair $(x_0, y_0)$ that satisfies <em>both</em> equations at the same time.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 17 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 18: Quick Box - Modeling Systems
+           ======================================================== -->
+      <section class="slide" id="slide-18">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 105</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Constructing Linear Pairs</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Rakesh thought of two numbers whose sum is 25 and difference is 11. Frame the system of equations.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Group A pays ₹600 for 2 adult and 3 child tickets. Group B pays ₹700 for 3 adult and 2 child tickets. State the pair of equations.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If fixed taxi fare is $x$ and per-km rate is $y$, write the equation for a 6 km trip costing ₹122.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 18 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 19: 13.5.1 The Method of Substitution
+           ======================================================== -->
+      <section class="slide" id="slide-19">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.5.1 Algebraic Methods</span>
+            <h2 class="slide-title"><span class="icon">🔄</span> The Method of Substitution</h2>
+          </div>
+          <span class="page-pill">Page 106–107</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card">
+              <div class="card-title">Step 1: Express Variable</div>
+              <p class="card-desc">
+                Select one equation and express one variable purely in terms of the other.
+              </p>
+              <div style="background:#f1f5f9; padding:8px 12px; border-radius:8px; font-size:0.83rem;">
+                Given: $x + 2y = 3$ (Eq. 2)<br>
+                $$\implies \mathbf{x = 3 - 2y}$$
+              </div>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">Step 2: Substitute & Solve</div>
+              <p class="card-desc">
+                Substitute this expression into the <em>other</em> equation ($7x - 15y = 2$):
+              </p>
+              <div style="background:#ffffff; border:1px solid #a7f3d0; padding:8px 12px; border-radius:8px; font-size:0.83rem;">
+                $$7(3 - 2y) - 15y = 2$$
+                $$21 - 14y - 15y = 2$$
+                $$-29y = -19 \implies \mathbf{y = \frac{19}{29}}$$
+              </div>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">Step 3: Back-Substitute</div>
+              <p class="card-desc">
+                Plug the value of $y$ back into the isolated expression for $x$:
+              </p>
+              <div style="background:#ffffff; border:1px solid #fde68a; padding:8px 12px; border-radius:8px; font-size:0.83rem;">
+                $$x = 3 - 2\left(\frac{19}{29}\right)$$
+                $$x = \frac{87 - 38}{29} = \mathbf{\frac{49}{29}}$$
+                Solution: $\left(\frac{49}{29}, \frac{19}{29}\right)$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 19 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 20: 13.5.1 The Method of Elimination
+           ======================================================== -->
+      <section class="slide" id="slide-20">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.5.1 Algebraic Methods</span>
+            <h2 class="slide-title"><span class="icon">✂️</span> The Method of Elimination</h2>
+          </div>
+          <span class="page-pill">Page 107–109</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card">
+              <div class="card-title">💼 Example 9: Incomes & Expenditures</div>
+              <p class="card-desc">
+                Incomes ratio is $9:7$ ($9x, 7x$) and expenditures ratio is $4:3$ ($4y, 3y$). Each saves ₹2000/month:
+              </p>
+              <div class="formula-banner-light">
+                $$\begin{cases} 9x - 4y = 2000 \quad \text{--- (1)} \\ 7x - 3y = 2000 \quad \text{--- (2)} \end{cases}$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Multiply to match $y$-coefficients:</strong></li>
+                <li>$\text{Eq. (1)} \times 3 \implies 27x - 12y = 6000$</li>
+                <li>$\text{Eq. (2)} \times 4 \implies 28x - 12y = 8000$</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">🎯 Elimination by Subtraction</div>
+              <p class="card-desc">
+                Subtracting the two balanced equations cancels $y$ completely:
+              </p>
+              <div style="background:#ffffff; border:1px solid #a7f3d0; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                $$(28x - 27x) - (12y - 12y) = 8000 - 6000$$
+                $$\mathbf{x = 2000}$$
+              </div>
+              <p class="card-desc" style="margin-top:6px;">
+                Substitute $x = 2000$ into Eq. (1):
+                $$9(2000) - 4y = 2000 \implies 4y = 16000 \implies \mathbf{y = 4000}$$
+              </p>
+              <div style="font-weight:700; color:var(--accent-dark); font-size:0.88rem; margin-top:4px;">
+                Monthly Incomes: $9(2000) = \mathbf{₹18,000}$ and $7(2000) = \mathbf{₹14,000}$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 20 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 21: Consistency & Number of Solutions Criteria
+           ======================================================== -->
+      <section class="slide" id="slide-21">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Ratio Conditions</span>
+            <h2 class="slide-title"><span class="icon">⚖️</span> Nature of Solutions: The Ratio Test</h2>
+          </div>
+          <span class="page-pill">Page 110–112</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Unique Solution</div>
+              <div class="formula-banner">
+                $$\frac{a_1}{a_2} \neq \frac{b_1}{b_2}$$
+              </div>
+              <ul class="bullet-list">
+                <li>Lines have <strong>different slopes</strong>.</li>
+                <li>They intersect at <strong>exactly one point</strong> $(x_0, y_0)$.</li>
+                <li>System is <strong>consistent and independent</strong>.</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Infinitely Many Solutions</div>
+              <div class="formula-banner" style="background:#d97706;">
+                $$\frac{a_1}{a_2} = \frac{b_1}{b_2} = \frac{c_1}{c_2}$$
+              </div>
+              <ul class="bullet-list">
+                <li>One equation is a constant multiple $k$ of the other.</li>
+                <li>Lines are <strong>coincident</strong> (identical).</li>
+                <li>System is <strong>consistent and dependent</strong>.</li>
+              </ul>
+            </div>
+
+            <div class="content-card coral-highlight">
+              <div class="card-title">3. No Solution</div>
+              <div class="formula-banner" style="background:#be123c;">
+                $$\frac{a_1}{a_2} = \frac{b_1}{b_2} \neq \frac{c_1}{c_2}$$
+              </div>
+              <ul class="bullet-list">
+                <li>Lines have equal slopes but different intercepts.</li>
+                <li>Lines are strictly <strong>parallel</strong> (never meet).</li>
+                <li>System is <strong>inconsistent</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 21 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 22: Quick Box - Algebraic Methods & Ratios
+           ======================================================== -->
+      <section class="slide" id="slide-22">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 112–113</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Testing Ratios & Solutions</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                For what value of $p$ does the system $4x + py + 8 = 0$ and $2x + 2y + 2 = 0$ have a unique solution?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If adding two equations produces $0 = 0$, what does this reveal about the graphs of the two equations?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Test the lines $6x - 3y + 10 = 0$ and $2x - y + 9 = 0$ using ratio comparison. Will they ever cross?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 22 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 23: History & Ancient Roots of Elimination
+           ======================================================== -->
+      <section class="slide" id="slide-23">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">A Pinch of History</span>
+            <h2 class="slide-title"><span class="icon">📜</span> Ancient Roots: 4,000 Years of Linear Systems</h2>
+          </div>
+          <span class="page-pill">Page 112</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card">
+              <div class="card-title">🏺 Babylonia (c. 2000 BCE)</div>
+              <p class="card-desc">
+                Clay cuneiform tablets preserve some of the earliest recorded simultaneous linear problems, solved using algorithmic rhetorical steps centuries before algebraic symbols.
+              </p>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">🎋 China: Fangcheng (c. 100 BCE)</div>
+              <p class="card-desc">
+                <em>The Nine Chapters on the Mathematical Art</em> features an entire chapter (<em>fangcheng</em>) laying out coefficients in counting rod matrices, combining columns to cancel unknowns—1800 years before Gauss!
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🇮🇳 India: Aryabhaṭa & Brahmagupta</div>
+              <p class="card-desc">
+                Aryabhaṭa (499 CE) and Brahmagupta (628 CE) developed systematic reduction methods for systems of indeterminate and linear equations in multiple unknowns (<em>Kuttaka</em>).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 23 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 24: 13.6 Graphical Method for Solving Systems
+           ======================================================== -->
+      <section class="slide" id="slide-24">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">13.6 Graphical Method</span>
+            <h2 class="slide-title"><span class="icon">📊</span> Graphical Intersection of Two Lines</h2>
+          </div>
+          <span class="page-pill">Page 113–115</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card">
+              <div class="card-title">Example 11: $x + 3y = 6$ & $2x - 3y = 12$</div>
+              <p class="card-desc">
+                Construct two coordinate tables:
+              </p>
+              <div style="display:flex; gap:10px; font-size:0.8rem; margin:6px 0;">
+                <div style="background:#f1f5f9; padding:6px 10px; border-radius:6px; flex:1;">
+                  <strong>Line 1 ($x + 3y = 6$):</strong><br>
+                  $(0, 2)$ and $(6, 0)$
+                </div>
+                <div style="background:#f1f5f9; padding:6px 10px; border-radius:6px; flex:1;">
+                  <strong>Line 2 ($2x - 3y = 12$):</strong><br>
+                  $(0, -4)$ and $(3, -2)$
+                </div>
+              </div>
+              <ul class="bullet-list">
+                <li>Plot both straight lines on graph paper.</li>
+                <li>Both lines intersect at the point $B(6, 0)$.</li>
+                <li><strong>Unique Solution:</strong> $x = 6, y = 0$.</li>
+                <li>Ratio verification: $\frac{a_1}{a_2} = \frac{1}{2} \neq \frac{b_1}{b_2} = \frac{3}{-3} = -1$ ✅</li>
+              </ul>
+            </div>
+
+            <!-- SVG Graph of Intersection -->
+            <div class="graph-container">
+              <svg viewBox="0 0 320 220" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#ffffff" rx="8" />
+                <line x1="20" y1="120" x2="300" y2="120" stroke="#94a3b8" stroke-width="1.5"/>
+                <line x1="70" y1="10" x2="70" y2="210" stroke="#94a3b8" stroke-width="1.5"/>
+                <text x="290" y="112" font-size="10" fill="#64748b">x</text>
+                <text x="76" y="24" font-size="10" fill="#64748b">y</text>
+                <text x="56" y="134" font-size="9" fill="#94a3b8">O</text>
+
+                <!-- Line 1: passes through (70, 70) [0,2] and (250, 120) [6,0] -->
+                <line x1="25" y1="58" x2="280" y2="128" stroke="#059669" stroke-width="2.5"/>
+                <text x="130" y="80" font-size="9" font-weight="bold" fill="#059669">x + 3y = 6</text>
+
+                <!-- Line 2: passes through (70, 200) [0,-4] and (250, 120) [6,0] -->
+                <line x1="40" y1="215" x2="280" y2="105" stroke="#0284c7" stroke-width="2.5"/>
+                <text x="140" y="180" font-size="9" font-weight="bold" fill="#0284c7">2x - 3y = 12</text>
+
+                <!-- Intersection Point B(6,0) -->
+                <circle cx="250" cy="120" r="5" fill="#e11d48"/>
+                <text x="238" y="140" font-size="11" font-weight="bold" fill="#e11d48">B(6, 0)</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 24 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 25: Quick Box - Graphical Solutions
+           ======================================================== -->
+      <section class="slide" id="slide-25">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 115–118</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Geometric Intersections</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                10 students took part in a math quiz. Girls are 4 more than boys ($g = b + 4$). What are the coordinates of intersection on graph?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If two lines plotted on a graph do not meet anywhere on your paper, can you guarantee they are parallel? What test confirms it algebraically?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                In Mahāvīrāchārya's ancient puzzle ($9x + 7y = 107$ and $7x + 9y = 101$), what simple sum and difference trick avoids heavy arithmetic?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 25 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 26: Exercise Highlights (Worked Problems)
+           ======================================================== -->
+      <section class="slide" id="slide-26">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Key Worked Exemplars from Chapter Exercises</h2>
+          </div>
+          <span class="page-pill">Page 117, 118, 120</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Exemplar 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Taxi Fare Problem</div>
+              <p class="card-desc">
+                $10\text{ km} \to ₹155$, $15\text{ km} \to ₹220$. Find fixed fare ($x$), per-km charge ($y$), and cost for $25\text{ km}$.
+              </p>
+              <div style="font-size:0.8rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$x + 10y = 155, \quad x + 15y = 220$$
+                Subtract: $5y = 65 \implies \mathbf{y = ₹13/\text{km}}$<br>
+                $x = 155 - 130 = \mathbf{₹25}$ (fixed)<br>
+                For $25\text{ km}: 25 + 25(13) = \mathbf{₹350}$
+              </div>
+            </div>
+
+            <!-- Exemplar 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Cat and Stool Puzzle</div>
+              <p class="card-desc">
+                From diagrams: Cat on stool to ground is $85\text{ cm}$; Stool with cat on floor is $25\text{ cm}$. Find stool height ($S$).
+              </p>
+              <div style="font-size:0.8rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Let $S = \text{stool}, C = \text{cat}$.<br>
+                $$\begin{cases} S + C - 0 = 85 \\ S - C = 25 \end{cases}$$
+                Add equations: $2S = 110$<br>
+                $$\mathbf{S = 55\text{ cm}} \quad (C = 30\text{ cm})$$
+              </div>
+            </div>
+
+            <!-- Exemplar 3 -->
+            <div class="content-card coral-highlight">
+              <div class="card-title">3. Celsius to Fahrenheit</div>
+              <p class="card-desc">
+                $F = \frac{9}{5}C + 32$. Is there a temperature numerically identical in both scales ($F = C$)?
+              </p>
+              <div style="font-size:0.8rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Substitute $F = C$:<br>
+                $$C = \frac{9}{5}C + 32 \implies C - \frac{9}{5}C = 32$$
+                $$-\frac{4}{5}C = 32 \implies \mathbf{C = -40^{\circ}}$$
+                $$\mathbf{-40^{\circ}C = -40^{\circ}F}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 26 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 27: Chapter Summary Slide
+           ======================================================== -->
+      <section class="slide" id="slide-27">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Chapter 13 Summary</span>
+            <h2 class="slide-title"><span class="icon">📋</span> Master Summary Checklist</h2>
+          </div>
+          <span class="page-pill">Page 122</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">✅ Foundations of Linear Lines</div>
+              <ul class="bullet-list">
+                <li><strong>Standard Form:</strong> $ax + by + c = 0$ ($a, b$ not both zero). Represents a straight line on the Cartesian plane.</li>
+                <li><strong>Infinitely Many Solutions:</strong> A single linear equation in two variables has an infinity of ordered pairs $(x, y)$.</li>
+                <li><strong>Geometric Duality:</strong> Every solution is a point on the line; every point on the line is a solution.</li>
+                <li><strong>Slope ($m$):</strong> $\text{Rise}/\text{Run} = \frac{y_2 - y_1}{x_2 - x_1}$. Slope-intercept form: $y = mx + d$.</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">✅ Systems of Two Linear Equations</div>
+              <ul class="bullet-list">
+                <li><strong>Algebraic Methods:</strong> Method of Substitution and Method of Elimination reduce two unknowns to one.</li>
+                <li><strong>$\frac{a_1}{a_2} \neq \frac{b_1}{b_2}$ :</strong> Unique solution $\longleftrightarrow$ Intersecting lines.</li>
+                <li><strong>$\frac{a_1}{a_2} = \frac{b_1}{b_2} \neq \frac{c_1}{c_2}$ :</strong> No solution $\longleftrightarrow$ Parallel lines.</li>
+                <li><strong>$\frac{a_1}{a_2} = \frac{b_1}{b_2} = \frac{c_1}{c_2}$ :</strong> Infinitely many solutions $\longleftrightarrow$ Coincident lines.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 27 / 28</div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SLIDE 28: CLOSING SLIDE (THANK YOU)
+           ======================================================== -->
+      <section class="slide" id="slide-28">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>🏁</span> End of Chapter 13
+          </div>
+          <div class="pill-tag">
+            Complete Review
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:22px;">
+          <div style="font-size:0.9rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-secondary);">
+            NCERT • GANITA MANJARI GRADE 9
+          </div>
+
+          <h1 style="font-family:var(--font-display); font-size:3.5rem; font-weight:700; color:var(--text-main); line-height:1.1;">
+            Thank You!
+          </h1>
+
+          <p style="font-style:italic; font-size:1.2rem; color:var(--text-muted); max-width:820px; line-height:1.6;">
+            "Geometry and algebra are not two separate branches of mathematics; they are two different windows looking upon the very same universe of truth."
+          </p>
+
+          <div style="margin-top:10px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">✨ Interactive Classroom Slides</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">📐 Complete Section Coverage</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">⚡ Quick Box Checked</span>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Manjari | Grade 9 Part-II</div>
+          <div>Slide 28 / 28</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Slide Footer Keyboard Hint -->
+    <div class="key-hint">
+      Use ◀ / ▶ or Space to navigate • [F] Fullscreen
+    </div>
+
+    <!-- On-screen Navigation Controls (bottom-right) -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" title="Previous Slide (Left Arrow)">❮</button>
+      <select class="slide-select" id="slideSelect" title="Jump to Slide"></select>
+      <button class="nav-btn" id="nextBtn" title="Next Slide (Right Arrow / Space)">❯</button>
+      <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen" style="font-size:0.75rem;">⛶</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideSelect = document.getElementById('slideSelect');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const viewport = document.getElementById('presentation-viewport');
+
+      // Populate slide jump menu
+      slides.forEach((slide, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        const titleEl = slide.querySelector('.slide-title');
+        const titleText = titleEl ? titleEl.innerText.replace(/[\n\r]+/g, ' ').trim() : (idx === 0 ? 'Cover Slide' : 'Slide ' + (idx + 1));
+        option.textContent = `${idx + 1}. ${titleText.substring(0, 32)}...`;
+        slideSelect.appendChild(option);
+      });
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        slides[currentIndex].classList.add('active');
+        slideSelect.value = currentIndex;
+
+        // Trigger KaTeX render if needed on dynamic display
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentIndex], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      // Event Listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      slideSelect.addEventListener('change', (e) => {
+        updateSlide(parseInt(e.target.value, 10));
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullScreen();
+        }
+      });
+
+      // Touch / Swipe Navigation for mobile & interactive panels
+      let touchStartX = 0;
+      let touchStartY = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        const diffY = e.changedTouches[0].screenY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+          if (diffX < 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Fullscreen support
+      function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+          viewport.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullScreen);
+    });
+  </script>
+</body>
+</html>

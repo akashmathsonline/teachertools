@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 9 Math Chapter 10 Slide Deck</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+
+  <style>
+    /* Same CSS as File 1 */
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #0d9488;
+      --amber: #f59e0b;
+      --amber-soft: #fef3c7;
+      --rose: #e11d48;
+      --rose-soft: #ffe4e6;
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #eff6ff 100%);
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b1329; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; color: var(--text-main); }
+    .deck-container { position: relative; width: 100vw; max-width: 1280px; height: 56.25vw; max-height: 720px; background: var(--bg-gradient); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45); border-radius: 20px; overflow: hidden; }
+    .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 38px 52px; display: flex; flex-direction: column; justify-content: space-between; opacity: 0; visibility: hidden; transform: translateY(12px) scale(0.99); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+    .slide.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+    .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .pill-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 5px 14px; border-radius: 9999px; background: var(--primary-light); color: var(--primary-dark); border: 1px solid rgba(2, 132, 199, 0.2); }
+    .pill-tag.quick { background: var(--amber-soft); color: #b45309; border-color: #fde68a; }
+    .page-pill { background: #fee2e2; color: #b91c1c; border-color: rgba(185, 28, 28, 0.2); font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 9999px; }
+    .slide-title { font-family: 'Baloo 2', cursive, sans-serif; font-size: 2.1rem; line-height: 1.15; font-weight: 800; color: #0f172a; margin-bottom: 14px; }
+    .slide-subtitle { font-size: 0.98rem; color: var(--text-muted); font-weight: 500; margin-bottom: 20px; }
+    .content-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+    .card { background: var(--card-bg); border-radius: 16px; padding: 18px 22px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
+    .card.highlight { border-left: 5px solid var(--primary); background: linear-gradient(to right, #f8fafc, #ffffff); }
+    .card.danger { border-left: 5px solid var(--rose); background: linear-gradient(to right, #fff1f2, #ffffff); }
+    .card-title { font-family: 'Baloo 2', cursive; font-size: 1.25rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+    .card-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-family: 'Plus Jakarta Sans'; }
+    .theorem-box { background: #f1f5f9; border: 1.5px dashed #94a3b8; border-radius: 12px; padding: 12px 16px; margin: 4px 0; }
+    .theorem-statement { font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .formula-display { background: #f8fafc; border-radius: 8px; text-align: center; padding: 10px; margin: 6px 0; border: 1px solid #e2e8f0; }
+    ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    ul li { position: relative; padding-left: 24px; font-size: 0.92rem; line-height: 1.45; color: var(--text-muted); }
+    ul li::before { content: '✦'; position: absolute; left: 2px; color: var(--primary); font-size: 0.85rem; }
+    .slide-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 600; color: #64748b; letter-spacing: 0.03em; }
+    .slide-watermark { position: absolute; bottom: 12px; right: 18px; font-size: 0.74rem; font-weight: 600; color: #94a3b8; opacity: 0.35; pointer-events: none; }
+    .nav-controls { position: absolute; bottom: 14px; right: 28px; display: flex; gap: 8px; z-index: 50; }
+    .nav-btn { background: #ffffff; border: 1px solid #cbd5e1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; color: #334155; box-shadow: var(--shadow-sm); transition: all 0.2s ease; }
+    .nav-btn:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); transform: translateY(-2px); }
+    .keyboard-hint { position: absolute; bottom: 14px; left: 28px; font-size: 0.72rem; color: #94a3b8; font-weight: 600; z-index: 50; pointer-events: none; }
+    .credit-pill { display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1.5px solid #0284c7; padding: 10px 24px; border-radius: 9999px; font-size: 1.05rem; font-weight: 700; color: #0369a1; box-shadow: var(--shadow-md); margin-top: 10px; }
+    .cover-layout { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+    .cover-eyebrow { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .cover-title { font-family: 'Baloo 2', cursive; font-size: 3.5rem; font-weight: 800; color: #0f172a; line-height: 1.1; margin-bottom: 12px; }
+    .cover-tagline { font-style: italic; font-size: 1.15rem; color: #475569; max-width: 800px; margin: 0 auto; }
+    .quick-box-container { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+    .quick-item { background: #fffbeb; border: 1px solid #fde68a; padding: 14px 18px; border-radius: 12px; display: flex; gap: 14px; align-items: flex-start; }
+    .quick-badge { background: #d97706; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+    .quick-text { font-size: 1rem; font-weight: 600; color: #78350f; line-height: 1.4; }
+    .solution-card { background: #ffffff; border-radius: 14px; padding: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 8px; }
+    .sol-step { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+    .sol-final { background: var(--primary-light); color: var(--primary-dark); padding: 8px; border-radius: 8px; text-align: center; font-weight: 700; font-size: 0.9rem; margin-top: auto; }
+    @media (max-aspect-ratio: 16/9) { .deck-container { height: 100vh; width: 177.77vh; } }
+    @media (max-width: 900px) {
+      .deck-container { border-radius: 0; width: 100vw; height: 100vh; }
+      .slide { padding: 20px; }
+      .slide-title { font-size: 1.5rem; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .cover-title { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck-container">
+  
+  <!-- SLIDE 1 -->
+  <section class="slide active" id="slide-1">
+    <div class="slide-header">
+      <div class="pill-tag">GANITA MANJARI PART II | GRADE 9</div>
+      <div class="pill-tag">Chapter 10 • Cover</div>
+    </div>
+    <div class="cover-layout">
+      <div class="cover-eyebrow">Class 9 Mathematics • Chapter 10</div>
+      <h1 class="cover-title">How Quantities Combine: Understanding Data</h1>
+      <p class="cover-tagline">Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook.</p>
+      <div class="credit-pill">
+        <span class="icon">✦</span>
+        <span>Akash Srivastva <strong>(www.akashmaths.online)</strong></span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div>Ganita Manjari | Grade 9 | Part II</div>
+      <div>Slide 1 / 30</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 -->
+  <section class="slide" id="slide-2">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Section 10.1.1</span>
+        <span class="pill-tag">Average of Averages</span>
+      </div>
+      <span class="pill-tag page-pill">Page 1–2</span>
+    </div>
+    <div>
+      <h2 class="slide-title">When Averages Collide: The Badminton Academy</h2>
+      <p class="slide-subtitle">Why averaging two averages directly can lead to false conclusions</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card danger">
+          <div class="card-title"><div class="card-icon" style="background:#dc2626;">✕</div> Method 1: The Simple Average Trap</div>
+          <ul>
+            <li><strong>Seniors ($n=8$):</strong> Average height $= 165.5\text{ cm}$</li>
+            <li><strong>Juniors ($m=3$):</strong> Average height $= 149.33\text{ cm}$</li>
+            <li>Naive average calculation:
+              <div class="formula-display">$$\frac{165.5 + 149.33}{2} = 157.415\text{ cm}$$</div>
+            </li>
+            <li><strong>Why it Fails:</strong> It treats both groups as equal in size!</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title"><div class="card-icon">✓</div> Method 2: Shreyas' Total Sum Method</div>
+          <ul>
+            <li>Sum of Senior heights: $165.5 \times 8 = 1324\text{ cm}$</li>
+            <li>Sum of Junior heights: $149.33 \times 3 = 448\text{ cm}$</li>
+            <li>Combined group size: $8 + 3 = 11$ players</li>
+            <li><strong>True Combined Average:</strong>
+              <div class="formula-display">$$\frac{1324 + 448}{11} = \frac{1772}{11} \approx 161.09\text{ cm}$$</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 2 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 3 -->
+  <section class="slide" id="slide-3">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 1–2</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — The Average of Averages Dilemma</h2>
+      <p class="slide-subtitle">Rapid verbal check to test conceptual grasp of group sizes</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Why does adding two averages and dividing by 2 fail when one group has 8 members and the other has only 3?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">If a collection has $n$ items with average $a$, what exact algebraic expression gives the total sum of all values?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 3 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 4 -->
+  <section class="slide" id="slide-4">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Algebraic Foundation</span>
+        <span class="pill-tag">Two Collections</span>
+      </div>
+      <span class="pill-tag page-pill">Page 2</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Algebraic Formulation: Combining Two Collections</h2>
+      <p class="slide-subtitle">Deriving the fundamental weighted formula from first principles</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><div class="card-icon">1</div> Collection 1 & Collection 2</div>
+          <ul>
+            <li><strong>Collection 1:</strong> $n$ values $x_i$ with mean $a$: $\sum x_i = a \cdot n$</li>
+            <li><strong>Collection 2:</strong> $m$ values $y_j$ with mean $b$: $\sum y_j = b \cdot m$</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title"><div class="card-icon">2</div> The Combined Mean Formula</div>
+          <div class="theorem-box">
+            <div class="theorem-statement">Combined Average of Two Collections:</div>
+            <div class="formula-display">$$\text{Average} = \frac{a \cdot n + b \cdot m}{n + m}$$</div>
+          </div>
+          <ul>
+            <li>The sizes $n$ and $m$ act as natural <strong>weights</strong>.</li>
+            <li>If $n > m$, the combined average is pulled closer to $a$.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 4 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 5 -->
+  <section class="slide" id="slide-5">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 2</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Two-Collection Mechanics</h2>
+      <p class="slide-subtitle">Testing student comfort with combined weight expressions</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">In $\frac{an + bm}{n+m}$, what happens if $n = 3m$? Towards which average is the result pulled more strongly?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">If a class of 20 students scores an average of 80, and another class of 20 scores an average of 90, can we simply compute $\frac{80+90}{2}$? Why?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 5 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 6 -->
+  <section class="slide" id="slide-6">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Example 2</span>
+        <span class="pill-tag">Equal Group Sizes</span>
+      </div>
+      <span class="pill-tag page-pill">Page 2–3</span>
+    </div>
+    <div>
+      <h2 class="slide-title">When Simple Averages Work: Jaspreet's Cycling</h2>
+      <p class="slide-subtitle">Equal group sizes allow direct averaging of subgroup averages</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Jaspreet's 3-Week Cycling Log</div>
+          <ul>
+            <li><strong>Week 1 (5 days):</strong> Mean $a = 12.8\text{ min}$</li>
+            <li><strong>Week 2 (5 days):</strong> Mean $b = 15.8\text{ min}$</li>
+            <li><strong>Week 3 (5 days):</strong> Mean $c = 18.0\text{ min}$</li>
+            <li>Every week has exactly $p = 5$ days!</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">The Algebraic Reason for Equality</div>
+          <div class="theorem-box">
+            <div class="formula-display">$$\frac{ap + bp + cp}{p + p + p} = \frac{a+b+c}{3}$$</div>
+          </div>
+          <ul>
+            <li>$\frac{12.8 + 15.8 + 18.0}{3} \approx 15.53\text{ minutes}$</li>
+            <li><strong>Universal Rule:</strong> When all collections are of <strong>equal size</strong>, the average of their averages equals the true overall mean.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 6 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 7 -->
+  <section class="slide" id="slide-7">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 3</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — The Equality Condition</h2>
+      <p class="slide-subtitle">Spotting when simple average shortcuts are mathematically valid</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">What single condition must hold true across three collections for $\frac{a+b+c}{3}$ to match the exact weighted mean?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">If Jaspreet cycled 5 days in Week 1, 4 days in Week 2, and 6 days in Week 3, could we still divide $(a+b+c)$ by 3? Why?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 7 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 8 -->
+  <section class="slide" id="slide-8">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Section 10.1.2</span>
+        <span class="pill-tag">Mixtures</span>
+      </div>
+      <span class="pill-tag page-pill">Page 4</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Mixtures: Equal vs Unequal Concentrations</h2>
+      <p class="slide-subtitle">How volume proportions dictate final concentration</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Example 3: Equal Volumes</div>
+          <ul>
+            <li>Two glasses of lemonade: Glass 1 has 10% jaggery, Glass 2 has 20%.</li>
+            <li>Since volumes are identical, the result is <strong>exactly midway</strong> ($15\%$).</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Example 4: Unequal Volumes</div>
+          <ul>
+            <li><strong>Bowl:</strong> $500\text{ mL}$ with 10% jaggery $\implies 50\text{ mL}$</li>
+            <li><strong>Glass:</strong> $200\text{ mL}$ with 20% jaggery $\implies 40\text{ mL}$</li>
+            <li><strong>Final Conc.:</strong> $\frac{50 + 40}{500 + 200} = \frac{90}{700} \approx 13\%$</li>
+            <li>The mixture sits closer to 10% than 20%.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 8 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 9 -->
+  <section class="slide" id="slide-9">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 4</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Estimating Mixture Concentrations</h2>
+      <p class="slide-subtitle">Testing qualitative estimation before calculation</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Before calculating: if you mix $900\text{ mL}$ of a 5% sugar solution with $100\text{ mL}$ of a 25% sugar solution, will the answer be closer to 5% or 25%?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Under what exact experimental condition will the final concentration be the exact arithmetic midpoint of two solutions?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 9 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 10 -->
+  <section class="slide" id="slide-10">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Example 5</span>
+        <span class="pill-tag">Alloy Formulation</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Combining Three Batches: The Brass Alloy Problem</h2>
+      <p class="slide-subtitle">Solving for an unknown batch weight using weighted mean principles</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Given Batches of Brass (Copper + Zinc)</div>
+          <ul>
+            <li><strong>Batch A:</strong> $200\text{ kg}$, $70\%$ Copper $\implies 140\text{ kg}$</li>
+            <li><strong>Batch B:</strong> $120\text{ kg}$, $50\%$ Copper $\implies 60\text{ kg}$</li>
+            <li><strong>Batch C:</strong> $y\text{ kg}$, $45\%$ Copper</li>
+            <li><strong>Target Mixture:</strong> $55\%$ Copper overall</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Algebraic Solution for Batch C</div>
+          <div class="theorem-box">
+            <div class="formula-display">$$0.55 = \frac{200(0.70) + 120(0.50) + y(0.45)}{200 + 120 + y}$$</div>
+          </div>
+          <ul>
+            <li>$0.55(320 + y) = 200 + 0.45y$</li>
+            <li>$0.10y = 24 \implies \mathbf{y = 240\text{ kg}}$</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 10 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 11 -->
+  <section class="slide" id="slide-11">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Alloy Balance Equations</h2>
+      <p class="slide-subtitle">Formulating unknown-weight mixture equations</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">In the brass alloy problem, what does the expression $200 \times 0.7 + 120 \times 0.5 + y \times 0.45$ represent physically?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">If a batch of pure copper (100% Cu) were added instead of 45% Cu, what value would replace 0.45 in the formula?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 11 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 12 -->
+  <section class="slide" id="slide-12">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Core Theorem</span>
+        <span class="pill-tag">Weighted Mean</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5</span>
+    </div>
+    <div>
+      <h2 class="slide-title">The General Weighted Mean Definition</h2>
+      <p class="slide-subtitle">Weighting values by magnitude, volume, frequency, or importance</p>
+    </div>
+    <div class="content-body">
+      <div class="theorem-box">
+        <div class="theorem-statement">Definition: Weighted Mean ($\overline{x}$)</div>
+        <p>For $n$ quantities $x_1, x_2, \dots, x_n$ associated with corresponding weights $w_1, w_2, \dots, w_n$:</p>
+      </div>
+      <div class="formula-display" style="font-size: 1.2rem; padding: 16px;">
+        $$\overline{x} = \frac{w_1 x_1 + w_2 x_2 + \dots + w_n x_n}{w_1 + w_2 + \dots + w_n} = \frac{\sum_{i=1}^n w_i x_i}{\sum_{i=1}^n w_i}$$
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">What is a "Weight"?</div>
+          <p>Weights can be <strong>physical</strong> (e.g., volume in mL, mass in kg) or <strong>abstract</strong> (e.g., credit hours, priority scale).</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Key Property</div>
+          <p>The weighted average always satisfies:</p>
+          <div class="formula-display">$$\min(x_i) \le \overline{x} \le \max(x_i)$$</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 12 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 13 -->
+  <section class="slide" id="slide-13">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Deciphering Weights</h2>
+      <p class="slide-subtitle">Rapid check on the structure of $\frac{\sum w_i x_i}{\sum w_i}$</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">If all weights $w_1 = w_2 = \dots = w_n = 1$, what familiar formula does the weighted mean reduce to?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Can weights be expressed as percentages or fractions, such that $\sum w_i = 1$? How does that simplify the denominator?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 13 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 14 -->
+  <section class="slide" id="slide-14">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">History of Math</span>
+        <span class="pill-tag">Ancient India</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5–6</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Historical Roots: Brahmagupta & Śrīdharācārya</h2>
+      <p class="slide-subtitle">Weighted averages in excavation, earthworks, and metallurgy centuries ago</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card history">
+          <div class="card-title">Brahmagupta (c. 628 CE)</div>
+          <p><strong>Brāhmasphuṭasiddhānta — Irregular Excavations:</strong></p>
+          <ul>
+            <li>To determine the mean depth of an irregular pit with section lengths $w_i$ and depths $x_i$.</li>
+            <li>Later expanded by <strong>Pṛthūdakasvāmī (c. 864 CE)</strong>.</li>
+          </ul>
+        </div>
+        <div class="card history">
+          <div class="card-title">Śrīdharācārya (c. 750 CE)</div>
+          <p><strong>Pātīgaṇita — The Varṇa System of Gold:</strong></p>
+          <ul>
+            <li><strong>Varṇa:</strong> Measure of gold purity ($16\text{ varṇa} = 24\text{ karat}$).</li>
+            <li>Computed purity of combined melted ingots using weighted mean.</li>
+            <li>Arrived in Europe nearly a millennium later!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 14 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 15 -->
+  <section class="slide" id="slide-15">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 5–6</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Ancient Indian Mathematics</h2>
+      <p class="slide-subtitle">Connecting historical problems to modern concepts</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">In Brahmagupta's pit depth problem, what physically represented the weights $w_i$, and what represented the values $x_i$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">If 16 varṇa equals 24 karat, what karat purity corresponds to an ancient Indian purity of 12 varṇa?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 15 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 16 -->
+  <section class="slide" id="slide-16">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Section 10.1.3</span>
+        <span class="pill-tag">Custom Weights</span>
+      </div>
+      <span class="pill-tag page-pill">Page 6–8</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Custom Weights: Academic Scores & Rating Systems</h2>
+      <p class="slide-subtitle">Assigning deliberate importance ratios to multi-component data</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">Rehmat's Annual Maths Score</div>
+          <ul>
+            <li><strong>Internals:</strong> $60\%$ (Weight $3$)</li>
+            <li><strong>Project:</strong> $64\%$ (Weight $2$)</li>
+            <li><strong>Final Exam:</strong> $73\%$ (Weight $5$)</li>
+            <li><strong>Weighted Annual Score:</strong>
+              <div class="formula-display">$$\frac{60(3) + 64(2) + 73(5)}{10} = \mathbf{67.3\%}$$</div>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Mean Hotel Rating Scheme</div>
+          <ul>
+            <li>Customer rating: Food $= 5★$, Service $= 3★$, Ambience $= 4★$.</li>
+            <li>Weight ratio $= 4 : 3 : 2$:</li>
+            <li><strong>Overall Rating:</strong>
+              <div class="formula-display">$$\frac{5(4) + 3(3) + 4(2)}{9} = \mathbf{4.11★}$$</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 16 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 17 -->
+  <section class="slide" id="slide-17">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 7–8</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Custom Weights in Action</h2>
+      <p class="slide-subtitle">Evaluating the impact of priority ratios</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Why did Rehmat's annual score ($67.3\%$) turn out higher than the simple average ($65.6\%$)?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">In an e-commerce platform, why would a seller assign twice as much weight to recent reviews compared to older reviews?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 17 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 18 -->
+  <section class="slide" id="slide-18">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Section 10.2.1</span>
+        <span class="pill-tag">Cluster Columns</span>
+      </div>
+      <span class="pill-tag page-pill">Page 11–12</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Visualising Data: Two Cluster-Column Perspectives</h2>
+      <p class="slide-subtitle">Comparing family expenditure across categories vs within each family</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">Perspective 1: Clustered by Category</div>
+          <p><strong>X-axis:</strong> Housing, Food, Education, etc.</p>
+          <ul>
+            <li>Bars grouped side-by-side: Family A, B, C for each category.</li>
+            <li><strong>Best suited for:</strong> Direct cross-family comparisons. <em>e.g., "Which family spends least on housing?"</em></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Perspective 2: Clustered by Family</div>
+          <p><strong>X-axis:</strong> Family A, Family B, Family C.</p>
+          <ul>
+            <li>Bars grouped side-by-side: The 6 spending categories for each family.</li>
+            <li><strong>Best suited for:</strong> Internal profile comparisons. <em>e.g., "Which category is Family B's highest expense?"</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 18 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 19 -->
+  <section class="slide" id="slide-19">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 12</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Choosing the Right Cluster</h2>
+      <p class="slide-subtitle">Determining which visual grouping answers the target question</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Which chart makes it easier to answer: "Did Family A spend more on food or healthcare?" Clustered by category or clustered by family?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Is it easy to find the total monthly expenditure of Family A by looking at a standard cluster-column chart? Why not?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 19 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 20 -->
+  <section class="slide" id="slide-20">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Section 10.2.1</span>
+        <span class="pill-tag">Stacked Bars</span>
+      </div>
+      <span class="pill-tag page-pill">Page 13–14</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Stacked Bar Charts: Totals with Component Breakdown</h2>
+      <p class="slide-subtitle">Combining sub-segments into a single cumulative bar</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">How Stacked Bars Work</div>
+          <ul>
+            <li>Bars are placed end-to-end to form one composite bar.</li>
+            <li>The <strong>total length</strong> represents the grand total.</li>
+            <li><strong>Visual representation of Table 10.2:</strong>
+              <div style="margin-top:6px; border-radius:6px; overflow:hidden; display:flex; height:24px;">
+                <div style="width:23%; background:#ef4444; color:white; font-size:10px; display:flex; align-items:center; justify-content:center;">1940</div>
+                <div style="width:20%; background:#3b82f6; color:white; font-size:10px; display:flex; align-items:center; justify-content:center;">1700</div>
+                <div style="width:15%; background:#eab308; color:white; font-size:10px; display:flex; align-items:center; justify-content:center;">1280</div>
+                <div style="width:14%; background:#10b981; color:white; font-size:10px; display:flex; align-items:center; justify-content:center;">1200</div>
+                <div style="width:21%; background:#ec4899; color:white; font-size:10px; display:flex; align-items:center; justify-content:center;">1770</div>
+                <div style="width:7%; background:#64748b; color:white; font-size:10px; display:flex; align-items:center; justify-content:center;">535</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Advantages & Trade-Offs</div>
+          <ul>
+            <li><strong>Huge Advantage:</strong> Instantly compares totals across groups at a single glance.</li>
+            <li><strong>The Floating Baseline Trade-Off:</strong> Only the first category starts from zero!</li>
+            <li>All middle segments float without a common baseline, making subtle differences between interior components hard to judge accurately.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 20 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 21 -->
+  <section class="slide" id="slide-21">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 13–14</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — The Stacked Bar Trade-Off</h2>
+      <p class="slide-subtitle">Analyzing baseline limitations in stacked charts</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Why is it very easy to compare the total lengths of stacked bars, but harder to compare their middle segments?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">In the IUCN Red List chart (p. 14), what does the overall top number $14{,}234$ in 2019 represent?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 21 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 22 -->
+  <section class="slide" id="slide-22">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Section 10.2.2</span>
+        <span class="pill-tag">100% Stacked Bars</span>
+      </div>
+      <span class="pill-tag page-pill">Page 15–17</span>
+    </div>
+    <div>
+      <h2 class="slide-title">100% Stacked Bars: A Linear Alternative to Pie Charts</h2>
+      <p class="slide-subtitle">Comparing relative proportions rather than absolute totals</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Why Replace Pie Charts?</div>
+          <ul>
+            <li><strong>Pie Charts:</strong> Human eyes struggle to compare angles tilted at different orientations.</li>
+            <li><strong>100% Stacked Bar:</strong> Normalizes all bars to a fixed $100\%$ uniform width.</li>
+            <li>Segments directly reflect the percentage share contributed by each category.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Powering Up: Electricity Shift (2005 vs 2025)</div>
+          <ul>
+            <li><strong>2005 (Total 1000 kWh):</strong> Lighting: $36\%$, Cooling: $30\%$, Kitchen: $12\%$, Other: $22\%$</li>
+            <li><strong>2025 (Total 2000 kWh):</strong> Lighting: $11\%$, Cooling: $40\%$, Kitchen: $23\%$, Other: $26\%$</li>
+            <li><strong>Crucial Takeaway:</strong> Lighting share dropped dramatically from $36\%$ to $11\%$ due to efficient LEDs, while Cooling surged to $40\%$!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 22 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 23 -->
+  <section class="slide" id="slide-23">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 16–17</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — The Power of Proportions</h2>
+      <p class="slide-subtitle">Checking comprehension of normalized 100% bars</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">In a 100% stacked bar chart, do two bars of identical total length mean the two entities have identical real-world totals?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">If electricity consumption for lighting fell from $360\text{ kWh}$ to $220\text{ kWh}$, what happened to its percentage share when total power doubled?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 23 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 24 -->
+  <section class="slide" id="slide-24">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Example 8</span>
+        <span class="pill-tag">Data Interpretation</span>
+      </div>
+      <span class="pill-tag page-pill">Page 17–19</span>
+    </div>
+    <div>
+      <h2 class="slide-title">What Can We Infer? The Garden Flower Paradox</h2>
+      <p class="slide-subtitle">A higher percentage share does NOT guarantee a higher absolute count</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">The 100% Stacked Chart Data</div>
+          <ul>
+            <li><strong>Fatima's Blooms:</strong> Summer $50\%$, Monsoon $30\%$, Winter $20\%$</li>
+            <li><strong>Naveen's Blooms:</strong> Summer $40\%$, Monsoon $25\%$, Winter $35\%$</li>
+            <li><strong>Valid Inference (Within Same Garden):</strong> Fatima definitely had more summer blooms than monsoon blooms ($50\% > 30\%$).</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">The Fallacy Across Gardens</div>
+          <ul>
+            <li><em>"Did Fatima have more summer blooms than Naveen?"</em> <strong>UNKNOWN!</strong></li>
+            <li><strong>Case 1:</strong> Fatima total $= 210$, Naveen total $= 120$: Fatima Summer $= 105 >$ Naveen Summer $= 48$.</li>
+            <li><strong>Case 2:</strong> Fatima total $= 180$, Naveen total $= 240$: Fatima Summer $= 90 <$ Naveen Summer $= 96$.</li>
+            <li><strong>Takeaway:</strong> Proportions cannot reveal absolute winners across groups without knowing the base totals!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 24 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 25 -->
+  <section class="slide" id="slide-25">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 18–19</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Reading Beyond Percentages</h2>
+      <p class="slide-subtitle">Spotting misinterpretations of 100% proportional charts</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">A state reports $90\%$ of schools have playgrounds, while another reports $70\%$. Can we state that the first state has more playgrounds? What is missing?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Can you create a standard stacked bar chart from a 100% stacked bar chart if the total values are missing? Why not?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 25 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 26 -->
+  <section class="slide" id="slide-26">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Real-World Case</span>
+        <span class="pill-tag">National Survey 2024</span>
+      </div>
+      <span class="pill-tag page-pill">Page 19–21</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Real-World Data: A Typical Day for an Indian</h2>
+      <p class="slide-subtitle">When a single 24-hour strip serves as both a stacked bar and a 100% stacked bar</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">National Time Use Survey 2024 (24h Day)</div>
+          <ul>
+            <li><strong>Sleep:</strong> $34\%$ ($\approx 8.16\text{ h}$)</li>
+            <li><strong>Personal Care:</strong> $13\%$ ($\approx 3.12\text{ h}$)</li>
+            <li><strong>Paid Work:</strong> $10\%$ ($\approx 2.40\text{ h}$)</li>
+            <li><strong>Unpaid Work & Care:</strong> $11\%$ ($\approx 2.64\text{ h}$)</li>
+            <li><strong>Learning:</strong> $5\%$ ($\approx 1.20\text{ h}$)</li>
+            <li><strong>Leisure, Social & Travel:</strong> $27\%$ ($\approx 6.48\text{ h}$)</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">The Double-Identity Chart</div>
+          <div class="theorem-box">
+            <p><em>"If there is only one stacked bar whose total represents a constant 24 hours, it is simultaneously a stacked bar and a 100% stacked bar!"</em></p>
+          </div>
+          <ul>
+            <li>Breaking data down by <strong>age group</strong> reveals deep truths:
+              <br>• Children (6–14): Learning is $22\%$, Sleep $38\%$.
+              <br>• Adults (25–59): Paid work ($14\%$) + Unpaid care ($15\%$) dominate.
+              <br>• Elderly (60+): Leisure, Social & Travel expands to $33\%$.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 26 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 27 -->
+  <section class="slide" id="slide-27">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+      </div>
+      <span class="pill-tag page-pill">Page 20–22</span>
+    </div>
+    <div>
+      <h2 class="slide-title">⚡ Quick Box — Demographic Nuances</h2>
+      <p class="slide-subtitle">Analyzing aggregated averages versus disaggregated groups</p>
+    </div>
+    <div class="content-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Question 1</span>
+          <span class="quick-text">Why does looking only at the overall average day for all Indians conceal that adults spend almost 30% of their day working, while children spend 0% on paid work?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Question 2</span>
+          <span class="quick-text">Why did the learning share drop from 22% in children (6–14) down to 11% in youth (15–24) and 0% in adults?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 27 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 28 -->
+  <section class="slide" id="slide-28">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Exercise Highlights</span>
+        <span class="pill-tag">Worked Examples</span>
+      </div>
+      <span class="pill-tag page-pill">Page 6, 9, 24</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Exercise Highlights — Step-by-Step Solutions</h2>
+      <p class="slide-subtitle">Three representative problems calculated from the exercise sets</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-3">
+        <div class="solution-card">
+          <div class="card-title" style="font-size:1.05rem;">1. Test Scores (Set 10.1, Q1)</div>
+          <p class="sol-step"><strong>Given:</strong> Sec A: 30 students, mean $= 72$. Sec B: 25 students, mean $= 76$.</p>
+          <p class="sol-step"><strong>Formula:</strong> $\overline{x} = \frac{30(72) + 25(76)}{30 + 25}$</p>
+          <p class="sol-step">$$= \frac{2160 + 1900}{55} = \frac{4060}{55}$$</p>
+          <div class="sol-final">$\overline{x} \approx 73.82$</div>
+        </div>
+        <div class="solution-card">
+          <div class="card-title" style="font-size:1.05rem;">2. Panipuri Pani Dilution (Q4)</div>
+          <p class="sol-step"><strong>Given:</strong> $10\text{ L}$ pani has $8\%$ spice. Target: $\frac{3}{4} \times 8\% = 6\%$ spice by adding water $W$.</p>
+          <p class="sol-step">Spice amount $= 10 \times 0.08 = 0.8\text{ L}$.</p>
+          <p class="sol-step">$$\frac{0.8}{10 + W} = 0.06 \implies 0.8 = 0.6 + 0.06W$$</p>
+          <div class="sol-final">$W = \frac{0.2}{0.06} = 3.33\text{ Litres}$</div>
+        </div>
+        <div class="solution-card">
+          <div class="card-title" style="font-size:1.05rem;">3. Ancient Pool Depth (Q4)</div>
+          <p class="sol-step"><strong>Lengths $w_i$:</strong> 4, 5, 6, 7, 8 (Sum $= 30$).</p>
+          <p class="sol-step"><strong>Depths $x_i$:</strong> 9, 7, 7, 3, 2.</p>
+          <p class="sol-step">$\sum w_i x_i = 36 + 35 + 42 + 21 + 16 = 150$.</p>
+          <div class="sol-final">$\overline{x} = \frac{150}{30} = 5\text{ hastas}$</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 28 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 29 -->
+  <section class="slide" id="slide-29">
+    <div class="slide-header">
+      <div class="tag-group">
+        <span class="pill-tag">Summary</span>
+        <span class="pill-tag">Core Principles</span>
+      </div>
+      <span class="pill-tag page-pill">Page 29</span>
+    </div>
+    <div>
+      <h2 class="slide-title">Chapter Summary: Data Toolkit</h2>
+      <p class="slide-subtitle">Master recap of weighted averages, mixtures, and stacked visualizations</p>
+    </div>
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Mathematical Principles (✅)</div>
+          <ul>
+            <li><strong>Weighted Average Formula:</strong>
+              <div class="formula-display">$$\overline{x} = \frac{w_1 x_1 + w_2 x_2 + \dots + w_n x_n}{w_1 + w_2 + \dots + w_n}$$</div>
+            </li>
+            <li><strong>Symmetry:</strong> If all weights are equal ($w_i = k$), weighted mean reduces to the simple arithmetic mean.</li>
+            <li><strong>Scale Invariance:</strong> Multiplying all weights by a constant factor $c$ leaves the weighted average unchanged.</li>
+            <li><strong>Mixtures & Alloys:</strong> Quantities combine in direct proportion to their masses or volumes.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Visualisation Rules (✅)</div>
+          <ul>
+            <li><strong>Cluster Columns:</strong> Compare items directly against a common baseline at $0$.</li>
+            <li><strong>Stacked Bars:</strong> Compare composite totals while preserving sub-component contributions.</li>
+            <li><strong>100% Stacked Bars:</strong> Compare internal proportions and shares across different groups; does <em>not</em> reveal absolute sizes.</li>
+            <li><strong>Directional Conversion:</strong> Stacked Bar $\implies$ 100% Stacked Bar (Always possible); 100% Stacked Bar $\implies$ Stacked Bar (Impossible without knowing total sizes).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><div>Ganita Manjari | Grade 9 | Part II</div><div>Slide 29 / 30</div></div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 30 -->
+  <section class="slide" id="slide-30">
+    <div class="slide-header">
+      <div class="pill-tag">GANITA MANJARI PART II | GRADE 9</div>
+      <div class="pill-tag">End of Chapter 10</div>
+    </div>
+    <div class="cover-layout">
+      <div class="cover-eyebrow">Data Literacy & Mathematical Balance</div>
+      <h1 class="cover-title">Thank You!</h1>
+      <p class="cover-tagline">"When numbers combine, true understanding emerges only when we honor how much each voice contributes to the whole."</p>
+      <div class="credit-pill">
+        <span class="icon">✦</span>
+        <span>Akash Srivastva <strong>(www.akashmaths.online)</strong></span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <div>Ganita Manjari | Grade 9 | Part II</div>
+      <div>Slide 30 / 30</div>
+    </div>
+  </section>
+
+  <!-- Nav -->
+  <div class="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+  <div class="nav-controls">
+    <button class="nav-btn" id="prev-btn">❮</button>
+    <button class="nav-btn" id="next-btn">❯</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+    currentSlide = index;
+  }
+
+  function nextSlide() { if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1); }
+  function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  });
+
+  document.getElementById('next-btn').addEventListener('click', nextSlide);
+  document.getElementById('prev-btn').addEventListener('click', prevSlide);
+</script>
+</body>
+</html>

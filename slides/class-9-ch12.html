@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 9 Math Chapter 12 Slide Deck</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #0d9488;
+      --amber: #f59e0b;
+      --amber-soft: #fef3c7;
+      --rose: #e11d48;
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #eff6ff 100%);
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b1329;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      color: var(--text-main);
+    }
+
+    .deck-container {
+      position: relative;
+      width: 100vw;
+      max-width: 1280px;
+      height: 56.25vw;
+      max-height: 720px;
+      background: var(--bg-gradient);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      padding: 38px 52px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      opacity: 0; visibility: hidden;
+      transform: translateY(12px) scale(0.99);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+
+    .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    
+    .pill-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 5px 14px; border-radius: 9999px;
+      background: var(--primary-light); color: var(--primary-dark); border: 1px solid rgba(2, 132, 199, 0.2);
+    }
+    .pill-tag.quick { background: var(--amber-soft); color: #b45309; border-color: #fde68a; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border-color: rgba(185, 28, 28, 0.2); font-size: 0.78rem; font-weight: 700; padding: 5px 12px; border-radius: 9999px; }
+
+    .slide-title { font-family: 'Baloo 2', cursive, sans-serif; font-size: 2.1rem; line-height: 1.15; font-weight: 800; color: #0f172a; margin-bottom: 14px; }
+    .slide-subtitle { font-size: 0.98rem; color: var(--text-muted); font-weight: 500; margin-bottom: 20px; }
+    
+    .slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+
+    .card { background: var(--card-bg); border-radius: 16px; padding: 18px 22px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
+    .card.highlight { border-left: 5px solid var(--primary); background: linear-gradient(to right, #f8fafc, #ffffff); }
+    .card.danger { border-left: 5px solid var(--rose); background: linear-gradient(to right, #fff1f2, #ffffff); }
+    .card-title { font-family: 'Baloo 2', cursive; font-size: 1.25rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+    
+    .theorem-box { background: #f1f5f9; border: 1.5px dashed #94a3b8; border-radius: 12px; padding: 12px 16px; margin: 4px 0; }
+    .theorem-statement { font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .formula-box { background: #f8fafc; border-radius: 8px; text-align: center; padding: 10px; margin: 6px 0; border: 1px solid #e2e8f0; }
+
+    ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    ul li { position: relative; padding-left: 24px; font-size: 0.92rem; line-height: 1.45; color: var(--text-muted); }
+    ul li::before { content: '✦'; position: absolute; left: 2px; color: var(--primary); font-size: 0.85rem; }
+
+    .slide-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #e2e8f0; font-size: 0.78rem; font-weight: 600; color: #64748b; letter-spacing: 0.03em; }
+    .slide-watermark { position: absolute; bottom: 12px; right: 18px; font-size: 0.74rem; font-weight: 600; color: #94a3b8; opacity: 0.35; pointer-events: none; }
+
+    .nav-controls { position: absolute; bottom: 14px; right: 28px; display: flex; gap: 8px; z-index: 50; }
+    .nav-btn { background: #ffffff; border: 1px solid #cbd5e1; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; color: #334155; box-shadow: var(--shadow-sm); transition: all 0.2s ease; }
+    .nav-btn:hover { background: var(--primary); color: #ffffff; border-color: var(--primary); transform: translateY(-2px); }
+    .keyboard-hint { position: absolute; bottom: 14px; left: 28px; font-size: 0.72rem; color: #94a3b8; font-weight: 600; z-index: 50; pointer-events: none; }
+
+    .credit-pill { display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1.5px solid #0284c7; padding: 10px 24px; border-radius: 9999px; font-size: 1.05rem; font-weight: 700; color: #0369a1; box-shadow: var(--shadow-md); margin-top: 10px; }
+    .cover-layout { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+    .cover-eyebrow { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .cover-title { font-family: 'Baloo 2', cursive; font-size: 3.5rem; font-weight: 800; color: #0f172a; line-height: 1.1; margin-bottom: 12px; }
+    .cover-tagline { font-style: italic; font-size: 1.15rem; color: #475569; max-width: 800px; margin: 0 auto; }
+
+    .quick-box-container { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+    .quick-item { background: #fffbeb; border: 1px solid #fde68a; padding: 14px 18px; border-radius: 12px; display: flex; gap: 14px; align-items: flex-start; }
+    .quick-badge { background: #d97706; color: #fff; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+    .quick-text { font-size: 1rem; font-weight: 600; color: #78350f; line-height: 1.4; }
+
+    @media (max-aspect-ratio: 16/9) { .deck-container { height: 100vh; width: 177.77vh; } }
+    @media (max-width: 900px) {
+      .deck-container { border-radius: 0; width: 100vw; height: 100vh; }
+      .slide { padding: 20px; }
+      .slide-title { font-size: 1.5rem; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .cover-title { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck-container">
+  
+  <!-- SLIDE 1: COVER SLIDE -->
+  <section class="slide active">
+    <div class="cover-layout">
+      <div style="width: 100%; display: flex; justify-content: space-between;">
+        <span class="pill-tag">GANITA MANJARI PART II • GRADE 9</span>
+        <span class="pill-tag">Chapter 12 • Cover</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <span class="cover-eyebrow">CLASS 9 MATHEMATICS • CHAPTER 12</span>
+        <h1 class="cover-title">Quadrilaterals</h1>
+        <p class="cover-tagline">
+          A rigorous pedagogical exploration into the nature of 4-gons, converses of parallelogram theorems, the Midpoint and Centroid Theorems, Varignon's geometry, and universal plane tiling.
+        </p>
+        <div class="credit-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sublink">(www.akashmaths.online)</span>
+        </div>
+      </div>
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Manjari | Grade 9 Part-II</span>
+        <span>Slide 1 / 20</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: 12.1 DEFINITION -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.1 • Foundations</span>
+        <h2 class="slide-title">What Exactly is a Quadrilateral?</h2>
+      </div>
+      <span class="pill-page">Pages 52–54</span>
+    </div>
+    <div class="slide-body">
+      <div class="card highlight">
+        <div class="card-title">Definition 1 (Textbook Standard)</div>
+        <p>Suppose $A, B, C, D$ are four distinct points in a plane. Then the points on the 4 segments $AB, BC, CD$ and $DA$ form quadrilateral $ABCD$ if every such point other than $A, B, C,$ and $D$ lies on <strong>exactly one</strong> of these four segments.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">1. No Three Collinear</div>
+          <p>Rules out figures like NOPE (which becomes a triangle) and SILY (which collapses into overlapping line segments).</p>
+        </div>
+        <div class="card">
+          <div class="card-title">2. Planar Condition</div>
+          <p>All four vertices must lie in a single plane. Four-sided skew figures in 3D (like BENT) are termed non-planar quadrilaterals.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">3. Non-Self-Intersecting</div>
+          <p>Rules out crossing figures like CUTS. Points on edges must belong strictly to one side, preventing interior crossings.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 2 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: CONVEXITY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.1 • Classification</span>
+        <h2 class="slide-title">Convex vs. Non-Convex Quadrilaterals</h2>
+      </div>
+      <span class="pill-page">Pages 54–55</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">Convex Quadrilaterals</div>
+          <ul>
+            <li>Every internal angle is strictly less than $180^\circ$ ($\angle < 180^\circ$).</li>
+            <li>Both diagonals $AC$ and $BD$ intersect completely in the interior.</li>
+            <li>Connecting any two points inside produces a segment lying entirely inside.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Non-Convex (Concave) 4-Gons</div>
+          <ul>
+            <li>Contains a "dent" at one vertex where the internal reflex angle is $> 180^\circ$ (e.g. DART).</li>
+            <li>The diagonals do <strong>not</strong> intersect inside the figure.</li>
+            <li>Commonly found in mechanical four-bar linkages and robotic kinematics!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Naming Conventions</div>
+        <p>Quadrilateral $ABCD$ can only be traced cyclically around the perimeter: $BCDA, CDAB, DABC, DCBA, ADCB, BADC,$ or $CBAD$. Any crossing sequence (e.g., $ACBD$) is invalid.</p>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 3 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: QUICK BOX 1 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — What is a Quadrilateral?</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1</span>
+          <span class="quick-text">Why does the requirement "no three vertices are collinear" prevent a quadrilateral from collapsing into a triangle?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2</span>
+          <span class="quick-text">If a planar 4-gon has an internal angle measuring $215^\circ$, can its two diagonals ever cross each other?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3</span>
+          <span class="quick-text">Why is $ACBD$ not an acceptable name for quadrilateral $ABCD$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q4</span>
+          <span class="quick-text">Why must engineers studying 4-bar mechanical linkages care about self-intersecting configurations?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 4 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: PARALLELOGRAMS THEOREMS 1-3 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.2 • Parallelograms</span>
+        <h2 class="slide-title">Parallelograms: Forward & Converse Theorems</h2>
+      </div>
+      <span class="pill-page">Pages 56–58</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">Theorem 1: Forward Properties</div>
+          <ul>
+            <li>Opposite sides are equal: $AB = DC$ and $AD = BC$.</li>
+            <li>Opposite angles are equal: $\angle A = \angle C$ and $\angle B = \angle D$.</li>
+            <li>Diagonals bisect each other: $EA = EC$ and $EB = ED$.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Theorem 2: Equal Opposite Sides</div>
+          <p><strong>Converse of (a):</strong> If both pairs of opposite sides are equal, the quadrilateral is a parallelogram.</p>
+          <p><em>Proof Strategy:</em> Draw diagonal $AC$. By SSS criterion, $\Delta ACD \cong \Delta CAB$. Alternate interior angles match, proving $AB \parallel DC$ and $AD \parallel BC$.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Theorem 3: Equal Opposite Angles Test</div>
+        <p>If opposite angles are equal ($\angle A = \angle C = x$ and $\angle B = \angle D = y$), then $2x + 2y = 360^\circ \implies x + y = 180^\circ$. Because consecutive angles are supplementary, transversal lines prove opposite sides are strictly parallel.</p>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 5 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: THEOREMS 4 & 5 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.2 • Recognition Criteria</span>
+        <h2 class="slide-title">Testing Parallelograms: Diagonals & The Key Pair</h2>
+      </div>
+      <span class="pill-page">Pages 59–60</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">Theorem 4: Diagonals Bisect Test</div>
+          <p><strong>Converse of (c):</strong> A quadrilateral whose diagonals bisect each other is a parallelogram.</p>
+          <p><strong>Proof:</strong> Let $E$ be the intersection of diagonals $AC$ and $BD$. Since $EA = EC$, $EB = ED$, and $\angle AED = \angle CEB$ (vertically opposite), $\Delta AED \cong \Delta CEB$ by SAS. Hence $\angle DAE = \angle ECB$, proving $AD \parallel BC$.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Theorem 5: Equal & Parallel Sides Test</div>
+          <p><strong>The Golden Shortcut:</strong> A quadrilateral with <em>one pair</em> of opposite sides that are <strong>both equal and parallel</strong> is a parallelogram.</p>
+          <p><strong>Proof:</strong> If $AB \parallel DC$ and $AB = DC$, drawing diagonal $AC$ creates alternating angles $\angle BAC = \angle DCA$. With shared $AC$, $\Delta CAB \cong \Delta ACD$ by SAS, yielding $AD = BC$ and $AD \parallel BC$.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 6 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: QUICK BOX 2 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Parallelogram Tests</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1</span>
+          <span class="quick-text">If a quadrilateral has one pair of parallel sides and the OTHER pair of sides equal, is it necessarily a parallelogram?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2</span>
+          <span class="quick-text">Why do the proofs of Theorem 1(a) and Theorem 2 use the same congruence of triangles but different congruence criteria?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3</span>
+          <span class="quick-text">If the diagonals of a quadrilateral are equal in length, must it be a rectangle? What extra condition is required?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 7 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: MIDPOINT THEOREM -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.3.1 • Triangle Properties</span>
+        <h2 class="slide-title">Theorem 6: The Midpoint Theorem</h2>
+      </div>
+      <span class="pill-page">Pages 61–63</span>
+    </div>
+    <div class="slide-body">
+      <div class="card highlight">
+        <div class="card-title">Theorem 6 Statement</div>
+        <p>The segment joining the midpoints of two sides of a triangle is <strong>parallel to the third side</strong> and has <strong>half its length</strong>.</p>
+        <div class="formula-box">If $P$ is midpoint of $AB$ and $Q$ is midpoint of $AC \implies PQ \parallel BC$ and $PQ = \frac{1}{2}BC$</div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Auxiliary Construction Proof</div>
+          <ul>
+            <li>Extend $PQ$ to point $R$ such that line $CR \parallel BA$.</li>
+            <li>In $\Delta APQ$ and $\Delta CRQ$: $AQ = QC$, $\angle AQP = \angle CQR$, and $\angle PAQ = \angle RCQ$.</li>
+            <li>$\therefore \Delta APQ \cong \Delta CRQ$ by ASA/AAS.</li>
+            <li>This gives $CR = AP = PB$ and $PQ = QR$.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Applying Theorem 5</div>
+          <ul>
+            <li>Since $CR = PB$ and $CR \parallel PB$, quadrilateral $BCRP$ is a parallelogram.</li>
+            <li>Thus, line $PR \parallel BC \implies PQ \parallel BC$.</li>
+            <li>Also $PR = BC$. Because $PQ = \frac{1}{2}PR$, we get $PQ = \frac{1}{2}BC$.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 8 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: CONVERSE MIDPOINT -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.3.1 • Triangle Properties</span>
+        <h2 class="slide-title">Theorem 7: Converse of the Midpoint Theorem</h2>
+      </div>
+      <span class="pill-page">Pages 63–64</span>
+    </div>
+    <div class="slide-body">
+      <div class="card highlight">
+        <div class="card-title">Theorem 7 Statement</div>
+        <p>The line drawn through the midpoint of one side of a triangle and parallel to another side <strong>bisects the third side</strong>.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Proof 1: Backward Parallelogram</div>
+          <p>Draw line through $C$ parallel to $BA$ meeting $PQ$ extended at $R$. Since $PR \parallel BC$ and $CR \parallel BP$, quadrilateral $BCRP$ is a parallelogram. Thus $CR = BP = AP$. Using $\Delta APQ \cong \Delta CRQ$ (ASA), we deduce $AQ = QC$.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Proof 2: Uniqueness of Parallels</div>
+          <p>Suppose midpoint of $AC$ is $M$. By Theorem 6, $PM \parallel BC$. But through point $P$, Euclid's parallel postulate guarantees there is only <strong>one</strong> unique line parallel to $BC$. Thus line $PM$ must coincide with line $PQ$. Hence $M = Q$.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 9 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 10: QUICK BOX 3 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Midpoint Theorem</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1</span>
+          <span class="quick-text">In $\Delta ABC$, $AB = 10\text{ cm}$, $BC = 14\text{ cm}$, and $AC = 12\text{ cm}$. If $P$ and $Q$ are midpoints of $AB$ and $AC$, what is the length of $PQ$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2</span>
+          <span class="quick-text">Why did the second proof of Theorem 7 rely on the statement "there is a unique line parallel to a given line through a given point"?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3</span>
+          <span class="quick-text">If you join the midpoints of all three sides of a triangle, into how many congruent triangles is the original triangle divided?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 10 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 11: CENTROID THEOREM -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.3.2 • Triangle Geometry</span>
+        <h2 class="slide-title">Theorem 8: Concurrency of Medians & Centroid</h2>
+      </div>
+      <span class="pill-page">Pages 65–66</span>
+    </div>
+    <div class="slide-body">
+      <div class="card highlight">
+        <div class="card-title">Theorem 8 (Centroid Theorem)</div>
+        <p>The three medians of $\Delta ABC$ pass through a single common point (are concurrent), which divides each median in the ratio <strong>$2:1$</strong>, with the longer part connecting to the vertex.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">The Clever Bisection Idea</div>
+          <ul>
+            <li>Let medians $CP$ and $BQ$ intersect at $M$.</li>
+            <li>Bisect $BM$ at $X$ and $CM$ at $Y$.</li>
+            <li>In $\Delta ABC$: $PQ \parallel BC$ and $PQ = \frac{1}{2}BC$ (Midpoint Thm).</li>
+            <li>In $\Delta MBC$: $XY \parallel BC$ and $XY = \frac{1}{2}BC$ (Midpoint Thm).</li>
+            <li>$\therefore PQ \parallel XY$ and $PQ = XY$.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Parallelogram & Concurrency</div>
+          <ul>
+            <li>$PQXY$ is a parallelogram! Its diagonals bisect each other.</li>
+            <li>$\implies MP = MY = YC \implies CM = 2MP$.</li>
+            <li>Likewise, $MQ = MX = XB \implies BM = 2MQ$.</li>
+            <li>Repeating with medians $AR$ and $BQ$ shows they intersect at point $N$ dividing $BQ$ as $2:1$.</li>
+            <li>Since only one point divides $BQ$ in ratio $2:1$, $M$ and $N$ must be identical!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 11 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 12: VARIGNON -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.3.2 • Quadrilateral Theorems</span>
+        <h2 class="slide-title">Theorem 9: Varignon's Parallelogram</h2>
+      </div>
+      <span class="pill-page">Pages 67–68</span>
+    </div>
+    <div class="slide-body">
+      <div class="card highlight">
+        <div class="card-title">Theorem 9 Statement</div>
+        <p>The midpoints of the four sides of ANY quadrilateral are the vertices of a <strong>parallelogram</strong>. This inscribed shape is known as the <em>Varignon parallelogram</em>.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">The Diagonal Split Proof</div>
+          <ul>
+            <li>Let $P, Q, R, S$ be the midpoints of sides $AB, BC, CD, DA$.</li>
+            <li>Draw diagonal $AC$. In $\Delta ABC$, $PQ \parallel AC$ and $PQ = \frac{1}{2}AC$.</li>
+            <li>In $\Delta ADC$, $SR \parallel AC$ and $SR = \frac{1}{2}AC$.</li>
+            <li>Thus, $PQ \parallel SR$ and $PQ = SR$. By Theorem 5, $PQRS$ is a parallelogram!</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Geometric Corollaries</div>
+          <ul>
+            <li>The segments joining opposite midpoints ($PR$ and $QS$) bisect each other.</li>
+            <li>If diagonals of $ABCD$ are equal, $PQRS$ is a <strong>rhombus</strong>.</li>
+            <li>If diagonals of $ABCD$ are perpendicular, $PQRS$ is a <strong>rectangle</strong>.</li>
+            <li>If diagonals are both equal and perpendicular, $PQRS$ is a <strong>square</strong>!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 12 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 13: QUICK BOX 4 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Medians & Varignon</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1</span>
+          <span class="quick-text">If median $AR$ of $\Delta ABC$ has total length $9\text{ cm}$ and $M$ is the centroid, what are the lengths of $AM$ and $MR$?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2</span>
+          <span class="quick-text">Does Varignon's Theorem remain true if the original quadrilateral $ABCD$ is non-convex (concave)?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3</span>
+          <span class="quick-text">If the diagonals of quadrilateral $ABCD$ are perpendicular, what special parallelogram is formed by joining its midpoints?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 13 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 14: TILING -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Section 12.4 • Tessellations</span>
+        <h2 class="slide-title">Tiling the Plane Using Any Arbitrary 4-Gon</h2>
+      </div>
+      <span class="pill-page">Pages 69–73</span>
+    </div>
+    <div class="slide-body">
+      <div class="card highlight">
+        <div class="card-title">The Fundamental Principle of Quadrilateral Tiling</div>
+        <p>Because the internal angles of any planar non-self-intersecting 4-gon sum to <strong>$360^\circ$</strong> ($\angle 1 + \angle 2 + \angle 3 + \angle 4 = 360^\circ$), four identical copies can meet at every vertex with each angle appearing exactly once, tiling the entire plane seamlessly!</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Method 1: Half-Turn Rotations</div>
+          <ul>
+            <li>Take an arbitrary quadrilateral $SOME$.</li>
+            <li>Rotate a copy by $180^\circ$ about the midpoint of edge $OM$.</li>
+            <li>The copy aligns seamlessly with the original along $OM$.</li>
+            <li>Repeating this $180^\circ$ rotation about the midpoints of all edges places 4 copies around each corner!</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Method 2: The Varignon Grid</div>
+          <ul>
+            <li>Every quadrilateral contains a Varignon parallelogram.</li>
+            <li>Start by tiling the plane with a standard grid of Varignon parallelograms.</li>
+            <li>Place copies of $SOME$ aligned with the shaded parallelograms.</li>
+            <li>The remaining gaps automatically form congruent inverted copies of $SOME$!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 14 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 15: APERIODIC TILINGS -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Modern Spotlight • Mathematical Discovery</span>
+        <h2 class="slide-title">From Quasicrystals to the 2023 "Hat" Monotile</h2>
+      </div>
+      <span class="pill-page">Pages 73–74</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Quasicrystals & Dan Shechtman</div>
+          <ul>
+            <li>Mathematicians created <em>aperiodic tilings</em> (such as Penrose tiles) that cover the plane without ever repeating.</li>
+            <li>Dan Shechtman discovered physical materials with this non-repeating structure, winning the <strong>2011 Nobel Prize in Chemistry</strong>!</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">The 2023 "Hat" Einstein Monotile</div>
+          <ul>
+            <li>For decades, mathematicians asked: can a <em>single shape</em> tile the plane aperiodically? (An "einstein" tile).</li>
+            <li>In 2023, Smith, Myers, Kaplan, and Goodman-Strauss discovered the 13-sided polygon known as <strong>"the hat"</strong>.</li>
+            <li>It tiles the plane endlessly with zero periodic translation, solving a major open problem in geometry!</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Why Regular Pentagons Fail to Tile</div>
+        <p>Each internal angle of a regular pentagon is $\frac{(5-2) \times 180^\circ}{5} = 108^\circ$. At any common junction point, $3 \times 108^\circ = 324^\circ$ leaves a $36^\circ$ gap. Because $360^\circ$ is not divisible by $108^\circ$, regular pentagons cannot tile the plane!</p>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 15 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 16: QUICK BOX 5 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag quick">⚡ Quick Box</span>
+        <span class="pill-tag">Classroom Check</span>
+        <h2 class="slide-title">⚡ Quick Box — Tilings & Polygons</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="quick-box-container">
+        <div class="quick-item">
+          <span class="quick-badge">Q1</span>
+          <span class="quick-text">Why can ANY irregular quadrilateral tile the plane, even if none of its sides are equal or parallel?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q2</span>
+          <span class="quick-text">Why does a regular hexagon easily tile the plane (like in honeycombs), but a regular octagon alone cannot?</span>
+        </div>
+        <div class="quick-item">
+          <span class="quick-badge">Q3</span>
+          <span class="quick-text">What does "aperiodic tiling" mean in plain language?</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 16 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 17: EXERCISE HIGHLIGHTS 1 & 2 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Exercise Highlights</span>
+        <span class="pill-tag">Worked Examples</span>
+        <h2 class="slide-title">Worked Solutions (1 & 2)</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title" style="font-size:1.05rem;">1. Diagonal Bisecting Angle (Ex 12.2 Q2)</div>
+          <p><strong>Question:</strong> In a parallelogram $ABCD$, diagonal $AC$ bisects $\angle A$. Show that it bisects $\angle C$ and that $ABCD$ is a rhombus.</p>
+          <ul>
+            <li>$AC$ bisects $\angle A \implies \angle BAC = \angle DAC$.</li>
+            <li>Since $AB \parallel CD$, $\angle BAC = \angle DCA$ (alternate interior).</li>
+            <li>Since $AD \parallel BC$, $\angle DAC = \angle BCA$ (alternate interior).</li>
+            <li>$\therefore \angle DCA = \angle BCA$, proving $AC$ bisects $\angle C$.</li>
+            <li>In $\Delta ABC$, $\angle BAC = \angle BCA \implies AB = BC$.</li>
+            <li>A parallelogram with adjacent sides equal is a <strong>rhombus</strong>!</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title" style="font-size:1.05rem;">2. Trapezium Midline (End Ex Q7)</div>
+          <p><strong>Question:</strong> In trapezium $ABCD$ ($AB \parallel CD$), $E$ is the midpoint of $AD$ and $EF \parallel AB$. Show that $F$ is the midpoint of $BC$ and $EF = \frac{AB + CD}{2}$.</p>
+          <ul>
+            <li>Join diagonal $BD$, intersecting $EF$ at point $M$.</li>
+            <li>In $\Delta DAB$, $E$ is midpoint of $AD$ and $EM \parallel AB$. By Converse Midpoint Thm, $M$ is midpoint of $BD$, and $EM = \frac{1}{2}AB$.</li>
+            <li>In $\Delta BDC$, $M$ is midpoint of $BD$ and $MF \parallel DC$. By Converse Midpoint Thm, $F$ is midpoint of $BC$, and $MF = \frac{1}{2}CD$.</li>
+            <li>$EF = EM + MF = \frac{1}{2}AB + \frac{1}{2}CD = \frac{AB + CD}{2}$.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 17 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 18: EXERCISE HIGHLIGHT 3 -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Exercise Highlights</span>
+        <span class="pill-tag">Worked Example</span>
+        <h2 class="slide-title">Worked Solutions (3)</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="card highlight">
+        <div class="card-title">Problem 3: Trisection of Diagonal AC (End-of-Chapter Q12)</div>
+        <p><strong>Statement:</strong> Let $ABCD$ be a parallelogram, and let $M$ and $N$ be the midpoints of sides $AB$ and $CD$ respectively. Show that segments $DM$ and $BN$ trisect diagonal $AC$.</p>
+        <ul>
+          <li><strong>1. Quadrilateral $MBND$:</strong> Since $ABCD$ is a parallelogram, $AB = CD$ and $AB \parallel CD$. $MB = \frac{1}{2}AB$ and $DN = \frac{1}{2}CD$. So $MB = DN$ and $MB \parallel DN$. By Theorem 5, $MBND$ is a parallelogram $\implies DM \parallel BN$.</li>
+          <li><strong>2. In $\Delta ABY$:</strong> Let $DM$ intersect $AC$ at $X$, and $BN$ intersect $AC$ at $Y$. $M$ is midpoint of $AB$, and $MX \parallel BY$. By Converse Midpoint Thm, $X$ is midpoint of $AY \implies AX = XY$.</li>
+          <li><strong>3. In $\Delta CDX$:</strong> $N$ is midpoint of $CD$, and $NY \parallel DX$. By Converse Midpoint Thm, $Y$ is midpoint of $CX \implies XY = YC$.</li>
+          <li><strong>Conclusion:</strong> $AX = XY = YC$. Hence, $DM$ and $BN$ trisect $AC$.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 18 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 19: CHAPTER SUMMARY -->
+  <section class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <span class="pill-tag">Chapter Summary</span>
+        <span class="pill-tag">Core Principles</span>
+        <h2 class="slide-title">Chapter Summary & Formula Reference</h2>
+      </div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">Parallelogram & Concurrency Theorems</div>
+          <ul>
+            <li><strong>Definition:</strong> 4-gon in a plane where non-vertex points lie on exactly one edge.</li>
+            <li><strong>Converse 1 (Sides):</strong> Opposite sides equal $\implies$ Parallelogram.</li>
+            <li><strong>Converse 2 (Angles):</strong> Opposite angles equal $\implies$ Parallelogram.</li>
+            <li><strong>Converse 3 (Diagonals):</strong> Diagonals bisect $\implies$ Parallelogram.</li>
+            <li><strong>Theorem 5:</strong> One pair equal and parallel $\implies$ Parallelogram.</li>
+            <li><strong>Centroid Theorem:</strong> Medians concurrent at centroid $G$, dividing each in ratio $2:1$.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Midpoints, Tilings & Formulas</div>
+          <ul>
+            <li><strong>Midpoint Theorem:</strong> $PQ = \frac{1}{2}BC$ and $PQ \parallel BC$.</li>
+            <li><strong>Converse Midpoint:</strong> Line through midpoint parallel to 2nd side bisects 3rd side.</li>
+            <li><strong>Varignon's Theorem:</strong> Midpoints of ANY quadrilateral form a parallelogram.</li>
+            <li><strong>Trapezium Midline:</strong> $EF = \frac{AB + CD}{2}$.</li>
+            <li><strong>Tiling Property:</strong> All planar 4-gons tile the plane ($360^\circ$).</li>
+            <li><strong>Polygon Diagonals:</strong> Total diagonals $= \frac{n(n-3)}{2}$.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+    <div class="slide-footer">
+      <span>Ganita Manjari | Grade 9 Part-II</span>
+      <span>Slide 19 / 20</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 20: CLOSING SLIDE -->
+  <section class="slide">
+    <div class="cover-layout">
+      <div style="width: 100%; display: flex; justify-content: space-between;">
+        <span class="pill-tag">GANITA MANJARI • GRADE 9</span>
+        <span class="pill-tag" style="background:#dcfce7; color:#15803d; border-color:#86efac;">End of Chapter 12</span>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <span class="cover-eyebrow">THANK YOU</span>
+        <h1 class="cover-title">Keep Exploring Geometry!</h1>
+        <p class="cover-tagline">
+          "Geometry reveals that order is not an accident—from the hidden parallelogram inside every irregular quadrilateral to the infinite tiling of the plane, mathematical reasoning turns simple lines into universal patterns."
+        </p>
+        <div class="credit-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sublink">(www.akashmaths.online)</span>
+        </div>
+      </div>
+      <div class="slide-footer" style="width: 100%;">
+        <span>Ganita Manjari | Grade 9 Part-II</span>
+        <span>Slide 20 / 20</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nav Controls -->
+  <div class="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+  <div class="nav-controls">
+    <button class="nav-btn" id="prev-btn">❮</button>
+    <button class="nav-btn" id="next-btn">❯</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+    currentSlide = index;
+    
+    if (window.renderMathInElement) {
+        renderMathInElement(slides[currentSlide], {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });
+    }
+  }
+
+  function nextSlide() { if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1); }
+  function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+  });
+
+  document.getElementById('next-btn').addEventListener('click', nextSlide);
+  document.getElementById('prev-btn').addEventListener('click', prevSlide);
+</script>
+</body>
+</html>

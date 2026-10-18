@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geometric Twins — Grade 7 Mathematics</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for crisp mathematical formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0284c7;        /* Vibrant Sky / Ocean Blue */
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #0d9488;         /* Fresh Teal */
+      --accent-soft: #ccfbf1;
+      --amber: #f59e0b;
+      --amber-soft: #fef3c7;
+      --rose: #e11d48;
+      --rose-soft: #ffe4e6;
+      --emerald: #059669;
+      --emerald-soft: #d1fae5;
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #eff6ff 100%);
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #cbd5e1;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b1329;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      color: var(--text-main);
+    }
+
+    /* 16:9 Presentation Viewport */
+    .deck-container {
+      position: relative;
+      width: 100vw;
+      max-width: 1280px;
+      height: 56.25vw;
+      max-height: 720px;
+      background: var(--bg-gradient);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 38px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px) scale(0.99);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Top Row Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .pill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+    }
+
+    .page-pill {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid rgba(185, 28, 28, 0.2);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 9999px;
+    }
+
+    .slide-title {
+      font-family: 'Baloo 2', cursive, sans-serif;
+      font-size: 2.1rem;
+      line-height: 1.15;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 14px;
+    }
+
+    /* Content Layouts */
+    .content-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    /* Cards and Containers */
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 18px 22px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card.highlight {
+      border-left: 5px solid var(--primary);
+      background: linear-gradient(to right, #f8fafc, #ffffff);
+    }
+
+    .card.accent {
+      border-left: 5px solid var(--accent);
+      background: #f0fdfa;
+    }
+
+    .card-title {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-text {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .formula-box {
+      background: #f1f5f9;
+      border: 1.5px dashed #94a3b8;
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #0f172a;
+      margin: 4px 0;
+    }
+
+    ul.clean-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    ul.clean-list li {
+      position: relative;
+      padding-left: 24px;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: var(--text-muted);
+    }
+
+    ul.clean-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 2px;
+      color: var(--primary);
+      font-size: 0.85rem;
+    }
+
+    /* Bottom Footer Bar */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 0.03em;
+    }
+
+    /* Middle Slide Watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 18px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Global Navigation Controls */
+    .nav-controls {
+      position: absolute;
+      bottom: 14px;
+      right: 28px;
+      display: flex;
+      gap: 8px;
+      z-index: 50;
+    }
+
+    .nav-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #334155;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .keyboard-hint {
+      position: absolute;
+      bottom: 14px;
+      left: 28px;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      font-weight: 600;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    /* Large Credit Pill */
+    .credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1.5px solid #0284c7;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0369a1;
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+    }
+
+    /* Quick Box Dedicated Styling */
+    .quickbox-wrap {
+      background: #ffffff;
+      border: 2px solid #fbbf24;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .qb-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #fffbeb;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #fef3c7;
+    }
+
+    .qb-badge {
+      background: #d97706;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .qb-text {
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: #78350f;
+      line-height: 1.45;
+    }
+
+    /* SVG Diagram Container */
+    .svg-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Mobile Responsive adjustments */
+    @media (max-aspect-ratio: 16/9) {
+      .deck-container {
+        height: 100vh;
+        width: 177.77vh;
+      }
+    }
+    @media (max-width: 900px) {
+      .deck-container {
+        border-radius: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+      .slide {
+        padding: 20px;
+      }
+      .slide-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck-container">
+  <!-- SLIDE 1: COVER -->
+  <section class="slide active" id="slide-1">
+    <div class="slide-header">
+      <span class="pill-tag">📘 GANITA PRAKASH PART-II • GRADE 7</span>
+      <span class="pill-tag" style="background:#e2e8f0; color:#334155;">Chapter 1 • Cover</span>
+    </div>
+    
+    <div class="content-body" style="text-align: center; align-items: center; justify-content: center; gap: 20px;">
+      <div>
+        <p style="font-size: 0.88rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--primary);">
+          Class 7 Mathematics • NCERT Chapter 1
+        </p>
+        <h1 style="font-family: 'Baloo 2', cursive; font-size: 3.6rem; font-weight: 800; color: #0f172a; line-height: 1.1; margin: 8px 0 12px;">
+          Geometric Twins
+        </h1>
+        <p style="font-style: italic; font-size: 1.15rem; color: #475569; max-width: 820px; margin: 0 auto;">
+          "Exhaustive point-by-point presentation covering every concept, theorem, and congruence criterion directly from the textbook."
+        </p>
+      </div>
+
+      <!-- Mandatory Large Credit Pill -->
+      <div style="margin-top: 10px;">
+        <div class="credit-pill">
+          <span style="font-size: 1.25rem;">🎓</span>
+          <span>Akash Srivastva (www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <span class="pill-tag" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">✓ Concept of Congruence</span>
+        <span class="pill-tag" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">✓ SSS, SAS, ASA, AAS, RHS</span>
+        <span class="pill-tag" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">✓ Isosceles & Equilateral Triangles</span>
+        <span class="pill-tag" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">✓ Real-World Applications</span>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 1 / 26</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: 1.1 Replicating the Signboard Symbol -->
+  <section class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Section 1.1 • Introduction</span>
+      <span class="page-pill">Pages 1–2</span>
+    </div>
+    
+    <h2 class="slide-title">Replicating a Shape: Are Arm Lengths Enough?</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🔍 The Signboard Problem</div>
+          <p class="card-text">
+            A tick mark symbol on a roadside signboard needs to be recreated accurately on a new board.
+          </p>
+          <ul class="clean-list">
+            <li><strong>Tracing Method:</strong> Works for small drawings, but difficult or impossible on large signboards and physical structures.</li>
+            <li><strong>Measuring Arm Lengths:</strong> Suppose the arms measure $AB = 4\text{ cm}$ and $BC = 8\text{ cm}$.</li>
+            <li><strong>Crucial Observation:</strong> Several completely different symbols can be drawn with these exact arm lengths simply by varying the opening!</li>
+          </ul>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">📐 Fixing the Angle $\angle ABC$</div>
+          <div class="svg-box">
+            <svg width="280" height="110" viewBox="0 0 280 110">
+              <!-- Left symbol wide angle -->
+              <polyline points="20,25 45,90 120,35" fill="none" stroke="#0284c7" stroke-width="4" stroke-linecap="round"/>
+              <text x="14" y="22" font-size="11" font-weight="700">A</text>
+              <text x="44" y="104" font-size="11" font-weight="700">B</text>
+              <text x="124" y="36" font-size="11" font-weight="700">C</text>
+              <!-- Right symbol narrow angle -->
+              <polyline points="160,18 190,92 230,22" fill="none" stroke="#0d9488" stroke-width="4" stroke-linecap="round"/>
+              <text x="154" y="16" font-size="11" font-weight="700">A</text>
+              <text x="190" y="104" font-size="11" font-weight="700">B</text>
+              <text x="234" y="24" font-size="11" font-weight="700">C</text>
+            </svg>
+          </div>
+          <p class="card-text">
+            Arm lengths alone are <em>not sufficient</em>. To lock in the exact replica, we must specify the angle:
+          </p>
+          <div class="formula-box">
+            $AB = 4\text{ cm},\; BC = 8\text{ cm},\; \angle ABC = 80^\circ$
+          </div>
+          <p class="card-text" style="font-size:0.86rem; color:#0369a1;">
+            These 3 measurements uniquely fix both the <strong>shape</strong> and the <strong>size</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 2 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 3: QUICK BOX 1 -->
+  <section class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — Replicating Shapes</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Fire these rapid-check questions to test conceptual understanding of shape determinacy:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">Why does knowing only the arm lengths $AB = 4\text{ cm}$ and $BC = 8\text{ cm}$ fail to give a unique shape?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">What additional single measurement locks the arm lengths into an exact replica?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">If you change the angle between two fixed wooden sticks joined at a hinge, does their length change? Does their overall shape change?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 3 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 4: What is Congruence? Superimposition -->
+  <section class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Section 1.1 • Core Definition</span>
+      <span class="page-pill">Pages 2–3</span>
+    </div>
+    
+    <h2 class="slide-title">The Meaning of Congruence</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">✨ Exact Geometric Twins</div>
+          <p class="card-text">
+            Figures that are <strong>exact copies</strong> of each other — having both the <strong>same shape</strong> and the <strong>same size</strong> — are called <strong>congruent</strong>.
+          </p>
+          <div class="formula-box" style="background:#ecfdf5; border-color:#10b981;">
+            $\text{Congruent} \iff \text{Superimpose exactly one over the other}$
+          </div>
+          <ul class="clean-list">
+            <li>If you trace one figure on tracing paper, it will cover the other figure completely with no gaps or overlaps.</li>
+            <li>Every point on the first boundary coincides with a unique point on the second.</li>
+          </ul>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">🔄 Rigid Motions: Rotation & Reflection</div>
+          <p class="card-text">
+            <strong>Key Textbook Principle:</strong> While testing congruence, a figure can be <strong>rotated</strong> or <strong>flipped (reflected)</strong> before superimposing it!
+          </p>
+          <div class="svg-box">
+            <svg width="240" height="90" viewBox="0 0 240 90">
+              <!-- Regular L bracket -->
+              <path d="M 20,15 L 45,15 L 45,55 L 75,55 L 75,75 L 20,75 Z" fill="#bae6fd" stroke="#0284c7" stroke-width="2"/>
+              <text x="35" y="85" font-size="10" font-weight="700">Original</text>
+              <!-- Rotated/Flipped L bracket -->
+              <path d="M 180,75 L 180,50 L 140,50 L 140,20 L 120,20 L 120,75 Z" fill="#99f6e4" stroke="#0d9488" stroke-width="2"/>
+              <text x="135" y="85" font-size="10" font-weight="700">Flipped & Rotated</text>
+            </svg>
+          </div>
+          <p class="card-text" style="font-size:0.86rem;">
+            Orientation does not change congruence. A teardrop pointing left is congruent to the same teardrop pointing right.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 4 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 5: QUICK BOX 2 -->
+  <section class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — Congruence & Superimposition</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Ask students these quick check-for-understanding questions:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">What single measurement determines whether two circles are congruent?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">What measurements must be compared to verify if two rectangles are congruent?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">If one shape must be flipped upside down before it fits perfectly over another, are they still considered congruent?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 5 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 6: Section 1.2 Congruence of Triangles - The Triangular Frame -->
+  <section class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Section 1.2 • Triangles</span>
+      <span class="page-pill">Pages 4–5</span>
+    </div>
+    
+    <h2 class="slide-title">Replicating a Triangular Frame (Meera & Rabia)</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">👭 The Classroom Scenario</div>
+          <p class="card-text">
+            Meera and Rabia are tasked with creating an identical cardboard cutout of a large triangular frame in their school.
+          </p>
+          <ul class="clean-list">
+            <li>The frame is too large to trace directly onto paper.</li>
+            <li>Using a measuring tape, they measure the three sides: <strong>$40\text{ cm},\; 60\text{ cm},\; 80\text{ cm}$</strong>.</li>
+            <li>Rabia reaches for her protractor to record all 3 angles.</li>
+            <li><strong>Meera stops her:</strong> <em>"The angles are not required! With the three side lengths alone, we can create an exact congruent twin."</em></li>
+          </ul>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">🤔 Rabia's Compass Doubt</div>
+          <p class="card-text">
+            Suppose we construct a scaled base $AB = 6\text{ cm}$, then draw circles of radius $4\text{ cm}$ from $A$ and $8\text{ cm}$ from $B$.
+          </p>
+          <div class="svg-box">
+            <svg width="240" height="110" viewBox="0 0 240 110">
+              <!-- Base AB -->
+              <line x1="70" y1="55" x2="170" y2="55" stroke="#0f172a" stroke-width="2"/>
+              <!-- Point E top -->
+              <polyline points="70,55 95,20 170,55" fill="none" stroke="#0284c7" stroke-width="2"/>
+              <!-- Point F bottom -->
+              <polyline points="70,55 95,90 170,55" fill="none" stroke="#e11d48" stroke-dasharray="3,3" stroke-width="2"/>
+              <!-- Circles dashed -->
+              <circle cx="70" cy="55" r="38" fill="none" stroke="#94a3b8" stroke-dasharray="2,2"/>
+              <text x="56" y="58" font-size="10" font-weight="700">A</text>
+              <text x="175" y="58" font-size="10" font-weight="700">B</text>
+              <text x="94" y="15" font-size="10" font-weight="700">E</text>
+              <text x="94" y="105" font-size="10" font-weight="700">F</text>
+            </svg>
+          </div>
+          <p class="card-text" style="font-size:0.86rem;">
+            The circles intersect at <strong>two points</strong>: $E$ above and $F$ below, forming $\triangle ABE$ and $\triangle ABF$. Are these two triangles congruent?
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 6 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 7: SSS Congruence Condition -->
+  <section class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Criterion 1 • SSS Condition</span>
+      <span class="page-pill">Page 6</span>
+    </div>
+    
+    <h2 class="slide-title">The SSS (Side-Side-Side) Congruence Condition</h2>
+    
+    <div class="content-body">
+      <div class="card highlight" style="border-left-width: 6px;">
+        <div class="card-title" style="color: var(--primary); font-size: 1.35rem;">
+          📜 The SSS Congruence Theorem
+        </div>
+        <p style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 4px 0;">
+          If two triangles have the same three sidelengths, then they are guaranteed to be congruent.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">🔍 Why Rabia's Two Triangles are Congruent</div>
+          <ul class="clean-list">
+            <li>In the circular arc construction, $AB$ acts as an exact <strong>line of symmetry</strong>.</li>
+            <li>Folding along the segment $AB$ brings point $E$ directly onto point $F$.</li>
+            <li>Both $\triangle ABE$ and $\triangle ABF$ have sides $6\text{ cm},\; 4\text{ cm},$ and $8\text{ cm}$.</li>
+            <li>Hence, Meera was completely right: <em>the side lengths uniquely fix the triangle!</em></li>
+          </ul>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">📐 Formal SSS Condition</div>
+          <p class="card-text">
+            For any two triangles $\triangle ABC$ and $\triangle XYZ$:
+          </p>
+          <div class="formula-box">
+            $$\begin{cases}
+              AB = XY \\
+              BC = YZ \\
+              CA = ZX
+            \end{cases} \implies \triangle ABC \cong \triangle XYZ$$
+          </div>
+          <p class="card-text" style="font-size:0.88rem; color:#0f766e;">
+            Once all three pairs of corresponding sides are verified equal, all corresponding angles are automatically forced to be equal!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 7 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 8: QUICK BOX 3 -->
+  <section class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — SSS Criterion</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Pose these rapid checks to students on SSS congruence:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">If two triangles have sides measuring $3\text{ cm}, 4\text{ cm}, 5\text{ cm}$ and $5\text{ cm}, 3\text{ cm}, 4\text{ cm}$, are they congruent? Why?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Do you need to measure even a single angle to confirm congruence if all three side lengths match?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">Why does the base $AB$ act as a line of symmetry between the upper and lower intersection points in Rabia's construction?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 8 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 9: Conventions to Express Congruence -->
+  <section class="slide" id="slide-9">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Mathematical Notation</span>
+      <span class="page-pill">Pages 6–7</span>
+    </div>
+    
+    <h2 class="slide-title">Conventions: Vertex Order Matters!</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🎯 The 1-to-1 Correspondence Rule</div>
+          <p class="card-text">
+            When we write $\triangle ABC \cong \triangle XYZ$, the order of letters specifies exact superimposition:
+          </p>
+          <div class="formula-box" style="font-size:1.2rem; font-weight:700; color:#0369a1;">
+            $$\begin{aligned}
+              A &\longleftrightarrow X \\
+              B &\longleftrightarrow Y \\
+              C &\longleftrightarrow Z
+            \end{aligned}$$
+          </div>
+          <ul class="clean-list">
+            <li><strong>Equal Sides:</strong> $AB = XY,\; BC = YZ,\; AC = XZ$</li>
+            <li><strong>Equal Angles:</strong> $\angle A = \angle X,\; \angle B = \angle Y,\; \angle C = \angle Z$</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">⚠️ Common Naming Mistake</div>
+          <p class="card-text">
+            It is <strong>mathematically incorrect</strong> to write:
+          </p>
+          <div class="formula-box" style="background:#fee2e2; border-color:#ef4444; color:#b91c1c;">
+            $\triangle ACB \cong \triangle XYZ \quad \text{❌ (Mismatched!)}$
+          </div>
+          <p class="card-text">
+            Because that would falsely imply side $AC = XY$ and $\angle C = \angle Y$.
+          </p>
+          <p class="card-text" style="font-weight:600; color:#059669;">
+            ✅ Correct alternative naming: $\triangle ACB \cong \triangle XZY$ or $\triangle BAC \cong \triangle YXZ$.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 9 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 10: QUICK BOX 4 -->
+  <section class="slide" id="slide-10">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — Congruence Notation</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Test students on strict vertex matching conventions:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">Given $\triangle RED \cong \triangle BIG$, which side of $\triangle BIG$ corresponds to side $ED$?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">In $\triangle RED \cong \triangle BIG$, which vertex corresponds to vertex $R$? Which angle corresponds to $\angle D$?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">Can you write three other valid ways of stating the congruence $\triangle RED \cong \triangle BIG$?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 10 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 11: In-Text Analysis: Diagonal of a Rectangle & Kite -->
+  <section class="slide" id="slide-11">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Textbook Figure Analysis</span>
+      <span class="page-pill">Pages 7–9</span>
+    </div>
+    
+    <h2 class="slide-title">Applying SSS: Rectangles & Kite Quadrilaterals</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">📐 Diagonal of Rectangle $ABCD$</div>
+          <p class="card-text">
+            Diagonal $BD$ divides the rectangle into two triangles: $\triangle ABD$ and $\triangle CDB$.
+          </p>
+          <ul class="clean-list">
+            <li>$AB = CD$ (opposite sides of rectangle)</li>
+            <li>$AD = CB$ (opposite sides of rectangle)</li>
+            <li>$BD = DB$ (shared <strong>common side</strong>)</li>
+          </ul>
+          <p class="card-text" style="font-weight:700; color:#0369a1;">
+            By SSS condition: $\triangle ABD \cong \triangle CDB$.
+          </p>
+          <p class="card-text" style="font-size:0.85rem; color:#e11d48;">
+            Notice: Overlapping $A \to C,\; B \to D,\; D \to B$. (Not $B \to B$!)
+          </p>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">🪁 Kite Quadrilateral ($AB=AD, CB=CD$)</div>
+          <p class="card-text">
+            Join diagonal $AC$. In $\triangle ABC$ and $\triangle ADC$:
+          </p>
+          <ul class="clean-list">
+            <li>$AB = AD$ (given equal adjacent sides)</li>
+            <li>$CB = CD$ (given equal adjacent sides)</li>
+            <li>$AC = AC$ (shared common diagonal)</li>
+          </ul>
+          <div class="formula-box">
+            $\triangle ABC \cong \triangle ADC \quad \text{[By SSS]}$
+          </div>
+          <p class="card-text" style="font-size:0.86rem;">
+            <strong>Immediate deduction:</strong> $\angle BAC = \angle DAC$ and $\angle BCA = \angle DCA$. Thus, the diagonal $AC$ bisects both angles $\angle BAD$ and $\angle BCD$!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 11 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 12: QUICK BOX 5 -->
+  <section class="slide" id="slide-12">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — SSS in Quadrilaterals</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Challenge students with these figure-based questions:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">Why does diagonal $BD$ of rectangle $ABCD$ serve as an automatic side for both triangles? What do we call this side?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">If $AB=AD$ and $CB=CD$ in kite $ABCD$, why does $\angle B = \angle D$?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">In figure with $DF = DG$ and $FE = GE$, why is $\triangle DFE \cong \triangle DGE$? What is the common side?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 12 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 13: Measuring Angles: Why AAA Fails -->
+  <section class="slide" id="slide-13">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Angle Analysis</span>
+      <span class="page-pill">Pages 9–10</span>
+    </div>
+    
+    <h2 class="slide-title">Measuring the Angles: Why AAA Fails</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🔍 What If We Measure All 3 Angles?</div>
+          <p class="card-text">
+            Suppose Meera and Rabia measured the three angles of the frame:
+          </p>
+          <div class="formula-box">
+            $$\angle A = 80^\circ,\quad \angle B = 30^\circ,\quad \angle C = 70^\circ$$
+          </div>
+          <p class="card-text">
+            Can an exact duplicate of the frame be guaranteed from these three angle measurements?
+          </p>
+          <ul class="clean-list">
+            <li>Sum of angles is $80^\circ + 30^\circ + 70^\circ = 180^\circ$.</li>
+            <li>We can easily construct a tiny triangle on a sheet of paper with these angles.</li>
+            <li>We can also construct a giant triangular roof or billboard with these exact same angles!</li>
+          </ul>
+        </div>
+
+        <div class="card accent" style="border-left-color: #ef4444;">
+          <div class="card-title" style="color: #b91c1c;">⚠️ The AAA Limitation</div>
+          <p class="card-text">
+            These triangles have the <strong>same shape</strong>, but <strong>different sizes</strong>!
+          </p>
+          <div class="formula-box" style="background:#fee2e2; border-color:#ef4444; color:#b91c1c;">
+            $\text{AAA condition does NOT guarantee congruence!}$
+          </div>
+          <p class="card-text">
+            Two triangles that have the same set of three angles are <em>similar</em>, but <strong>not necessarily congruent</strong>. To ensure identical size, at least one linear dimension (side length) must be locked in.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 13 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 14: SAS Condition -->
+  <section class="slide" id="slide-14">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Criterion 2 • SAS Condition</span>
+      <span class="page-pill">Page 10</span>
+    </div>
+    
+    <h2 class="slide-title">The SAS (Side-Angle-Side) Condition</h2>
+    
+    <div class="content-body">
+      <div class="card highlight" style="border-left-width: 6px;">
+        <div class="card-title" style="color: var(--primary); font-size: 1.35rem;">
+          📜 The SAS Congruence Theorem
+        </div>
+        <p style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 4px 0;">
+          If two sides and the <em>included angle</em> of one triangle are equal to two sides and the <em>included angle</em> of another triangle, the triangles are congruent.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">📌 What is an "Included Angle"?</div>
+          <p class="card-text">
+            The included angle is the angle formed between the two specified arms:
+          </p>
+          <ul class="clean-list">
+            <li>For sides $AB$ and $AC$, the included angle is $\angle A$.</li>
+            <li>For sides $BC$ and $BA$, the included angle is $\angle B$.</li>
+          </ul>
+          <div class="formula-box">
+            $$\begin{cases}
+              AB = XY = 6\text{ cm} \\
+              AC = XZ = 5\text{ cm} \\
+              \angle A = \angle X = 30^\circ
+            \end{cases} \implies \triangle ABC \cong \triangle XYZ$$
+          </div>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">✨ Why SAS Works Uniquely</div>
+          <p class="card-text">
+            Once arms $AB$ and $AC$ are drawn with angle $\angle A$ fixed, endpoints $B$ and $C$ are pinned in space.
+          </p>
+          <p class="card-text">
+            There is only <em>one unique straight line segment</em> connecting $B$ and $C$. Therefore, the third side $BC$ and both remaining angles $\angle B$ and $\angle C$ are rigidly fixed.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 14 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 15: QUICK BOX 6 -->
+  <section class="slide" id="slide-15">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — AAA vs. SAS</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Fire these rapid questions to check understanding of included angles:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">Why does AAA prove similarity but fail to guarantee congruence?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">In $\triangle PQR$, which angle is included between sides $PQ$ and $QR$?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">If $AB = DE$, $BC = EF$, and $\angle A = \angle D$, does this satisfy the SAS condition? Why or why not?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 15 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 16: Non-Included Angle: Why SSA Fails -->
+  <section class="slide" id="slide-16">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Counterexample Analysis</span>
+      <span class="page-pill">Pages 10–12</span>
+    </div>
+    
+    <h2 class="slide-title">Why SSA (Non-Included Angle) Fails!</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🔍 The Construction Experiment</div>
+          <p class="card-text">
+            Suppose $PQ = 6\text{ cm}$, $\angle P = 30^\circ$, and side $QR = 4\text{ cm}$ (opposite to $\angle P$, non-included):
+          </p>
+          <ul class="clean-list">
+            <li><strong>Step 1:</strong> Draw base $PQ = 6\text{ cm}$.</li>
+            <li><strong>Step 2:</strong> Draw ray $l$ from $P$ at $30^\circ$.</li>
+            <li><strong>Step 3:</strong> With center $Q$, swing an arc of radius $4\text{ cm}$.</li>
+          </ul>
+          <p class="card-text" style="font-weight:700; color:#e11d48;">
+            The circular arc cuts ray $l$ at TWO distinct points: $R$ and $S$!
+          </p>
+        </div>
+
+        <div class="card accent" style="border-left-color: #ef4444;">
+          <div class="card-title" style="color: #b91c1c;">⚡ The Two Ambiguous Triangles</div>
+          <div class="svg-box">
+            <svg width="270" height="100" viewBox="0 0 270 100">
+              <!-- Base PQ -->
+              <line x1="20" y1="80" x2="160" y2="80" stroke="#0f172a" stroke-width="2"/>
+              <!-- Ray l at 30 deg -->
+              <line x1="20" y1="80" x2="230" y2="15" stroke="#94a3b8" stroke-dasharray="3,3" stroke-width="1.5"/>
+              <!-- Triangle 1: PQR (obtuse) -->
+              <polyline points="20,80 115,50 160,80" fill="none" stroke="#e11d48" stroke-width="2.5"/>
+              <!-- Triangle 2: PQS (acute) -->
+              <polyline points="20,80 200,24 160,80" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+              <text x="12" y="86" font-size="10" font-weight="700">P</text>
+              <text x="162" y="92" font-size="10" font-weight="700">Q</text>
+              <text x="110" y="44" font-size="10" font-weight="700">R</text>
+              <text x="205" y="22" font-size="10" font-weight="700">S</text>
+            </svg>
+          </div>
+          <p class="card-text">
+            Both $\triangle PQR$ (obtuse) and $\triangle PQS$ (acute) have $PQ=6\text{ cm}$, $QR=QS=4\text{ cm}$, and $\angle P=30^\circ$.
+          </p>
+          <div class="formula-box" style="background:#fee2e2; border-color:#ef4444; color:#b91c1c;">
+            $\text{SSA does NOT guarantee congruence!}$
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 16 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 17: ASA and AAS Congruence Conditions -->
+  <section class="slide" id="slide-17">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Criteria 3 & 4 • ASA & AAS</span>
+      <span class="page-pill">Pages 12–16</span>
+    </div>
+    
+    <h2 class="slide-title">The ASA & AAS Congruence Conditions</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">📜 ASA (Angle-Side-Angle)</div>
+          <p class="card-text">
+            When two angles and the <strong>included side</strong> are equal:
+          </p>
+          <div class="formula-box">
+            $$\begin{cases}
+              \angle B = \angle Y = 50^\circ \\
+              BC = YZ = 5\text{ cm} \\
+              \angle C = \angle Z = 30^\circ
+            \end{cases} \implies \triangle ABC \cong \triangle XYZ$$
+          </div>
+          <p class="card-text" style="font-size:0.88rem;">
+            Fixing the base length and drawing rays at the given interior angles forces them to intersect at one unique vertex point.
+          </p>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">📜 AAS (Angle-Angle-Side)</div>
+          <p class="card-text">
+            What if the equal side is <strong>non-included</strong>?
+          </p>
+          <ul class="clean-list">
+            <li>Sum of angles in any triangle is always $180^\circ$.</li>
+            <li>If $\angle A = \angle X = 35^\circ$ and $\angle C = \angle Z = 75^\circ$, then:</li>
+          </ul>
+          <div class="formula-box" style="font-size:0.95rem;">
+            $\angle B = 180^\circ - (35^\circ + 75^\circ) = 70^\circ = \angle Y$
+          </div>
+          <p class="card-text" style="font-size:0.86rem; color:#0f766e;">
+            <strong>Conclusion:</strong> Knowing two angles always determines the third. AAS immediately converts into ASA, so <strong>AAS guarantees congruence</strong>!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 17 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 18: QUICK BOX 7 -->
+  <section class="slide" id="slide-18">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — ASA & AAS</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Test students on angle calculations and side inclusion:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">Why does SSA fail to guarantee congruence, while AAS succeeds every single time?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">If two triangles have angles $40^\circ$ and $60^\circ$, what is the measure of their third angle?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">In the bow-tie figure where $O$ is midpoint of $AD$ and $BC$, which angle theorem guarantees $\angle AOB = \angle DOC$?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 18 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 19: RHS Condition in Right-Angled Triangles -->
+  <section class="slide" id="slide-19">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Criterion 5 • RHS Condition</span>
+      <span class="page-pill">Pages 16–17</span>
+    </div>
+    
+    <h2 class="slide-title">The RHS (Right-Hypotenuse-Side) Condition</h2>
+    
+    <div class="content-body">
+      <div class="card highlight" style="border-left-width: 6px;">
+        <div class="card-title" style="color: var(--primary); font-size: 1.35rem;">
+          📜 The RHS Congruence Theorem
+        </div>
+        <p style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 4px 0;">
+          Two right-angled triangles are congruent if the hypotenuse and one side of one triangle are equal to the hypotenuse and corresponding side of the other.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">📐 The 3 Components of RHS</div>
+          <ul class="clean-list">
+            <li><strong>R (Right Angle):</strong> $\angle B = \angle Q = 90^\circ$</li>
+            <li><strong>H (Hypotenuse):</strong> Side opposite to the right angle ($AC = PR = 5\text{ cm}$)</li>
+            <li><strong>S (Any One Side):</strong> $BC = QR = 4\text{ cm}$</li>
+          </ul>
+          <div class="formula-box">
+            $$\triangle ABC \cong \triangle PQR \quad \text{[By RHS]}$$
+          </div>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">🔍 Why RHS Succeeds Where SSA Failed</div>
+          <p class="card-text">
+            RHS is technically a special case of SSA (Right angle is opposite the hypotenuse).
+          </p>
+          <p class="card-text">
+            Because the perpendicular ray goes straight up at $90^\circ$, an arc of radius $5\text{ cm}$ from $R$ cuts the ray in only <strong>one positive location</strong> above base $QR$.
+          </p>
+          <p class="card-text" style="font-size:0.86rem; color:#0369a1;">
+            (The downward intersection merely produces an upside-down congruent twin.)
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 19 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 20: QUICK BOX 8 -->
+  <section class="slide" id="slide-20">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — RHS Condition</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Ask students these quick check questions on right triangles:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">What is the special name given to the side opposite the $90^\circ$ angle in a right triangle?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">What do the letters R, H, and S stand for in the RHS congruence condition?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">If two right triangles have equal hypotenuses but no other sides are equal, are they guaranteed to be congruent?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 20 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 21: Section 1.3 Isosceles & Equilateral Triangles -->
+  <section class="slide" id="slide-21">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Section 1.3 • Triangle Properties</span>
+      <span class="page-pill">Pages 17–19</span>
+    </div>
+    
+    <h2 class="slide-title">Angles of Isosceles & Equilateral Triangles</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">🔺 Isosceles Triangle Theorem</div>
+          <p class="card-text">
+            In $\triangle ABC$, let $AB = AC$. Draw altitude $AD \perp BC$:
+          </p>
+          <ul class="clean-list">
+            <li>In right $\triangle ADB$ and $\triangle ADC$:</li>
+            <li>$AB = AC$ (hypotenuses are equal, given)</li>
+            <li>$AD = AD$ (common leg)</li>
+            <li>$\angle ADB = \angle ADC = 90^\circ$</li>
+          </ul>
+          <p class="card-text" style="font-weight:700; color:#0369a1;">
+            By RHS: $\triangle ADB \cong \triangle ADC \implies \angle B = \angle C$.
+          </p>
+          <div class="formula-box">
+            $\text{Angles opposite to equal sides are equal!}$
+          </div>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">🔺 Equilateral Triangle Deduction</div>
+          <p class="card-text">
+            In equilateral $\triangle ABC$, all three sides are equal: $AB = BC = CA$.
+          </p>
+          <ul class="clean-list">
+            <li>Since $AB = AC \implies \angle B = \angle C$.</li>
+            <li>Since $AB = BC \implies \angle C = \angle A$.</li>
+            <li>Therefore: $\angle A = \angle B = \angle C$.</li>
+          </ul>
+          <div class="formula-box">
+            $$3 \times (\text{angle}) = 180^\circ \implies \text{Each angle} = 60^\circ$$
+          </div>
+          <p class="card-text" style="font-size:0.86rem; color:#0f766e;">
+            Just using congruence, we prove every equilateral triangle has three $60^\circ$ angles!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 21 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 22: QUICK BOX 9 -->
+  <section class="slide" id="slide-22">
+    <div class="slide-header">
+      <span class="pill-tag" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ Quick Box</span>
+      <span class="pill-tag" style="background:#f1f5f9; color:#475569;">Classroom Check</span>
+    </div>
+    
+    <h2 class="slide-title">⚡ Quick Box — Isosceles & Equilateral Triangles</h2>
+    
+    <div class="content-body">
+      <div class="quickbox-wrap">
+        <p style="font-size:0.95rem; font-weight:700; color:#92400e;">
+          Ask students to calculate angles mentally using the isosceles property:
+        </p>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q1</span>
+          <span class="qb-text">In isosceles $\triangle ABC$ with $AB = AC$, if vertex angle $\angle A = 80^\circ$, what are the measures of base angles $\angle B$ and $\angle C$?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q2</span>
+          <span class="qb-text">Why must every single equilateral triangle have angles of exactly $60^\circ$, regardless of whether its sides are $2\text{ cm}$ or $20\text{ meters}$?</span>
+        </div>
+
+        <div class="qb-item">
+          <span class="qb-badge">Q3</span>
+          <span class="qb-text">If a triangle inscribed in a circle has two sides as radii from the center ($A$), why is it automatically an isosceles triangle?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 22 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 23: Real-World Applications & Architecture -->
+  <section class="slide" id="slide-23">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Real-World Connections</span>
+      <span class="page-pill">Pages 19–20</span>
+    </div>
+    
+    <h2 class="slide-title">Congruent Triangles in Architecture & Design</h2>
+    
+    <div class="content-body">
+      <div class="grid-3">
+        <div class="card highlight">
+          <div class="card-title" style="font-size:1.15rem;">🏛️ Louvre Pyramid & Giza</div>
+          <p class="card-text" style="font-size:0.88rem;">
+            <strong>Louvre Pyramid (Paris) & Pyramids of Giza (Egypt):</strong> The four triangular faces are congruent isosceles triangles. Standardized glass panes and stone blocks form identical structural units.
+          </p>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title" style="font-size:1.15rem;">🌉 Howrah Bridge (Kolkata)</div>
+          <p class="card-text" style="font-size:0.88rem;">
+            <strong>Rabindra Setu (Howrah Bridge):</strong> Truss bridge structures rely entirely on repeating congruent triangles because triangles are rigid shapes that distribute loads without deforming.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="font-size:1.15rem;">✨ Geodesic Domes & Rangoli</div>
+          <p class="card-text" style="font-size:0.88rem;">
+            <strong>Domes & Traditional Rangoli:</strong> Modular tessellations of congruent equilateral and isosceles triangles create spherical domes and symmetric 8-pointed star patterns.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 23 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 24: Exercise Highlights (Worked Problems) -->
+  <section class="slide" id="slide-24">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Exercise Highlights</span>
+      <span class="page-pill">Pages 20–21</span>
+    </div>
+    
+    <h2 class="slide-title">Representative Exercise Solutions</h2>
+    
+    <div class="content-body">
+      <div class="grid-3">
+        <div class="card highlight">
+          <div class="card-title" style="font-size:1.1rem;">📝 Problem 1: Transversal Proof</div>
+          <p class="card-text" style="font-size:0.85rem;">
+            <strong>Given:</strong> $OB = OC$ and $OA = OD$. Prove $AB \parallel CD$.
+          </p>
+          <p class="card-text" style="font-size:0.84rem;">
+            • Vertically opposite: $\angle AOB = \angle DOC$<br>
+            • By SAS: $\triangle AOB \cong \triangle DOC$<br>
+            • CPCTC: $\angle OAB = \angle ODC$<br>
+            • Alternate interior angles are equal:
+          </p>
+          <div class="formula-box" style="font-size:0.9rem; font-weight:700;">
+            $\implies AB \parallel CD$
+          </div>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title" style="font-size:1.1rem;">📝 Problem 2: Center of Circle</div>
+          <p class="card-text" style="font-size:0.85rem;">
+            <strong>Given:</strong> $A$ is center of circle, chord $BC$, $\angle BAC = 120^\circ$. Find $\angle B, \angle C$.
+          </p>
+          <p class="card-text" style="font-size:0.84rem;">
+            • $AB = AC = \text{Radius } r$<br>
+            • Therefore $\triangle ABC$ is isosceles: $\angle B = \angle C$<br>
+            • Angle sum: $120^\circ + 2\angle B = 180^\circ$
+          </p>
+          <div class="formula-box" style="font-size:0.9rem; font-weight:700;">
+            $\angle B = \angle C = 30^\circ$
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="font-size:1.1rem;">📝 Problem 3: Square Congruence</div>
+          <p class="card-text" style="font-size:0.85rem;">
+            <strong>Given:</strong> Square $ABCD$. Is $\triangle ABC \cong \triangle ADC$ and $\triangle CDA$?
+          </p>
+          <p class="card-text" style="font-size:0.84rem;">
+            • $AB = AD$, $BC = DC$, $AC = AC$ $\implies \triangle ABC \cong \triangle ADC$ (SSS)<br>
+            • In fact, due to symmetry, $\triangle ABC \cong \triangle CDA$ as well!
+          </p>
+          <div class="formula-box" style="font-size:0.88rem; font-weight:700;">
+            $\text{Congruent in } \mathbf{2} \text{ different ways!}$
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 24 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 25: Chapter Summary -->
+  <section class="slide" id="slide-25">
+    <div class="slide-header">
+      <span class="pill-tag">✦ Chapter Summary</span>
+      <span class="page-pill">Page 22</span>
+    </div>
+    
+    <h2 class="slide-title">Chapter 1 Recap: Key Takeaways</h2>
+    
+    <div class="content-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">✅ Congruence Fundamentals</div>
+          <ul class="clean-list">
+            <li><strong>Congruent Figures:</strong> Identical in shape and size; superimpose exactly over each other.</li>
+            <li><strong>Rigid Motions:</strong> Rotation and reflection (flipping) are allowed when testing congruence.</li>
+            <li><strong>Vertex Correspondence:</strong> Writing $\triangle ABC \cong \triangle XYZ$ requires matching equal sides and angles in exact order.</li>
+            <li><strong>Non-guarantee Cases:</strong> AAA and SSA do NOT guarantee triangle congruence.</li>
+          </ul>
+        </div>
+
+        <div class="card accent">
+          <div class="card-title">✅ Valid Congruence Criteria & Theorems</div>
+          <ul class="clean-list">
+            <li><strong>SSS:</strong> Three pairs of corresponding sides are equal.</li>
+            <li><strong>SAS:</strong> Two sides and the included angle are equal.</li>
+            <li><strong>ASA & AAS:</strong> Two angles and any side (included or non-included) are equal.</li>
+            <li><strong>RHS:</strong> Right angle, hypotenuse, and one corresponding leg are equal.</li>
+            <li><strong>Isosceles Property:</strong> Angles opposite to equal sides in a triangle are equal.</li>
+            <li><strong>Equilateral Property:</strong> All three angles in any equilateral triangle measure $60^\circ$.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 25 / 26</span>
+    </div>
+    <div class="slide-watermark">teachertools.akashmaths.online</div>
+  </section>
+
+  <!-- SLIDE 26: CLOSING / THANK YOU -->
+  <section class="slide" id="slide-26">
+    <div class="slide-header">
+      <span class="pill-tag">📘 GANITA PRAKASH PART-II • GRADE 7</span>
+      <span class="pill-tag" style="background:#e2e8f0; color:#334155;">Chapter 1 • Closing</span>
+    </div>
+    
+    <div class="content-body" style="text-align: center; align-items: center; justify-content: center; gap: 24px;">
+      <div>
+        <p style="font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--primary);">
+          Congratulations! You Have Mastered
+        </p>
+        <h1 style="font-family: 'Baloo 2', cursive; font-size: 3.8rem; font-weight: 800; color: #0f172a; line-height: 1.1; margin: 8px 0 16px;">
+          Geometric Twins
+        </h1>
+        <p style="font-style: italic; font-size: 1.25rem; color: #475569; max-width: 780px; margin: 0 auto; line-height: 1.5;">
+          "Symmetry, as wide or as narrow as you may define its meaning, is one idea by which man through the ages has tried to comprehend and create order, beauty, and perfection."
+        </p>
+        <p style="font-size: 0.95rem; font-weight: 700; color: #0284c7; margin-top: 6px;">
+          — Hermann Weyl (Symmetry, 1952)
+        </p>
+      </div>
+
+      <!-- Mandatory Large Credit Pill -->
+      <div style="margin-top: 10px;">
+        <div class="credit-pill">
+          <span style="font-size: 1.25rem;">✦</span>
+          <span>Akash Srivastva (www.akashmaths.online)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Ganita Prakash | Grade 7 Part-II</span>
+      <span>Slide 26 / 26</span>
+    </div>
+  </section>
+
+  <!-- Navigation Controls -->
+  <div class="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+  <div class="nav-controls">
+    <button class="nav-btn" id="prev-btn" title="Previous Slide">❮</button>
+    <button class="nav-btn" id="next-btn" title="Next Slide">❯</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+      showSlide(currentSlide + 1);
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      showSlide(currentSlide - 1);
+    }
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      prevSlide();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      showSlide(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      showSlide(totalSlides - 1);
+    }
+  });
+
+  // Button clicks
+  document.getElementById('next-btn').addEventListener('click', nextSlide);
+  document.getElementById('prev-btn').addEventListener('click', prevSlide);
+  // Listen for messages from parent viewer
+window.addEventListener('message', (e) => {
+  if (e.data && e.data.action === 'next') {
+    if (typeof nextSlide === 'function') nextSlide();
+    else if (typeof showSlide === 'function' && currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+  } else if (e.data && e.data.action === 'prev') {
+    if (typeof prevSlide === 'function') prevSlide();
+    else if (typeof showSlide === 'function' && currentSlide > 0) showSlide(currentSlide - 1);
+  }
+});
+</script>
+
+</body>
+</html>
