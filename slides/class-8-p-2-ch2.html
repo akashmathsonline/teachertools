@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 2: The Baudhāyana-Pythagoras Theorem | Grade 8 Mathematics</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 14% 18%, #ecfdf5 0%, #d1fae5 45%, #f8fafc 100%);
+      --accent-primary: #059669; /* Emerald primary */
+      --accent-secondary: #047857;
+      --accent-dark: #064e3b;
+      --accent-tint: #ecfdf5;
+      --accent-border: #a7f3d0;
+      --accent-coral: #e11d48;
+      --accent-amber: #d97706;
+      --accent-blue: #0284c7;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --font-display: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #06110e;
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+        /* 16:9 Presentation Stage */
+    #presentation-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: var(--bg-gradient);
+      box-shadow: none; /* Box shadow hata dein */
+      border-radius: 0; /* Corners hatane ke liye */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: none; /* Border hata dein */
+    }
+
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 30px 40px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1), transform 0.36s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.36s;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 2;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(5, 150, 105, 0.16);
+    }
+
+    .header-left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      background: #d1fae5;
+      color: #047857;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-tag.accent {
+      background: var(--accent-tint);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent-border);
+    }
+
+    .pill-tag.quick {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .page-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: #ffe4e6;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.62rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      line-height: 1.22;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      margin-top: 2px;
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-1-2 {
+      grid-template-columns: 1.15fr 1fr;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 15px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .content-card.highlight {
+      background: #f0fdf4;
+      border: 1.5px solid var(--accent-border);
+    }
+
+    .content-card.amber-highlight {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+    }
+
+    .content-card.blue-highlight {
+      background: #f0f9ff;
+      border: 1.5px solid #bae6fd;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bullet-list li {
+      font-size: 0.86rem;
+      line-height: 1.48;
+      color: #334155;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 0.72rem;
+      color: var(--accent-primary);
+    }
+
+    .formula-banner {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin: 4px 0;
+    }
+
+    .formula-banner-light {
+      background: #ffffff;
+      border: 2px dashed var(--accent-primary);
+      border-radius: 12px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Middle Slide Watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+
+    .slide-footer {
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 6px;
+      border-top: 1px solid rgba(203, 213, 225, 0.6);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .large-credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      border: 2px solid #a7f3d0;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .large-credit-pill span.symbol {
+      color: #a7f3d0;
+      font-size: 1.1rem;
+    }
+
+    .diagram-container {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      height: 100%;
+      min-height: 200px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* Quick Box Styles */
+    .quick-box-container {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid #fde68a;
+      box-shadow: var(--shadow-md);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .quick-q-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 4px solid #059669;
+    }
+
+    .quick-q-badge {
+      background: #059669;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-q-text {
+      font-size: 0.95rem;
+      line-height: 1.48;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .nav-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 4px 8px;
+      border-radius: 30px;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .key-hint {
+      position: absolute;
+      bottom: 15px;
+      left: 24px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      pointer-events: none;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .slide-select {
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    @media (max-width: 1280px) {
+      #presentation-viewport {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Presentation Viewport -->
+  <div id="presentation-viewport">
+    <div class="slides-container" id="deckContainer">
+
+      <!-- SLIDE 1: COVER SLIDE -->
+      <section class="slide active" id="slide-1">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>📚</span> GANITA PRAKASH PART II | GRADE 8
+          </div>
+          <div class="pill-tag">
+            Chapter 2 • Cover
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:18px;">
+          <div style="text-transform:uppercase; font-size:0.85rem; font-weight:800; letter-spacing:0.18em; color:var(--accent-secondary);">
+            CLASS 8 MATHEMATICS • CHAPTER 2
+          </div>
+          
+          <h1 style="font-family:var(--font-display); font-size:3.2rem; font-weight:700; color:var(--text-main); line-height:1.12; max-width:1050px;">
+            The Baudhāyana-Pythagoras Theorem
+          </h1>
+          
+          <p style="font-style:italic; font-size:1.12rem; color:var(--text-muted); max-width:870px; line-height:1.6;">
+            "Exhaustive point-by-point presentation covering geometric square doubling & halving, irrationality of $\sqrt{2}$, Baudhāyana's Śulba-Sūtra proofs, Pythagorean triples, Fermat's Last Theorem, and Līlāvatī water puzzles."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-top:8px;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📐 Śulba-Sūtra Geometric Constructions
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🔢 Irrationality of $\sqrt{2}$ & Bounds
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🔺 Baudhāyana Triples & Scaling
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🪷 Bhāskara's Līlāvatī Applications
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 1 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: 2.1 Doubling a Square -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.1 Doubling a Square</span>
+            <h2 class="slide-title"><span class="icon">📐</span> Baudhāyana's Question: How to Double a Square?</h2>
+          </div>
+          <span class="page-pill">Page 33–34</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📜 The Śulba-Sūtra Verse 1.9 (c. 800 BCE)</div>
+              <p class="card-desc">
+                In ancient ritual altar construction, Vedic mathematicians needed to double altar surface areas while keeping them strictly square.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Common Pitfall:</strong> Doubling the sidelength quadruples the area ($2 \times 2 = 4\times\text{ original area}$).</li>
+                <li><strong>Baudhāyana's Discovery:</strong> <em>"The diagonal of a square produces a square of double the area of the original square."</em></li>
+              </ul>
+              <div class="formula-banner" style="margin-top:6px;">
+                $$\text{Area of Square on Diagonal} = 2 \times \text{Area of Original Square}$$
+              </div>
+            </div>
+
+            <!-- SVG Diagram of Doubling via Diagonal -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 280 210" width="100%" height="100%" style="font-family:var(--font-body);">
+                <!-- Grid background -->
+                <rect x="30" y="80" width="90" height="90" fill="#a7f3d0" fill-opacity="0.4" stroke="#059669" stroke-width="2"/>
+                <text x="75" y="130" font-size="11" font-weight="700" text-anchor="middle" fill="#064e3b">Original (1)</text>
+
+                <!-- Diagonal square tilted -->
+                <!-- Vertices: (30,80), (120,80-90)=(120, -10 is outside) let center be (120,80) -->
+                <!-- Center of base square: (75, 125). Let diagonal be from (30,170) to (120,80) length = 90*sqrt(2) = 127.28 -->
+                <polygon points="30,80 120,170 210,80 120,-10" fill="#fef3c7" fill-opacity="0.45" stroke="#d97706" stroke-width="2" stroke-dasharray="4,4"/>
+                
+                <!-- Internal cross lines ("East-West" & "North-South") -->
+                <line x1="120" y1="0" x2="120" y2="170" stroke="#047857" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <line x1="30" y1="80" x2="210" y2="80" stroke="#047857" stroke-width="1.5" stroke-dasharray="3,3"/>
+                
+                <!-- Diagonal -->
+                <line x1="30" y1="80" x2="120" y2="170" stroke="#e11d48" stroke-width="2.5"/>
+                <text x="65" y="145" font-size="10" font-weight="bold" fill="#e11d48">Diagonal d</text>
+
+                <!-- Annotation -->
+                <text x="140" y="195" font-size="10" font-weight="600" fill="#475569" text-anchor="middle">Original = 2 triangles | Tilted Square = 4 congruent triangles</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 2 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Quick Box 1 -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 33–35</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Doubling a Square</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                If the side of a square tile is doubled from $5\text{ cm}$ to $10\text{ cm}$, by what factor does its surface area increase?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                According to Verse 1.9 of Baudhāyana's *Śulba-Sūtra*, which line segment of a square forms the side of a new square with double the area?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If the original square is cut along its diagonal into two triangles, how many identical copies of this triangle make up the doubled square?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 3 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: 2.2 Halving a Square -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.2 Halving a Square</span>
+            <h2 class="slide-title"><span class="icon">✂️</span> Halving a Square: Inscribing & Origami Folds</h2>
+          </div>
+          <span class="page-pill">Page 36</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🔄 Reversing the Construction</div>
+              <p class="card-desc">
+                To construct a square having <strong>half the area</strong> of a given square:
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>Join the midpoints of the four outer sides ($P, Q, R, S$).</li>
+                <li>The newly created tilted square $PQRS$ has vertices resting on the midpoints of the original square.</li>
+                <li><strong>Paper Folding Activity:</strong> Take a square sheet, fold the four outer corners inward toward the center. The four corner flaps fold flat without overlap, proving the area inside is exactly half ($\frac{1}{2}$).</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Halving -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 240 210" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect x="35" y="20" width="160" height="160" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+                
+                <!-- Inscribed tilted square joining midpoints -->
+                <polygon points="115,20 195,100 115,180 35,100" fill="#ecfdf5" stroke="#059669" stroke-width="2.5"/>
+                
+                <!-- Fold crease lines (North-South, East-West) -->
+                <line x1="115" y1="20" x2="115" y2="180" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <line x1="35" y1="100" x2="195" y2="100" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+                <text x="115" y="15" font-size="11" font-weight="bold" text-anchor="middle" fill="#047857">R (Midpoint)</text>
+                <text x="207" y="104" font-size="11" font-weight="bold" fill="#047857">Q</text>
+                <text x="115" y="196" font-size="11" font-weight="bold" text-anchor="middle" fill="#047857">P</text>
+                <text x="22" y="104" font-size="11" font-weight="bold" fill="#047857">S</text>
+
+                <text x="115" y="105" font-size="11" font-weight="bold" text-anchor="middle" fill="#064e3b">Area = 1/2</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 4 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: Quick Box 2 -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 36</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Halving Area Geometry</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Does a square whose sidelength is half ($\frac{1}{2}$) of an original square have half the original area? What fraction of the area does it actually have?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Connecting the midpoints of the four edges of a square produces a rhombus. Why is this rhombus guaranteed to be a square?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                How many small squares of half-sidelength are needed to tile and completely fill the original square?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 5 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: 2.3 Hypotenuse of Isosceles Right Triangle -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.3 Isosceles Triangle</span>
+            <h2 class="slide-title"><span class="icon">📐</span> Hypotenuse of a Unit Isosceles Right Triangle</h2>
+          </div>
+          <span class="page-pill">Page 37</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🔍 The Unit Isosceles Right Triangle ($1, 1, c$)</div>
+              <p class="card-desc">
+                Consider a right-angled triangle with perpendicular legs equal to $1\text{ unit}$.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Two such triangles form a unit square of area $1 \times 1 = 1\text{ sq. unit}$.</li>
+                <li>The square erected on the hypotenuse $c$ has double the area of this unit square:
+                  $$\text{Area of square on } c = 2 \times 1 = 2\text{ sq. units}$$
+                </li>
+                <li>Since Area $= c^2$, we have:
+                  $$c^2 = 2 \implies c = \sqrt{2}$$
+                </li>
+              </ul>
+              <div class="formula-banner">
+                $$\text{Hypotenuse } c = \sqrt{2} \approx 1.4142...$$
+              </div>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🏷️ Key Vocabulary</div>
+              <ul class="bullet-list">
+                <li><strong>Hypotenuse:</strong> In any right-angled triangle, the side opposite the $90^\circ$ right angle. It is always the longest side.</li>
+                <li><strong>Radical $\sqrt{2}$:</strong> The positive real number whose square is strictly $2$.</li>
+                <li><strong>Geometric Existence:</strong> Even before calculating its decimal expansion, $\sqrt{2}$ exists as a concrete, constructible physical length!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 6 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: Decimal Representation of sqrt(2) -->
+      <section class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.3 Nature of $\sqrt{2}$</span>
+            <h2 class="slide-title"><span class="icon">🔢</span> Squeezing $\sqrt{2}$: Bounding the Value</h2>
+          </div>
+          <span class="page-pill">Page 38</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card">
+              <div class="card-title">1. Integer Bounds</div>
+              <p class="card-desc">
+                Compare areas of squares:
+                $$1^2 = 1 < 2 < 4 = 2^2$$
+                $$\mathbf{1 < \sqrt{2} < 2}$$
+              </p>
+              <p class="card-desc" style="font-size:0.83rem;">
+                Lower bound $= 1$, Upper bound $= 2$.
+              </p>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">2. One Decimal Place</div>
+              <p class="card-desc">
+                Testing tenths:
+                $$1.4^2 = 1.96 < 2$$
+                $$1.5^2 = 2.25 > 2$$
+                $$\mathbf{1.4 < \sqrt{2} < 1.5}$$
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">3. Three Decimal Places</div>
+              <p class="card-desc">
+                Testing thousandths:
+                $$1.414^2 = 1.999396 < 2$$
+                $$1.415^2 = 2.002225 > 2$$
+                $$\mathbf{1.414 < \sqrt{2} < 1.415}$$
+              </p>
+            </div>
+          </div>
+
+          <div class="formula-banner-light" style="margin-top:6px;">
+            $$\text{Why can't } \sqrt{2} \text{ terminate? If } \sqrt{2} = 1.414\dots d \implies (\dots d)^2 \text{ has last digit } d^2 \neq 0 \text{ (never ending in } .000\dots)$$
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 7 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: Euclid's Proof that sqrt(2) is not a fraction -->
+      <section class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.3 Number Theory</span>
+            <h2 class="slide-title"><span class="icon">🏛️</span> Euclid's Proof: Why $\sqrt{2} \neq \frac{m}{n}$</h2>
+          </div>
+          <span class="page-pill">Page 39</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📜 Proof by Prime Factor Parity (c. 300 BCE)</div>
+              <p class="card-desc">
+                Can $\sqrt{2}$ be expressed as a common fraction $\frac{m}{n}$ of positive integers?
+              </p>
+              <div style="background:#ffffff; border:1px solid #a7f3d0; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                Assume $\sqrt{2} = \frac{m}{n} \implies 2 = \frac{m^2}{n^2} \implies \mathbf{2n^2 = m^2}$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>In the prime factorisation of any perfect square ($m^2$ or $n^2$), the prime factor 2 must appear an <strong>even number of times</strong>.</li>
+                <li>Therefore, in $2n^2$, the factor 2 appears: $1 + \text{even} = \mathbf{\text{odd number of times}}$.</li>
+                <li>In $m^2$, the factor 2 appears: $\mathbf{\text{even number of times}}$.</li>
+                <li><strong>Contradiction!</strong> An odd number cannot equal an even number.</li>
+              </ul>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">♾️ A Non-Terminating Non-Repeating Decimal</div>
+              <p class="card-desc">
+                Since $\sqrt{2}$ cannot be written as a terminating decimal or as any fraction $\frac{m}{n}$, its decimal expansion goes on forever without repeating:
+              </p>
+              <div class="formula-banner" style="background:#0284c7;">
+                $$\sqrt{2} = 1.414213562373095\dots$$
+              </div>
+              <p class="card-desc" style="font-weight:600; color:#0369a1;">
+                This marked humanity's first discovery of <em>irrational numbers</em>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 8 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: Quick Box 3 -->
+      <section class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 37–39</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — The Nature of $\sqrt{2}$</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What is the exact length of the diagonal of a square with sidelength $1\text{ meter}$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                State an upper bound and a lower bound for $\sqrt{2}$ correct to two decimal places.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                In Euclid's parity argument $2n^2 = m^2$, why can the prime factor 2 never appear the same number of times on both sides?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 9 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: General Isosceles Formula c^2 = 2a^2 -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.3 General Formula</span>
+            <h2 class="slide-title"><span class="icon">📐</span> General Isosceles Right Triangle: $c^2 = 2a^2$</h2>
+          </div>
+          <span class="page-pill">Page 40</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🔺 Scaling the Equal Sides</div>
+              <p class="card-desc">
+                Let an isosceles right triangle have equal perpendicular legs of length $a$ and hypotenuse $c$:
+              </p>
+              <div class="formula-banner">
+                $$c^2 = 2a^2 \iff c = a\sqrt{2}$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>The area of the square on the diagonal is double the square on leg $a$.</li>
+                <li><strong>Example 1 (Leg $a = 12$):</strong>
+                  $$c^2 = 2(12^2) = 288 \implies c = \sqrt{288}$$
+                  Since $16^2 = 256$ and $17^2 = 289$, $c$ lies between $16$ and $17\text{ units}$.
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🔍 Example 2: Finding Leg from Hypotenuse</div>
+              <p class="card-desc">
+                If the hypotenuse $c = \sqrt{72}$, find the equal sidelengths $a$:
+              </p>
+              <div style="background:#ffffff; border:1px solid #fde68a; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                $$c^2 = 2a^2 \implies (\sqrt{72})^2 = 2a^2$$
+                $$72 = 2a^2 \implies a^2 = \frac{72}{2} = 36$$
+                $$\mathbf{a = \sqrt{36} = 6\text{ units}}$$
+              </div>
+              <p class="card-desc" style="font-weight:600; color:#b45309; font-size:0.84rem; margin-top:4px;">
+                Both perpendicular legs have an exact integer length of 6 units.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 10 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: Quick Box 4 -->
+      <section class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 40</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Isosceles Right Triangles</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                An isosceles right triangle has legs of length $5\text{ cm}$. What is the exact length of its hypotenuse in terms of $\sqrt{2}$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the hypotenuse of an isosceles right triangle is $10\text{ cm}$, what is the area of the square formed by two such triangles?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If the hypotenuse is $\sqrt{200}$, what are the lengths of the two equal perpendicular sides?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 11 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: 2.4 Combining Two Different Squares -->
+      <section class="slide" id="slide-12">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.4 Generalizing Squares</span>
+            <h2 class="slide-title"><span class="icon">🧩</span> Combining Two Different Sized Squares</h2>
+          </div>
+          <span class="page-pill">Page 41–42</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📜 Baudhāyana's Śulba-Sūtra (Verse 1.12)</div>
+              <p class="card-desc">
+                What if we wish to combine two squares of <strong>unequal sizes</strong> (areas $a^2$ and $b^2$) into one single square of area $a^2 + b^2$?
+              </p>
+              <div class="formula-banner">
+                $$\text{Area } A + \text{Area } B = \text{Area of Square on Hypotenuse } C$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>Construct a right triangle whose legs are $a$ and $b$ (the side lengths of the two smaller squares).</li>
+                <li>The square erected on the hypotenuse of this triangle has an area exactly equal to the sum of the two smaller squares.</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Three Squares on Right Triangle -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 260 210" width="100%" height="100%" style="font-family:var(--font-body);">
+                <!-- Right Triangle ABC at center -->
+                <!-- Let right angle be at (90,120) -->
+                <!-- Leg a=40 horizontally left to (50,120) -->
+                <!-- Leg b=60 vertically down to (90,180) -->
+                <!-- Square on a: (50,80) to (90,120) -->
+                <rect x="50" y="80" width="40" height="40" fill="#fee2e2" stroke="#e11d48" stroke-width="1.8"/>
+                <text x="70" y="105" font-size="9" font-weight="bold" fill="#991b1b" text-anchor="middle">a²</text>
+
+                <!-- Square on b: (90,120) to (150,180) -->
+                <rect x="90" y="120" width="60" height="60" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+                <text x="120" y="155" font-size="10" font-weight="bold" fill="#78350f" text-anchor="middle">b²</text>
+
+                <!-- Right Triangle -->
+                <polygon points="90,120 50,120 90,180" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+                
+                <!-- Square on Hypotenuse: side connects (50,120) to (90,180). dx=40, dy=60. Length = sqrt(5200) = 72.1 -->
+                <!-- Perpendicular vector: (-dy, dx) = (-60, 40) or (60, -40). Let's go up-right: (50+60, 120-40)=(110,80) and (90+60, 180-40)=(150,140) -->
+                <polygon points="50,120 90,180 150,140 110,80" fill="#ecfdf5" stroke="#047857" stroke-width="2.2"/>
+                <text x="100" y="130" font-size="11" font-weight="bold" fill="#064e3b" text-anchor="middle">c² = a² + b²</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 12 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: Baudhāyana's Dissection Proof (Verse 2.1) -->
+      <section class="slide" id="slide-13">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.4 Dissection Proof</span>
+            <h2 class="slide-title"><span class="icon">📜</span> Baudhāyana's Geometric Dissection Proof</h2>
+          </div>
+          <span class="page-pill">Page 42–44</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">✂️ Instructions from Śulba-Sūtra Verse 2.1</div>
+              <ul class="bullet-list">
+                <li>Join square of side $a$ adjacent to square of side $b$ ($b > a$).</li>
+                <li>Mark a strip of width $a$ along the right side of the larger square. Its base is divided into $(b-a)$ and $a$.</li>
+                <li>Draw the diagonal of this $a \times b$ rectangle to form a right triangle with legs $a$ and $b$, hypotenuse $c$.</li>
+                <li>Replicate this triangle 4 times ($T, U, W, X$) around the inner central region $V$.</li>
+                <li>The newly assembled figure $(T + U + V)$ is a perfect square of sidelength $c$!</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">⚖️ Area Conservation Proof</div>
+              <p class="card-desc">
+                Notice that triangles $T, U, W, X$ are all congruent ($ \text{Area } = \frac{1}{2}ab$):
+              </p>
+              <div style="background:#ffffff; border:1px solid #fde68a; padding:10px; border-radius:10px; font-size:0.85rem; line-height:1.5;">
+                $$\text{Original Total Area} = \text{Area}(V) + \text{Area}(W) + \text{Area}(X)$$
+                $$\text{New Square Area} = \text{Area}(V) + \text{Area}(T) + \text{Area}(U)$$
+                Since $\text{Area}(T) + \text{Area}(U) = \text{Area}(W) + \text{Area}(X)$:
+                $$\mathbf{c^2 = a^2 + b^2}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 13 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: The Formal Baudhāyana-Pythagoras Theorem -->
+      <section class="slide" id="slide-14">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Fundamental Theorem</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> The Baudhāyana-Pythagoras Theorem</h2>
+          </div>
+          <span class="page-pill">Page 46–47</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="formula-banner">
+            $$a^2 + b^2 = c^2$$
+          </div>
+
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">📖 Formal Statement</div>
+              <p class="card-desc">
+                <em>If a right-angled triangle has shorter perpendicular sides of lengths $a$ and $b$, and hypotenuse of length $c$, then:</em>
+                $$a^2 + b^2 = c^2$$
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🏛️ Historical Credit</div>
+              <p class="card-desc">
+                <strong>Baudhāyana (c. 800 BCE):</strong> First person in recorded history to state this theorem in full generality.
+                <br><br>
+                <strong>Pythagoras (c. 500 BCE):</strong> Greek philosopher-mathematician who studied it two centuries later.
+              </p>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">🎯 The 3–4–5 Triangle</div>
+              <p class="card-desc">
+                If shorter legs are $3\text{ cm}$ and $4\text{ cm}$:
+                $$3^2 + 4^2 = 9 + 16 = 25$$
+                $$c = \sqrt{25} = \mathbf{5\text{ cm}}$$
+                Predicts exact measurements effortlessly!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 14 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: Quick Box 5 -->
+      <section class="slide" id="slide-15">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 46–47</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — The Right-Triangle Theorem</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                A right triangle has legs of length $5\text{ cm}$ and $12\text{ cm}$. What is the exact length of its hypotenuse?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the hypotenuse is $17\text{ cm}$ and one side is $8\text{ cm}$, what is the length of the remaining side?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                How did Baudhāyana construct a square whose area is triple ($3\times$) or five times ($5\times$) the area of a given square?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 15 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: 2.5 Right-Triangles with Integer Sidelengths -->
+      <section class="slide" id="slide-16">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.5 Baudhāyana Triples</span>
+            <h2 class="slide-title"><span class="icon">🔢</span> Right Triangles Having Integer Sidelengths</h2>
+          </div>
+          <span class="page-pill">Page 48</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📜 Ancient Vedic Triples (Verse 1.13)</div>
+              <p class="card-desc">
+                Baudhāyana explicitly listed integer triples $(a, b, c)$ that satisfy $a^2 + b^2 = c^2$:
+              </p>
+              <div style="background:#ffffff; border:1px solid #a7f3d0; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.6;">
+                $$(3, 4, 5), \quad (5, 12, 13), \quad (8, 15, 17),$$
+                $$(7, 24, 25), \quad (12, 35, 37), \quad (15, 36, 39)$$
+              </div>
+              <p class="card-desc" style="margin-top:6px;">
+                These are officially called <strong>Baudhāyana triples</strong> (or Pythagorean triples).
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">📈 Infinite Scaling Theorem</div>
+              <p class="card-desc">
+                If $(a, b, c)$ is a Baudhāyana triple, then $(ka, kb, kc)$ is also a triple for any positive integer $k$:
+              </p>
+              <div class="formula-banner" style="background:#047857;">
+                $$(ka)^2 + (kb)^2 = k^2(a^2 + b^2) = k^2 c^2 = (kc)^2$$
+              </div>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>For $(3, 4, 5) \implies (6, 8, 10), (9, 12, 15), (12, 16, 20), \dots$</li>
+                <li>This proves there are <strong>infinitely many triples</strong>!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 16 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 17: Primitive Triples & Generating Formula -->
+      <section class="slide" id="slide-17">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.5 Generating Triples</span>
+            <h2 class="slide-title"><span class="icon">⚡</span> Primitive Triples & The Odd Number Pattern</h2>
+          </div>
+          <span class="page-pill">Page 49–50</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🌟 Primitive Baudhāyana Triples</div>
+              <p class="card-desc">
+                A triple is <strong>primitive</strong> if $\gcd(a, b, c) = 1$ (no common factor $> 1$).
+                <br>Examples: $(3, 4, 5)$ and $(5, 12, 13)$ are primitive; $(6, 8, 10)$ is non-primitive.
+              </p>
+              <div class="formula-banner">
+                $$\text{Sum of first } n \text{ odd numbers} = n^2$$
+              </div>
+              <p class="card-desc" style="font-size:0.85rem;">
+                $$(n-1)^2 + (2n-1) = n^2$$
+                If the $n$-th odd number $(2n-1)$ is itself a perfect square $b^2$, we get an integer triple!
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🔢 Generating Examples</div>
+              <ul class="bullet-list">
+                <li><strong>Odd square $9$ ($n = 5$):</strong>
+                  $$(5-1)^2 + 9 = 5^2 \implies \mathbf{4^2 + 3^2 = 5^2} \implies (3, 4, 5)$$
+                </li>
+                <li><strong>Odd square $25$ ($n = 13$):</strong>
+                  $$(13-1)^2 + 25 = 13^2 \implies \mathbf{12^2 + 5^2 = 13^2} \implies (5, 12, 13)$$
+                </li>
+                <li><strong>Odd square $49$ ($n = 25$):</strong>
+                  $$(25-1)^2 + 49 = 25^2 \implies \mathbf{24^2 + 7^2 = 25^2} \implies (7, 24, 25)$$
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 17 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 18: Quick Box 6 -->
+      <section class="slide" id="slide-18">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 48–50</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Baudhāyana Triples</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Is $(9, 12, 15)$ a primitive Baudhāyana triple? What is its primitive parent triple?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Using the odd square $81 = 2n - 1$ ($n = 41$), find the Baudhāyana triple generated!
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                In all triples generated by $(n-1)^2 + (2n-1) = n^2$, what is the difference between the hypotenuse and the larger leg?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 18 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 19: 2.6 Fermat's Last Theorem -->
+      <section class="slide" id="slide-19">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.6 Open Problems</span>
+            <h2 class="slide-title"><span class="icon">📖</span> Fermat's Last Theorem: Beyond Powers of 2</h2>
+          </div>
+          <span class="page-pill">Page 50–51</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">✍️ The Famous Margin Note (17th Century)</div>
+              <p class="card-desc">
+                Pierre de Fermat studied Diophantus's *Arithmetica* and Baudhāyana triples $x^2 + y^2 = z^2$. He wondered: Can two cubes sum to a cube, or two fourth powers to a fourth power?
+              </p>
+              <div class="formula-banner">
+                $$x^n + y^n = z^n \quad \text{has NO positive integer solutions for } n > 2$$
+              </div>
+              <p class="card-desc" style="font-style:italic; margin-top:4px;">
+                "I have found a truly marvellous proof of this statement, but the margin is too small to contain it."
+              </p>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">🧒 Andrew Wiles' 30-Year Quest (1994)</div>
+              <p class="card-desc">
+                For over 300 years, the greatest minds attempted and failed to find Fermat's proof.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>In 1963, 10-year-old schoolboy <strong>Andrew Wiles</strong> read Eric Bell's *The Last Problem* and resolved to solve it.</li>
+                <li>After working 7 years in complete secrecy at Princeton, Wiles officially completed the proof in <strong>1994</strong> using elliptic curves and modular forms.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 19 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 20: Quick Box 7 -->
+      <section class="slide" id="slide-20">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 50–51</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Higher Power Diophantine Equations</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Can you find three positive integers $x, y, z$ such that $x^3 + y^3 = z^3$? What theorem forbids this?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                In which year and by which mathematician was Fermat's Last Theorem finally proved?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                For what specific exponent value $n$ does $x^n + y^n = z^n$ have infinitely many integer solutions?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 20 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 21: 2.7 Bhāskarāchārya's Līlāvatī Problem -->
+      <section class="slide" id="slide-21">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.7 Historical Problem</span>
+            <h2 class="slide-title"><span class="icon">🪷</span> Bhāskara II's Līlāvatī: The Lotus in the Lake</h2>
+          </div>
+          <span class="page-pill">Page 52</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📖 Verse from the 12th Century CE</div>
+              <p class="card-desc" style="font-style:italic;">
+                "In a lake surrounded by chakra and krauñcha birds, a lotus flower peeps 1 unit above the water. Swayed by a gentle breeze, its tip touches the water 3 units away from its original stem. Quickly tell the depth of the lake!"
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>Let depth of lake $= x$</li>
+                <li>Total stem length $= x + 1$ (which acts as the hypotenuse when bent)</li>
+                <li>Horizontal drift $= 3\text{ units}$</li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">⚡ Algebraic Solution</div>
+              <div class="formula-banner">
+                $$3^2 + x^2 = (x+1)^2$$
+              </div>
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                $$9 + x^2 = x^2 + 2x + 1$$
+                $$9 = 2x + 1 \implies 2x = 8 \implies \mathbf{x = 4\text{ units}}$$
+              </div>
+              <p class="card-desc" style="font-weight:700; color:var(--accent-secondary); margin-top:4px;">
+                Depth of the lake is exactly 4 units (Stem length $= 5$, forming a 3–4–5 triangle!).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 21 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 22: Geometric Applications: Rhombus & Grids -->
+      <section class="slide" id="slide-22">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">2.7 Applications</span>
+            <h2 class="slide-title"><span class="icon">💎</span> Applications: Rhombus Diagonals & Dot Grids</h2>
+          </div>
+          <span class="page-pill">Page 53</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Rhombus Sidelength</div>
+              <p class="card-desc">
+                Diagonals of a rhombus bisect each other perpendicularly:
+                $$d_1 = 24 \implies \text{half} = 12$$
+                $$d_2 = 70 \implies \text{half} = 35$$
+                $$\text{Side } s = \sqrt{12^2 + 35^2} = \sqrt{144 + 1225}$$
+                $$s = \sqrt{1369} = \mathbf{37\text{ units}}$$
+                (Forms Baudhāyana triple $(12, 35, 37)$).
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Equilateral Altitude</div>
+              <p class="card-desc">
+                In an equilateral triangle of side 6, altitude $h$ bisects the base into $3$ and $3$:
+                $$h^2 + 3^2 = 6^2 \implies h^2 + 9 = 36$$
+                $$h = \sqrt{27} = 3\sqrt{3}$$
+                $$\text{Area} = \frac{1}{2} \times 6 \times 3\sqrt{3} = \mathbf{9\sqrt{3}\text{ sq units}}$$
+              </p>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">3. Square Areas on a Grid</div>
+              <p class="card-desc">
+                Square area equals $a^2 + b^2$ for grid vectors:
+              </p>
+              <ul class="bullet-list" style="font-size:0.83rem;">
+                <li>$1^2 + 1^2 = \mathbf{2\text{ sq units}}$ (diagonal of unit)</li>
+                <li>$2^2 + 0^2 = \mathbf{4\text{ sq units}}$</li>
+                <li>$2^2 + 1^2 = \mathbf{5\text{ sq units}}$</li>
+                <li><strong>Impossible on grid:</strong> Area $3$, because $3$ cannot be written as $a^2 + b^2$ for integers!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 22 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 23: Quick Box 8 -->
+      <section class="slide" id="slide-23">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 52–53</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Applied Geometric Problems</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Why can a square with an area of exactly 3 square units never be constructed on an integer dot grid?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Is the hypotenuse always guaranteed to be strictly the longest side of a right-angled triangle? Why?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                How can you construct a square whose area is the difference of two squares of sidelengths $7\text{ cm}$ and $5\text{ cm}$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 23 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 24: End-of-Chapter Puzzle: Find the Colours! -->
+      <section class="slide" id="slide-24">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Brain Teaser</span>
+            <h2 class="slide-title"><span class="icon">🎲</span> It's Puzzle Time! Find the Colours!</h2>
+          </div>
+          <span class="page-pill">Page 54</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card amber-highlight">
+              <div class="card-title">📦 The Three Mislabelled Boxes</div>
+              <p class="card-desc">
+                There are 3 closed boxes:
+                <br>• Box 1: Only <strong>RED</strong> balls
+                <br>• Box 2: Only <strong>BLUE</strong> balls
+                <br>• Box 3: Only <strong>GREEN</strong> balls
+              </p>
+              <div style="background:#ffffff; border:1.5px dashed #d97706; padding:8px 12px; border-radius:8px; font-size:0.86rem; line-height:1.5;">
+                <strong>Crucial Condition:</strong> EVERY single box is labelled <em>incorrectly</em> (no box has its true label).
+                <br><strong>Challenge:</strong> You are allowed to draw one ball from <em>only one box</em>. How can you determine all three labels?
+              </div>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">💡 The Logical Strategy</div>
+              <ul class="bullet-list">
+                <li>Pick the box labelled with the third color or inspect a specific box. Since all labels are wrong:</li>
+                <li>If you draw a ball from the box labelled <em>"RED"</em> and it is <em>BLUE</em>:
+                  <br>That box is definitely the <strong>BLUE</strong> box.
+                </li>
+                <li>The box labelled <em>"GREEN"</em> cannot be GREEN (because all labels are wrong), so it must be <strong>RED</strong>!</li>
+                <li>The remaining box labelled <em>"BLUE"</em> must be <strong>GREEN</strong>.</li>
+                <li>Pure mathematical deductive logic cracks the puzzle in 1 draw!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 24 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 25: Exercise Highlights (Worked Problems) -->
+      <section class="slide" id="slide-25">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Key Worked Exemplars: Exercises</h2>
+          </div>
+          <span class="page-pill">Page 47, 53</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Problem 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Missing Leg Problem</div>
+              <p class="card-desc">
+                Right triangle has hypotenuse $41\text{ cm}$ and one side $40\text{ cm}$. Find the third side $a$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$a^2 + 40^2 = 41^2$$
+                $$a^2 + 1600 = 1681$$
+                $$a^2 = 1681 - 1600 = 81$$
+                $$\mathbf{a = \sqrt{81} = 9\text{ cm}}$$
+                (Forms Baudhāyana triple $(9, 40, 41)$!)
+              </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Diagonal of a Square</div>
+              <p class="card-desc">
+                Find the diagonal length of a square of side $5\text{ cm}$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$d^2 = 5^2 + 5^2 = 25 + 25 = 50$$
+                $$d = \sqrt{50} = \sqrt{25 \times 2} = \mathbf{5\sqrt{2}\text{ cm}}$$
+                $$\approx 5 \times 1.414 = \mathbf{7.07\text{ cm}}$$
+              </div>
+            </div>
+
+            <!-- Problem 3 -->
+            <div class="content-card blue-highlight">
+              <div class="card-title">3. Radical Sides Problem</div>
+              <p class="card-desc">
+                Right triangle with legs $10$ and $\sqrt{150}$. Find hypotenuse $c$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$c^2 = 10^2 + (\sqrt{150})^2$$
+                $$c^2 = 100 + 150 = 250$$
+                $$\mathbf{c = \sqrt{250} = 5\sqrt{10}}$$
+                $$\approx \mathbf{15.81\text{ units}}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 25 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 26: Advanced Worked Exemplars -->
+      <section class="slide" id="slide-26">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Advanced Worked Exemplars: Sidelengths & Bounds</h2>
+          </div>
+          <span class="page-pill">Page 39, 47, 53</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Exemplar 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Decimal Sidelengths</div>
+              <p class="card-desc">
+                Find hypotenuse $c$ when $a = 1.5$ and $b = 3.5$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$c^2 = (1.5)^2 + (3.5)^2$$
+                $$c^2 = 2.25 + 12.25 = 14.5$$
+                $$c = \sqrt{14.5} \approx \mathbf{3.81\text{ units}}$$
+                Bounds: $3.8 < \sqrt{14.5} < 3.9$ since $3.8^2 = 14.44$ and $3.9^2 = 15.21$.
+              </div>
+            </div>
+
+            <!-- Exemplar 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Scaled Triple Verification</div>
+              <p class="card-desc">
+                Given triangle with sides $27$, $x$, and hypotenuse $45$. Find $x$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Observe common factor 9:
+                $$27 = 3 \times 9, \quad 45 = 5 \times 9$$
+                Since $(3, 4, 5)$ is a triple:
+                $$x = 4 \times 9 = \mathbf{36\text{ units}}$$
+                Check: $27^2 + 36^2 = 729 + 1296 = 2025 = 45^2$ ✅
+              </div>
+            </div>
+
+            <!-- Exemplar 3 -->
+            <div class="content-card blue-highlight">
+              <div class="card-title">3. Square Difference Area</div>
+              <p class="card-desc">
+                Construct square of area $7^2 - 5^2$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$\text{Area} = 49 - 25 = 24\text{ sq units}$$
+                By Baudhāyana's theorem, this is the square on the leg of a right triangle with hypotenuse $7$ and other leg $5$:
+                $$\text{Side} = \sqrt{24} \approx \mathbf{4.899\text{ units}}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 26 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 27: Chapter Master Summary -->
+      <section class="slide" id="slide-27">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Chapter Summary</span>
+            <h2 class="slide-title"><span class="icon">📋</span> Master Summary Checklist</h2>
+          </div>
+          <span class="page-pill">Page 54</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">✅ Geometric Foundations</div>
+              <ul class="bullet-list">
+                <li><strong>Doubling a Square:</strong> Square erected on the diagonal has double ($2\times$) the area (Verse 1.9).</li>
+                <li><strong>Halving a Square:</strong> Connecting midpoints of the four edges halves ($\frac{1}{2}\times$) the area.</li>
+                <li><strong>Hypotenuse of Isosceles Triangle:</strong> $c^2 = 2a^2 \implies c = a\sqrt{2}$.</li>
+                <li><strong>Nature of $\sqrt{2}$:</strong> Lies between $1.414$ and $1.415$; non-terminating, non-repeating irrational number (Euclid's prime factor parity proof).</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">✅ The General Theorem & Triples</div>
+              <ul class="bullet-list">
+                <li><strong>Baudhāyana-Pythagoras Theorem:</strong> $a^2 + b^2 = c^2$ for any right triangle (Verse 1.12 & 2.1 dissection).</li>
+                <li><strong>Baudhāyana Triples:</strong> Integers $(a, b, c)$ satisfying $a^2 + b^2 = c^2$. Primitive if $\gcd=1$.</li>
+                <li><strong>Odd Number Formula:</strong> $(n-1)^2 + (2n-1) = n^2$ generates infinite primitive triples.</li>
+                <li><strong>Scaling Law:</strong> $(ka, kb, kc)$ is a triple whenever $(a, b, c)$ is.</li>
+                <li><strong>Fermat's Last Theorem:</strong> $x^n + y^n = z^n$ has no positive integer solutions for $n > 2$ (Wiles, 1994).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 27 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 28: CLOSING SLIDE (THANK YOU) -->
+      <section class="slide" id="slide-28">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>🏁</span> End of Chapter 2
+          </div>
+          <div class="pill-tag">
+            Complete Deck Review
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:18px;">
+          <div style="font-size:0.9rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-secondary);">
+            NCERT • GANITA PRAKASH GRADE 8
+          </div>
+
+          <h1 style="font-family:var(--font-display); font-size:3.5rem; font-weight:700; color:var(--text-main); line-height:1.1;">
+            Thank You!
+          </h1>
+
+          <p style="font-style:italic; font-size:1.18rem; color:var(--text-muted); max-width:860px; line-height:1.6;">
+            "The diagonal rope which stretches across a rectangle produces both areas that the lengthwise and breadthwise sides produce separately."
+            <br><span style="font-size:0.95rem; font-weight:700; color:var(--accent-dark);">— Baudhāyana Śulba-Sūtra (c. 800 BCE)</span>
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">✨ Interactive Classroom Slides</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">📐 Complete Section Coverage</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">⚡ Quick Box Question Slides Included</span>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 28 / 28</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Slide Footer Keyboard Hint -->
+    <div class="key-hint">
+      Use ◀ / ▶ or Space to navigate • [F] Fullscreen
+    </div>
+
+    <!-- On-screen Navigation Controls (bottom-right) -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" title="Previous Slide (Left Arrow)">❮</button>
+      <select class="slide-select" id="slideSelect" title="Jump to Slide"></select>
+      <button class="nav-btn" id="nextBtn" title="Next Slide (Right Arrow / Space)">❯</button>
+      <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen" style="font-size:0.75rem;">⛶</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideSelect = document.getElementById('slideSelect');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const viewport = document.getElementById('presentation-viewport');
+
+      // Populate slide jump menu
+      slides.forEach((slide, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        const titleEl = slide.querySelector('.slide-title');
+        const titleText = titleEl ? titleEl.innerText.replace(/[\n\r]+/g, ' ').trim() : (idx === 0 ? 'Cover Slide' : 'Slide ' + (idx + 1));
+        option.textContent = `${idx + 1}. ${titleText.substring(0, 32)}...`;
+        slideSelect.appendChild(option);
+      });
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        slides[currentIndex].classList.add('active');
+        slideSelect.value = currentIndex;
+
+        // Render KaTeX dynamic formulas
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentIndex], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      // Event Listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      slideSelect.addEventListener('change', (e) => {
+        updateSlide(parseInt(e.target.value, 10));
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullScreen();
+        }
+      });
+
+      // Touch / Swipe Navigation for tablets & boards
+      let touchStartX = 0;
+      let touchStartY = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        const diffY = e.changedTouches[0].screenY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+          if (diffX < 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Fullscreen support
+      function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+          viewport.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullScreen);
+    });
+  </script>
+</body>
+</html>

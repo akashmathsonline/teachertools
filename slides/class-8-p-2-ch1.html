@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1: Fractions in Disguise | Grade 8 Mathematics</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for pristine mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 12% 18%, #fffbeb 0%, #fef3c7 40%, #f8fafc 100%);
+      --accent-primary: #d97706; /* Amber Primary */
+      --accent-secondary: #b45309;
+      --accent-dark: #78350f;
+      --accent-tint: #fef3c7;
+      --accent-border: #fde68a;
+      --accent-coral: #e11d48;
+      --accent-teal: #0d9488;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --font-display: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #0b0f19;
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+        /* 16:9 Presentation Stage */
+    #presentation-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: var(--bg-gradient);
+      box-shadow: none; /* Box shadow hata dein */
+      border-radius: 0; /* Corners hatane ke liye */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: none; /* Border hata dein */
+    }
+
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 30px 40px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.38s;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 2;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(217, 119, 6, 0.18);
+    }
+
+    .header-left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      background: #fef3c7;
+      color: #b45309;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-tag.accent {
+      background: var(--accent-tint);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent-border);
+    }
+
+    .pill-tag.quick {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .page-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: #ffe4e6;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.68rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      line-height: 1.22;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      position: relative;
+      margin-top: 2px;
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-1-2 {
+      grid-template-columns: 1.15fr 1fr;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .content-card.highlight {
+      background: #fffbeb;
+      border: 1.5px solid var(--accent-border);
+    }
+
+    .content-card.teal-highlight {
+      background: #f0fdfa;
+      border: 1.5px solid #99f6e4;
+    }
+
+    .content-card.rose-highlight {
+      background: #fff1f2;
+      border: 1.5px solid #fecdd3;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .bullet-list li {
+      font-size: 0.875rem;
+      line-height: 1.48;
+      color: #334155;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 0.75rem;
+      color: var(--accent-primary);
+    }
+
+    .formula-banner {
+      background: linear-gradient(135deg, #78350f 0%, #b45309 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin: 4px 0;
+    }
+
+    .formula-banner-light {
+      background: #ffffff;
+      border: 2px dashed var(--accent-primary);
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Subtle Watermark for Middle Slides */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+
+    .slide-footer {
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid rgba(203, 213, 225, 0.6);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .large-credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #78350f 0%, #d97706 100%);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      border: 2px solid #fde68a;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .large-credit-pill span.symbol {
+      color: #fef3c7;
+      font-size: 1.1rem;
+    }
+
+    .diagram-container {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      height: 100%;
+      min-height: 200px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* Quick Box Styles */
+    .quick-box-container {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid #fde68a;
+      box-shadow: var(--shadow-md);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .quick-q-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 4px solid #d97706;
+    }
+
+    .quick-q-badge {
+      background: #d97706;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-q-text {
+      font-size: 0.95rem;
+      line-height: 1.48;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .nav-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 4px 8px;
+      border-radius: 30px;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .key-hint {
+      position: absolute;
+      bottom: 15px;
+      left: 24px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      pointer-events: none;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .slide-select {
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    @media (max-width: 1280px) {
+      #presentation-viewport {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Presentation Viewport -->
+  <div id="presentation-viewport">
+    <div class="slides-container" id="deckContainer">
+
+      <!-- SLIDE 1: COVER SLIDE -->
+      <section class="slide active" id="slide-1">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>📚</span> GANITA PRAKASH PART II | GRADE 8
+          </div>
+          <div class="pill-tag">
+            Chapter 1 • Cover
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:20px;">
+          <div style="text-transform:uppercase; font-size:0.85rem; font-weight:800; letter-spacing:0.18em; color:var(--accent-secondary);">
+            CLASS 8 MATHEMATICS • CHAPTER 1
+          </div>
+          
+          <h1 style="font-family:var(--font-display); font-size:3.3rem; font-weight:700; color:var(--text-main); line-height:1.1; max-width:980px;">
+            Fractions in Disguise
+          </h1>
+          
+          <p style="font-style:italic; font-size:1.12rem; color:var(--text-muted); max-width:860px; line-height:1.6;">
+            "Exhaustive point-by-point presentation covering fractions as percentages, mental arithmetic, proportional models, profit & loss, GST, compounding growth, and tricky discounts directly from the textbook."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:7px 16px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🎨 Fractions & Decimals
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:7px 16px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📊 Proportions & KYC Labels
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:7px 16px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🏷️ Commercial Math & Taxes
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:7px 16px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📈 Compounding & Growth
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 1 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: 1.1 Fractions as Percentages -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.1 Percentages Intro</span>
+            <h2 class="slide-title"><span class="icon">🔍</span> What is a Percentage? Per Centum Decoded</h2>
+          </div>
+          <span class="page-pill">Page 1–2</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📖 Etymology & Definition</div>
+              <p class="card-desc">
+                The symbol <strong>$\%$</strong> is read as <em>per cent</em>, derived from the Latin phrase <strong>'per centum'</strong>, meaning <strong>'by the hundred'</strong> or <strong>'out of a hundred'</strong>.
+              </p>
+              <div class="formula-banner">
+                $$z\% = \frac{z}{100} = z \times \frac{1}{100}$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>$25\%$ means $25$ out of every $100$ (marks, people, rupees).</li>
+                <li>$50\%$ of a quantity $s$: $50 \times \frac{1}{100} \times s = \frac{1}{2}s$ (exactly half).</li>
+                <li><strong>Core Principle:</strong> Percentages are simply fractions whose denominator is fixed at $100$.</li>
+              </ul>
+            </div>
+
+            <!-- Visual Bar Model SVG -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 320 200" width="100%" height="100%" style="font-family:var(--font-body);">
+                <text x="160" y="24" font-size="11" font-weight="700" text-anchor="middle" fill="#78350f">Surya's Sunset Paint: 3/4 Red Paint</text>
+                
+                <!-- Fraction Bar -->
+                <rect x="20" y="45" width="280" height="32" fill="#fef3c7" stroke="#d97706" stroke-width="2" rx="4"/>
+                <rect x="20" y="45" width="210" height="32" fill="#ef4444" rx="3"/>
+                <rect x="230" y="45" width="70" height="32" fill="#eab308" rx="3"/>
+
+                <text x="125" y="66" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Red Paint (3/4 = 75%)</text>
+                <text x="265" y="66" font-size="10" font-weight="bold" fill="#78350f" text-anchor="middle">Yellow (25%)</text>
+
+                <!-- Scale markers -->
+                <line x1="20" y1="85" x2="20" y2="92" stroke="#64748b" stroke-width="2"/>
+                <line x1="90" y1="85" x2="90" y2="92" stroke="#64748b" stroke-width="2"/>
+                <line x1="160" y1="85" x2="160" y2="92" stroke="#64748b" stroke-width="2"/>
+                <line x1="230" y1="85" x2="230" y2="92" stroke="#64748b" stroke-width="2"/>
+                <line x1="300" y1="85" x2="300" y2="92" stroke="#64748b" stroke-width="2"/>
+
+                <text x="20" y="106" font-size="9" text-anchor="middle" fill="#64748b">0</text>
+                <text x="90" y="106" font-size="9" text-anchor="middle" fill="#64748b">1/4 (25%)</text>
+                <text x="160" y="106" font-size="9" text-anchor="middle" fill="#64748b">2/4 (50%)</text>
+                <text x="230" y="106" font-size="9" text-anchor="middle" fill="#b45309" font-weight="bold">3/4 (75%)</text>
+                <text x="300" y="106" font-size="9" text-anchor="middle" fill="#64748b">4/4 (100%)</text>
+
+                <!-- Method Summary Box -->
+                <rect x="20" y="125" width="280" height="60" fill="#f8fafc" stroke="#cbd5e1" rx="8"/>
+                <text x="32" y="145" font-size="10" font-weight="600" fill="#0f172a">Method 1 (Scale denominator): 3/4 = (3×25)/(4×25) = 75/100 = 75%</text>
+                <text x="32" y="165" font-size="10" font-weight="600" fill="#0f172a">Method 2 (Algebraic proportion): 3/4 × 100 = 75%</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 2 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Quick Box 1 -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 1–3</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Fractions as Percentages</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What does the Latin root <em>per centum</em> literally mean, and what is the denominator of any percentage?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Surya saves $\frac{2}{5}$ of his prize money for an art canvas. Mentally convert $\frac{2}{5}$ to an equivalent percentage!
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Nandini has $25$ marbles, of which $15$ are white. What percentage of her total marble collection is white?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 3 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: Why 100? Base-10 Harmony & Comparisons -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.1 Deep Dive</span>
+            <h2 class="slide-title"><span class="icon">⚖️</span> Why Choose 100? The Base-10 Advantage</h2>
+          </div>
+          <span class="page-pill">Page 4</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">🍪 The Biscuit Challenge</div>
+              <p class="card-desc">
+                A factory tests 2 biscuit recipes:
+              </p>
+              <div style="background:#ffffff; border:1px solid #fde68a; padding:8px 12px; border-radius:8px; font-size:0.85rem; line-height:1.5;">
+                Variety 1 has $\frac{9}{34}$ sugar.<br>
+                Variety 2 has $\frac{13}{45}$ sugar.<br>
+                Which is sweeter? Hard to tell at a glance!
+              </div>
+              <p class="card-desc" style="margin-top:6px; font-weight:600; color:var(--accent-secondary);">
+                Converting to common base 100:
+                $$26.47\% \quad \text{vs} \quad 28.88\%$$
+                Variety 2 is immediately recognized as more sugary!
+              </p>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🔟 Base-10 Decimal Fit</div>
+              <p class="card-desc">
+                Because human civilization uses a <strong>base-10 positional numeral system</strong>, numbers like $10, 100, 1000$ mesh naturally with decimals:
+              </p>
+              <div class="formula-banner" style="background:#0d9488;">
+                $$31\% = \frac{31}{100} = 0.31$$
+              </div>
+              <p class="card-desc">
+                Interchanging fractions, decimals, and percentages is lightning-fast without awkward long division.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🎯 The Cognitive Sweet Spot</div>
+              <p class="card-desc">
+                Why not $10$ or $1000$?
+              </p>
+              <ul class="bullet-list">
+                <li><strong>Per 10 (per decem):</strong> Too coarse ($\frac{9}{34} = 2.647$ per 10).</li>
+                <li><strong>Per 1000 (per mille):</strong> Too granular for mental grasp ($\frac{9}{34} = 264.7‰$).</li>
+                <li><strong>Per 100:</strong> Large enough to give meaningful resolution, yet small enough to visualize mentally.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 4 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: Quick Box 2 -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 4</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — The Power of Common Denominators</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Without calculating pen-and-paper: Insert $>, <,$ or $=$ between $50\%$ and $\frac{5}{10}$.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Compare $30\%$ and $\frac{1}{3}$. Which quantity is strictly larger?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                What is the term for a measurement expressed "per 1000" rather than "per 100"?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 5 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: History & Percentages Around Us -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.1 Real World & History</span>
+            <h2 class="slide-title"><span class="icon">📜</span> Ancient Roots & Percentages Around Us</h2>
+          </div>
+          <span class="page-pill">Page 5</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🏛️ 2,400 Years of "Per Cent"</div>
+              <p class="card-desc">
+                Long before modern decimals, ancient civilizations required proportional rates:
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Arthashastra (4th c. BCE, India):</strong> Kautilya documented monthly interest per cent: <em>"An interest of a pana and a quarter per month per cent is just. Five panas per cent is commercial interest..."</em></li>
+                <li><strong>Ancient Rome:</strong> Auction & trade taxes levied as $\frac{1}{20}$ and $\frac{1}{100}$.</li>
+                <li><strong>15th Century Italy:</strong> Merchants abbreviated percentages as <em>'xx p cento'</em> ($20\%$) and <em>'x p cento'</em> ($10\%$).</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🌍 Percentages Around Us Today</div>
+              <ul class="bullet-list">
+                <li><strong>Human Body:</strong> $\approx 60\%$ water by total body weight.</li>
+                <li><strong>Ice Cream:</strong> $\approx 30\% - 50\%$ air by volume!</li>
+                <li><strong>2022 FIFA World Cup:</strong> $45\%$ of global population watched.</li>
+                <li><strong>Solar System Mass:</strong> Sun contains $99.86\%$; Jupiter has $0.071\%$; Earth is just $0.0003\%$.</li>
+                <li><strong>Global Agriculture:</strong> An estimated $52\%$ of arable land is degraded.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 6 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: Quick Box 3 -->
+      <section class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 5</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Historical Facts & Real Data</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Which ancient Indian text from the 4th century BCE recorded interest rates calculated "per month per cent"?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the Sun accounts for $99.86\%$ of our solar system's mass, what percentage remains for all planets, moons, asteroids, and comets combined?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                What did the 15th-century Italian commercial manuscript shorthand <em>'vii p cento'</em> represent in modern mathematical notation?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 7 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: 1.2 Percentage of Some Quantity -->
+      <section class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.2 Proportions</span>
+            <h2 class="slide-title"><span class="icon">🍪</span> Percentage of a Quantity: Respect the Whole!</h2>
+          </div>
+          <span class="page-pill">Page 6–7</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">⚠️ Percentages Alone Do Not Equal Amounts!</div>
+              <p class="card-desc">
+                Madhu ate biscuits with $25\%$ sugar. Madhav ate biscuits with $35\%$ sugar. Who consumed more sugar?
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>If wholes are identical ($100\text{ g}$):</strong> Madhav ate more ($35\text{ g} > 25\text{ g}$).</li>
+                <li><strong>If Madhu ate $120\text{ g}$ and Madhav ate $95\text{ g}$:</strong></li>
+                <li>Madhu: $25\%$ of $120\text{ g} = \frac{25}{100} \times 120 = \mathbf{30\text{ g sugar}}$</li>
+                <li>Madhav: $35\%$ of $95\text{ g} = \frac{35}{100} \times 95 = \mathbf{33.25\text{ g sugar}}$</li>
+              </ul>
+              <div class="formula-banner" style="margin-top:6px;">
+                $$\text{Amount} = \frac{y}{100} \times \text{Total Quantity } (Q)$$
+              </div>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🔍 Proportional Reasoning Models</div>
+              <p class="card-desc">
+                Connecting unitary method, fractions, and proportions:
+              </p>
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:10px 14px; border-radius:10px; font-size:0.85rem; line-height:1.5;">
+                <strong>Unitary Method:</strong><br>
+                $100\text{ g}$ biscuits $\to 35\text{ g}$ sugar<br>
+                $1\text{ g}$ biscuit $\to \frac{35}{100}\text{ g}$ sugar<br>
+                $95\text{ g}$ biscuits $\to \frac{35}{100} \times 95 = 33.25\text{ g}$<br><br>
+                <strong>Proportion equation:</strong> $\frac{35}{100} = \frac{s}{95} \implies s = 33.25\text{ g}$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 8 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: Quick Box 4 -->
+      <section class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 6–7</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Respecting the Whole</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Can $20\%$ of an elephant's weight ever be smaller than $80\%$ of an ant's weight? Why must we always know the whole?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Find $25\%$ of $160$ using mental quartering!
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If $30\%$ of $k$ is $70$, what is the value of $60\%$ of $k$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 9 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: Free-hand Computations & Additive Property -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.2 Mental Math</span>
+            <h2 class="slide-title"><span class="icon">🧠</span> Free-Hand Mental Calculations & Building Blocks</h2>
+          </div>
+          <span class="page-pill">Page 7–8</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🧩 Benchmark Percentages</div>
+              <ul class="bullet-list">
+                <li><strong>$50\%$:</strong> Divide by $2$ (half).</li>
+                <li><strong>$25\%$:</strong> Half of $50\%$ (quarter, divide by $4$).</li>
+                <li><strong>$10\%$:</strong> Shift decimal left by $1$ place (divide by $10$).</li>
+                <li><strong>$5\%$:</strong> Half of $10\%$.</li>
+                <li><strong>$1\%$:</strong> Shift decimal left by $2$ places (divide by $100$).</li>
+              </ul>
+              <div class="formula-banner">
+                $$(20\% \text{ of } y) + (5\% \text{ of } y) = 25\% \text{ of } y$$
+              </div>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">⚡ Decomposing Any Percentage</div>
+              <p class="card-desc">
+                Combine simple building blocks mentally without paper:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>$15\%$ of $80$:</strong> $(10\% \text{ of } 80) + (5\% \text{ of } 80) = 8 + 4 = \mathbf{12}$.</li>
+                <li><strong>$75\%$ of $80$:</strong> $50\% + 25\% = 40 + 20 = \mathbf{60}$.</li>
+                <li><strong>$40\%$ of $80$:</strong> $4 \times (10\%) = 4 \times 8 = \mathbf{32}$.</li>
+                <li><strong>$90\%$ of $80$:</strong> $100\% - 10\% = 80 - 8 = \mathbf{72}$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 10 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: Quick Box 5 -->
+      <section class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 7–8</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Free-Hand Mental Tricks</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                How can you mentally compute $35\%$ of any number using $10\%$ and $5\%$ as building blocks?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Find $15\%$ of ₹$200$ mentally without picking up a pencil!
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Is multiplying a number by $0.05$ the exact same as finding $5\%$ of that number? Why?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 11 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: The FDP Trio & Ratio to Percentage -->
+      <section class="slide" id="slide-12">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.2 The FDP Trio</span>
+            <h2 class="slide-title"><span class="icon">🔄</span> Fractions, Decimals, Percentages & Ratios</h2>
+          </div>
+          <span class="page-pill">Page 8–9</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card">
+              <div class="card-title">🔁 The Three Interchangeable Faces</div>
+              <p class="card-desc">
+                Every fraction has an exact decimal and percentage identity:
+              </p>
+              <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden;">
+                <table style="width:100%; border-collapse:collapse; font-size:0.84rem; text-align:center;">
+                  <tr style="background:#fef3c7; color:#78350f; font-weight:700;">
+                    <th style="padding:6px;">Fraction</th>
+                    <th style="padding:6px;">Decimal</th>
+                    <th style="padding:6px;">Percentage</th>
+                  </tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:5px;">$1/2$</td><td>$0.5$</td><td>$50\%$</td></tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:5px;">$1/4$</td><td>$0.25$</td><td>$25\%$</td></tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:5px;">$1/5$</td><td>$0.2$</td><td>$20\%$</td></tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:5px;">$1/10$</td><td>$0.1$</td><td>$10\%$</td></tr>
+                  <tr><td style="padding:5px;">$1/100$</td><td>$0.01$</td><td>$1\%$</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">🥣 Converting Ratios to %: Millet Kanji</div>
+              <p class="card-desc">
+                Millet to water ratio is $2:7$. Total parts $= 2 + 7 = 9$.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>$\text{Millet share} = \frac{2}{9}$ of the mixture.</li>
+                <li>$\text{Millet \%} = \frac{2}{9} \times 100 \approx \mathbf{22.22\%}$.</li>
+                <li>$\text{Water \%} = \frac{7}{9} \times 100 \approx \mathbf{77.78\%}$.</li>
+                <li>In $500\text{ ml}$ kanji: $22.22\% \text{ of } 500 = \mathbf{111.1\text{ ml millet}}$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 12 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: Quick Box 6 -->
+      <section class="slide" id="slide-13">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 8–10</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — The FDP Trio & Ratios</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What decimal multiplier corresponds to finding $43\%$ of a number?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                A cyclist completes $40\%$ of a trip ($92\text{ km}$). What is the remaining $60\%$ distance in kilometers?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                A training session allocates warm-up, play, and cool-down in the ratio $10\% : 80\% : 10\%$. For a $90$-minute session, how long is the play segment?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 13 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: Percentages Greater than 100 -->
+      <section class="slide" id="slide-14">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.2 Beyond 100%</span>
+            <h2 class="slide-title"><span class="icon">📈</span> Can Percentages Exceed 100%?</h2>
+          </div>
+          <span class="page-pill">Page 10–12</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🎯 Kishanlal's Daily Sales Targets</div>
+              <p class="card-desc">
+                Kishanlal targets daily sales of ₹$5000$ ($= 100\%$ target).
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Day 1 (₹2000):</strong> $\frac{2000}{5000} \times 100 = 40\%$ ($60\%$ short of goal).</li>
+                <li><strong>Day 3 (₹5000):</strong> $\frac{5000}{5000} \times 100 = \mathbf{100\%}$ (exact goal achieved).</li>
+                <li><strong>Day 4 (₹6000):</strong> ₹$1000$ over goal $\implies \frac{6000}{5000} \times 100 = \mathbf{120\%}$ ($20\%$ surplus!).</li>
+                <li><strong>Day 5 (₹7800):</strong> $\frac{7800}{5000} \times 100 = \mathbf{156\%}$.</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🌾 Harvest Multipliers</div>
+              <p class="card-desc">
+                <strong>Example 7:</strong> Last year's wheat harvest was $260\text{ kg}$. This year's harvest is $650\text{ kg}$.
+              </p>
+              <div class="formula-banner" style="background:#0d9488;">
+                $$\frac{650}{260} \times 100 = 250\%$$
+              </div>
+              <p class="card-desc" style="font-weight:600; color:#065f46;">
+                $250\%$ indicates the new harvest is exactly $2.5$ times the baseline reference harvest ($650 = 2.5 \times 260$).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 14 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: Quick Box 7 -->
+      <section class="slide" id="slide-15">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 11–13</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Percentages Above 100%</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                If a city's current population is $250\%$ of its population in the year 2000, how many times has the population grown?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                On Day 8, Kishanlal achieves $210\%$ of his ₹$5000$ target. What was his rupee sales total that day?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Express the fraction $\frac{7}{4}$ as a percentage. Why is it greater than $100\%$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 15 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: 1.3 KYC & Comparing Proportions -->
+      <section class="slide" id="slide-16">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.3 Comparing Proportions</span>
+            <h2 class="slide-title"><span class="icon">🏷️</span> Know Your Contents (KYC): Reading Food Labels</h2>
+          </div>
+          <span class="page-pill">Page 14–15</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📝 Test Score Fairness</div>
+              <p class="card-desc">
+                Eesha scored $42/50$ in English (lost 8 marks) and $70/80$ in Science (lost 10 marks). Which performance is superior?
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>$\text{English} = \frac{42}{50} \times 100 = \mathbf{84\%}$</li>
+                <li>$\text{Science} = \frac{70}{80} \times 100 = \mathbf{87.5\%}$</li>
+                <li><strong>Conclusion:</strong> Science score is higher! You cannot judge performance by marks lost when total maximum marks differ.</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🥛 Badam Drink Mix KYC Audit</div>
+              <p class="card-desc">
+                Madhu & Madhav compare two drink mixes:
+              </p>
+              <div style="background:#ffffff; border:1px solid #99f6e4; padding:8px 12px; border-radius:8px; font-size:0.83rem;">
+                <strong>DEF ($150\text{ g}$ total):</strong><br>
+                Sugar: $99\text{ g} \implies \mathbf{66\%}$ | Badam: $12\text{ g} \implies \mathbf{8\%}$<br>
+                Chemicals: $9\text{ g} \implies \mathbf{6\%}$<br><br>
+                <strong>Zachi ($400\text{ g}$ total):</strong><br>
+                Sugar: $272\text{ g} \implies \mathbf{68\%}$ | Badam: $40\text{ g} \implies \mathbf{10\%}$<br>
+                Chemicals: $24\text{ g} \implies \mathbf{6\%}$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 16 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 17: Quick Box 8 -->
+      <section class="slide" id="slide-17">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 14–15</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Label Analysis & Fairness</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Between DEF ($8\%$ badam) and Zachi ($10\%$ badam), which mix delivers more badam per spoonful of powder?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why must the percentages of all ingredients on a certified nutritional panel add up to exactly $100\%$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                A student scores $18/20$ in a unit quiz and $45/50$ in the term exam. Are the percentage scores equal?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 17 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 18: Percentage Increase & Decrease -->
+      <section class="slide" id="slide-18">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">1.3 Rate of Change</span>
+            <h2 class="slide-title"><span class="icon">📊</span> Percentage Increase and Decrease</h2>
+          </div>
+          <span class="page-pill">Page 15–16</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">🍅 Price Increase (Inflation)</div>
+              <p class="card-desc">
+                Tomato price rose from ₹$30$ to ₹$42$ per kg over 3 years:
+              </p>
+              <div class="formula-banner">
+                $$\% \text{ Increase} = \frac{\text{Increase Amount}}{\text{Original Base}} \times 100$$
+              </div>
+              <p class="card-desc" style="font-size:0.86rem; margin-top:4px;">
+                $$\frac{42 - 30}{30} \times 100 = \frac{12}{30} \times 100 = \mathbf{40\%}$$
+                <strong>Key Rule:</strong> The denominator is <em>always</em> the original baseline, never the new value!
+              </p>
+            </div>
+
+            <div class="content-card rose-highlight">
+              <div class="card-title">🎭 Footfall Decrease (Drop)</div>
+              <p class="card-desc">
+                Theater footfall fell from $160$ patrons to $100$ patrons:
+              </p>
+              <div class="formula-banner" style="background:#be123c;">
+                $$\% \text{ Decrease} = \frac{\text{Decrease Amount}}{\text{Original Base}} \times 100$$
+              </div>
+              <p class="card-desc" style="font-size:0.86rem; margin-top:4px;">
+                $$\frac{160 - 100}{160} \times 100 = \frac{60}{160} \times 100 = \mathbf{37.5\%}$$
+                Statement equivalence: "Population in 1991 is $165\%$ of 1961" $\equiv$ "Population increased by $65\%$".
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 18 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 19: Quick Box 9 -->
+      <section class="slide" id="slide-19">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 16</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Percentage Rates of Change</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Petrol price rises from ₹$60$ in 2015 to ₹$100$ in 2025. What is the exact percentage increase?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the elephant population in a sanctuary grew by $5\%$ this decade, what single multiplier converts old count $p$ to current count?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                "Camera demand fell by $85\%$." Does this mean current demand is $15\%$ of prior demand, or $85\%$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 19 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 20: Commercial Math: CP, MP, SP, Profit & Loss -->
+      <section class="slide" id="slide-20">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Commercial Math</span>
+            <h2 class="slide-title"><span class="icon">💼</span> The Supply Chain: Cost, Marked & Selling Price</h2>
+          </div>
+          <span class="page-pill">Page 16–18</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🧶 Sweater Supply Chain Journey</div>
+              <ul class="bullet-list">
+                <li><strong>Manufacturer:</strong> $\text{CP} = ₹230, \ \text{MP} = ₹255, \ \text{SP} = ₹253$.</li>
+                <li><strong>Wholesaler:</strong> $\text{CP} = ₹253, \ \text{MP} = ₹310, \ \text{SP} = ₹300$.</li>
+                <li><strong>Retailer (Kishanlal):</strong> $\text{CP} = ₹300, \ \text{MP} = ₹480, \ \text{SP} = ₹430$.</li>
+              </ul>
+              <div class="formula-banner" style="margin-top:6px;">
+                $$\text{Profit} = \text{SP} - \text{CP} \quad (\text{if SP} > \text{CP})$$
+                $$\text{Profit } \% = \frac{\text{Profit}}{\text{CP}} \times 100$$
+              </div>
+              <p class="card-desc" style="font-size:0.83rem;">
+                Kishanlal's profit: $₹430 - ₹300 = ₹130 \implies \frac{130}{300} \times 100 = \mathbf{43.33\%}$.
+              </p>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🏢 Gross Profit vs Net Profit</div>
+              <ul class="bullet-list">
+                <li><strong>Gross Profit:</strong> Sales Revenue minus Cost of goods sold ($\text{Revenue} - \text{Procurement}$).</li>
+                <li><strong>Net Profit:</strong> Gross Profit minus operating overheads (rent, salaries, electricity, transport).</li>
+                <li><strong>Loss:</strong> Occurs when $\text{SP} < \text{CP}$.<br>
+                  $\text{Loss } \% = \frac{\text{Loss}}{\text{CP}} \times 100$.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 20 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 21: Quick Box 10 -->
+      <section class="slide" id="slide-21">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 17–19</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Profit, Loss & Operating Overheads</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Shambhavi buys notebooks at ₹$36$ each and aims for a $20\%$ profit margin. What should her selling price be?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Raghu buys $10\text{ kg}$ old rice at ₹$35/\text{kg}$ and sells the lot for ₹$300$. What is his percentage loss?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Why is profit percentage conventionally calculated against Cost Price (CP) rather than Selling Price (SP)?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 21 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 22: Taxes & The GST Structure -->
+      <section class="slide" id="slide-22">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Commercial Math</span>
+            <h2 class="slide-title"><span class="icon">🧾</span> Understanding Taxes: GST in India</h2>
+          </div>
+          <span class="page-pill">Page 19</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🏛️ Goods and Services Tax (GST)</div>
+              <p class="card-desc">
+                GST is an indirect value-added consumption tax levied on goods and services, divided equally between central and state governments:
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>CGST (Central GST):</strong> Goes to the Union Government.</li>
+                <li><strong>SGST (State GST):</strong> Goes to the State Government.</li>
+                <li>Total tax $= \text{CGST rate} + \text{SGST rate}$.</li>
+                <li>Added directly to the bill total paid by the end customer.</li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">💡 Deconstructing a Tax Invoice</div>
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:12px; border-radius:10px; font-size:0.85rem; line-height:1.5;">
+                <strong>XY Electricals Receipt:</strong><br>
+                3 CFL Bulbs @ ₹150 each $\implies \text{Sub Total} = \mathbf{₹450.00}$<br>
+                CGST @ 9%: $0.09 \times 450 = \mathbf{₹40.50}$<br>
+                SGST @ 9%: $0.09 \times 450 = \mathbf{₹40.50}$<br>
+                $$\text{Total Invoice} = 450 + 40.50 + 40.50 = \mathbf{₹531.00}$$
+              </div>
+              <p class="card-desc" style="font-weight:600; color:var(--accent-secondary); margin-top:6px;">
+                Multiplier trick: $450 \times 1.18 = \mathbf{₹531.00}$ (18% total GST).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 22 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 23: Growth and Compounding -->
+      <section class="slide" id="slide-23">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Growth & Banking</span>
+            <h2 class="slide-title"><span class="icon">📈</span> Growth & Compounding: The Power of Reinvestment</h2>
+          </div>
+          <span class="page-pill">Page 20–24</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">Option 1: Linear Simple Growth</div>
+              <p class="card-desc">
+                Interest is withdrawn every year. Principal remains constant ($P$):
+              </p>
+              <div class="formula-banner-light">
+                $$A = P(1 + rt)$$
+              </div>
+              <p class="card-desc" style="font-size:0.84rem;">
+                ₹$6000$ at $10\%$ for 3 years:<br>
+                Earns $₹600 + ₹600 + ₹600 = ₹1800$<br>
+                $\text{Total} = 6000 + 1800 = \mathbf{₹7800}$ ($30\%$ gain).
+              </p>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">Option 2: Compounded Exponential Growth</div>
+              <p class="card-desc">
+                Earned interest is added back to principal each cycle:
+              </p>
+              <div class="formula-banner">
+                $$A = P(1 + r)^t$$
+              </div>
+              <p class="card-desc" style="font-size:0.84rem;">
+                ₹$6000$ compounded at $10\%$ for 3 years:<br>
+                $6000 \times 1.1 \times 1.1 \times 1.1 = \mathbf{₹7986}$ ($33.1\%$ gain).<br>
+                <strong>Bonus from Compounding:</strong> An extra ₹$186$ earned on interest!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 23 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 24: Quick Box 11 -->
+      <section class="slide" id="slide-24">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 23–25</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Taxes, Compounding & Depreciation</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                A phone costs ₹$8250$. An $18\%$ GST is added. What single decimal factor can you multiply to find the total bill?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why does compounding represent exponential growth, whereas non-compounded simple interest represents linear growth?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                A new TV costs ₹$21,000$ and depreciates by $5\%$ in year 1. What is its depreciated value after 1 year?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 24 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 25: Tricky Percentages: Discounts & Fallacies -->
+      <section class="slide" id="slide-25">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Tricky Percentages</span>
+            <h2 class="slide-title"><span class="icon">🎂</span> Successive Discounts & The Pricing Fallacy</h2>
+          </div>
+          <span class="page-pill">Page 26–27</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🍰 Cakely (30% + 20%) vs Cakify (50%)</div>
+              <p class="card-desc">
+                Does $30\% + 20\%$ off equal $50\%$ off? <strong>No!</strong>
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Consider a ₹$200$ cake:</li>
+                <li><strong>Cakify ($50\%$ flat):</strong> Price $= ₹200 - 100 = \mathbf{₹100}$.</li>
+                <li><strong>Cakely ($30\% + 20\%$ successive):</strong><br>
+                  After $30\% \implies ₹200 - 60 = ₹140$.<br>
+                  After $20\%$ on ₹$140 \implies ₹140 - 28 = \mathbf{₹112}$.
+                </li>
+                <li>Cakify is cheaper by ₹$12$! Successive discounts apply to a reduced base.</li>
+              </ul>
+            </div>
+
+            <div class="content-card rose-highlight">
+              <div class="card-title">⚡ Surbhi's 50% Margin & 50% Discount Mishap</div>
+              <p class="card-desc">
+                Surbhi marks goods up by $50\%$, then gives a $50\%$ discount:
+              </p>
+              <div class="formula-banner" style="background:#be123c;">
+                $$x \xrightarrow{+50\%} 1.5x \xrightarrow{-50\%} 1.5x \times 0.5 = 0.75x$$
+              </div>
+              <p class="card-desc" style="font-weight:600; color:#881337;">
+                She suffers a net $25\%$ loss! To return to baseline cost from $1.5x$, the required discount is $\frac{0.5x}{1.5x} = \mathbf{33.33\%}$, not $50\%$.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 25 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 26: Exercise Highlights (Worked Problems) -->
+      <section class="slide" id="slide-26">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Key Worked Exemplars: Exercises</h2>
+          </div>
+          <span class="page-pill">Page 28–29, 32</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Problem 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Left-Handed Room Puzzle</div>
+              <p class="card-desc">
+                In a room of $100$ people, $99$ are left-handed ($99\%$). How many left-handers must leave so that left-handers become $98\%$?
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Right-handers remain exactly $1$ person.<br>
+                For $1$ to represent $2\%$ of total ($T$):<br>
+                $$0.02 \times T = 1 \implies T = 50$$
+                Left-handers needed $= 50 - 1 = 49$.<br>
+                <strong>Must leave:</strong> $99 - 49 = \mathbf{50\text{ people!}}$
+              </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="content-card teal-highlight">
+              <div class="card-title">2. Symmetry: x% of y = y% of x</div>
+              <p class="card-desc">
+                Calculate $16\%$ of $250$. Use algebraic symmetry!
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$x\% \text{ of } y = \frac{x \cdot y}{100} = \frac{y \cdot x}{100} = y\% \text{ of } x$$
+                $$16\% \text{ of } 250 = 250\% \text{ of } 16$$
+                $$= 2.5 \times 16 = \mathbf{40}$$
+                Mentally far easier than computing $16 \times 2.5$!
+              </div>
+            </div>
+
+            <!-- Problem 3 -->
+            <div class="content-card">
+              <div class="card-title">3. Buy 2 Get 1 Free Deal</div>
+              <p class="card-desc">
+                What is the true percentage discount in a "Buy 2 Get 1 Free" offer?
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Total items received $= 2 + 1 = 3$.<br>
+                Free items $= 1$.<br>
+                $$\text{Discount } \% = \frac{\text{Free}}{\text{Total}} \times 100$$
+                $$= \frac{1}{3} \times 100 = \mathbf{33.33\%}$$
+                (Not $50\%$ as commonly mistaken!)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 26 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 27: Chapter Master Summary -->
+      <section class="slide" id="slide-27">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Chapter Summary</span>
+            <h2 class="slide-title"><span class="icon">📋</span> Master Summary Checklist</h2>
+          </div>
+          <span class="page-pill">Page 31</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">✅ Percentage Foundations</div>
+              <ul class="bullet-list">
+                <li><strong>Definition:</strong> Fractions with denominator $100$ ($z\% = \frac{z}{100}$).</li>
+                <li><strong>The FDP Trio:</strong> Effortless interconversion between Fractions, Decimals, and Percentages ($\frac{4}{10} = 0.4 = 40\%$).</li>
+                <li><strong>Additive Property:</strong> Break awkward percentages into easy mental chunks ($20\% + 5\% = 25\%$).</li>
+                <li><strong>Symmetry Law:</strong> $x\% \text{ of } y = y\% \text{ of } x = \frac{xy}{100}$.</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">✅ Applied Commercial & Growth Rules</div>
+              <ul class="bullet-list">
+                <li><strong>Rate of Change:</strong> $\frac{\text{Change}}{\text{Original Base}} \times 100$ (base is always the starting value).</li>
+                <li><strong>Commercial Math:</strong> $\text{Profit } \% = \frac{\text{SP} - \text{CP}}{\text{CP}} \times 100$; $\text{Loss } \% = \frac{\text{CP} - \text{SP}}{\text{CP}} \times 100$.</li>
+                <li><strong>GST Structure:</strong> $\text{Total GST} = \text{CGST} + \text{SGST}$.</li>
+                <li><strong>Compounding Formula:</strong> $A = P(1 + r)^t$ vs simple linear growth $A = P(1 + rt)$.</li>
+                <li><strong>Depreciation:</strong> Value after $t$ periods $= P(1 - r)^t$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 27 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 28: CLOSING SLIDE (THANK YOU) -->
+      <section class="slide" id="slide-28">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>🏁</span> End of Chapter 1
+          </div>
+          <div class="pill-tag">
+            Complete Deck Review
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:20px;">
+          <div style="font-size:0.9rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-secondary);">
+            NCERT • GANITA PRAKASH GRADE 8
+          </div>
+
+          <h1 style="font-family:var(--font-display); font-size:3.5rem; font-weight:700; color:var(--text-main); line-height:1.1;">
+            Thank You!
+          </h1>
+
+          <p style="font-style:italic; font-size:1.18rem; color:var(--text-muted); max-width:840px; line-height:1.6;">
+            "A percentage is not a new kind of number; it is merely a fraction wearing the convenient mask of a hundred, bringing order to the comparisons of our world."
+          </p>
+
+          <div style="margin-top:10px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">✨ Interactive Classroom Slides</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">📐 Complete Section Coverage</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">⚡ Quick Box Question Slides Included</span>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 28 / 28</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Slide Footer Keyboard Hint -->
+    <div class="key-hint">
+      Use ◀ / ▶ or Space to navigate • [F] Fullscreen
+    </div>
+
+    <!-- On-screen Navigation Controls (bottom-right) -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" title="Previous Slide (Left Arrow)">❮</button>
+      <select class="slide-select" id="slideSelect" title="Jump to Slide"></select>
+      <button class="nav-btn" id="nextBtn" title="Next Slide (Right Arrow / Space)">❯</button>
+      <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen" style="font-size:0.75rem;">⛶</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideSelect = document.getElementById('slideSelect');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const viewport = document.getElementById('presentation-viewport');
+
+      // Populate slide jump menu
+      slides.forEach((slide, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        const titleEl = slide.querySelector('.slide-title');
+        const titleText = titleEl ? titleEl.innerText.replace(/[\n\r]+/g, ' ').trim() : (idx === 0 ? 'Cover Slide' : 'Slide ' + (idx + 1));
+        option.textContent = `${idx + 1}. ${titleText.substring(0, 32)}...`;
+        slideSelect.appendChild(option);
+      });
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        slides[currentIndex].classList.add('active');
+        slideSelect.value = currentIndex;
+
+        // Render KaTeX dynamic formulas
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentIndex], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      // Event Listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      slideSelect.addEventListener('change', (e) => {
+        updateSlide(parseInt(e.target.value, 10));
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullScreen();
+        }
+      });
+
+      // Touch / Swipe Navigation for tablets & boards
+      let touchStartX = 0;
+      let touchStartY = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        const diffY = e.changedTouches[0].screenY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+          if (diffX < 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Fullscreen support
+      function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+          viewport.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullScreen);
+    });
+  </script>
+</body>
+</html>

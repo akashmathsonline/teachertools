@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4: Exploring Some Geometric Themes | Grade 8 Mathematics</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 14% 18%, #faf5ff 0%, #f3e8ff 45%, #f8fafc 100%);
+      --accent-primary: #7e22ce; /* Vibrant Purple/Violet */
+      --accent-secondary: #9333ea;
+      --accent-dark: #581c87;
+      --accent-tint: #faf5ff;
+      --accent-border: #d8b4fe;
+      --accent-coral: #e11d48;
+      --accent-amber: #d97706;
+      --accent-teal: #0d9488;
+      --accent-blue: #0284c7;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --font-display: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #120524;
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+        /* 16:9 Presentation Stage */
+    #presentation-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: var(--bg-gradient);
+      box-shadow: none; /* Box shadow hata dein */
+      border-radius: 0; /* Corners hatane ke liye */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: none; /* Border hata dein */
+    }
+
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 30px 48px 26px 48px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1), transform 0.36s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.36s;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 2;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(126, 34, 206, 0.16);
+    }
+
+    .header-left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      background: #f3e8ff;
+      color: #6b21a8;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-tag.accent {
+      background: var(--accent-tint);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent-border);
+    }
+
+    .pill-tag.quick {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .page-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: #ffe4e6;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.62rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      line-height: 1.22;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      margin-top: 2px;
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-1-2 {
+      grid-template-columns: 1.15fr 1fr;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .content-card.highlight {
+      background: #faf5ff;
+      border: 1.5px solid var(--accent-border);
+    }
+
+    .content-card.amber-highlight {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+    }
+
+    .content-card.teal-highlight {
+      background: #f0fdfa;
+      border: 1.5px solid #99f6e4;
+    }
+
+    .content-card.blue-highlight {
+      background: #f0f9ff;
+      border: 1.5px solid #bae6fd;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bullet-list li {
+      font-size: 0.86rem;
+      line-height: 1.48;
+      color: #334155;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 0.72rem;
+      color: var(--accent-primary);
+    }
+
+    .formula-banner {
+      background: linear-gradient(135deg, #581c87 0%, #7e22ce 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin: 4px 0;
+    }
+
+    .formula-banner-light {
+      background: #ffffff;
+      border: 2px dashed var(--accent-primary);
+      border-radius: 12px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Middle Slide Watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+
+    .slide-footer {
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 6px;
+      border-top: 1px solid rgba(203, 213, 225, 0.6);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .large-credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #581c87 0%, #7e22ce 100%);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      border: 2px solid #d8b4fe;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .large-credit-pill span.symbol {
+      color: #e9d5ff;
+      font-size: 1.1rem;
+    }
+
+    .diagram-container {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      height: 100%;
+      min-height: 195px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* Quick Box Styles */
+    .quick-box-container {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid #fde68a;
+      box-shadow: var(--shadow-md);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .quick-q-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 4px solid #7e22ce;
+    }
+
+    .quick-q-badge {
+      background: #7e22ce;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-q-text {
+      font-size: 0.95rem;
+      line-height: 1.48;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .nav-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 4px 8px;
+      border-radius: 30px;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .key-hint {
+      position: absolute;
+      bottom: 15px;
+      left: 24px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      pointer-events: none;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .slide-select {
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    @media (max-width: 1280px) {
+      #presentation-viewport {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Presentation Viewport -->
+  <div id="presentation-viewport">
+    <div class="slides-container" id="deckContainer">
+
+      <!-- SLIDE 1: COVER SLIDE -->
+      <section class="slide active" id="slide-1">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>📚</span> GANITA PRAKASH PART II | GRADE 8
+          </div>
+          <div class="pill-tag">
+            Chapter 4 • Cover
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:18px;">
+          <div style="text-transform:uppercase; font-size:0.85rem; font-weight:800; letter-spacing:0.18em; color:var(--accent-secondary);">
+            CLASS 8 MATHEMATICS • CHAPTER 4
+          </div>
+          
+          <h1 style="font-family:var(--font-display); font-size:3.1rem; font-weight:700; color:var(--text-main); line-height:1.12; max-width:1050px;">
+            Exploring Some Geometric Themes
+          </h1>
+          
+          <p style="font-style:italic; font-size:1.12rem; color:var(--text-muted); max-width:870px; line-height:1.6;">
+            "Exhaustive point-by-point presentation covering mathematical fractals, Sierpiński carpets & gaskets, Koch snowflakes, temple architecture, solid nets, shortest surface paths, multi-view projections, and isometric grids directly from the textbook."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-top:8px;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🌿 Fractals in Nature & Art
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📐 Sierpiński & Koch Iterations
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📦 Polyhedral Nets & Shortest Paths
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🏗️ Projections & Isometric Grids
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 1 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: 4.1 Fractals & Self-Similarity in Nature -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.1 Fractals Intro</span>
+            <h2 class="slide-title"><span class="icon">🌿</span> Fractals: Self-Similarity in Nature</h2>
+          </div>
+          <span class="page-pill">Page 70</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📖 What is a Fractal?</div>
+              <p class="card-desc">
+                A <strong>fractal</strong> is a geometric shape that exhibits <strong>self-similarity</strong>: it repeats the same or very similar pattern over and over again at smaller and smaller scales.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>The Fern Frond:</strong> Each leaf of a fern is a smaller replica of the entire fern; sub-leaflets replicate the leaf shape at an even smaller scale!</li>
+                <li><strong>Branching Trees:</strong> The main trunk splits into thick limbs, which divide into branches, then branchlets, and twigs.</li>
+                <li><strong>Other Natural Fractals:</strong> Cumulus clouds, coastline jaggedness, mountain ridges, and lightning forks.</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Recursive Fractal Branching -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 260 190" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#faf5ff" rx="8"/>
+                <text x="130" y="24" font-size="11" font-weight="700" text-anchor="middle" fill="#581c87">Self-Similar Branching Scheme</text>
+                
+                <!-- Main trunk -->
+                <line x1="130" y1="175" x2="130" y2="125" stroke="#7e22ce" stroke-width="4" stroke-linecap="round"/>
+                
+                <!-- Level 1 branches -->
+                <line x1="130" y1="125" x2="95" y2="85" stroke="#9333ea" stroke-width="3" stroke-linecap="round"/>
+                <line x1="130" y1="125" x2="165" y2="85" stroke="#9333ea" stroke-width="3" stroke-linecap="round"/>
+                
+                <!-- Level 2 branches -->
+                <line x1="95" y1="85" x2="70" y2="55" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
+                <line x1="95" y1="85" x2="105" y2="50" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
+                <line x1="165" y1="85" x2="155" y2="50" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
+                <line x1="165" y1="85" x2="190" y2="55" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
+
+                <!-- Level 3 micro-twigs -->
+                <circle cx="70" cy="55" r="3.5" fill="#10b981"/>
+                <circle cx="105" cy="50" r="3.5" fill="#10b981"/>
+                <circle cx="155" cy="50" r="3.5" fill="#10b981"/>
+                <circle cx="190" cy="55" r="3.5" fill="#10b981"/>
+
+                <text x="130" y="186" font-size="9" text-anchor="middle" fill="#64748b">Pattern recurs identically across descending magnification</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 2 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Quick Box 1 -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 70</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Natural Fractals & Self-Similarity</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What defining geometric property makes a fern leaf or a lightning bolt a fractal?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If you zoom into a section of a true mathematical fractal, what do you expect to observe compared to the whole shape?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Give two natural phenomena (other than plants) where self-similar fractal patterns occur.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 3 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: 4.1 The Sierpiński Carpet -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.1 Mathematical Fractals</span>
+            <h2 class="slide-title"><span class="icon">🔲</span> The Sierpiński Carpet: Step-by-Step Construction</h2>
+          </div>
+          <span class="page-pill">Page 70–71</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📜 The Construction Rule (Wacław Sierpiński)</div>
+              <p class="card-desc">
+                Discovered by Polish mathematician Wacław Sierpiński (1916):
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Step 0:</strong> Start with a single solid square ($R_0 = 1, H_0 = 0$).</li>
+                <li><strong>Step 1:</strong> Partition the square into $3 \times 3 = 9$ congruent mini-squares and remove the central square hole ($R_1 = 8, H_1 = 1$).</li>
+                <li><strong>Step 2:</strong> Repeat the exact process on every remaining square ($R_2 = 8 \times 8 = 64$).</li>
+                <li>The process repeats infinitely, creating a lace-like square with zero area!</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Carpet Steps -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 260 190" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#faf5ff" rx="8"/>
+                
+                <!-- Step 0 Square -->
+                <rect x="20" y="30" width="45" height="45" fill="#a855f7" stroke="#581c87" stroke-width="1.2"/>
+                <text x="42.5" y="90" font-size="10" font-weight="700" text-anchor="middle" fill="#581c87">Step 0 (1 sq)</text>
+
+                <!-- Step 1 Carpet -->
+                <g transform="translate(85, 30)">
+                  <rect x="0" y="0" width="45" height="45" fill="#a855f7" stroke="#581c87" stroke-width="1.2"/>
+                  <rect x="15" y="15" width="15" height="15" fill="#ffffff" stroke="#581c87" stroke-width="1"/>
+                </g>
+                <text x="107.5" y="90" font-size="10" font-weight="700" text-anchor="middle" fill="#581c87">Step 1 (8 sqs)</text>
+
+                <!-- Step 2 Carpet -->
+                <g transform="translate(150, 30)">
+                  <rect x="0" y="0" width="90" height="90" fill="#a855f7" stroke="#581c87" stroke-width="1"/>
+                  <rect x="30" y="30" width="30" height="30" fill="#ffffff"/>
+                  <!-- 8 sub-holes -->
+                  <rect x="10" y="10" width="10" height="10" fill="#ffffff"/>
+                  <rect x="40" y="10" width="10" height="10" fill="#ffffff"/>
+                  <rect x="70" y="10" width="10" height="10" fill="#ffffff"/>
+                  <rect x="10" y="40" width="10" height="10" fill="#ffffff"/>
+                  <rect x="70" y="40" width="10" height="10" fill="#ffffff"/>
+                  <rect x="10" y="70" width="10" height="10" fill="#ffffff"/>
+                  <rect x="40" y="70" width="10" height="10" fill="#ffffff"/>
+                  <rect x="70" y="70" width="10" height="10" fill="#ffffff"/>
+                </g>
+                <text x="195" y="135" font-size="10" font-weight="700" text-anchor="middle" fill="#581c87">Step 2 (64 sqs)</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 4 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: Formulas for Squares and Holes in Sierpiński Carpet -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.1 Mathematical Analysis</span>
+            <h2 class="slide-title"><span class="icon">🔢</span> Sierpiński Carpet: Squares, Holes & Area Growth</h2>
+          </div>
+          <span class="page-pill">Page 71</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Remaining Squares ($R_n$)</div>
+              <p class="card-desc">
+                Each remaining square spawns 8 smaller squares in the next step:
+              </p>
+              <div class="formula-banner">
+                $$R_n = 8^n$$
+              </div>
+              <ul class="bullet-list" style="font-size:0.83rem;">
+                <li>$R_0 = 1$</li>
+                <li>$R_1 = 8^1 = 8$</li>
+                <li>$R_2 = 8^2 = 64$</li>
+                <li>$R_3 = 8^3 = 512$</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Number of Holes ($H_n$)</div>
+              <p class="card-desc">
+                Prior holes stay, plus 1 new hole per remaining square:
+              </p>
+              <div class="formula-banner" style="background:#d97706;">
+                $$H_{n+1} = H_n + R_n$$
+              </div>
+              <ul class="bullet-list" style="font-size:0.83rem;">
+                <li>$H_1 = 1$</li>
+                <li>$H_2 = 1 + 8 = 9$</li>
+                <li>$H_3 = 1 + 8 + 8^2 = 73$</li>
+                <li>Formula: $H_n = \frac{8^n - 1}{7}$</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Remaining Area ($A_n$)</div>
+              <p class="card-desc">
+                Each step retains $\frac{8}{9}$ of the area from the prior step:
+              </p>
+              <div class="formula-banner" style="background:#0d9488;">
+                $$A_n = \left(\frac{8}{9}\right)^n$$
+              </div>
+              <p class="card-desc" style="font-size:0.84rem;">
+                As $n \to \infty$, $\left(\frac{8}{9}\right)^n \to 0$. The infinite carpet has <strong>zero area</strong>, but infinite boundary length!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 5 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: Quick Box 2 -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 71</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Sierpiński Carpet Calculations</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                How many small squares remain at Step 4 of the Sierpiński Carpet? Write your answer as a power of 8.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the initial square has an area of $1\text{ m}^2$, what is the exact fraction of area left after Step 2?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Why does the recurrence relation for holes equal $H_{n+1} = H_n + R_n$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 6 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: 4.1 Sierpiński Gasket / Triangle -->
+      <section class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.1 Triangular Fractals</span>
+            <h2 class="slide-title"><span class="icon">🔺</span> The Sierpiński Gasket (Sierpiński Triangle)</h2>
+          </div>
+          <span class="page-pill">Page 72</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📐 Midpoint Division Principle</div>
+              <p class="card-desc">
+                Start with an equilateral triangle of area $1$:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Join the midpoints of the 3 sides. This partitions the parent triangle into <strong>4 identical congruent equilateral triangles</strong>.</li>
+                <li>Remove the central upside-down triangle (leaving 3 shaded triangles).</li>
+                <li>Repeat this process on all 3 remaining triangles at each step.</li>
+                <li><strong>Triangles remaining at step $n$:</strong> $T_n = 3^n$.</li>
+                <li><strong>Area remaining at step $n$:</strong> $A_n = \left(\frac{3}{4}\right)^n$.</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Gasket -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 250 190" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#faf5ff" rx="8"/>
+                <text x="125" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#581c87">Sierpiński Gasket (Step 2)</text>
+                
+                <!-- Outer Parent Triangle (0, 170), (125, 30), (250, 170) -->
+                <!-- Central inverted hole 1: midpoints (62.5, 100), (187.5, 100), (125, 170) -->
+                <polygon points="125,30 25,170 225,170" fill="#a855f7" stroke="#581c87" stroke-width="1.5"/>
+                <polygon points="75,100 175,100 125,170" fill="#ffffff" stroke="#581c87" stroke-width="1.2"/>
+
+                <!-- Micro-holes in the 3 corner triangles -->
+                <!-- Top sub-triangle: apex (125, 30), base (75, 100) to (175, 100) -->
+                <polygon points="100,65 150,65 125,100" fill="#ffffff" stroke="#581c87" stroke-width="1"/>
+                <!-- Bottom-left sub-triangle -->
+                <polygon points="50,135 100,135 75,170" fill="#ffffff" stroke="#581c87" stroke-width="1"/>
+                <!-- Bottom-right sub-triangle -->
+                <polygon points="150,135 200,135 175,170" fill="#ffffff" stroke="#581c87" stroke-width="1"/>
+
+                <text x="125" y="184" font-size="9" text-anchor="middle" fill="#64748b">Remaining: $3^2 = 9$ small triangles | Area = $(3/4)^2 = 9/16$</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 7 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: Quick Box 3 -->
+      <section class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 72</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Sierpiński Triangle Properties</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                When you connect the midpoints of the sides of any equilateral triangle, how many congruent triangles are formed?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                How many shaded triangles remain at Step 3 of the Sierpiński Triangle?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                At Step 1, what fraction of the original triangle's area is removed? What fraction remains?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 8 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: 4.1 The Koch Snowflake -->
+      <section class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.1 Snowflake Fractal</span>
+            <h2 class="slide-title"><span class="icon">❄️</span> The Koch Snowflake: Infinite Perimeter, Finite Area</h2>
+          </div>
+          <span class="page-pill">Page 73</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📜 The Generation Algorithm (Helge von Koch, 1904)</div>
+              <p class="card-desc">
+                Constructed starting with an equilateral triangle of side $1$:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Divide each line segment into <strong>3 equal parts</strong> (each length $\frac{1}{3}$).</li>
+                <li>Erect an equilateral triangle on the middle third, then delete the base of that triangle.</li>
+                <li>Every single line segment is replaced by <strong>4 segments</strong> of $\frac{1}{3}$ length.</li>
+                <li><strong>Sides at Step $n$:</strong> $N_n = 3 \times 4^n$.</li>
+                <li><strong>Perimeter at Step $n$:</strong> $P_n = 3 \times \left(\frac{4}{3}\right)^n$.</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Koch Snowflake Iteration -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 250 190" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#faf5ff" rx="8"/>
+                <text x="125" y="24" font-size="11" font-weight="700" text-anchor="middle" fill="#047857">Koch Snowflake (Step 1 Star of David)</text>
+                
+                <!-- Base triangle 1 -->
+                <polygon points="125,35 45,160 205,160" fill="#10b981" fill-opacity="0.35" stroke="#047857" stroke-width="1.8"/>
+                <!-- Inverted overlapping triangle 2 -->
+                <polygon points="125,180 45,75 205,75" fill="#10b981" fill-opacity="0.35" stroke="#047857" stroke-width="1.8"/>
+
+                <text x="125" y="112" font-size="11" font-weight="bold" text-anchor="middle" fill="#065f46">12 equal segments</text>
+                <text x="125" y="132" font-size="9" text-anchor="middle" fill="#334155">Perimeter grows by $\times 4/3$ every step</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 9 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: Quick Box 4 -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 73</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — The Koch Snowflake Dynamics</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                How many sides does the base shape (Step 0) of the Koch Snowflake have? How many sides does Step 1 have?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                By what factor does the total perimeter of the Koch curve grow from one step to the next?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Does the area of the Koch Snowflake become infinite as the steps continue indefinitely? Why or why not?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 10 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: Fractals in Art & Indian Architecture -->
+      <section class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.1 Heritage & Culture</span>
+            <h2 class="slide-title"><span class="icon">🏛️</span> Fractals in Art: Indian Temples & Escher</h2>
+          </div>
+          <span class="page-pill">Page 74–75</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">🛕 Indian Temple Shikhars</div>
+              <p class="card-desc">
+                <strong>Kandariya Mahadev (c. 1025 CE):</strong> Khajuraho's main temple tower (shikhar) is sculpted from clusters of smaller mini-shikhars (urushringas), each echoing the master spire. Also in Madurai, Hampi, and Varanasi!
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🧵 African Fractal Textiles</div>
+              <p class="card-desc">
+                <strong>Nigerian Fulani Blankets:</strong> Traditional weaving uses diamond motifs containing smaller diamonds inside them recursively, reflecting indigenous fractal design centuries before Western formalization.
+              </p>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🦎 M.C. Escher's Art</div>
+              <p class="card-desc">
+                <strong>"Smaller and Smaller" (1956):</strong> Dutch graphic artist M.C. Escher populated woodcuts with interlocking lizards that shrink systematically by precise scale factors toward the center of the artwork.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 11 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: Quick Box 5 -->
+      <section class="slide" id="slide-12">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 74–75</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Cultural & Artistic Fractals</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Which famous temple in Khajuraho, Madhya Pradesh, completed around 1025 CE, showcases shikhars made of mini-shikhars?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                What recursive geometric pattern is characteristic of traditional Nigerian Fulani wedding blankets?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                How does M.C. Escher's print <em>'Smaller and Smaller'</em> express the mathematical concept of fractals?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 12 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: 4.2 Visualising Solids: Build in Imagination -->
+      <section class="slide" id="slide-13">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Mental Geometry</span>
+            <h2 class="slide-title"><span class="icon">🧠</span> Visualising Solids: Nikola Tesla's Mind Workshop</h2>
+          </div>
+          <span class="page-pill">Page 75–76</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">💡 Nikola Tesla (1856–1943) on Imagination</div>
+              <p class="card-desc" style="font-style:italic;">
+                "When I get an idea, I start at once building it up in my imagination. I change the construction, make improvements, and operate the device entirely in my mind."
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>Spatial intelligence is trained by <em>internal visualization</em> without pencil and paper.</li>
+                <li><strong>Mind Exercise 1:</strong> Picture your name in bold letters; read off the letters backwards purely by sight!</li>
+                <li><strong>Mind Exercise 2:</strong> Cut off the four corners of a square through edge midpoints. What shape remains? Reassemble the cut corners into a new square!</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">✂️ Corner-Cutting Mental Riddles</div>
+              <ul class="bullet-list">
+                <li><strong>Square at 1/3 marks:</strong> Cut corners up to $1/3$ marks $\to$ produces an <strong>octagon</strong>!</li>
+                <li><strong>Equilateral Triangle at 1/3 marks:</strong> Cut corners up to $1/3$ marks $\to$ produces a <strong>regular hexagon</strong>!</li>
+                <li>Changing viewpoint changes perceived profiles drastically.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 13 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: 4.2 Solid Profiles from Different Viewpoints -->
+      <section class="slide" id="slide-14">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Viewpoints</span>
+            <h2 class="slide-title"><span class="icon">🐘</span> Contrasting Profiles: The Cartoon Wall Phenomenon</h2>
+          </div>
+          <span class="page-pill">Page 76–77</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">🚪 The Cartoon Outline Effect</div>
+              <p class="card-desc">
+                When a character crashes through a wall, the hole matches their 2D silhouette from that exact angle of approach!
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Cylinder:</strong> Circle from top/bottom, rectangle from the side!</li>
+                <li><strong>Cone:</strong> Circle from the base, triangle from the side!</li>
+                <li><strong>Sphere:</strong> Circle from <em>every possible viewpoint</em>.</li>
+              </ul>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">🔍 Contrasting Profiles Challenge</div>
+              <ul class="bullet-list">
+                <li><strong>Rectangle & Circle:</strong> A right circular cylinder.</li>
+                <li><strong>Circle & Triangle:</strong> A right circular cone.</li>
+                <li><strong>Rectangle & Triangle:</strong> A triangular prism.</li>
+                <li><strong>Trapezium & Circle:</strong> A truncated cone (frustum of a cone).</li>
+                <li><strong>Pentagon & Rectangle:</strong> A pentagonal prism.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 14 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: Quick Box 6 -->
+      <section class="slide" id="slide-15">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 76–77</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Solid Profiles & Visual Perspectives</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What solid produces a circular profile from one viewpoint and a triangular profile from another?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Can a single 3D solid have a rectangular silhouette from the side and a pentagonal silhouette from above? Name it!
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If an equilateral triangle has each of its 3 corners cut off at $1/3$ the sidelength, what polygon is left?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 15 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: 4.2 Polyhedral Definitions: Prisms, Pyramids, Faces -->
+      <section class="slide" id="slide-16">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Solid Geometry</span>
+            <h2 class="slide-title"><span class="icon">📦</span> Faces, Edges & Vertices: Prisms vs Pyramids</h2>
+          </div>
+          <span class="page-pill">Page 78–79</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Anatomy of Polyhedra</div>
+              <ul class="bullet-list">
+                <li><strong>Faces ($F$):</strong> Flat polygonal boundary surfaces.</li>
+                <li><strong>Edges ($E$):</strong> Line segments where 2 faces meet.</li>
+                <li><strong>Vertices ($V$):</strong> Corner points where edges meet.</li>
+                <li>Cube/Cuboid: $F=6, E=12, V=8$.</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Prisms ($n$-gon base)</div>
+              <p class="card-desc">
+                Two congruent parallel $n$-gon bases joined by rectangular/parallelogram walls:
+              </p>
+              <div class="formula-banner" style="background:#d97706; font-size:0.88rem;">
+                $$F = n + 2, \quad E = 3n, \quad V = 2n$$
+              </div>
+              <p class="card-desc" style="font-size:0.83rem;">
+                A 10-gon prism has $12$ faces, $30$ edges, $20$ vertices.
+              </p>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Pyramids ($n$-gon base)</div>
+              <p class="card-desc">
+                One $n$-gon base with triangular lateral faces meeting at an apex:
+              </p>
+              <div class="formula-banner" style="background:#0d9488; font-size:0.88rem;">
+                $$F = n + 1, \quad E = 2n, \quad V = n + 1$$
+              </div>
+              <p class="card-desc" style="font-size:0.83rem;">
+                A 10-gon pyramid has $11$ faces, $20$ edges, $11$ vertices.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 16 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 17: Making Solids Using Nets -->
+      <section class="slide" id="slide-17">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Nets of Solids</span>
+            <h2 class="slide-title"><span class="icon">✂️</span> Unfolding Solids into 2D Nets</h2>
+          </div>
+          <span class="page-pill">Page 79–83</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">📦 Nets of Familiar Solids</div>
+              <ul class="bullet-list">
+                <li><strong>Net:</strong> A 2D planar figure of connected faces that folds into a closed 3D solid without overlaps.</li>
+                <li><strong>Cube:</strong> Exactly <strong>11 distinct nets</strong> exist (excluding rotations/reflections).</li>
+                <li><strong>Regular Tetrahedron:</strong> Exactly <strong>2 nets</strong> exist (made of 4 equilateral triangles).</li>
+                <li><strong>Cylinder:</strong> A rectangle of length $2\pi r$ and width $h$, plus 2 circular end caps.</li>
+                <li><strong>Cone:</strong> A circular sector of radius $l$ with arc length $2\pi r$, plus 1 base disc.</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">💎 Higher Regular Polyhedra Nets</div>
+              <ul class="bullet-list">
+                <li><strong>Octahedron (8 triangular faces):</strong> Two square pyramids glued at their base. Has exactly <strong>11 distinct nets</strong> (just like the cube!).</li>
+                <li><strong>Dodecahedron (12 pentagonal faces):</strong> Made entirely of regular pentagons. Mathematicians proved it has exactly <strong>43,380 distinct nets</strong>!</li>
+                <li><strong>Sphere:</strong> Has <strong>no flat net</strong>! Cannot be flattened without stretching, tearing, or wrinkling.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 17 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 18: Quick Box 7 -->
+      <section class="slide" id="slide-18">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 79–83</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Polyhedra & Net Enumeration</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                How many distinct folding nets exist for a standard cube? How many exist for a regular octahedron?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why is it mathematically impossible to construct a perfect flat paper net that covers a spherical ball without wrinkling or tearing?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                For a pyramid with an 8-sided octagonal base, calculate its total number of faces, edges, and vertices.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 18 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 19: Shortest Paths on a Cuboid (The Ant and the Laddu) -->
+      <section class="slide" id="slide-19">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Optimization</span>
+            <h2 class="slide-title"><span class="icon">🐜</span> Shortest Paths on a Cuboid: Unfolding to a Net</h2>
+          </div>
+          <span class="page-pill">Page 84–86</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🍬 The Ant and the Laddu Problem</div>
+              <p class="card-desc">
+                An ant crawls strictly on the <em>outer surface</em> of a box to reach a sweet laddu:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>On a 2D flat plane, the shortest distance between two points is a straight line.</li>
+                <li><strong>Transformation Principle:</strong> Unfold the 3D surface into a flat 2D net. The shortest path on the surface corresponds to the <strong>straight line segment on the net</strong>!</li>
+                <li><strong>Warning:</strong> A line that cuts across empty space outside the net does NOT correspond to a valid surface path!</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Box Unfolding & Path Comparison -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 260 190" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#f0fdf4" rx="8"/>
+                <text x="130" y="24" font-size="11" font-weight="700" text-anchor="middle" fill="#14532d">Unfolded Net Straight Path</text>
+                
+                <!-- Cuboid Net Faces -->
+                <rect x="50" y="45" width="60" height="90" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.2"/>
+                <rect x="110" y="45" width="90" height="90" fill="#86efac" stroke="#16a34a" stroke-width="1.2"/>
+                
+                <!-- Points: Ant at (170, 90), Laddu at (80, 90) -->
+                <circle cx="170" cy="90" r="4.5" fill="#0f172a"/>
+                <text x="178" y="86" font-size="10" font-weight="bold" fill="#0f172a">Ant</text>
+
+                <circle cx="80" cy="90" r="6" fill="#eab308" stroke="#ca8a04" stroke-width="1.5"/>
+                <text x="80" y="76" font-size="10" font-weight="bold" text-anchor="middle" fill="#854d0e">Laddu</text>
+
+                <!-- Straight line on net -->
+                <line x1="80" y1="90" x2="170" y2="90" stroke="#dc2626" stroke-width="2.5"/>
+
+                <text x="130" y="165" font-size="9" text-anchor="middle" fill="#334155">Straight line across unfolded shared edge = true geodesic path</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 19 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 20: The Tricky Unfolding Case & Baudhāyana Calculation -->
+      <section class="slide" id="slide-20">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Rigorous Modeling</span>
+            <h2 class="slide-title"><span class="icon">📐</span> The Tricky Case: Comparing Different Unfoldings</h2>
+          </div>
+          <span class="page-pill">Page 86–87</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">📦 Box Dimensions ($30 \times 12 \times 12\text{ cm}$)</div>
+              <p class="card-desc">
+                Ant is $1\text{ cm}$ below ceiling on right wall; Laddu is $1\text{ cm}$ above floor on left wall:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Unfolding Way 1 (Across end walls):</strong>
+                  $$\text{Total span} = 6 + 30 + 6 = \mathbf{42\text{ cm}}$$
+                </li>
+                <li><strong>Unfolding Way 2 (Across top & side faces):</strong>
+                  Form right triangle with legs $32\text{ cm}$ and $24\text{ cm}$:
+                  $$d^2 = 32^2 + 24^2 = 1024 + 576 = 1600$$
+                  $$\mathbf{d = \sqrt{1600} = 40\text{ cm}}$$
+                </li>
+                <li>$40\text{ cm} < 42\text{ cm}$! Unfolding across top & side is strictly shorter!</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">💡 Critical Mathematical Insight</div>
+              <p class="card-desc">
+                Different net unfoldings yield <strong>different straight-line lengths</strong>!
+              </p>
+              <div class="formula-banner" style="background:#d97706;">
+                $$\text{Shortest Path} = \min(d_1, d_2, d_3, \dots)$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>One must test all geometrically viable nets of the cuboid.</li>
+                <li>Calculate diagonal lengths using Baudhāyana-Pythagoras theorem: $d = \sqrt{(\Delta x)^2 + (\Delta y)^2}$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 20 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 21: Quick Box 8 -->
+      <section class="slide" id="slide-21">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 86–87</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Shortest Path Surface Optimization</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Why does unfolding a cuboid into a 2D net help find the shortest path along its surface?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If a straight line drawn between two points on an unfolded net passes through empty blank paper outside the net, is it a valid path on the solid?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                In the $30 \times 12 \times 12\text{ cm}$ box challenge, which path was shorter: the $42\text{ cm}$ path or the $40\text{ cm}$ path? What theorem proved it?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 21 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 22: Perpendicular Projections & Sunlight Shadows -->
+      <section class="slide" id="slide-22">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Projection Theory</span>
+            <h2 class="slide-title"><span class="icon">☀️</span> Perpendicular Projections & Sunlight Shadows</h2>
+          </div>
+          <span class="page-pill">Page 88–90, 94</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🔦 Defining Orthogonal Projection</div>
+              <p class="card-desc">
+                Drop perpendicular lines from every point of an object in 3D space onto a reference plane $M$:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>The point $O$ where line $PO \perp \text{Plane } M$ is the <strong>projection</strong> of point $P$.</li>
+                <li><strong>Line Segment Projection:</strong> If a segment of length $l$ is inclined, its projected length $p \le l$. Projected length equals actual length ($p = l$) <em>if and only if the line is parallel to the plane</em>!</li>
+                <li><strong>Parallel Lines Invariance:</strong> The projection of any pair of parallel lines is always parallel!</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">☀️ The Sun as a Universal Projector</div>
+              <ul class="bullet-list">
+                <li>A nearby flashlight casts divergent shadows that are magnified or distorted.</li>
+                <li>As the light source moves infinitely far away, the rays become strictly parallel.</li>
+                <li>Because the Sun is roughly 150 million km away, <strong>sunlight shadows falling perpendicular to a wall are exact orthogonal projections</strong>!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 22 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 23: Front, Top, and Side Views: The 3 Orthogonal Planes -->
+      <section class="slide" id="slide-23">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Multi-View Engineering</span>
+            <h2 class="slide-title"><span class="icon">📐</span> Multi-View Engineering: Front, Top & Side Views</h2>
+          </div>
+          <span class="page-pill">Page 91–93</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Vertical Plane (Front)</div>
+              <p class="card-desc">
+                Projection onto a plane standing in front of the solid. Represents the <strong>Front View (Elevation)</strong>. Shows true height and length.
+              </p>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">2. Horizontal Plane (Top)</div>
+              <p class="card-desc">
+                Projection looking straight down from directly above onto the floor. Represents the <strong>Top View (Plan)</strong>. Shows true length and depth.
+              </p>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Side Plane (Profile)</div>
+              <p class="card-desc">
+                Projection onto a plane positioned to the side of the solid. Represents the <strong>Side View</strong>. Shows true depth and height.
+              </p>
+            </div>
+          </div>
+
+          <div class="formula-banner-light" style="margin-top:6px;">
+            $$\text{Three mutually perpendicular 2D views uniquely reconstruct any complex 3D object without ambiguity!}$$
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 23 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 24: Quick Box 9 -->
+      <section class="slide" id="slide-24">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 91–94</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Orthogonal Views & Sunlight Shadows</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                When does the projected length of a line segment on a plane equal its true physical length?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why does a shadow cast by perpendicular sunlight behave as an exact mathematical projection?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If you look at an L-shaped block from the front, top, and side, can each view look like a simple rectangle?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 24 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 25: Isometric Projections & Isometric Grids -->
+      <section class="slide" id="slide-25">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">4.2 Isometric Drawing</span>
+            <h2 class="slide-title"><span class="icon">🧊</span> Isometric Projections & The Hexagonal Grid</h2>
+          </div>
+          <span class="page-pill">Page 97–101</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">⚖️ "Isometric" = Equal Measure</div>
+              <p class="card-desc">
+                Balance a cube on one of its corner vertices and project it downward:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>The outer perimeter of the projection forms a <strong>regular hexagon</strong>!</li>
+                <li>All 12 edges project with <strong>equal length</strong> along 3 families of parallel lines: vertical ($|$), forward-slant ($\backslash$), and backward-slant ($/$).</li>
+                <li>These correspond directly to the 3 spatial axes: <strong>Height, Length, and Depth</strong>.</li>
+                <li>Tiling the plane with these lines forms the standard <strong>isometric grid</strong> used in engineering design.</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Balanced Cube as Hexagon -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 240 190" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#faf5ff" rx="8"/>
+                <text x="120" y="22" font-size="11" font-weight="700" text-anchor="middle" fill="#581c87">Isometric Cube = Regular Hexagon</text>
+
+                <!-- Regular Hexagon vertices centered at (120, 105), radius = 55 -->
+                <!-- Angles: 30, 90, 150, 210, 270, 330 -->
+                <polygon points="167.6,77.5 167.6,132.5 120,160 72.4,132.5 72.4,77.5 120,50" fill="#f3e8ff" stroke="#7e22ce" stroke-width="2.5"/>
+                
+                <!-- Internal 3 axes meeting at center (120, 105) -->
+                <line x1="120" y1="105" x2="120" y2="160" stroke="#7e22ce" stroke-width="2"/>
+                <line x1="120" y1="105" x2="167.6" y2="77.5" stroke="#7e22ce" stroke-width="2"/>
+                <line x1="120" y1="105" x2="72.4" y2="77.5" stroke="#7e22ce" stroke-width="2"/>
+
+                <!-- Axis Labels -->
+                <text x="120" y="174" font-size="9" font-weight="bold" text-anchor="middle" fill="#581c87">Height (|)</text>
+                <text x="182" y="75" font-size="9" font-weight="bold" fill="#581c87">Length (\)</text>
+                <text x="50" y="75" font-size="9" font-weight="bold" fill="#581c87">Depth (/)</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 25 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 26: Exercise Highlights: Polycubes & Optical Illusions -->
+      <section class="slide" id="slide-26">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Key Worked Exemplars: Polycubes & Illusions</h2>
+          </div>
+          <span class="page-pill">Page 96, 101, 102</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Tetris Polycubes</div>
+              <p class="card-desc">
+                Gluing 4 cubes along faces gives <strong>8 distinct 3D polycubes</strong> (5 planar Tetris tetraminoes + 3 non-planar 3D arrangements like the L-corner shape).
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                Draw edge-by-edge on isometric grid counting steps along height, depth, and length!
+              </div>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Staircase Pyramid Count</div>
+              <p class="card-desc">
+                Cube tower with tiered layers:
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                $$\text{Top layer} = 1$$
+                $$\text{Middle layer} = 3$$
+                $$\text{Bottom layer} = 6$$
+                $$\text{Total} = 1 + 3 + 6 = \mathbf{10\text{ cubes}}$$
+                (Triangular number sum!)
+              </div>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">3. Impossible Penrose Triangle</div>
+              <p class="card-desc">
+                Why does the illusion work?
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                Locally, each of the three corner joints is a valid $90^\circ$ right angle. Globally, 3D space forbids three $90^\circ$ turns forming a closed triangle!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 26 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 27: Chapter Master Summary -->
+      <section class="slide" id="slide-27">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Chapter Summary</span>
+            <h2 class="slide-title"><span class="icon">📋</span> Master Summary Checklist</h2>
+          </div>
+          <span class="page-pill">Page 102</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">✅ Fractals & Iterative Geometry</div>
+              <ul class="bullet-list">
+                <li><strong>Self-Similarity:</strong> Structures that repeat similar patterns across descending magnifications.</li>
+                <li><strong>Sierpiński Carpet:</strong> Remove central 1/9th; $R_n = 8^n$, holes $H_{n+1} = H_n + R_n$, area $\to 0$.</li>
+                <li><strong>Sierpiński Gasket:</strong> Remove central inverted 1/4th; $T_n = 3^n$, area $= (3/4)^n$.</li>
+                <li><strong>Koch Snowflake:</strong> Bump iteration; perimeter multiplies by $4/3$ every step ($P_n \to \infty$).</li>
+                <li><strong>Art & Architecture:</strong> Khajuraho temples, Fulani blankets, M.C. Escher prints.</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">✅ Visualising Solids & Projections</div>
+              <ul class="bullet-list">
+                <li><strong>Polyhedral Formulas:</strong> Prisms ($F=n+2, E=3n, V=2n$), Pyramids ($F=n+1, E=2n, V=n+1$).</li>
+                <li><strong>Net Enumeration:</strong> Cube has 11 nets, tetrahedron has 2 nets, octahedron has 11 nets, dodecahedron has 43,380 nets; sphere has no flat net.</li>
+                <li><strong>Geodesic Paths:</strong> Shortest surface path on cuboid = straight line on its unfolded 2D net.</li>
+                <li><strong>Multi-view Projections:</strong> Front view (vertical), top view (horizontal), side view (side plane).</li>
+                <li><strong>Isometric Grids:</strong> Balanced cube projects to a regular hexagon with 3 equal axes ($120^\circ$ apart).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 27 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 28: CLOSING SLIDE (THANK YOU) -->
+      <section class="slide" id="slide-28">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>🏁</span> End of Chapter 4
+          </div>
+          <div class="pill-tag">
+            Complete Deck Review
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:18px;">
+          <div style="font-size:0.9rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-secondary);">
+            NCERT • GANITA PRAKASH GRADE 8
+          </div>
+
+          <h1 style="font-family:var(--font-display); font-size:3.5rem; font-weight:700; color:var(--text-main); line-height:1.1;">
+            Thank You!
+          </h1>
+
+          <p style="font-style:italic; font-size:1.18rem; color:var(--text-muted); max-width:860px; line-height:1.6;">
+            "Geometry is the art of correct reasoning on figures. Whether unfolding an infinity of self-similar fractal patterns or translating a 3D world onto a flat plane, the mind sees far deeper than the eye."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">✨ Interactive Classroom Slides</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">📐 Complete Section Coverage</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">⚡ Quick Box Question Slides Included</span>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 28 / 28</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Slide Footer Keyboard Hint -->
+    <div class="key-hint">
+      Use ◀ / ▶ or Space to navigate • [F] Fullscreen
+    </div>
+
+    <!-- On-screen Navigation Controls (bottom-right) -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" title="Previous Slide (Left Arrow)">❮</button>
+      <select class="slide-select" id="slideSelect" title="Jump to Slide"></select>
+      <button class="nav-btn" id="nextBtn" title="Next Slide (Right Arrow / Space)">❯</button>
+      <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen" style="font-size:0.75rem;">⛶</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideSelect = document.getElementById('slideSelect');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const viewport = document.getElementById('presentation-viewport');
+
+      // Populate slide jump menu
+      slides.forEach((slide, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        const titleEl = slide.querySelector('.slide-title');
+        const titleText = titleEl ? titleEl.innerText.replace(/[\n\r]+/g, ' ').trim() : (idx === 0 ? 'Cover Slide' : 'Slide ' + (idx + 1));
+        option.textContent = `${idx + 1}. ${titleText.substring(0, 32)}...`;
+        slideSelect.appendChild(option);
+      });
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        slides[currentIndex].classList.add('active');
+        slideSelect.value = currentIndex;
+
+        // Render KaTeX dynamic formulas
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentIndex], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      // Event Listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      slideSelect.addEventListener('change', (e) => {
+        updateSlide(parseInt(e.target.value, 10));
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullScreen();
+        }
+      });
+
+      // Touch / Swipe Navigation for tablets & boards
+      let touchStartX = 0;
+      let touchStartY = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        const diffY = e.changedTouches[0].screenY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+          if (diffX < 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Fullscreen support
+      function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+          viewport.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullScreen);
+    });
+  </script>
+</body>
+</html>

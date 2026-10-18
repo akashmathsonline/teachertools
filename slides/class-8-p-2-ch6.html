@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algebra Play - Grade 8 Chapter 6 Slide Deck</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #4f46e5;         /* Indigo Theme */
+      --primary-dark: #3730a3;
+      --primary-light: #e0e7ff;
+      --accent: #06b6d4;          /* Cyan accent */
+      --accent-soft: #ecfeff;
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #f1f5f9 100%);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: rgba(99, 102, 241, 0.15);
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --danger-pill: #ef4444;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(79, 70, 229, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(79, 70, 229, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0f172a;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Deck Container - Standard 16:9 Presentation Stage */
+    #deck-container {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      background: var(--bg-gradient);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Slide Base Styling */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 44px 56px 40px 56px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(40px) scale(0.99);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+      z-index: 2;
+    }
+
+    /* Typography */
+    h1, h2, h3, .heading-font {
+      font-family: 'Fredoka', cursive;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .pill-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-primary {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid rgba(79, 70, 229, 0.3);
+    }
+
+    .pill-page {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .pill-quick {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fcd34d;
+    }
+
+    .slide-title {
+      font-size: 2.1rem;
+      color: #1e1b4b;
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-top: -10px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      overflow: hidden;
+    }
+
+    /* Cards & Layout Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      height: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      height: 100%;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 22px 26px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(8px);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card li {
+      font-size: 0.96rem;
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    .card ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card li::before {
+      content: "✦ ";
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .highlight-box {
+      background: #f0fdf4;
+      border-left: 5px solid #22c55e;
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      margin-top: auto;
+    }
+
+    .formula-banner {
+      background: linear-gradient(90deg, #eef2ff, #faf5ff);
+      border: 1.5px dashed var(--primary);
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin: 10px 0;
+    }
+
+    /* Footers & Nav */
+    .slide-footer {
+      position: absolute;
+      bottom: 14px;
+      left: 56px;
+      right: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      border-top: 1px solid rgba(203, 213, 225, 0.6);
+      padding-top: 8px;
+      pointer-events: none;
+    }
+
+    /* Subtle Watermark for Middle Slides */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 28px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 10;
+    }
+
+    /* Credit Pill for Cover & Closing */
+    .credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #3730a3 0%, #4f46e5 100%);
+      color: #ffffff !important;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .credit-pill span.sub {
+      color: #c7d2fe;
+      font-size: 0.88rem;
+      font-weight: 400;
+    }
+
+    /* Global Nav Controls */
+    .nav-buttons {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .nav-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 32px;
+      color: #94a3b8;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 6px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Visual Pyramid Styles */
+    .pyramid-vis {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin: auto 0;
+    }
+    .pyramid-row {
+      display: flex;
+      gap: 8px;
+    }
+    .pyr-box {
+      width: 72px;
+      height: 52px;
+      background: #ffffff;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary-dark);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+    .pyr-box.top {
+      background: #fdf2f8;
+      border-color: #ec4899;
+      color: #be185d;
+    }
+    .pyr-box.highlight {
+      background: #ecfeff;
+      border-color: #06b6d4;
+      color: #0e7490;
+    }
+
+    /* Custom Table for Calendar */
+    .cal-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .cal-table th {
+      background: #4f46e5;
+      color: white;
+      padding: 6px;
+      font-weight: 600;
+    }
+    .cal-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px;
+      background: white;
+    }
+    .cal-table td.selected {
+      background: #fee2e2;
+      font-weight: bold;
+      color: #b91c1c;
+      border: 2px solid #ef4444;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Nav Guidance -->
+  <div class="nav-hint">Use ◀ / ▶ or Space to navigate</div>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="prevSlide()" aria-label="Previous Slide">❮</button>
+    <button class="nav-btn" onclick="nextSlide()" aria-label="Next Slide">❯</button>
+  </div>
+
+  <div id="deck-container">
+    <!-- SLIDE 1: COVER SLIDE -->
+    <section class="slide active">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">GANITA PRAKASH | GRADE 8 PART-II</span>
+        <span class="pill-tag pill-primary">Chapter 6 • Cover</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <span style="font-size: 1rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px;">
+          CLASS 8 MATHEMATICS • CHAPTER 6
+        </span>
+        <h1 style="font-size: 3.8rem; color: #1e1b4b; line-height: 1.1; margin-bottom: 16px;">
+          ALGEBRA PLAY
+        </h1>
+        <p style="font-size: 1.25rem; font-style: italic; color: #475569; max-width: 780px; margin-bottom: 34px;">
+          Exhaustive point-by-point presentation investigating number tricks, number pyramids, calendar magic, product puzzles, and divisibility mysteries.
+        </p>
+
+        <!-- Mandatory Credit Pill on Cover -->
+        <div class="credit-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 1 / 25</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 6.1 & 6.2 THINK OF A NUMBER -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.1 & 6.2 • ALGEBRA PLAY</span>
+        <span class="pill-tag pill-page">Pages 136–137</span>
+      </div>
+      <h2 class="slide-title">Thinking About 'Think of a Number'</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🎲 The Classic Grade 7 Game</h3>
+            <ul>
+              <li><strong>Step 1:</strong> Think of a number.</li>
+              <li><strong>Step 2:</strong> Double it.</li>
+              <li><strong>Step 3:</strong> Add four.</li>
+              <li><strong>Step 4:</strong> Divide the total by two.</li>
+              <li><strong>Step 5:</strong> Subtract the original number you thought of.</li>
+            </ul>
+            <div class="formula-banner">Prediction: The final answer is ALWAYS 2!</div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🔍 The Algebraic Reveal</h3>
+            <p>Why does it work every single time regardless of what number is chosen?</p>
+            <ul style="margin-top: 10px;">
+              <li>Let the chosen starting number be $x$</li>
+              <li>Double it $\rightarrow 2x$</li>
+              <li>Add four $\rightarrow 2x + 4$</li>
+              <li>Divide by two $\rightarrow \dfrac{2x + 4}{2} = x + 2$</li>
+              <li>Subtract initial number $\rightarrow (x + 2) - x = 2$</li>
+            </ul>
+            <div class="highlight-box">
+              <strong>Key Principle:</strong> The variable $x$ cancels out completely, leaving an invariant constant!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 2 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX - THINK OF A NUMBER -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — 'Think of a Number' Tricks</h2>
+      <p class="slide-subtitle">Rapid questions to pose live in class to test conceptual grasp of invariant algebraic operations.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              How would you modify Step 3 of the game so that the final answer is always 3 instead of 2?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              What step change would you make if you wanted the final answer to always end up as 5?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Can you design a sequence of operations where you multiply by 3, add a number, divide by 3, and subtract the original number to get 7?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 3 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 4: DATE TRICK -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.2 • BIRTHDAY / DATE TRICK</span>
+        <span class="pill-tag pill-page">Pages 136–137</span>
+      </div>
+      <h2 class="slide-title">Decoding Shubham & Mukta's Date Trick</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">📅 The Game Flow (Republic Day)</h3>
+            <ul>
+              <li>Mukta thinks of: <strong>26/01</strong> (Month $M=1$, Day $D=26$)</li>
+              <li>Multiply month by $5 \rightarrow 1 \times 5 = 5$</li>
+              <li>Add $6 \rightarrow 5 + 6 = 11$</li>
+              <li>Multiply by $4 \rightarrow 11 \times 4 = 44$</li>
+              <li>Add $9 \rightarrow 44 + 9 = 53$</li>
+              <li>Multiply by $5 \rightarrow 53 \times 5 = 265$</li>
+              <li>Add the day $D \rightarrow 265 + 26 = 291$</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🧮 Algebraic Derivation</h3>
+            <p>Let Month $= M$ and Day $= D$:</p>
+            <ul style="font-size: 0.9rem;">
+              <li>Multiply $M$ by $5 \rightarrow 5M$</li>
+              <li>Add $6 \rightarrow 5M + 6$</li>
+              <li>Multiply by $4 \rightarrow 4(5M + 6) = 20M + 24$</li>
+              <li>Add $9 \rightarrow 20M + 33$</li>
+              <li>Multiply by $5 \rightarrow 5(20M + 33) = 100M + 165$</li>
+              <li>Add day $D \rightarrow \mathbf{100M + 165 + D}$</li>
+            </ul>
+            <div class="highlight-box">
+              $$\text{Final Result} - 165 = 100M + D$$
+              Since $D \le 31$, the last two digits represent $D$, and the leading digits represent $M$!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 4 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX - DATE TRICK -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — The Date Mystery</h2>
+      <p class="slide-subtitle">Rapid mental math questions for students using the rule: $\text{Subtract } 165 \rightarrow \text{Read as } M \text{ and } D$.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If Mukta follows the exact same steps and announces her final answer is <strong>1390</strong>, what date did she start with?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Find the original dates if the students announce the following final answers:
+              <br><span style="color: var(--primary); font-weight: 700;">(i) 1269 &nbsp;&nbsp;&nbsp;&nbsp; (ii) 394 &nbsp;&nbsp;&nbsp;&nbsp; (iii) 296</span>
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why was it essential that the multiplier for $M$ ultimately reached exactly 100?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 5 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 6: 6.3 NUMBER PYRAMIDS - BASICS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.3 • NUMBER PYRAMIDS</span>
+        <span class="pill-tag pill-page">Pages 137–138</span>
+      </div>
+      <h2 class="slide-title">Number Pyramids: Rules and Structure</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🧱 The Fundamental Rule</h3>
+            <p>In a number pyramid, <strong>each number is the exact sum of the two numbers directly below it</strong>.</p>
+            <div class="pyramid-vis" style="margin: 20px 0;">
+              <div class="pyramid-row">
+                <div class="pyr-box top">23</div>
+              </div>
+              <div class="pyramid-row">
+                <div class="pyr-box">10</div>
+                <div class="pyr-box">13</div>
+              </div>
+              <div class="pyramid-row">
+                <div class="pyr-box">1</div>
+                <div class="pyr-box">9</div>
+                <div class="pyr-box">4</div>
+              </div>
+            </div>
+            <p style="font-size: 0.9rem; text-align: center; color: var(--text-muted);">
+              Notice: $1+9 = 10$, $9+4 = 13$, and $10+13 = 23$.
+            </p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🔄 Bottom-Up vs. Working Backwards</h3>
+            <ul>
+              <li><strong>Forward Addition:</strong> If bottom blocks are given, simply sum adjacent pairs upward.</li>
+              <li><strong>Backward Subtraction:</strong> If higher blocks and partial lower blocks are known, subtract:
+                $$\text{Missing Base Block} = \text{Top Block} - \text{Known Base Block}$$
+              </li>
+              <li><strong>Puzzles with Gaps:</strong> When gaps exist in both the middle and base, basic arithmetic alone fails and algebra becomes essential!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 6 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX - PYRAMID BASICS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Filling Basic Pyramids</h2>
+      <p class="slide-subtitle">Oral checks for bottom-up and top-down single-box logic.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If the base row contains <strong>6, 2, 3</strong> from left to right, what are the numbers in the row directly above it, and what is at the top?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If the top number is <strong>10</strong>, its left child is <strong>4</strong>, and the base leftmost number is <strong>1</strong>, how do you find the rest?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              What happens if a base number is negative? Does the same pyramid sum rule hold true?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 7 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 8: SOLVING PYRAMIDS WITH LETTER-NUMBERS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.3 • ALGEBRAIC EQUATIONS IN PYRAMIDS</span>
+        <span class="pill-tag pill-page">Pages 138–139</span>
+      </div>
+      <h2 class="slide-title">Pyramids with Letter-Numbers</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🧩 Setting Up the Unknowns</h3>
+            <p>Suppose the top number is <strong>60</strong>, and base row has <strong>12, $c$, 8</strong>:</p>
+            <div class="pyramid-vis" style="margin: 15px 0;">
+              <div class="pyramid-row">
+                <div class="pyr-box top">60</div>
+              </div>
+              <div class="pyramid-row">
+                <div class="pyr-box highlight">a</div>
+                <div class="pyr-box highlight">b</div>
+              </div>
+              <div class="pyramid-row">
+                <div class="pyr-box">12</div>
+                <div class="pyr-box highlight">c</div>
+                <div class="pyr-box">8</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">⚖️ Solving the Linear System</h3>
+            <ul>
+              <li>From middle row: $a = 12 + c$ and $b = c + 8$</li>
+              <li>Top block condition: $a + b = 60$</li>
+              <li>Substitute $a$ and $b$:
+                $$(12 + c) + (c + 8) = 60$$
+              </li>
+              <li>Simplify: $20 + 2c = 60 \implies 2c = 40 \implies \mathbf{c = 20}$</li>
+              <li>Back-substitute: $a = 12 + 20 = \mathbf{32}$, and $b = 20 + 8 = \mathbf{28}$</li>
+            </ul>
+            <div class="highlight-box">
+              Letter-numbers bridge the missing link between separated cells!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 8 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX - ALGEBRAIC PYRAMIDS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Pyramids with Unknowns</h2>
+      <p class="slide-subtitle">Formulate equations rapidly for unknown base or middle blocks.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              In a 3-row pyramid, top is <strong>50</strong>, middle right is <strong>22</strong>, base has <strong>4, _, 6, _</strong>. How do we assign letter-numbers to set up the equation?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If the top block is <strong>35</strong>, middle right is <strong>7</strong>, and bottom has <strong>3, 5, _, _</strong>, which unknown should be solved first?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why does the middle element of the base contribute twice as much to the top block compared to the ends in a 3-row pyramid?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 9 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 10: GENERAL PYRAMID EXPRESSIONS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.3 • GENERAL PYRAMID FORMULAS</span>
+        <span class="pill-tag pill-page">Pages 139–140</span>
+      </div>
+      <h2 class="slide-title">General Formulas for Pyramid Peaks</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🔺 3-Row Pyramid (Base: $a, b, c$)</h3>
+            <p>Tracking the propagation of variables up the pyramid:</p>
+            <div class="formula-banner">$$\text{Top} = a + 2b + c$$</div>
+            <ul>
+              <li>Row 1 (Bottom): $a, \quad b, \quad c$</li>
+              <li>Row 2 (Middle): $(a+b), \quad (b+c)$</li>
+              <li>Row 3 (Top): $(a+b) + (b+c) = a + 2b + c$</li>
+            </ul>
+            <div class="highlight-box">
+              Coefficients are <strong>1, 2, 1</strong> (Row 2 of Pascal's Triangle)!
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🔺 4-Row Pyramid (Base: $a, b, c, d$)</h3>
+            <p>Continuing the sum upward through four levels:</p>
+            <div class="formula-banner">$$\text{Top} = a + 3b + 3c + d$$</div>
+            <ul>
+              <li>Row 2: $(a+b), \quad (b+c), \quad (c+d)$</li>
+              <li>Row 3: $(a+2b+c), \quad (b+2c+d)$</li>
+              <li>Row 4 (Top): $a + 3b + 3c + d$</li>
+            </ul>
+            <div class="highlight-box">
+              Coefficients are <strong>1, 3, 3, 1</strong> (Row 3 of Pascal's Triangle)!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 10 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 11: VIRAHANKA-FIBONACCI IN PYRAMIDS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.3 • MATHEMATICAL CONNECTIONS</span>
+        <span class="pill-tag pill-page">Page 140</span>
+      </div>
+      <h2 class="slide-title">Virahāṅka–Fibonacci Numbers in Pyramids</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">📜 Historical Sequence</h3>
+            <p>Named after the ancient Indian grammarian <strong>Virahāṅka</strong> (~600 CE):</p>
+            <div class="formula-banner">$$F_1=1, \; F_2=2, \; F_3=3, \; F_4=5, \; F_5=8, \; F_6=13, \dots$$</div>
+            <p>Each term is the sum of the preceding two: $F_n = F_{n-1} + F_{n-2}$.</p>
+            <div class="highlight-box" style="margin-top: 16px;">
+              <strong>Special Property:</strong> If consecutive Virahāṅka–Fibonacci numbers are placed at the base, what happens to every cell in the pyramid?
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🔍 3-Row and n-Row Behavior</h3>
+            <ul>
+              <li><strong>3-Row with $1, 2, 3$:</strong>
+                <br>Row 2 has $1+2 = 3$ and $2+3 = 5$.
+                <br>Row 3 (Top) has $3+5 = 8$.
+                <br><strong>Grid entries:</strong> $1, 2, 3, 5, 8$ — ALL are Virahāṅka numbers!
+              </li>
+              <li><strong>General $n$-Row Pyramid:</strong>
+                <br>Because adjacent base cells sum directly into the next Fibonacci number, the entire pyramid generates successive shifts of the sequence!
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 11 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 12: QUICK BOX - VIRAHANKA NUMBERS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Virahāṅka–Fibonacci Pyramids</h2>
+      <p class="slide-subtitle">Engage students in pattern recognition and predictive generalization.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If the base row contains the first 4 Virahāṅka numbers $(1, 2, 3, 5)$, what number appears at the top without calculating every individual box?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Are all numbers that appear anywhere inside a pyramid built from the first $n$ Virahāṅka numbers themselves Virahāṅka numbers? Why or why not?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              For a 29-row pyramid with the first 29 Virahāṅka numbers, which term of the sequence will crown the top of the pyramid?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 12 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 13: 6.4 FUN WITH GRIDS - CALENDAR MAGIC -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.4 • FUN WITH GRIDS</span>
+        <span class="pill-tag pill-page">Page 141</span>
+      </div>
+      <h2 class="slide-title">Calendar Magic: The $2 \times 2$ Grid Mystery</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">📅 Calendar Structure</h3>
+            <p>Consider four dates in a square $2 \times 2$ block from August 2025:</p>
+            <table class="cal-table" style="margin: 12px 0;">
+              <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
+              <tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
+              <tr><td>3</td><td>4</td><td>5</td><td class="selected">6</td><td class="selected">7</td><td>8</td><td>9</td></tr>
+              <tr><td>10</td><td>11</td><td>12</td><td class="selected">13</td><td class="selected">14</td><td>15</td><td>16</td></tr>
+            </table>
+            <div class="formula-banner">Sum = $6 + 7 + 13 + 14 = 40$</div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🔤 Expressing in Letter-Numbers</h3>
+            <p>Days in the same column are 7 days apart:</p>
+            <div style="display: flex; justify-content: center; gap: 10px; margin: 12px 0;">
+              <div style="border: 2px solid var(--primary); padding: 8px 16px; border-radius: 8px; text-align: center;">
+                $a$ &nbsp;&nbsp;&nbsp;&nbsp; $a + 1$<br>
+                $a+7$ &nbsp;&nbsp;&nbsp;&nbsp; $a + 8$
+              </div>
+            </div>
+            <ul>
+              <li>$\text{Sum} = a + (a+1) + (a+7) + (a+8) = \mathbf{4a + 16}$</li>
+              <li>If your friend says the sum is $36$:
+                $$4a + 16 = 36 \implies 4a = 20 \implies a = 5$$
+              </li>
+              <li>The four dates are: <strong>5, 6, 12, 13</strong>!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 13 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 14: QUICK BOX - CALENDAR MAGIC -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Calendar and Shape Grids</h2>
+      <p class="slide-subtitle">Oral problems to test algebraic modeling on regular grid structures.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If a student chooses a $2 \times 2$ calendar square and gives a sum of <strong>80</strong>, what is the top-left date $a$?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              What algebraic expression represents the sum of a horizontal line of 3 dates: $a, a+1, a+2$? How can you find the dates from their sum instantly?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              In a calendar cross shape (centre date $c$ with top $c-7$, bottom $c+7$, left $c-1$, right $c+1$), what is the total sum of all 5 dates?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 14 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 15: ALGEBRA GRIDS WITH SHAPES -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.4 • ALGEBRA GRIDS</span>
+        <span class="pill-tag pill-page">Page 142</span>
+      </div>
+      <h2 class="slide-title">Algebra Grids: Solving Geometric Shapes</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🟦 Shapes Represent Unknowns</h3>
+            <p>In these grids, each shape represents a constant number, and row sums are shown on the right:</p>
+            <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 14px; margin: 12px 0;">
+              Row 1: 🟦 + 🟦 + 🟦 = 27<br>
+              Row 2: 🔴 + 🔴 + 🟦 = 19
+            </div>
+            <ul>
+              <li>From Row 1: $3 \times \text{🟦} = 27 \implies \mathbf{\text{🟦} = 9}$</li>
+              <li>Substitute into Row 2:
+                $$2 \times \text{🔴} + 9 = 19 \implies 2 \times \text{🔴} = 10 \implies \mathbf{\text{🔴} = 5}$$
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🧩 Higher Dimension Shape Grids</h3>
+            <p>For $3 \times 3$ grids with circles and diamonds:</p>
+            <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 14px; margin: 12px 0;">
+              Row 1: 🔵 + 🔷 + 🔷 = 18<br>
+              Row 2: 🔷 + 🔵 + 🔵 = 15<br>
+              Row 3: 🔷 + 🔵 + 🔵 = ?
+            </div>
+            <ul>
+              <li>Let 🔵 $= x$, 🔷 $= y$.</li>
+              <li>$x + 2y = 18$ and $2x + y = 15$</li>
+              <li>Adding both: $3x + 3y = 33 \implies x + y = 11$</li>
+              <li>Subtracting: $y - x = 3 \implies y = 7, x = 4$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 15 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 16: QUICK BOX - ALGEBRA GRIDS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Solving Grid Equations</h2>
+      <p class="slide-subtitle">Fast shape-to-number reasoning checks for the classroom.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If 🟦 + 🟦 + 🔴 = 27 and 🔴 + 🔴 + 🟦 = 21, what is the value of 🟦 + 🔴?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              In the same puzzle, find the individual values of the square 🟦 and the circle 🔴.
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why is this pictorial shape problem identical to solving simultaneous linear equations in two variables?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 16 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 17: 6.5 THE LARGEST PRODUCT -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.5 • OPTIMIZATION PUZZLE</span>
+        <span class="pill-tag pill-page">Pages 142–144</span>
+      </div>
+      <h2 class="slide-title">The Largest Product: $[\;][\;] \times [\;]$</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🔢 Case Study: Digits 2, 3, 5</h3>
+            <p>There are 6 possible ways to form a 2-digit by 1-digit product:</p>
+            <ul>
+              <li>Multiplier 2: $35 \times 2 = 70$ vs $53 \times 2 = 106$</li>
+              <li>Multiplier 3: $25 \times 3 = 75$ vs $52 \times 3 = 156$</li>
+              <li>Multiplier 5: $23 \times 5 = 115$ vs $32 \times 5 = 160$</li>
+            </ul>
+            <div class="formula-banner">Comparing: $52 \times 3 = 156$ &nbsp;vs&nbsp; $32 \times 5 = 160$</div>
+            <p><strong>Winner:</strong> $32 \times 5 = 160$ is the largest possible product!</p>
+          </div>
+          <div class="card">
+            <h3 class="card-title">📐 General Algebraic Proof</h3>
+            <p>Let three digits be $p < q < r$. To maximize, compare the two top candidates:</p>
+            <ul>
+              <li>Candidate A ($r$ as multiplier):
+                $$qp \times r = (10q + p)r = 10qr + pr$$
+              </li>
+              <li>Candidate B ($q$ as multiplier):
+                $$rp \times q = (10r + p)q = 10rq + pq$$
+              </li>
+            </ul>
+            <div class="highlight-box">
+              Comparing second terms: Since $r > q$, we have $pr > pq$.<br>
+              Therefore, <strong>$qp \times r > rp \times q$ ALWAYS!</strong>
+            </div>
+            <p style="margin-top: 8px; font-weight: 600; color: var(--primary-dark);">
+              Rule: Place the largest digit as the single multiplier, and arrange the remaining digits in descending order!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 17 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 18: QUICK BOX - LARGEST PRODUCT -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Maximizing Products</h2>
+      <p class="slide-subtitle">Test immediate application of the algebraic rule for $[\;][\;] \times [\;]$.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Using the digits <strong>1, 3, 7</strong>, what is the configuration that yields the largest product, and what is its value?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Using the digits <strong>3, 5, 9</strong>, what is the largest product configuration?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If you had four digits $p < q < r < s$ to make $[\;][\;] \times [\;][\;]$, how does algebra help you choose the arrangement?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 18 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 19: 6.6 DIVISIBILITY TRICKS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.6 • DIVISIBILITY TRICKS</span>
+        <span class="pill-tag pill-page">Pages 144–145</span>
+      </div>
+      <h2 class="slide-title">Decoding Digit Reversal & Divisibility</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🔄 Difference of Reversed 2-Digit Numbers</h3>
+            <ul>
+              <li>Start with any 2-digit number: $ab = 10a + b$</li>
+              <li>Reverse the digits: $ba = 10b + a$</li>
+              <li>Assume $b > a$, then the difference is:
+                $$(10b + a) - (10a + b) = 9b - 9a = \mathbf{9(b - a)}$$
+              </li>
+              <li><strong>Result:</strong> Always divisible by 9 with remainder 0!</li>
+              <li><strong>Quotient:</strong> The quotient is simply the difference of digits $(b - a)$!</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">➕ Sum of Reversed 2-Digit Numbers</h3>
+            <p>What if we ADD the original number and its reverse?</p>
+            <div class="formula-banner">
+              $$(10a + b) + (10b + a) = 11a + 11b = \mathbf{11(a + b)}$$
+            </div>
+            <ul>
+              <li>$31 + 13 = 44 = 11 \times 4$</li>
+              <li>$28 + 82 = 110 = 11 \times 10$</li>
+              <li>$12 + 21 = 33 = 11 \times 3$</li>
+            </ul>
+            <div class="highlight-box">
+              <strong>Theorem:</strong> The sum of any 2-digit number and its reversal is ALWAYS divisible by 11!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 19 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 20: 3-DIGIT CYCLIC SUMS & 1001 -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.6 • ADVANCED DIVISIBILITY</span>
+        <span class="pill-tag pill-page">Page 145</span>
+      </div>
+      <h2 class="slide-title">Cyclic Sums and the 1001 Miracle</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🔄 Cyclic Permutations of $abc$</h3>
+            <p>Take any 3-digit number $abc$ and form cycles $bca$ and $cab$:</p>
+            <ul>
+              <li>$abc = 100a + 10b + c$</li>
+              <li>$bca = 100b + 10c + a$</li>
+              <li>$cab = 100c + 10a + b$</li>
+              <li>$\text{Sum} = 111a + 111b + 111c = \mathbf{111(a + b + c)}$</li>
+            </ul>
+            <div class="highlight-box">
+              Since $111 = 3 \times 37$, the sum is <strong>ALWAYS divisible by both 3 and 37</strong>!
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">✨ The Repeated 6-Digit Number $abcabc$</h3>
+            <p>Write a 3-digit number twice: e.g., $456456$</p>
+            <ul>
+              <li>$abcabc = 1000 \times abc + abc = \mathbf{1001 \times abc}$</li>
+              <li>Notice the prime factorization of 1001:
+                $$1001 = 7 \times 11 \times 13$$
+              </li>
+              <li>Successively dividing by 7, 11, and 13 returns the original number $abc$ with zero remainder!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 20 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX - DIVISIBILITY TRICKS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Divisibility Secrets</h2>
+      <p class="slide-subtitle">Rapid algebraic checks on place values and factorizations.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If a 2-digit number and its reverse differ by 54, what is the difference between the two digits?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why does any 6-digit number formed by repeating two digits three times (e.g., $ababab$) divide evenly by 3, 7, 13, and 37?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If you cycle the digits of 258 to get $258 + 582 + 825$, what is the result divided by $(2+5+8)$?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 21 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 22: EXERCISE HIGHLIGHTS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">EXERCISE HIGHLIGHTS</span>
+        <span class="pill-tag pill-page">Pages 146–147</span>
+      </div>
+      <h2 class="slide-title">Representative Worked Solutions</h2>
+      <div class="slide-body">
+        <div class="grid-3">
+          <!-- Problem 6: Horses and Hens -->
+          <div class="card">
+            <h3 class="card-title" style="font-size: 1.1rem;">🐴 Horses & Hens (Q6)</h3>
+            <p style="font-size: 0.88rem; color: #475569; margin-bottom: 6px;">
+              <strong>Given:</strong> 55 heads, 150 legs total.
+            </p>
+            <div style="font-size: 0.86rem; line-height: 1.45;">
+              Let horses $= H$, hens $= C$.<br>
+              $H + C = 55 \implies C = 55 - H$<br>
+              $4H + 2C = 150$<br>
+              $4H + 2(55 - H) = 150$<br>
+              $2H + 110 = 150 \implies 2H = 40$
+            </div>
+            <div class="highlight-box" style="margin-top: auto; padding: 8px 12px; font-size: 0.9rem;">
+              <strong>Ans:</strong> $H = 20$ horses, $C = 35$ hens!
+            </div>
+          </div>
+
+          <!-- Problem 7: Mother & Daughter Age -->
+          <div class="card">
+            <h3 class="card-title" style="font-size: 1.1rem;">👩‍👧 Age Puzzle (Q7)</h3>
+            <p style="font-size: 0.88rem; color: #475569; margin-bottom: 6px;">
+              <strong>Given:</strong> Mother is $5\times$ daughter; in 6 yrs, $3\times$.
+            </p>
+            <div style="font-size: 0.86rem; line-height: 1.45;">
+              Let daughter's age now $= x$.<br>
+              Mother's age now $= 5x$.<br>
+              In 6 years:<br>
+              $5x + 6 = 3(x + 6)$<br>
+              $5x + 6 = 3x + 18$<br>
+              $2x = 12 \implies x = 6$
+            </div>
+            <div class="highlight-box" style="margin-top: auto; padding: 8px 12px; font-size: 0.9rem;">
+              <strong>Ans:</strong> Daughter is <strong>6 years old</strong> now!
+            </div>
+          </div>
+
+          <!-- Problem 11: Karim and the Genie -->
+          <div class="card">
+            <h3 class="card-title" style="font-size: 1.1rem;">🧞 Karim & Genie (Q11)</h3>
+            <p style="font-size: 0.88rem; color: #475569; margin-bottom: 6px;">
+              <strong>Given:</strong> Coins double each round; pays 8 coins. Left with 0 after round 3.
+            </p>
+            <div style="font-size: 0.86rem; line-height: 1.45;">
+              Work backwards from Round 3:<br>
+              End: $0 + 8 = 8$ coins $\implies$ started R3 with $8 / 2 = 4$.<br>
+              R2: $4 + 8 = 12 \implies$ started R2 with $12 / 2 = 6$.<br>
+              R1: $6 + 8 = 14 \implies$ started R1 with $14 / 2 = 7$.
+            </div>
+            <div class="highlight-box" style="margin-top: auto; padding: 8px 12px; font-size: 0.9rem;">
+              <strong>Ans:</strong> Karim initially had <strong>7 coins</strong>!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 22 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 23: ODD NUMBER FRACTIONS (Q10) -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">6.6 • PATTERN PROOFS</span>
+        <span class="pill-tag pill-page">Page 146</span>
+      </div>
+      <h2 class="slide-title">Sum of Consecutive Odds and Fractions (Q10)</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🔍 The Surprising Sequence</h3>
+            <p>Evaluate the sequence of grouped odd numbers:</p>
+            <ul style="margin: 12px 0;">
+              <li>$\dfrac{1}{3} = \mathbf{\dfrac{1}{3}}$</li>
+              <li>$\dfrac{1+3}{5+7} = \dfrac{4}{12} = \mathbf{\dfrac{1}{3}}$</li>
+              <li>$\dfrac{1+3+5}{7+9+11} = \dfrac{9}{27} = \mathbf{\dfrac{1}{3}}$</li>
+            </ul>
+            <div class="formula-banner">Every single fraction simplifies to $\dfrac{1}{3}$!</div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🧮 Algebraic Proof for $n$ Terms</h3>
+            <ul>
+              <li><strong>Numerator:</strong> Sum of first $n$ odd numbers:
+                $$1 + 3 + \dots + (2n - 1) = n^2$$
+              </li>
+              <li><strong>Denominator:</strong> Sum of the next $n$ odd numbers:
+                $$\text{Sum}(2n \text{ odds}) - \text{Sum}(n \text{ odds}) = (2n)^2 - n^2 = 4n^2 - n^2 = 3n^2$$
+              </li>
+              <li><strong>The Fraction:</strong>
+                $$\frac{\text{Numerator}}{\text{Denominator}} = \frac{n^2}{3n^2} = \mathbf{\frac{1}{3}}$$
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 23 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 24: CHAPTER SUMMARY -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">RECAP & SYNTHESIS</span>
+        <span class="pill-tag pill-page">Page 147</span>
+      </div>
+      <h2 class="slide-title">Chapter 6 Summary Checklist</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">✅ Concepts & Models</h3>
+            <ul style="gap: 12px;">
+              <li><strong>Algebra as Explanation:</strong> Unveils why "think of a number" tricks work by canceling arbitrary user choices.</li>
+              <li><strong>Number Pyramids:</strong> Propagate coefficients following Pascal's triangle ($1, 2, 1$ for 3 rows; $1, 3, 3, 1$ for 4 rows).</li>
+              <li><strong>Virahāṅka Sequences:</strong> Preserve Fibonacci properties through every layer of a pyramid.</li>
+              <li><strong>Calendar Grids:</strong> Represent days using modular column differences of $+7$, summing to $4a + 16$ in $2 \times 2$ blocks.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">✅ Proofs & Optimization</h3>
+            <ul style="gap: 12px;">
+              <li><strong>Maximum Product $[\;][\;] \times [\;]$:</strong> Formed strictly by choosing the largest digit as multiplier and descending order for multiplicand.</li>
+              <li><strong>Reversal Differences:</strong> $(10b + a) - (10a + b) = 9(b - a)$ guarantees divisibility by 9.</li>
+              <li><strong>Reversal Sums:</strong> $(10a + b) + (10b + a) = 11(a + b)$ guarantees divisibility by 11.</li>
+              <li><strong>The 1001 Factorization:</strong> $7 \times 11 \times 13 = 1001$ explains why repeated 3-digit strings $abcabc$ divide cleanly.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 24 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 25: CLOSING SLIDE -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">GANITA PRAKASH | GRADE 8 PART-II</span>
+        <span class="pill-tag pill-primary">Chapter 6 • Complete</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <span style="font-size: 1rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px;">
+          END OF CHAPTER 6
+        </span>
+        <h1 style="font-size: 4rem; color: #1e1b4b; line-height: 1.1; margin-bottom: 20px;">
+          THANK YOU
+        </h1>
+        <p style="font-size: 1.25rem; font-style: italic; color: #475569; max-width: 750px; margin-bottom: 34px;">
+          "Algebra is the generous offer that provides the means to reason about quantities without calculating them, turning puzzles into crystal-clear truths."
+        </p>
+
+        <!-- Mandatory Credit Pill on Closing Slide -->
+        <div class="credit-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 25 / 25</span>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // Touch swipe navigation for tablets / mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextSlide();
+      } else if (touchEndX - touchStartX > 50) {
+        prevSlide();
+      }
+    }, false);
+  </script>
+</body>
+</html>

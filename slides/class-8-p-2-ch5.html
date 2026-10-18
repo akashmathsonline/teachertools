@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 5: Tales by Dots and Lines | Grade 8 Mathematics</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 14% 18%, #f0f9ff 0%, #e0f2fe 45%, #f8fafc 100%);
+      --accent-primary: #0284c7; /* Vibrant Sky/Ocean Blue */
+      --accent-secondary: #0369a1;
+      --accent-dark: #075985;
+      --accent-tint: #f0f9ff;
+      --accent-border: #bae6fd;
+      --accent-coral: #e11d48;
+      --accent-amber: #d97706;
+      --accent-teal: #0d9488;
+      --accent-indigo: #4f46e5;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --font-display: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #082f49;
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+        /* 16:9 Presentation Stage */
+    #presentation-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: var(--bg-gradient);
+      box-shadow: none; /* Box shadow hata dein */
+      border-radius: 0; /* Corners hatane ke liye */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: none; /* Border hata dein */
+    }
+
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 30px 48px 26px 48px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1), transform 0.36s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.36s;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 2;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(2, 132, 199, 0.16);
+    }
+
+    .header-left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-tag.accent {
+      background: var(--accent-tint);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent-border);
+    }
+
+    .pill-tag.quick {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .page-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: #ffe4e6;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.62rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      line-height: 1.22;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      margin-top: 2px;
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-1-2 {
+      grid-template-columns: 1.15fr 1fr;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .content-card.highlight {
+      background: #f0f9ff;
+      border: 1.5px solid var(--accent-border);
+    }
+
+    .content-card.amber-highlight {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+    }
+
+    .content-card.teal-highlight {
+      background: #f0fdfa;
+      border: 1.5px solid #99f6e4;
+    }
+
+    .content-card.rose-highlight {
+      background: #fff1f2;
+      border: 1.5px solid #fecdd3;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bullet-list li {
+      font-size: 0.86rem;
+      line-height: 1.48;
+      color: #334155;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 0.72rem;
+      color: var(--accent-primary);
+    }
+
+    .formula-banner {
+      background: linear-gradient(135deg, #075985 0%, #0284c7 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin: 4px 0;
+    }
+
+    .formula-banner-light {
+      background: #ffffff;
+      border: 2px dashed var(--accent-primary);
+      border-radius: 12px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Middle Slide Watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+
+    .slide-footer {
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 6px;
+      border-top: 1px solid rgba(203, 213, 225, 0.6);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .large-credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #075985 0%, #0284c7 100%);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      border: 2px solid #bae6fd;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .large-credit-pill span.symbol {
+      color: #bae6fd;
+      font-size: 1.1rem;
+    }
+
+    .diagram-container {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      height: 100%;
+      min-height: 195px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* Quick Box Styles */
+    .quick-box-container {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid #fde68a;
+      box-shadow: var(--shadow-md);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .quick-q-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 4px solid #0284c7;
+    }
+
+    .quick-q-badge {
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-q-text {
+      font-size: 0.95rem;
+      line-height: 1.48;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .nav-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 4px 8px;
+      border-radius: 30px;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .key-hint {
+      position: absolute;
+      bottom: 15px;
+      left: 24px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      pointer-events: none;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .slide-select {
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    @media (max-width: 1280px) {
+      #presentation-viewport {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Presentation Viewport -->
+  <div id="presentation-viewport">
+    <div class="slides-container" id="deckContainer">
+
+      <!-- SLIDE 1: COVER SLIDE -->
+      <section class="slide active" id="slide-1">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>📚</span> GANITA PRAKASH PART II | GRADE 8
+          </div>
+          <div class="pill-tag">
+            Chapter 5 • Cover
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:18px;">
+          <div style="text-transform:uppercase; font-size:0.85rem; font-weight:800; letter-spacing:0.18em; color:var(--accent-secondary);">
+            CLASS 8 MATHEMATICS • CHAPTER 5
+          </div>
+          
+          <h1 style="font-family:var(--font-display); font-size:3.1rem; font-weight:700; color:var(--text-main); line-height:1.12; max-width:1050px;">
+            Tales by Dots and Lines
+          </h1>
+          
+          <p style="font-style:italic; font-size:1.12rem; color:var(--text-muted); max-width:870px; line-height:1.6;">
+            "Exhaustive point-by-point presentation covering the balancing act of the mean, median dynamics, frequency distributions, spreadsheets, line graph trends across time, diurnal activity strips, and thematic infographics directly from the textbook."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-top:8px;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              ⚖️ The Balancing Act & Distances
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🔢 Frequency Tables & Medians
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📊 Spreadsheets & Formulas
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              📈 Line Graphs & Infographics
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 1 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: 5.1 The Balancing Act: Mean as the Fulcrum -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.1 Concept Intro</span>
+            <h2 class="slide-title"><span class="icon">⚖️</span> The Balancing Act: Mean as a Physical Centre</h2>
+          </div>
+          <span class="page-pill">Page 103–104</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📖 Mean as the Centre of Gravity</div>
+              <p class="card-desc">
+                The <strong>arithmetic mean</strong> represents the physical point of balance (fulcrum) of a dataset.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Two Points:</strong> For $3$ and $7$, the mean is $\frac{3+7}{2} = 5$. It lies exactly halfway: distance to $3$ is $2$, distance to $7$ is $2$.</li>
+                <li><strong>Multiple Points:</strong> The mean is <em>not necessarily</em> the midpoint of the extreme values!</li>
+                <li><strong>The Fundamental Balance Law:</strong> The <strong>sum of distances of values on the left (LHS)</strong> equals the <strong>sum of distances of values on the right (RHS)</strong> of the mean:
+                  $$\sum_{\text{left}} (\bar{x} - x_i) = \sum_{\text{right}} (x_j - \bar{x})$$
+                </li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Fulcrum Balance -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 280 190" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#f0f9ff" rx="8"/>
+                <text x="140" y="24" font-size="11" font-weight="700" text-anchor="middle" fill="#0369a1">Dataset: {2, 4, 9} | Mean = 5</text>
+                
+                <!-- Number line axis -->
+                <line x1="20" y1="120" x2="260" y2="120" stroke="#0f172a" stroke-width="2"/>
+                
+                <!-- Ticks for 0 to 10 -->
+                <!-- x = 20 + val * 24 -->
+                <!-- 2: 68, 4: 116, 5: 140, 9: 236 -->
+                <line x1="68" y1="115" x2="68" y2="125" stroke="#64748b" stroke-width="1.5"/>
+                <text x="68" y="138" font-size="9" text-anchor="middle" fill="#475569">2</text>
+
+                <line x1="116" y1="115" x2="116" y2="125" stroke="#64748b" stroke-width="1.5"/>
+                <text x="116" y="138" font-size="9" text-anchor="middle" fill="#475569">4</text>
+
+                <line x1="140" y1="115" x2="140" y2="125" stroke="#0284c7" stroke-width="2"/>
+                <text x="140" y="138" font-size="10" font-weight="bold" text-anchor="middle" fill="#0284c7">5 (Mean)</text>
+
+                <line x1="236" y1="115" x2="236" y2="125" stroke="#64748b" stroke-width="1.5"/>
+                <text x="236" y="138" font-size="9" text-anchor="middle" fill="#475569">9</text>
+
+                <!-- Data Dots -->
+                <circle cx="68" cy="110" r="5" fill="#f59e0b"/>
+                <circle cx="116" cy="110" r="5" fill="#f59e0b"/>
+                <circle cx="236" cy="110" r="5" fill="#f59e0b"/>
+
+                <!-- Fulcrum Triangle at 5 -->
+                <polygon points="140,120 133,135 147,135" fill="#0284c7"/>
+
+                <!-- Distance indicators -->
+                <!-- From 2 to 5: dist 3 -->
+                <path d="M 68 85 L 140 85" stroke="#0369a1" stroke-width="1.5" marker-end="url(#arrow)"/>
+                <text x="104" y="78" font-size="9" font-weight="bold" fill="#0369a1">dist = 3</text>
+
+                <!-- From 4 to 5: dist 1 -->
+                <path d="M 116 100 L 140 100" stroke="#0369a1" stroke-width="1.5"/>
+                <text x="128" y="96" font-size="8" font-weight="bold" fill="#0369a1">1</text>
+
+                <!-- From 5 to 9: dist 4 -->
+                <path d="M 140 85 L 236 85" stroke="#e11d48" stroke-width="1.5"/>
+                <text x="188" y="78" font-size="9" font-weight="bold" fill="#e11d48">dist = 4</text>
+
+                <text x="140" y="165" font-size="10" font-weight="bold" text-anchor="middle" fill="#0f172a">Left sum: 3 + 1 = 4 | Right sum: 4</text>
+                <text x="140" y="180" font-size="8.5" text-anchor="middle" fill="#64748b">Fulcrum is balanced perfectly</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 2 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Quick Box 1 -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 103–104</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — The Balance Point of the Mean</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                For the numbers $6, 7,$ and $8$, what is the mean? What is the sum of distances on the left side of the mean, and on the right side?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Is the mean always the numerical midpoint between the lowest and highest values in a dataset? Give an example where it is not!
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Can there be more than one point on a number line where the sum of left distances equals the sum of right distances? Why or why not?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 3 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: 5.1 Inserting and Removing Values -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.1 Mean Dynamics</span>
+            <h2 class="slide-title"><span class="icon">🔄</span> Inserting and Removing Points: Tug of War</h2>
+          </div>
+          <span class="page-pill">Page 105–106</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Inserting Points</div>
+              <ul class="bullet-list">
+                <li><strong>Value $> \bar{x}$:</strong> The mean <strong>increases</strong> (shifts right) to rebalance distances.</li>
+                <li><strong>Value $< \bar{x}$:</strong> The mean <strong>decreases</strong> (shifts left).</li>
+                <li><strong>Value $= \bar{x}$:</strong> The mean remains <strong>completely unchanged</strong>!</li>
+              </ul>
+            </div>
+
+            <div class="content-card rose-highlight">
+              <div class="card-title">2. Removing Points</div>
+              <ul class="bullet-list">
+                <li><strong>Remove Value $> \bar{x}$:</strong> The mean <strong>decreases</strong> (less weight on right).</li>
+                <li><strong>Remove Value $< \bar{x}$:</strong> The mean <strong>increases</strong>.</li>
+                <li><strong>Remove Value $= \bar{x}$:</strong> The mean stays <strong>identical</strong>.</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">3. Unchanging Mean Sets</div>
+              <p class="card-desc">
+                Can we insert multiple values without changing the mean ($\bar{x} = 9$)?
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                Add two values below ($7$ and $7$, distances $2+2=4$) and one value above ($13$, distance $4$).
+                $$\text{LHS distance} = \text{RHS distance} = 4$$
+                The mean stays exactly $9$!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 4 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: Quick Box 2 -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 105–106</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Mean Perturbations & Stability</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                The mean of 10 students' quiz scores is 14. If a student who scored 20 joins the group, will the new class mean increase, decrease, or remain 14?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the mean score of a class is 75, what happens to the mean if we remove a student whose score was exactly 75?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                For a dataset with mean 9, you add two values: 6 and 12. Does the mean change? Explain using left and right balance distances.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 5 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: 5.1 Linear Transformations: Adding and Multiplying Data -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.1 Data Transformations</span>
+            <h2 class="slide-title"><span class="icon">📈</span> Shifting and Scaling: Algebraic Invariants</h2>
+          </div>
+          <span class="page-pill">Page 106–108</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">➕ Adding/Subtracting a Constant ($+k$ or $-k$)</div>
+              <p class="card-desc">
+                If every observation in a collection increases by a constant $k$, the entire distribution slides rigidly along the axis:
+              </p>
+              <div class="formula-banner">
+                $$\text{New Mean } = \bar{x} + k$$
+              </div>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Algebraic Proof:</strong>
+                  $$\frac{\sum (x_i + k)}{n} = \frac{\sum x_i + n \cdot k}{n} = \bar{x} + k$$
+                </li>
+                <li><strong>Shoe Height Example:</strong> Students wearing $1\text{ cm}$ thick shoes had average height $150.2\text{ cm}$. Without shoes, the true mean is $150.2 - 1 = \mathbf{149.2\text{ cm}}$!</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">✖️ Multiplying/Dividing by a Factor ($\times k$)</div>
+              <p class="card-desc">
+                If every observation is scaled by a non-zero factor $k$:
+              </p>
+              <div class="formula-banner" style="background:#0d9488;">
+                $$\text{New Mean } = k \cdot \bar{x}$$
+              </div>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Algebraic Proof:</strong>
+                  $$\frac{\sum (k \cdot x_i)}{n} = k \cdot \frac{\sum x_i}{n} = k \cdot \bar{x}$$
+                </li>
+                <li>If every player's weekly running mileage doubles ($\times 2$), the group mean running mileage doubles precisely.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 6 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: Quick Box 3 -->
+      <section class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 107–108</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Constant Shifts & Multipliers</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                The mean of 15 numbers is 24. If 5 is subtracted from every single number in the dataset, what is the new mean?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                The average temperature across 7 days was $28^\circ\text{C}$. If a meteorologist multiplies each temperature by 1.5, what is the new average?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Why does shifting all points on a dot plot to the right by 10 units shift the fulcrum by exactly 10 units?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 7 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: 5.1 Tinkering with the Median -->
+      <section class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.1 Median Behavior</span>
+            <h2 class="slide-title"><span class="icon">🎯</span> Tinkering with the Median: The Middle Value</h2>
+          </div>
+          <span class="page-pill">Page 108–109</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📖 Definition & Sorting Order</div>
+              <p class="card-desc">
+                The <strong>median</strong> is the central value when data is sorted in ascending order.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>For odd $N$: Exactly the $\frac{N+1}{2}$-th observation.</li>
+                <li>For even $N$: The arithmetic mean of the $\frac{N}{2}$-th and $\left(\frac{N}{2} + 1\right)$-th observations.</li>
+                <li><strong>Robustness:</strong> Extreme outliers (e.g., $1000$ instead of $10$) do not shift the median, while they drastically distort the mean!</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🔍 Response to New Entries</div>
+              <ul class="bullet-list">
+                <li>Original dataset: $7, 8, 9, 11, 13$ (Median $= 9$).</li>
+                <li><strong>Add value $> \text{Median}$ (e.g., 14):</strong> $7, 8, 9, 11, 13, 14 \implies \text{Median} = \frac{9+11}{2} = \mathbf{10}$ (increases).</li>
+                <li><strong>Add value $< \text{Median}$ (e.g., 5):</strong> $5, 7, 8, 9, 11, 13 \implies \text{Median} = \frac{8+9}{2} = \mathbf{8.5}$ (decreases).</li>
+                <li><strong>Equal Entries:</strong> If we insert two values—one on each side of the median—the median remains unchanged.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 8 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: Quick Box 4 -->
+      <section class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 108–109</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Median Ordering & Shifts</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What is the median of the 5 values: $3, 7, 9, 15, 20$? If we change the maximum value 20 to 2000, does the median change?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                In a list of 16 sorted numbers, which two rank positions must be averaged to determine the median?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Is the statement "Removing a value smaller than the median will always decrease the median" true or false?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 9 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: 5.1 Finding the Unknown & Correcting Errors -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.1 Problem Solving</span>
+            <h2 class="slide-title"><span class="icon">🔍</span> Finding the Unknown: Kushti Players & Coconut Trees</h2>
+          </div>
+          <span class="page-pill">Page 109</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">🤼 Coach Balwan's Smudged Kushti Sheet</div>
+              <p class="card-desc">
+                10 wrestlers' average weight was recorded as $39.2\text{ kg}$. Nine weights were legible: $42, 40, 39, 33, 48, 38, 42, 35, 32$.
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                $$\text{Total Sum} = 39.2 \times 10 = \mathbf{392\text{ kg}}$$
+                $$\text{Sum of 9 known weights} = \mathbf{349\text{ kg}}$$
+                $$\text{Missing weight } w = 392 - 349 = \mathbf{43\text{ kg}}$$
+              </div>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🥥 Venkayya's Coconut Harvest Error</div>
+              <p class="card-desc">
+                15 coconut trees had an average harvest of $25.6$. One tree's yield was misread as 3 coconuts higher than actual.
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                $$\text{Initial Recorded Total} = 25.6 \times 15 = \mathbf{384}$$
+                $$\text{Correct Actual Total} = 384 - 3 = \mathbf{381}$$
+                $$\text{True Mean Harvest} = \frac{381}{15} = \mathbf{25.4\text{ coconuts/tree}}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 10 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: Quick Box 5 -->
+      <section class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 109</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Total Sums & Audit Corrections</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                The mean of 5 numbers is 12. Four of the numbers are $8, 10, 14,$ and $16$. What is the fifth number?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the mean of a dataset of 15 values is 134, what is the exact sum of all 15 observations combined?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                The average score of 20 students was 65. If one score of 70 was accidentally entered as 90, by how much must the class total be reduced to correct the error?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 11 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: 5.1 Mean & Median with Frequency Distributions -->
+      <section class="slide" id="slide-12">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.1 Frequency Distributions</span>
+            <h2 class="slide-title"><span class="icon">👨‍👩‍👧‍👦</span> Class Family Size: Frequency Weighted Analysis</h2>
+          </div>
+          <span class="page-pill">Page 110</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📊 Weighted Mean ($\bar{x} = \frac{\sum f_i x_i}{\sum f_i}$)</div>
+              <p class="card-desc">
+                For 36 students, family sizes ($x_i$) occurred with frequencies ($f_i$):
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                $$\sum f_i x_i = (3 \times 3) + (4 \times 11) + (5 \times 9) + (6 \times 7) + (7 \times 3) + (8 \times 1) + (9 \times 1) + (10 \times 1)$$
+                $$= 9 + 44 + 45 + 42 + 21 + 8 + 9 + 10 = \mathbf{188}$$
+                $$\bar{x} = \frac{188}{36} \approx \mathbf{5.22\text{ members}}$$
+              </div>
+              <p class="card-desc" style="font-size:0.82rem; margin-top:2px;">
+                <strong>Common Pitfall:</strong> Never average the distinct size values $\frac{3+4+\dots+10}{8} = 6.5$. You must weight each by its frequency!
+              </p>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🎯 Cumulative Frequency Median</div>
+              <p class="card-desc">
+                With $N = 36$ values, the median is the average of the 18th and 19th ordered entries:
+              </p>
+              <ul class="bullet-list" style="font-size:0.83rem;">
+                <li>Size 3: Cumulative $= 3$</li>
+                <li>Size 4: Cumulative $= 3 + 11 = 14$ (positions 1–14)</li>
+                <li>Size 5: Cumulative $= 14 + 9 = 23$ (positions 15–23)</li>
+                <li>Both 18th and 19th values are <strong>5</strong>!</li>
+                <li><strong>Median Family Size</strong> $= \mathbf{5\text{ members}}$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 12 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: Quick Box 6 -->
+      <section class="slide" id="slide-13">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 110</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Weighted Averages & Cumulative Counts</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Why is it mathematically incorrect to calculate the average of a frequency table by merely averaging the distinct category values?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                In a survey of 50 people, cumulative frequencies reach 22 for value 3, and 38 for value 4. What is the median value of the survey?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If 4 students scored 10 marks and 6 students scored 20 marks, calculate the weighted mean score mentally!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 13 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: 5.1 Digital Spreadsheets & Formulas -->
+      <section class="slide" id="slide-14">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.1 Digital Tools</span>
+            <h2 class="slide-title"><span class="icon">💻</span> Spreadsheets: Automating Statistical Computation</h2>
+          </div>
+          <span class="page-pill">Page 111–113</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Cell Architecture</div>
+              <p class="card-desc">
+                A spreadsheet is a grid of rows (numbered $1, 2, 3\dots$) and columns (lettered $A, B, C\dots$).
+              </p>
+              <ul class="bullet-list" style="font-size:0.83rem;">
+                <li>Intersection forms a <strong>cell address</strong> (e.g., $E5$ = Farooq's Maths mark).</li>
+                <li>Cells store labels (text), numeric data, or computational expressions.</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Range Notation</div>
+              <p class="card-desc">
+                Described using <code>Start:End</code> format:
+              </p>
+              <ul class="bullet-list" style="font-size:0.83rem;">
+                <li><code>B3:G3</code>: Nagesh's marks across all 6 subjects in row 3.</li>
+                <li><code>D2:D6</code>: English scores of the first 5 students in column D.</li>
+                <li>Enables bulk mathematical operations in a single step!</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Formula Syntax</div>
+              <p class="card-desc">
+                Always prefixed with an equals sign (<code>=</code>):
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                <code>=SUM(B3:G3)</code> : Computes Nagesh's total score.<br>
+                <code>=AVERAGE(G2:G23)</code> : Computes class average in Science.<br>
+                Instant recalculation if any cell value updates!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 14 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: Quick Box 7 -->
+      <section class="slide" id="slide-15">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 112–113</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Spreadsheet Mechanics</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What character must always be typed first in a spreadsheet cell to indicate that you are entering a formula rather than plain text?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If student marks in Mathematics are stored from cell E2 to cell E23, write the exact spreadsheet formula to calculate the class average mark.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                What is the meaning of the cell range notation <code>B7:D7</code>? Does it describe a row segment or a column segment?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 15 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: 5.2 Line Graphs & Temporal Trends -->
+      <section class="slide" id="slide-16">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.2 Trend Visualisation</span>
+            <h2 class="slide-title"><span class="icon">📈</span> Line Graphs: Visualising Change Across Time</h2>
+          </div>
+          <span class="page-pill">Page 116–118</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🌡️ Clustered Column vs Line Graph</div>
+              <p class="card-desc">
+                Comparing monthly maximum temperatures of Kerala and Punjab (2023):
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Why Line Graphs Excel:</strong> When plotting continuous parameters over time, bar charts create visual clutter (e.g., 52 bars for 13 years of space launches!).</li>
+                <li>Lines connecting markers reveal <strong>rate of change</strong> via slope steepness (steeper $\implies$ faster change).</li>
+                <li><strong>Distinct Markers:</strong> Circle vs. square markers allow unambiguous black-and-white print reading and accessibility.</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🔍 Two-Step Interpretation Method</div>
+              <ul class="bullet-list">
+                <li><strong>Step 1 (Identify What is Given):</strong> Note axis labels, units ($^\circ\text{C}$), time intervals (months), and legend keys.</li>
+                <li><strong>Step 2 (Infer & Interpret Trends):</strong>
+                  <br>• <em>Punjab:</em> Extreme range ($19^\circ\text{C}$ in Jan $\to 38^\circ\text{C}$ in June peak).
+                  <br>• <em>Kerala:</em> Maritime stability ($29^\circ\text{C}$ to $33^\circ\text{C}$ flat curve all year).
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 16 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 17: Quick Box 8 -->
+      <section class="slide" id="slide-17">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 117–118</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Line Graphs & Climatic Comparison</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Why is a line graph generally preferred over a clustered column graph when visualizing data evolving over time?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Between Kerala and Punjab, which state displays a wider seasonal variation between its maximum summer and winter temperatures?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                What does a steep upward line segment between two consecutive time points signify compared to a gently sloping segment?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 17 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 18: 5.2 Case Study: Space Jam (UN OOSA Data) -->
+      <section class="slide" id="slide-18">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.2 Global Trends</span>
+            <h2 class="slide-title"><span class="icon">🚀</span> Space Jam: Growth in Annual Space Launches</h2>
+          </div>
+          <span class="page-pill">Page 119–120</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🛰️ Exponential Surge (2012–2024)</div>
+              <p class="card-desc">
+                Data from the United Nations Office for Outer Space Affairs (UN OOSA):
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Annual objects launched into orbit surged from $< 500$ in 2018 to nearly $\mathbf{2900}$ in 2023.</li>
+                <li><strong>USA Contribution:</strong> Rose steeply after 2019, accounting for roughly $\frac{3}{4}$th of total world launches by 2023–2024.</li>
+                <li>China and Russia maintained steady lines with combined annual counts around $400$.</li>
+                <li>The steep slope from 2019 to 2022 illustrates commercial satellite mega-constellations.</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Space Launch Line Chart -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 280 190" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
+                <text x="140" y="20" font-size="10.5" font-weight="700" text-anchor="middle" fill="#075985">Annual Space Launches (2012–2024)</text>
+
+                <!-- Axes -->
+                <line x1="35" y1="160" x2="265" y2="160" stroke="#94a3b8" stroke-width="1.2"/>
+                <line x1="35" y1="30" x2="35" y2="160" stroke="#94a3b8" stroke-width="1.2"/>
+
+                <text x="30" y="163" font-size="8" text-anchor="end" fill="#64748b">0</text>
+                <text x="30" y="100" font-size="8" text-anchor="end" fill="#64748b">1.5k</text>
+                <text x="30" y="40" font-size="8" text-anchor="end" fill="#64748b">3k</text>
+
+                <text x="40" y="172" font-size="8" fill="#64748b">'12</text>
+                <text x="110" y="172" font-size="8" fill="#64748b">'16</text>
+                <text x="180" y="172" font-size="8" fill="#64748b">'20</text>
+                <text x="250" y="172" font-size="8" fill="#64748b">'24</text>
+
+                <!-- World Trend Line (Green) -->
+                <path d="M 40 152 L 90 148 L 130 146 L 160 135 L 190 95 L 230 45 L 255 48" fill="none" stroke="#10b981" stroke-width="2.2"/>
+                <text x="260" y="44" font-size="8" font-weight="bold" fill="#10b981">World</text>
+
+                <!-- US Trend Line (Blue) -->
+                <path d="M 40 156 L 90 154 L 130 152 L 160 145 L 190 108 L 230 65 L 255 64" fill="none" stroke="#0284c7" stroke-width="2"/>
+                <text x="260" y="65" font-size="8" font-weight="bold" fill="#0284c7">USA</text>
+
+                <!-- China/Russia (Red/Gray flat bottom lines) -->
+                <path d="M 40 158 L 160 156 L 255 146" fill="none" stroke="#f43f5e" stroke-width="1.5"/>
+                <text x="260" y="148" font-size="8" fill="#f43f5e">China</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 18 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 19: Quick Box 9 -->
+      <section class="slide" id="slide-19">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 119–120</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Space Launch Data Interpretation</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Which calendar year recorded the absolute peak in the worldwide number of space objects launched between 2012 and 2024?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If the individual counts for USA, China, and Russia do not sum to the World total, what does this tell us about other nations?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                How many individual vertical columns would be required to display this 13-year, 4-category space dataset as a clustered bar chart?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 19 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 20: 5.2 Catch the Pattern in Rain (Monsoon Geography) -->
+      <section class="slide" id="slide-20">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.2 Indian Geography</span>
+            <h2 class="slide-title"><span class="icon">🌧️</span> Catch the Pattern: West Coast vs East Coast Monsoons</h2>
+          </div>
+          <span class="page-pill">Page 120–121</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">🌊 West Coast (South-West Monsoon)</div>
+              <p class="card-desc">
+                Cities: <strong>Kovalam, Udupi, Mumbai</strong>
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Dramatic rainfall peaks during <strong>June to August</strong>.</li>
+                <li>Udupi reaches an astounding peak of nearly $900\text{ mm}$ in July!</li>
+                <li>Direct exposure to the Arabian Sea branch of the South-West Monsoon.</li>
+                <li>Dry spell occurs uniformly from January to March.</li>
+              </ul>
+            </div>
+
+            <div class="content-card teal-highlight">
+              <div class="card-title">🌅 East Coast (North-East Retreating Monsoon)</div>
+              <p class="card-desc">
+                Cities: <strong>Rameswaram, Chennai, Puri</strong>
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Peak rainfall occurs much later: <strong>October to December</strong>.</li>
+                <li>Rameswaram stays completely dry from Jan to Sept, receiving rain only in late autumn.</li>
+                <li>Puri peaks in July–August due to Bay of Bengal depressions, illustrating regional nuance.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 20 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 21: Quick Box 10 -->
+      <section class="slide" id="slide-21">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 120–121</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Coastal Rainfall Regimes</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                During which specific window of months do Indian west coast cities like Udupi and Mumbai receive their heaviest rainfall?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why does Rameswaram on the south-east coast receive almost all of its annual precipitation in October–December?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                How is monthly average rainfall computed mathematically for a city across a 10-year measurement span?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 21 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 22: 5.2 Infographics & Activity Strips -->
+      <section class="slide" id="slide-22">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">5.2 Data Storytelling</span>
+            <h2 class="slide-title"><span class="icon">🍱</span> Visual Storytelling: Activity Strips & Food Maps</h2>
+          </div>
+          <span class="page-pill">Page 124–127</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🕒 Manoj's 48-Box Activity Strip</div>
+              <p class="card-desc">
+                Divides the 24-hour day into 48 colored blocks of <strong>30 minutes each</strong>:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Captures sleep ($14\text{ blocks} = 7\text{ h}$), school classes, homework, meals, exercise, and screen entertainment.</li>
+                <li>Immediately distinguishes a Friday (school routine) from a Sunday (free time & afternoon movies).</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🌾 Infographic: Wheat vs Rice Preferences</div>
+              <p class="card-desc">
+                NSSO 68th Round consumer expenditure data mapped across India:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Clear Diagonal Divide:</strong> Northwest states (Punjab $-78$, Haryana $-81$, Rajasthan $-93$) predominantly consume wheat.</li>
+                <li>East & South states (Assam $+95$, Manipur $+100$, Kerala $+79$) predominantly consume rice.</li>
+                <li>National preference: <strong>Rice wins ($+13.48$)</strong>.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 22 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 23: Quick Box 11 -->
+      <section class="slide" id="slide-23">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 124–127</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Data Communication Formats</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                In Manoj's 24-hour activity strip of 48 boxes, how many boxes represent 3 hours of study time?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                On the Wheat vs. Rice infographic map, what does a score of $+100$ represent? Does it mean the state eats zero grams of wheat?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                According to the National Time Use Survey 2024 sleep curve, at what stage of life do people typically get the minimum hours of night sleep?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 23 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 24: It's Puzzle Time! Game of Hex -->
+      <section class="slide" id="slide-24">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Strategy Game</span>
+            <h2 class="slide-title"><span class="icon">🎲</span> It's Puzzle Time! The Game of Hex</h2>
+          </div>
+          <span class="page-pill">Page 132</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📜 Rules of Hex (Piet Hein & John Nash)</div>
+              <p class="card-desc">
+                Played on an $11 \times 11$ rhombus-shaped board composed of interlocking hexagonal cells:
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Two players are assigned opposite pairs of board sides (e.g., Red vs. Blue).</li>
+                <li>Players take turns placing a colored marker on any vacant hexagon.</li>
+                <li>Markers can never be moved, jumped, or captured.</li>
+                <li><strong>Objective:</strong> Construct an unbroken connected chain of your colored stones joining your two assigned opposite borders!</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🧠 Mathematical Significance</div>
+              <ul class="bullet-list">
+                <li><strong>No Draws Theorem:</strong> Mathematician John Nash proved that a game of Hex can <em>never end in a tie</em>! One player must eventually connect their borders.</li>
+                <li><strong>First-Player Win:</strong> Using a strategy-stealing argument, the first player theoretically has a guaranteed winning strategy.</li>
+                <li>Combines graph connectivity, topology, and discrete geometric logic.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 24 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 25: Exercise Highlights (Worked Problems Part 1) -->
+      <section class="slide" id="slide-25">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Key Worked Exemplars: Mean & Median Calculations</h2>
+          </div>
+          <span class="page-pill">Page 113–115</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Problem 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Missing Dot for Mean 9</div>
+              <p class="card-desc">
+                Known dots: $4, 7, 8, 8, 9, 9, 9, 9, 9, 11$. Known sum $= 84$ ($n=10$). Find missing 11th value for $\bar{x} = 9$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                $$\text{Required Total} = 11 \times 9 = 99$$
+                $$\text{Missing dot } x = 99 - 84 = \mathbf{15}$$
+                Checks balance: LHS distance $(5+2+1+1) = 9$; RHS distance $(2+4) + x_{\text{dist}} = 9 \implies \mathbf{15}$.
+              </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. First 50 Multiples of 4</div>
+              <p class="card-desc">
+                Find the mean of $4, 8, 12, \dots, 200$.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                Factor out 4:
+                $$\bar{x} = 4 \times \left(\frac{1 + 2 + \dots + 50}{50}\right)$$
+                $$= 4 \times \frac{50 \times 51}{2 \times 50} = 4 \times 25.5 = \mathbf{102}$$
+                Equivalently: midpoint $\frac{4 + 200}{2} = \mathbf{102}$!
+              </div>
+            </div>
+
+            <!-- Problem 3 -->
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Median Constrained Entry</div>
+              <p class="card-desc">
+                Data: $8, 8, 12, 18, 25, 29, 35, 39, 47, 73, p$ ($11$ values). If median is $29$, what values can $p$ take?
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                For median to be the 6th value $29$:
+                There must be 5 values $\le 29$.
+                The 5 known values $\le 29$ are $8, 8, 12, 18, 25$.
+                Therefore, $p$ can be <strong>any value $\ge 29$</strong>!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 25 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 26: Exercise Highlights (Worked Problems Part 2) -->
+      <section class="slide" id="slide-26">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Advanced Worked Exemplars: Lighting & Sleep Trends</h2>
+          </div>
+          <span class="page-pill">Page 127, 130</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Exemplar 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. The $3 \times 3$ Mean Grid</div>
+              <p class="card-desc">
+                Fill a $3 \times 3$ grid with 9 distinct numbers so that the mean of every row, column, and diagonal is 10.
+              </p>
+              <div style="font-size:0.81rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                Mean 10 $\implies$ row sum $= 30$.
+                Central cell must be 10.
+                Using shifted Lo Shu magic square ($+5$ to each entry $1\dots 9$):
+                Rows: $[13, 8, 9]$, $[6, 10, 14]$, $[11, 12, 7]$.
+                All 8 lines sum to 30!
+              </div>
+            </div>
+
+            <!-- Exemplar 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Rural Energy Transition</div>
+              <p class="card-desc">
+                Primary lighting source over 40 years (1983–2023):
+              </p>
+              <div style="font-size:0.81rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                • 1983: Rural kerosene $= 84\%$, electricity $= 15\%$.<br>
+                • 2000: Intersection crossover point ($\approx 50\%$ each).<br>
+                • 2023: Electricity reached nearly $98\%$, kerosene dropped $< 2\%$.<br>
+                Dramatic technological transformation!
+              </div>
+            </div>
+
+            <!-- Exemplar 3 -->
+            <div class="content-card teal-highlight">
+              <div class="card-title">3. Group Weight Perturbation</div>
+              <p class="card-desc">
+                Previous mean weight $= 65.3\text{ kg}$. This month: one person loses $2\text{ kg}$, two people gain $1\text{ kg}$ each.
+              </p>
+              <div style="font-size:0.81rem; background:#ffffff; padding:7px 10px; border-radius:6px; line-height:1.45;">
+                $$\text{Net weight change} = -2 + 1 + 1 = \mathbf{0\text{ kg}}$$
+                $$\Delta \text{Mean} = \frac{0}{N} = \mathbf{0}$$
+                The group mean weight remains <strong>strictly unchanged at } 65.3\text{ kg</strong>!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 26 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 27: Chapter Master Summary -->
+      <section class="slide" id="slide-27">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Chapter Summary</span>
+            <h2 class="slide-title"><span class="icon">📋</span> Master Summary Checklist</h2>
+          </div>
+          <span class="page-pill">Page 133</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">✅ Central Tendency Mechanics</div>
+              <ul class="bullet-list">
+                <li><strong>Mean as a Fulcrum:</strong> The unique balance point where total distance on the left equals total distance on the right ($\sum \Delta x_{\text{left}} = \sum \Delta x_{\text{right}}$).</li>
+                <li><strong>Insertion Rule:</strong> Values $> \bar{x}$ increase the mean; values $< \bar{x}$ decrease the mean; values $= \bar{x}$ leave the mean unaffected.</li>
+                <li><strong>Rigid Shift & Scaling:</strong> Adding $k$ shifts mean to $\bar{x} + k$; multiplying by $k$ scales mean to $k\bar{x}$.</li>
+                <li><strong>Median Resilience:</strong> Middle value in ranked data; unaffected by distant outlier values.</li>
+                <li><strong>Weighted Frequencies:</strong> $\bar{x} = \frac{\sum f_i x_i}{\sum f_i}$; median tracked via cumulative frequency counts.</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">✅ Visual Analytics & Digital Spreadsheets</div>
+              <ul class="bullet-list">
+                <li><strong>Spreadsheets:</strong> Rectangular grid of cells referenced as Column-Row ($E5$); automated range functions (<code>=SUM()</code>, <code>=AVERAGE()</code>).</li>
+                <li><strong>Line Graphs:</strong> Optimal format for tracking continuous changes across time; slope gradient reflects rate of change.</li>
+                <li><strong>Two-Step Protocol:</strong> Step 1 (identify axes, scales, legends) $\to$ Step 2 (infer trends, inflection points, and causes).</li>
+                <li><strong>Climatic Case Studies:</strong> Contrast between extreme continental ranges (Punjab) and maritime moderation (Kerala).</li>
+                <li><strong>Activity Strips:</strong> Chronological 48-box representations translating daily schedules into comparative visual patterns.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 27 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 28: CLOSING SLIDE (THANK YOU) -->
+      <section class="slide" id="slide-28">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>🏁</span> End of Chapter 5
+          </div>
+          <div class="pill-tag">
+            Complete Deck Review
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:18px;">
+          <div style="font-size:0.9rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-secondary);">
+            NCERT • GANITA PRAKASH GRADE 8
+          </div>
+
+          <h1 style="font-family:var(--font-display); font-size:3.5rem; font-weight:700; color:var(--text-main); line-height:1.1;">
+            Thank You!
+          </h1>
+
+          <p style="font-style:italic; font-size:1.18rem; color:var(--text-muted); max-width:860px; line-height:1.6;">
+            "Numbers tell stories when we give them voice. Through the balance of the mean, the patience of the median, and the gentle curve of a line across time, data reveals the hidden rhythms of our everyday world."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">✨ Interactive Classroom Slides</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">📐 Complete Section Coverage</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">⚡ Quick Box Question Slides Included</span>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 28 / 28</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Slide Footer Keyboard Hint -->
+    <div class="key-hint">
+      Use ◀ / ▶ or Space to navigate • [F] Fullscreen
+    </div>
+
+    <!-- On-screen Navigation Controls (bottom-right) -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" title="Previous Slide (Left Arrow)">❮</button>
+      <select class="slide-select" id="slideSelect" title="Jump to Slide"></select>
+      <button class="nav-btn" id="nextBtn" title="Next Slide (Right Arrow / Space)">❯</button>
+      <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen" style="font-size:0.75rem;">⛶</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideSelect = document.getElementById('slideSelect');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const viewport = document.getElementById('presentation-viewport');
+
+      // Populate slide jump menu
+      slides.forEach((slide, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        const titleEl = slide.querySelector('.slide-title');
+        const titleText = titleEl ? titleEl.innerText.replace(/[\n\r]+/g, ' ').trim() : (idx === 0 ? 'Cover Slide' : 'Slide ' + (idx + 1));
+        option.textContent = `${idx + 1}. ${titleText.substring(0, 32)}...`;
+        slideSelect.appendChild(option);
+      });
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        slides[currentIndex].classList.add('active');
+        slideSelect.value = currentIndex;
+
+        // Render KaTeX dynamic formulas
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentIndex], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      // Event Listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      slideSelect.addEventListener('change', (e) => {
+        updateSlide(parseInt(e.target.value, 10));
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullScreen();
+        }
+      });
+
+      // Touch / Swipe Navigation for tablets & interactive boards
+      let touchStartX = 0;
+      let touchStartY = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        const diffY = e.changedTouches[0].screenY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+          if (diffX < 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Fullscreen support
+      function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+          viewport.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullScreen);
+    });
+  </script>
+</body>
+</html>

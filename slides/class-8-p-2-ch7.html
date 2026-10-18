@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ganita Prakash | Grade 8 - Chapter 7: Area</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for pristine math formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0d9488;         /* Emerald/Teal Theme for Chapter 7 Area */
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --accent: #f59e0b;          /* Warm Amber Accent */
+      --accent-soft: #fef3c7;
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e6fffa 45%, #f8fafc 100%);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: rgba(13, 148, 136, 0.18);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(13, 148, 136, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(13, 148, 136, 0.16), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #042f2e;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Standard 16:9 Deck Stage */
+    #deck-container {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      background: var(--bg-gradient);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Slide Base Architecture */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 42px 56px 40px 56px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(36px) scale(0.99);
+      transition: opacity 0.32s ease, transform 0.32s ease;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+      z-index: 2;
+    }
+
+    /* Typography */
+    h1, h2, h3, .heading-font {
+      font-family: 'Fredoka', cursive;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .pill-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-primary {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid rgba(13, 148, 136, 0.3);
+    }
+
+    .pill-page {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .pill-quick {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fcd34d;
+    }
+
+    .slide-title {
+      font-size: 2.1rem;
+      color: #134e4a;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      margin-top: -8px;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+    }
+
+    /* Grids & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      height: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      height: 100%;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(8px);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card li {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .card ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card li::before {
+      content: "✦ ";
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .highlight-box {
+      background: #f0fdfa;
+      border-left: 5px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      margin-top: auto;
+    }
+
+    .formula-banner {
+      background: linear-gradient(90deg, #ecfdf5, #f0fdfa);
+      border: 1.5px dashed var(--primary);
+      border-radius: var(--radius-md);
+      padding: 10px 18px;
+      text-align: center;
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 8px 0;
+    }
+
+    /* Footer & Watermark Elements */
+    .slide-footer {
+      position: absolute;
+      bottom: 14px;
+      left: 56px;
+      right: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      border-top: 1px solid rgba(203, 213, 225, 0.65);
+      padding-top: 8px;
+      pointer-events: none;
+    }
+
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 24px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 10;
+    }
+
+    .credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+      color: #ffffff !important;
+      padding: 12px 30px;
+      border-radius: 9999px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .credit-pill span.sub {
+      color: #ccfbf1;
+      font-size: 0.88rem;
+      font-weight: 400;
+    }
+
+    /* Global Controller Navigation */
+    .nav-buttons {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .nav-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 32px;
+      color: #94a3b8;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: rgba(15, 23, 42, 0.82);
+      padding: 6px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Geometric Diagram Representations */
+    .geo-sketch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      border: 1.5px dashed var(--primary);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-hint">Use ◀ / ▶ or Space to navigate</div>
+  <div class="nav-buttons">
+    <button class="nav-btn" onclick="prevSlide()" aria-label="Previous Slide">❮</button>
+    <button class="nav-btn" onclick="nextSlide()" aria-label="Next Slide">❯</button>
+  </div>
+
+  <div id="deck-container">
+    <!-- SLIDE 1: COVER SLIDE -->
+    <section class="slide active">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">GANITA PRAKASH | GRADE 8 PART-II</span>
+        <span class="pill-tag pill-primary">Chapter 7 • Cover</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <span style="font-size: 1rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px;">
+          CLASS 8 MATHEMATICS • CHAPTER 7
+        </span>
+        <h1 style="font-size: 4rem; color: #134e4a; line-height: 1.1; margin-bottom: 16px;">
+          AREA
+        </h1>
+        <p style="font-size: 1.25rem; font-style: italic; color: #475569; max-width: 800px; margin-bottom: 34px;">
+          Exhaustive point-by-point presentation investigating unit square measures, dissection theorems, triangle transformations, parallelograms, rhombuses, trapeziums, and practical land units.
+        </p>
+
+        <!-- Mandatory Credit Pill on Cover -->
+        <div class="credit-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 1 / 25</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 7.1 RECTANGLES & SQUARES -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.1 • RECTANGLES & SQUARES</span>
+        <span class="pill-tag pill-page">Pages 148–149</span>
+      </div>
+      <h2 class="slide-title">Equi-Area Partitions & The Unit Square Measure</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🧩 Creative Equal-Area Partitions</h3>
+            <ul>
+              <li><strong>Infinitely Many Divisions:</strong> A square can be divided into 4 parts of equal area in endless creative shapes.</li>
+              <li><strong>Equal Compression & Expansion:</strong> If a boundary line is modified by pushing inwards and pulling outwards by identical amounts, the total enclosed area remains invariant.</li>
+              <li><strong>Rangoli Context:</strong> Comparing surface coverage depends entirely on how much space a boundary covers, not merely its boundary outline.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🟩 Counting Unit Squares</h3>
+            <p>Area is formally measured by counting the number of non-overlapping unit squares ($1\text{ cm} \times 1\text{ cm}$) packed inside:</p>
+            <ul>
+              <li>$7\text{ cm} \times 4\text{ cm}$ rectangle contains $7 \times 4 = 28$ unit squares ($28\text{ cm}^2$).</li>
+              <li>$8\text{ cm} \times 3\text{ cm}$ rectangle contains $8 \times 3 = 24$ unit squares ($24\text{ cm}^2$).</li>
+            </ul>
+            <div class="formula-banner">$$\text{Area of a Rectangle} = \text{length} \times \text{width}$$</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 2 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX - 7.1 -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Rectangles & Area Basics</h2>
+      <p class="slide-subtitle">Oral checks to reinforce conceptual understanding of area versus boundary length.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why does an alteration with equal compression on one side and equal expansion on the other preserve the exact area of each part of a square?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Between a $7\text{ cm} \times 4\text{ cm}$ rectangle and an $8\text{ cm} \times 3\text{ cm}$ rectangle, which holds more unit squares, and by how many?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Can a region have a fractional area even though area is defined by counting unit squares?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 3 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 4: AREA VS PERIMETER -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.1 • CONCEPT COMPARISON</span>
+        <span class="pill-tag pill-page">Page 150</span>
+      </div>
+      <h2 class="slide-title">Why Perimeter Cannot Measure Area</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">⚠️ Perimeter Independence</h3>
+            <ul>
+              <li><strong>Equal Perimeter $\neq$ Equal Area:</strong> Regions can share identical perimeter but have completely different areas.</li>
+              <li><strong>Counter-Intuitive Reversal:</strong> A region with a strictly larger perimeter can actually enclose a smaller area!
+                $$\text{Perimeter}(\text{Region 1}) > \text{Perimeter}(\text{Region 2})$$
+                $$\text{yet } \text{Area}(\text{Region 1}) < \text{Area}(\text{Region 2})$$
+              </li>
+              <li>Boundary length only measures the linear path around the perimeter; area measures 2D space inside.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🔍 Diagonal Split of a Rectangle</h3>
+            <p>The diagonal divides any rectangle into two congruent right triangles:</p>
+            <ul>
+              <li>Each triangle covers exactly half the unit squares of the outer rectangle.</li>
+              <li>For dimensions $7\text{ cm} \times 4\text{ cm}$:
+                $$\text{Area} = \frac{1}{2} \times 7 \times 4 = 14\text{ cm}^2$$
+              </li>
+            </ul>
+            <div class="highlight-box">
+              <strong>Key Takeaway:</strong> Two shapes with equal perimeter do NOT necessarily hold equal internal surface capacity!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 4 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX - AREA VS PERIMETER -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Area vs. Perimeter</h2>
+      <p class="slide-subtitle">Engage students in counter-examples and spatial deduction.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Can you provide dimensions for two rectangles where the first has a larger perimeter than the second, but a smaller area?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If two rectangles have the exact same area, must their perimeters be identical?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why does cutting a rectangle cleanly along its diagonal produce two triangles of precisely equal area?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 5 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 6: PATHS & SPIRAL TUBES -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.1 • PATHS & COMPOSITE REGIONS</span>
+        <span class="pill-tag pill-page">Pages 151–152</span>
+      </div>
+      <h2 class="slide-title">Surrounding Paths, Cross-Paths, and Tube Dissections</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🛣️ Outer Paths & Shifting Invariance</h3>
+            <ul>
+              <li><strong>Outer Path Formula:</strong>
+                $$\text{Area}(\text{Path}) = \text{Area}(\text{Outer } ABCD) - \text{Area}(\text{Inner } EFGH)$$
+              </li>
+              <li><strong>Invariance under Movement:</strong> As long as the inner rectangular park $EFGH$ remains entirely inside $ABCD$, the total area of the path does NOT change when the boundary shifts!</li>
+              <li><strong>Cross-Paths:</strong> Computed by summing both rectangular paths and subtracting their overlapping square intersection once.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🌀 Spiral Tube Unfolding</h3>
+            <ul>
+              <li><strong>Constant Width Principle:</strong> A complex folded tube or spiral of uniform width $w$ can be decomposed into rectilinear segments.</li>
+              <li><strong>Equivalent Straight Tube:</strong> A bent tube of equal area is equivalent to a single uncoiled straight tube of equal midline length and width.</li>
+              <li><strong>Scaling Effect:</strong> When the side length of a square doubles, its total enclosed area increases by a factor of $2^2 = 4$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 6 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX - PATHS & TUBES -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Paths & Geometric Dissections</h2>
+      <p class="slide-subtitle">Quick classroom checks on path areas, overlaps, and scaling.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why must the central overlapping square be subtracted when calculating the area of two intersecting cross-paths?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If an inner park moves towards a corner without breaking the outer boundary, why does the path area stay invariant?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If the side length of a square doubles, by what multiple does its area expand?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 7 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 8: 7.2 AREA OF A TRIANGLE -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.2 • AREA OF A TRIANGLE</span>
+        <span class="pill-tag pill-page">Pages 153–154</span>
+      </div>
+      <h2 class="slide-title">Area of a Triangle: Acute, Right, and Obtuse</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">📐 Rectangular Enclosure Proof</h3>
+            <p>Enclose $\triangle ABC$ inside rectangle $BCDE$ with base $BC$ and height $h$:</p>
+            <ul>
+              <li>The altitude $AX$ splits the triangle into two right triangles.</li>
+              <li>Each right triangle has half the area of its corresponding sub-rectangle.</li>
+              <li>Summing both halves gives:
+                $$\text{Area}(\triangle ABC) = \frac{1}{2} \times \text{base} \times \text{height}$$
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🔺 Obtuse Triangle Derivation</h3>
+            <p>When the altitude falls outside the base ($D$ lies on extended $CB$):</p>
+            <div class="formula-banner">$$\text{Area}(\triangle ABC) = \text{Area}(\triangle ADC) - \text{Area}(\triangle ADB)$$</div>
+            <ul>
+              <li>$\text{Area} = \frac{1}{2}h(DC) - \frac{1}{2}h(DB) = \frac{1}{2}h(DC - DB)$</li>
+              <li>Since $DC - DB = BC$, we obtain:
+                $$\mathbf{\text{Area}(\triangle ABC) = \frac{1}{2} \times \text{base} \times \text{height}}$$
+              </li>
+            </ul>
+            <div class="highlight-box">The formula holds universal validity across every triangle classification!</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 8 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX - TRIANGLE FORMULA -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — The Universal Triangle Formula</h2>
+      <p class="slide-subtitle">Oral checks testing base-altitude relationships.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why does an altitude falling outside an obtuse triangle still yield $\frac{1}{2} \times \text{base} \times \text{height}$?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              In a right-angled triangle with legs $a$ and $b$, what serve as the base and height?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Can a triangle possess more than one valid base-height combination to determine its area?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 9 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 10: TRIANGLE APPLICATIONS & MEDIANS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.2 • THEOREMS & APPLICATIONS</span>
+        <span class="pill-tag pill-page">Pages 155–156</span>
+      </div>
+      <h2 class="slide-title">Double-Altitude Computation & The Median Theorem</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">📏 Finding Unknown Altitudes</h3>
+            <p>Equating two different base-altitude views of the same triangle:</p>
+            <div class="formula-banner">$$\text{Area} = \frac{1}{2} \times b_1 \times h_1 = \frac{1}{2} \times b_2 \times h_2$$</div>
+            <ul>
+              <li>Given $BC = 5$, altitude $AX = 3 \implies \text{Area} = \frac{15}{2}$.</li>
+              <li>With side $AC = 4$ and unknown altitude $BY$:
+                $$\frac{1}{2} \times 4 \times BY = \frac{15}{2} \implies 2BY = 7.5 \implies BY = 3.75$$
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">⚖️ Median Area Bisector Theorem</h3>
+            <div class="highlight-box" style="margin-bottom: 12px;">
+              <strong>Theorem:</strong> The line joining a vertex of a triangle to the midpoint of its opposite side (median) divides the triangle into two triangles of equal area.
+            </div>
+            <ul>
+              <li>Both sub-triangles share the <strong>exact same altitude</strong> dropped from the common vertex.</li>
+              <li>Their bases are identical in length ($OD = OB$).</li>
+              <li>Hence, diagonals of a rectangle bisect it into <strong>4 triangles of equal area</strong>!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 10 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 11: QUICK BOX - TRIANGLE APPLICATIONS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Medians & Altitude Equivalence</h2>
+      <p class="slide-subtitle">Rapid questions on median bisections and multi-altitude triangles.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Are the two triangles created by a median congruent, or do they simply have equal areas?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why do all four triangles formed by the intersecting diagonals of a rectangle have equal area, even though they aren't all congruent?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If a triangle's base is doubled while its altitude is halved, what happens to its total area?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 11 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 12: PARALLEL LINES & MINIMUM PERIMETER -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.2 • OPTIMIZATION & REFLECTION</span>
+        <span class="pill-tag pill-page">Pages 156–157</span>
+      </div>
+      <h2 class="slide-title">Triangles Between Parallel Lines & Minimum Perimeter</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">📐 Constant Area Property ($l \parallel BC$)</h3>
+            <ul>
+              <li>Consider base $BC$ fixed, and third vertex $A$ moving anywhere along line $l \parallel BC$.</li>
+              <li>Since distance between parallel lines is constant, <strong>altitude $h$ never changes</strong>.</li>
+              <li><strong>Result:</strong> ALL triangles on base $BC$ with vertex on $l$ have the <strong>exact same area</strong>!</li>
+            </ul>
+            <div class="formula-banner">$$\text{Area} = \frac{1}{2} \times BC \times h = \text{Constant}$$</div>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🪞 Optical Reflection for Shortest Path</h3>
+            <ul>
+              <li>To minimize perimeter $BC + AB + AC$, we must minimize $AB + AC$.</li>
+              <li>Reflect $C$ across mirror line $l$ to $C'$. Then $AC = AC'$.</li>
+              <li>The path $B \rightarrow A \rightarrow C$ equals $B \rightarrow A \rightarrow C'$.</li>
+              <li>Shortest distance between two points is a <strong>straight line</strong>: connect $B$ directly to $C'$!</li>
+              <li>$A$ must lie on the <strong>perpendicular bisector</strong> of $BC$ (Isosceles triangle).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 12 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 13: QUICK BOX - PARALLEL LINES -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Parallel Lines & Perimeter Extremes</h2>
+      <p class="slide-subtitle">Test conceptual grasp of invariant areas and extremal boundary lengths.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why do all triangles having the same base and their third vertex on a line parallel to the base have identical area?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Among all such equi-area triangles between parallel lines, which one achieves the absolute minimum perimeter?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Is there a maximum perimeter for a triangle with base $BC$ and vertex on line $l$? What happens as vertex $A$ moves infinitely far?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 13 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 14: SULBA-SUTRAS TRANSFORMATIONS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">HISTORICAL CONNECTIONS</span>
+        <span class="pill-tag pill-page">Pages 158, 164</span>
+      </div>
+      <h2 class="slide-title">Equi-Area Dissections in the Śulba-Sūtras</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">📜 Ancient Vedic Altar Geometry</h3>
+            <ul>
+              <li><strong>Prescribed Altar Geometries:</strong> Ancient Indian rituals required fire altars (*vedis*) of differing geometric shapes (falcons, circles, rectangles) to enclose precisely identical surface areas.</li>
+              <li><strong>The Śulba-Sūtras:</strong> Geometric manuals providing exact ruler-and-cord methods to reshape figures without changing area.</li>
+              <li>Parallel explorations exist in Euclid's *Elements* Book I.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">✂️ Dissection Transformation Methods</h3>
+            <ul>
+              <li><strong>Rectangle to Triangle:</strong> Double the base and join to the apex, or slice along the diagonal and rearrange.</li>
+              <li><strong>Isosceles Triangle to Rectangle:</strong> Cut along the altitude into two right triangles, invert and reattach along the hypotenuses to form a rectangle!</li>
+              <li><strong>Dissection:</strong> The process of slicing a polygon into pieces and reassembling them into another shape of identical area.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 14 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 15: AREA OF ANY POLYGON -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.2 • TRIANGULATION</span>
+        <span class="pill-tag pill-page">Pages 159–160</span>
+      </div>
+      <h2 class="slide-title">Triangulation: Computing the Area of Any Polygon</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">🔺 Fundamental Triangulation Principle</h3>
+            <ul>
+              <li>Every polygon (quadrilateral, pentagon, hexagon, etc.) can be completely divided into non-overlapping triangles.</li>
+              <li>Once triangulated, the total area of the polygon is simply the sum of the areas of its component triangles:
+                $$\text{Area}(\text{Polygon}) = \sum \text{Area}(\triangle_i)$$
+              </li>
+              <li>Therefore, knowing how to compute triangle areas unlocks the area of ANY polygon!</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">📐 General Quadrilateral Formula</h3>
+            <p>For quadrilateral $ABCD$ with diagonal $AC$ and perpendicular offsets $h_1, h_2$:</p>
+            <div class="formula-banner">$$\text{Area}(ABCD) = \frac{1}{2} \times AC \times (h_1 + h_2)$$</div>
+            <ul>
+              <li>$\text{Area}(\triangle ABC) = \frac{1}{2} \times AC \times h_1$</li>
+              <li>$\text{Area}(\triangle ADC) = \frac{1}{2} \times AC \times h_2$</li>
+              <li>Summing gives half the product of diagonal and sum of perpendicular offsets!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 15 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 16: QUICK BOX - POLYGONS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Triangulating Arbitrary Polygons</h2>
+      <p class="slide-subtitle">Oral checks on decomposition strategies for regular and irregular polygons.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              What is the minimum number of triangles required to triangulate an $n$-sided polygon from a single vertex?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If a diagonal of length $22\text{ cm}$ has two perpendicular offsets of $3\text{ cm}$ each on opposite sides, what is the quadrilateral's area?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              How can a regular hexagon be decomposed into 6 identical triangles to determine its area?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 16 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 17: AREA OF A PARALLELOGRAM -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.2 • PARALLELOGRAMS</span>
+        <span class="pill-tag pill-page">Pages 161–163</span>
+      </div>
+      <h2 class="slide-title">Area of a Parallelogram: Dissection to Rectangle</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">✂️ Dissection by RHS Congruence</h3>
+            <ul>
+              <li>Drop perpendicular $AX \perp CD$ (height $h$).</li>
+              <li>Cut right triangle $\triangle AXD$ and shift it to the other end.</li>
+              <li>By RHS congruence, $\triangle AXD \cong \triangle BYC$ because:
+                $$\angle AXD = \angle BYC = 90^\circ, \; AX = BY, \; AD = BC$$
+              </li>
+              <li>The pieces fit seamlessly into rectangle $ABYX$!</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">📐 The Master Formula</h3>
+            <p>Since $DX = CY$, the base of the rectangle $XY = DC = \text{base}$:</p>
+            <div class="formula-banner">$$\text{Area of a Parallelogram} = \text{base} \times \text{height}$$</div>
+            <ul>
+              <li>Any side can serve as base, matched with its own perpendicular distance to the opposite side.</li>
+              <li><strong>Equal Sides Comparison:</strong> A rectangle and a non-rectangular parallelogram sharing identical side lengths $5\text{ cm}$ and $4\text{ cm}$ do NOT have equal area—the rectangle is strictly larger!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 17 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 18: QUICK BOX - PARALLELOGRAMS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Parallelograms & Heights</h2>
+      <p class="slide-subtitle">Oral problems testing base-height choices and rectangle comparisons.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why is the area of a rectangle strictly greater than that of a slanted parallelogram having the same side lengths?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If a parallelogram has base $7\text{ cm}$ and height $4\text{ cm}$, what is its area?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If the area is $48\text{ cm}^2$ and one side is $6\text{ cm}$, what is the corresponding altitude to that side?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 18 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 19: AREA OF A RHOMBUS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.2 • RHOMBUS</span>
+        <span class="pill-tag pill-page">Pages 164–165</span>
+      </div>
+      <h2 class="slide-title">Area of a Rhombus: Diagonal Product Formula</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">💎 Perpendicular Diagonals Property</h3>
+            <ul>
+              <li>A rhombus is a parallelogram whose 4 sides are equal.</li>
+              <li>Its diagonals are <strong>perpendicular bisectors</strong> of each other.</li>
+              <li>The diagonals partition the rhombus into 4 congruent right triangles:
+                $$\triangle AOB \cong \triangle COB \cong \triangle COD \cong \triangle AOD$$
+              </li>
+              <li>Each right triangle has legs $\frac{d_1}{2}$ and $\frac{d_2}{2}$.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🧮 Two Derivations of the Formula</h3>
+            <ul>
+              <li><strong>By Dissection (Śulba-Sūtras):</strong> Join halves into rectangle $WXYZ$ of dimensions $d_1$ by $\frac{d_2}{2}$.
+                $$\text{Area} = d_1 \times \frac{d_2}{2} = \frac{1}{2} d_1 d_2$$
+              </li>
+              <li><strong>By Triangle Sum:</strong> $\triangle ADB + \triangle CDB$:
+                $$\text{Area} = \frac{1}{2}(AO \cdot BD) + \frac{1}{2}(CO \cdot BD) = \frac{1}{2}(AO + CO)BD = \frac{1}{2} d_1 d_2$$
+              </li>
+            </ul>
+            <div class="formula-banner">$$\text{Area of a Rhombus} = \frac{1}{2} \times d_1 \times d_2$$</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 19 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 20: AREA OF A TRAPEZIUM -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.2 • TRAPEZIUM</span>
+        <span class="pill-tag pill-page">Pages 166–168</span>
+      </div>
+      <h2 class="slide-title">Area of a Trapezium: Two Elegant Derivations</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">Approach 1: Rectangle + Triangles</h3>
+            <p>Drop perpendiculars $WM, XN$ creating sub-segments $x, a, y$ with $b = x+a+y$:</p>
+            <ul>
+              <li>$\text{Area} = \frac{1}{2}hx + ha + \frac{1}{2}hy = \frac{1}{2}h(x + y + 2a)$</li>
+              <li>Substitute $x+y = b-a$:
+                $$\text{Area} = \frac{1}{2}h(b - a + 2a) = \mathbf{\frac{1}{2}h(a + b)}$$
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">Approach 2: Joining Two Copies</h3>
+            <p>Take two identical copies of trapezium with parallel sides $a$ and $b$, invert the second copy, and join along the non-parallel side:</p>
+            <ul>
+              <li>Angles add to $x+y = 180^\circ \implies$ forms a <strong>single giant parallelogram</strong>!</li>
+              <li>Base of parallelogram $= a + b$, height $= h$.</li>
+              <li>Since it contains two identical trapeziums:
+                $$\mathbf{\text{Area}(\text{Trapezium}) = \frac{1}{2} \times \text{height} \times (a + b)}$$
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 20 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX - RHOMBUS & TRAPEZIUM -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-quick">⚡ Quick Box</span>
+        <span class="pill-tag pill-primary">Classroom Check</span>
+      </div>
+      <h2 class="slide-title">⚡ Quick Box — Rhombuses & Trapeziums</h2>
+      <p class="slide-subtitle">Oral checks testing diagonal products and parallel-side averages.</p>
+      <div class="slide-body">
+        <div class="card" style="justify-content: space-around;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q1</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If a rhombus has diagonals of length $20\text{ cm}$ and $15\text{ cm}$, what is its area?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q2</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              Why does joining two identical trapeziums always yield a parallelogram with base $(a+b)$?
+            </p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 16px; align-items: flex-start;">
+            <span class="pill-tag pill-primary" style="font-size: 1rem; padding: 6px 12px;">Q3</span>
+            <p style="font-size: 1.15rem; font-weight: 600; color: #1e293b;">
+              If a trapezium has parallel sides of $12\text{ ft}$ and $18\text{ ft}$ with height $8\text{ ft}$, what is its area?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 21 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 22: AREAS IN REAL LIFE -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">7.3 • REAL LIFE MEASUREMENTS</span>
+        <span class="pill-tag pill-page">Pages 170–171</span>
+      </div>
+      <h2 class="slide-title">Areas in Everyday Life: Imperial Units & Land Measures</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">📐 Imperial to Metric Conversions</h3>
+            <ul>
+              <li><strong>Linear Conversions:</strong> $1\text{ in} = 2.54\text{ cm}$, $1\text{ ft} = 12\text{ in}$.</li>
+              <li><strong>Square Inch:</strong>
+                $$1\text{ in}^2 = 2.54^2\text{ cm}^2 = 6.4516\text{ cm}^2$$
+              </li>
+              <li><strong>Square Foot:</strong>
+                $$1\text{ ft}^2 = 12^2\text{ in}^2 = 144\text{ in}^2 \approx 929.03\text{ cm}^2$$
+              </li>
+              <li><strong>A4 Paper Size:</strong> $21\text{ cm} \times 29.7\text{ cm} = 623.7\text{ cm}^2$.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">🌾 Large Land Units Across India</h3>
+            <ul>
+              <li><strong>Acre:</strong> $1\text{ acre} = 43,560\text{ ft}^2 \approx 4046.86\text{ m}^2$.</li>
+              <li><strong>Square Kilometer:</strong> $1\text{ km}^2 = 1,000,000\text{ m}^2$.</li>
+              <li><strong>Regional Indian Units:</strong> Bigha, Gaj, Katha, Dhur, Cent, Guntha, Ankanam.</li>
+              <li>These varied regional units reflect India's rich, historic traditions of agricultural measurement.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 22 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 23: EXERCISE HIGHLIGHTS -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">EXERCISE HIGHLIGHTS</span>
+        <span class="pill-tag pill-page">Pages 157, 163, 169</span>
+      </div>
+      <h2 class="slide-title">Representative Worked Exercise Solutions</h2>
+      <div class="slide-body">
+        <div class="grid-3">
+          <!-- Problem 1: Dual Altitude -->
+          <div class="card">
+            <h3 class="card-title" style="font-size: 1.05rem;">🔺 Dual Altitude (P. 158 Q2)</h3>
+            <p style="font-size: 0.86rem; color: #475569;">
+              <strong>Given:</strong> Base $BC = 6$, $AX = 4$, side $AC = 8$. Find altitude $BY$.
+            </p>
+            <div style="font-size: 0.85rem; line-height: 1.45; margin: 6px 0;">
+              $\text{Area} = \frac{1}{2} \times 6 \times 4 = 12$<br>
+              Also $\text{Area} = \frac{1}{2} \times 8 \times BY$<br>
+              $4 \cdot BY = 12 \implies BY = 3$
+            </div>
+            <div class="highlight-box" style="margin-top: auto; padding: 6px 10px; font-size: 0.88rem;">
+              <strong>Ans:</strong> $BY = 3\text{ units}$
+            </div>
+          </div>
+
+          <!-- Problem 2: Parallelogram Missing Height -->
+          <div class="card">
+            <h3 class="card-title" style="font-size: 1.05rem;">▱ Parallelogram Heights (P. 163 Q3)</h3>
+            <p style="font-size: 0.86rem; color: #475569;">
+              <strong>Given:</strong> Base $SR = 12$, $QM = 6$, side $PS = 7.6$. Find $QN$.
+            </p>
+            <div style="font-size: 0.85rem; line-height: 1.45; margin: 6px 0;">
+              $\text{Area} = 12 \times 6 = 72\text{ cm}^2$<br>
+              Also $\text{Area} = PS \times QN$<br>
+              $7.6 \times QN = 72$<br>
+              $QN = \frac{72}{7.6} \approx 9.47\text{ cm}$
+            </div>
+            <div class="highlight-box" style="margin-top: auto; padding: 6px 10px; font-size: 0.88rem;">
+              <strong>Ans:</strong> $QN \approx 9.47\text{ cm}$
+            </div>
+          </div>
+
+          <!-- Problem 3: Trapezium Area -->
+          <div class="card">
+            <h3 class="card-title" style="font-size: 1.05rem;">⏢ Trapezium Area (P. 169 Q3-ii)</h3>
+            <p style="font-size: 0.86rem; color: #475569;">
+              <strong>Given:</strong> $a = 24\text{ m}$, $b = 36\text{ m}$, height $h = 14\text{ m}$.
+            </p>
+            <div style="font-size: 0.85rem; line-height: 1.45; margin: 6px 0;">
+              $\text{Area} = \frac{1}{2} h (a + b)$<br>
+              $= \frac{1}{2} \times 14 \times (24 + 36)$<br>
+              $= 7 \times 60 = 420\text{ m}^2$
+            </div>
+            <div class="highlight-box" style="margin-top: auto; padding: 6px 10px; font-size: 0.88rem;">
+              <strong>Ans:</strong> $\text{Area} = 420\text{ m}^2$
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 23 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 24: CHAPTER SUMMARY CHECKLIST -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">RECAP & SYNTHESIS</span>
+        <span class="pill-tag pill-page">Page 171</span>
+      </div>
+      <h2 class="slide-title">Chapter 7 Summary Checklist</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3 class="card-title">✅ Core Principles & Formulas</h3>
+            <ul style="gap: 10px;">
+              <li><strong>Unit Square Measure:</strong> Area counts 2D space inside, independent of perimeter.</li>
+              <li><strong>Triangle Formula:</strong> $\text{Area} = \frac{1}{2} \times \text{base} \times \text{height}$ applies universally across acute, right, and obtuse types.</li>
+              <li><strong>Median Area Property:</strong> Medians divide any triangle into two regions of equal area.</li>
+              <li><strong>Triangulation:</strong> Any polygon decomposes into triangles to evaluate total surface area.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="card-title">✅ Quadrilaterals & Units</h3>
+            <ul style="gap: 10px;">
+              <li><strong>Parallelogram:</strong> $\text{Area} = \text{base} \times \text{height}$ by rectangular dissection.</li>
+              <li><strong>Rhombus:</strong> $\text{Area} = \frac{1}{2} \times d_1 \times d_2$ (half the product of diagonals).</li>
+              <li><strong>Trapezium:</strong> $\text{Area} = \frac{1}{2} \times h \times (a + b)$ (half height times sum of parallel sides).</li>
+              <li><strong>Real-Life Measures:</strong> $1\text{ in}^2 = 6.4516\text{ cm}^2$, $1\text{ acre} = 43,560\text{ ft}^2$.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 24 / 25</span>
+      </div>
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+    </section>
+
+    <!-- SLIDE 25: CLOSING SLIDE -->
+    <section class="slide">
+      <div class="header-row">
+        <span class="pill-tag pill-primary">GANITA PRAKASH | GRADE 8 PART-II</span>
+        <span class="pill-tag pill-primary">Chapter 7 • Complete</span>
+      </div>
+
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <span style="font-size: 1rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px;">
+          END OF CHAPTER 7
+        </span>
+        <h1 style="font-size: 4rem; color: #134e4a; line-height: 1.1; margin-bottom: 20px;">
+          THANK YOU
+        </h1>
+        <p style="font-size: 1.25rem; font-style: italic; color: #475569; max-width: 780px; margin-bottom: 34px;">
+          "Geometry enlightens the intellect and sets one's mind right. Through dissection and transformation, complex areas unfold into elegant, simple truths."
+        </p>
+
+        <!-- Mandatory Credit Pill on Closing Slide -->
+        <div class="credit-pill">
+          <span>✦ Akash Srivastva</span>
+          <span class="sub">(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 8 Part-II</span>
+        <span>Slide 25 / 25</span>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    // Keyboard navigation controls
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // Touch swipe navigation for tablets and touch displays
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextSlide();
+      } else if (touchEndX - touchStartX > 50) {
+        prevSlide();
+      }
+    }, false);
+  </script>
+</body>
+</html>

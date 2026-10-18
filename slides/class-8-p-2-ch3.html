@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: Proportional Reasoning-2 | Grade 8 Mathematics</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for crisp mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 14% 18%, #f0fdfa 0%, #ccfbf1 42%, #f8fafc 100%);
+      --accent-primary: #0d9488; /* Teal Primary */
+      --accent-secondary: #0f766e;
+      --accent-dark: #134e4a;
+      --accent-tint: #f0fdfa;
+      --accent-border: #99f6e4;
+      --accent-coral: #e11d48;
+      --accent-amber: #d97706;
+      --accent-blue: #0284c7;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --font-display: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #041f1e;
+      color: var(--text-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+        /* 16:9 Presentation Stage */
+    #presentation-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: var(--bg-gradient);
+      box-shadow: none; /* Box shadow hata dein */
+      border-radius: 0; /* Corners hatane ke liye */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: none; /* Border hata dein */
+    }
+
+    .slides-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+       padding: 30px 40px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(12px);
+      transition: opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1), transform 0.36s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.36s;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 2;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(13, 148, 136, 0.18);
+    }
+
+    .header-left-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 9999px;
+      background: #ccfbf1;
+      color: #0f766e;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-tag.accent {
+      background: var(--accent-tint);
+      color: var(--accent-dark);
+      border: 1px solid var(--accent-border);
+    }
+
+    .pill-tag.quick {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .page-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: #ffe4e6;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 1.62rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      line-height: 1.22;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      margin-top: 2px;
+    }
+
+    .cards-grid {
+      display: grid;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-1-2 {
+      grid-template-columns: 1.15fr 1fr;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 15px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .content-card.highlight {
+      background: #f0fdfa;
+      border: 1.5px solid var(--accent-border);
+    }
+
+    .content-card.amber-highlight {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+    }
+
+    .content-card.blue-highlight {
+      background: #f0f9ff;
+      border: 1.5px solid #bae6fd;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bullet-list li {
+      font-size: 0.86rem;
+      line-height: 1.48;
+      color: #334155;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .bullet-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0px;
+      font-size: 0.72rem;
+      color: var(--accent-primary);
+    }
+
+    .formula-banner {
+      background: linear-gradient(135deg, #134e4a 0%, #0d9488 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      margin: 4px 0;
+    }
+
+    .formula-banner-light {
+      background: #ffffff;
+      border: 2px dashed var(--accent-primary);
+      border-radius: 12px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Middle Slide Watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.35;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+
+    .slide-footer {
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 6px;
+      border-top: 1px solid rgba(203, 213, 225, 0.6);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .large-credit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #134e4a 0%, #0d9488 100%);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      box-shadow: var(--shadow-md);
+      border: 2px solid #99f6e4;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .large-credit-pill span.symbol {
+      color: #99f6e4;
+      font-size: 1.1rem;
+    }
+
+    .diagram-container {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      height: 100%;
+      min-height: 200px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    /* Quick Box Styles */
+    .quick-box-container {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 2px solid #fde68a;
+      box-shadow: var(--shadow-md);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .quick-q-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border-left: 4px solid #0d9488;
+    }
+
+    .quick-q-badge {
+      background: #0d9488;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-q-text {
+      font-size: 0.95rem;
+      line-height: 1.48;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .nav-controls {
+      position: absolute;
+      bottom: 12px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 4px 8px;
+      border-radius: 30px;
+      border: 1px solid rgba(203, 213, 225, 0.7);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f5f9;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    .key-hint {
+      position: absolute;
+      bottom: 15px;
+      left: 24px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      pointer-events: none;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .slide-select {
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    @media (max-width: 1280px) {
+      #presentation-viewport {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Presentation Viewport -->
+  <div id="presentation-viewport">
+    <div class="slides-container" id="deckContainer">
+
+      <!-- SLIDE 1: COVER SLIDE -->
+      <section class="slide active" id="slide-1">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>📚</span> GANITA PRAKASH PART II | GRADE 8
+          </div>
+          <div class="pill-tag">
+            Chapter 3 • Cover
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:18px;">
+          <div style="text-transform:uppercase; font-size:0.85rem; font-weight:800; letter-spacing:0.18em; color:var(--accent-secondary);">
+            CLASS 8 MATHEMATICS • CHAPTER 3
+          </div>
+          
+          <h1 style="font-family:var(--font-display); font-size:3.2rem; font-weight:700; color:var(--text-main); line-height:1.12; max-width:1050px;">
+            Proportional Reasoning-2
+          </h1>
+          
+          <p style="font-style:italic; font-size:1.12rem; color:var(--text-muted); max-width:870px; line-height:1.6;">
+            "Exhaustive point-by-point presentation covering proportional relationships, cartographic Representative Fractions, multi-term ratios, dividing a whole, pie charts, and inverse variations directly from the textbook."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-top:8px;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              ⚖️ Proportionality Recap & Idlis
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🗺️ Representative Fraction (RF)
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🥣 Multi-Term Ratios & Splitting
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:6px 14px; border-radius:12px; font-size:0.8rem; font-weight:600; color:#334155; box-shadow:var(--shadow-sm);">
+              🥧 Pie Charts & Inverse Variation
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 1 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: 3.1 Proportionality - A Quick Recap -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.1 Recap</span>
+            <h2 class="slide-title"><span class="icon">🥣</span> Proportionality — A Quick Recap</h2>
+          </div>
+          <span class="page-pill">Page 55</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📖 What is a Proportional Relationship?</div>
+              <p class="card-desc">
+                When two or more related quantities change by the <strong>same multiplicative factor</strong>, we call that relationship a proportional relationship.
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li><strong>Idli Batter Recipe:</strong> For $2\text{ cups}$ of rice, we add $1\text{ cup}$ of urad dal ($2:1$).</li>
+                <li><strong>Viswanath:</strong> Mixes $6\text{ cups}$ rice with $3\text{ cups}$ dal ($6:3$).</li>
+                <li><strong>Puneet:</strong> Mixes $4\text{ cups}$ rice with $2\text{ cups}$ dal ($4:2$).</li>
+                <li>Both scale the original recipe by factor 3 and factor 2 respectively!</li>
+              </ul>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">🔄 Cross-Multiplication Test</div>
+              <p class="card-desc">
+                To test whether two ratios $a:b$ and $c:d$ form a true proportion:
+              </p>
+              <div class="formula-banner">
+                $$a:b::c:d \iff a \times d = b \times c \quad \text{or} \quad \frac{a}{c} = \frac{b}{d}$$
+              </div>
+              <div style="background:#ffffff; border:1px solid #bae6fd; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                For Viswanath ($6:3$) and Puneet ($4:2$):
+                $$6 \times 2 = 12 \quad \text{and} \quad 3 \times 4 = 12$$
+                Products are identical, proving proportional equivalence!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 2 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Quick Box 1 -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 55</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Proportionality Basics</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                If 2 quantities are in the ratio $3:5$, what happens to the second quantity when the first quantity is multiplied by 4?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Check by cross-multiplication whether $8:12$ and $10:15$ form a true proportion.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If an idli recipe requires rice and urad dal in the ratio $2:1$, how much urad dal is needed for $9\text{ cups}$ of rice?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 3 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: 3.2 Ratios in Maps (Representative Fraction) -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.2 Map Ratios</span>
+            <h2 class="slide-title"><span class="icon">🗺️</span> Ratios in Maps: The Representative Fraction (RF)</h2>
+          </div>
+          <span class="page-pill">Page 56</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🧭 Understanding RF 1:60,00,000</div>
+              <p class="card-desc">
+                A <strong>Representative Fraction (RF)</strong> expresses the direct ratio between a measured distance on a paper map and the corresponding real-world distance on the ground.
+              </p>
+              <div class="formula-banner">
+                $$\text{Scale Ratio } = \frac{\text{Distance on Map}}{\text{Actual Geographical Distance}}$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>$RF = 1:60,00,000$ signifies that $1\text{ cm}$ on the map represents $60,00,000\text{ cm}$ on the ground.</li>
+                <li><strong>Geographical Distance:</strong> Refers to the straight-line aerial distance ("as the crow flies"), NOT the winding road distance!</li>
+              </ul>
+            </div>
+
+            <!-- SVG Diagram of Map Scale Conversion -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 300 200" width="100%" height="100%" style="font-family:var(--font-body);">
+                <rect x="20" y="20" width="260" height="160" rx="10" fill="#f8fafc" stroke="#0d9488" stroke-width="1.8"/>
+                <text x="150" y="45" font-size="12" font-weight="700" text-anchor="middle" fill="#0f766e">Map Scale Conversion Chain</text>
+
+                <rect x="35" y="65" width="230" height="30" rx="6" fill="#ccfbf1"/>
+                <text x="150" y="85" font-size="11" font-weight="bold" text-anchor="middle" fill="#134e4a">1 cm on map = 60,00,000 cm</text>
+
+                <path d="M 150 98 L 150 114" stroke="#0d9488" stroke-width="2" marker-end="url(#arrow)"/>
+
+                <rect x="35" y="118" width="230" height="48" rx="6" fill="#f0fdfa" stroke="#99f6e4"/>
+                <text x="150" y="136" font-size="10" text-anchor="middle" fill="#334155">Convert cm to meters ($\div 100$): $60,000\text{ m}$</text>
+                <text x="150" y="154" font-size="11" font-weight="bold" text-anchor="middle" fill="#0f766e">Convert meters to km ($\div 1000$): 60 km</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 4 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: 3.2 Measuring Distances & Classroom Map Activity -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.2 Map Applications</span>
+            <h2 class="slide-title"><span class="icon">📏</span> Map Distances & Scale Making Activity</h2>
+          </div>
+          <span class="page-pill">Page 56–57</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">📍 Calculating Inter-City Distances</div>
+              <p class="card-desc">
+                Using a ruler on the South India textbook map ($RF = 1:60,00,000 \implies 1\text{ cm} = 60\text{ km}$):
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Bengaluru to Chennai:</strong> Map distance $\approx 4.8\text{ cm}$.
+                  $$\text{Actual Distance} = 4.8 \times 60 = \mathbf{288\text{ km}}$$
+                </li>
+                <li><strong>Mangaluru to Chennai:</strong> Map distance $\approx 9.7\text{ cm}$.
+                  $$\text{Actual Distance} = 9.7 \times 60 = \mathbf{582\text{ km}}$$
+                </li>
+                <li>Different maps with varying scale ratios (e.g., $1:10,00,000$) yield identical ground distances when computed correctly.</li>
+              </ul>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🏫 Classroom Map Making ($1:50$)</div>
+              <p class="card-desc">
+                Hands-on activity: Create an accurate blueprint sketch of your classroom to scale!
+              </p>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Scale Choice $1:50$:</strong> Every $1\text{ cm}$ drawn on chart paper represents $50\text{ cm}$ ($0.5\text{ m}$) of actual classroom floor length.</li>
+                <li>A $6\text{ m}$ wall is drawn as $\frac{600}{50} = \mathbf{12\text{ cm}}$.</li>
+                <li>Plot teacher's table, blackboard, students' desks, fans, and light points using standardized geographic symbols.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 5 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: Quick Box 2 -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 56–57</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Map Scales & Conversions</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                What does a representative fraction (RF) of $1:25,000$ indicate in terms of meters on the ground for every $1\text{ cm}$ on the map?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                Why does a map scale indicate geographical straight-line distance rather than actual highway driving distance?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If your classroom length is $8\text{ meters}$, how many centimeters long should it be drawn on a sketch with scale $1:50$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 6 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: 3.3 Ratios with More than 2 Terms -->
+      <section class="slide" id="slide-7">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.3 Multi-Term Ratios</span>
+            <h2 class="slide-title"><span class="icon">🌶️</span> Multi-Term Ratios: The Spice Mix Recipe</h2>
+          </div>
+          <span class="page-pill">Page 57–58</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🥣 Viswanath's 4-Ingredient Mix</div>
+              <p class="card-desc">
+                Viswanath experiments with a traditional spice powder recipe consisting of 4 parts:
+              </p>
+              <div class="formula-banner">
+                $$\text{Coriander} : \text{Red Chillies} : \text{Toor Dal} : \text{Methi} = 8 : 4 : 2 : 1$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Scaling with Multiple Terms:</strong> Ratios can contain 3, 4, or more terms.</li>
+                <li>To preserve identical flavor, every term must be scaled by the <strong>exact same factor</strong>.</li>
+                <li>If Puneet only has 2 red chillies (half of 4), all ingredients are multiplied by $\frac{1}{2}$:
+                  $$8:4:2:1 :: 4:2:1:0.5$$
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">📜 General Rule for Multi-Term Proportion</div>
+              <p class="card-desc">
+                When two multi-term ratios are proportional:
+              </p>
+              <div class="formula-banner" style="background:#0284c7;">
+                $$a : b : c : d :: p : q : r : s \iff \frac{a}{p} = \frac{b}{q} = \frac{c}{r} = \frac{d}{s}$$
+              </div>
+              <p class="card-desc" style="font-size:0.86rem; color:#0369a1; font-weight:600; margin-top:6px;">
+                Every pairwise quotient between corresponding components remains strictly invariant!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 7 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: Examples 1 & 2: Paint & Concrete Multi-Term Ratios -->
+      <section class="slide" id="slide-8">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.3 Practical Applications</span>
+            <h2 class="slide-title"><span class="icon">🎨</span> Paint Mixing & Structural Concrete Ratios</h2>
+          </div>
+          <span class="page-pill">Page 58</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <!-- Example 1: Paint -->
+            <div class="content-card highlight">
+              <div class="card-title">🎨 Example 1: Purple Paint ($2:3:5$)</div>
+              <p class="card-desc">
+                Ratio: $\text{Red} : \text{Blue} : \text{White} = 2 : 3 : 5$.
+                <br>Yasmin has $10\text{ litres}$ of white paint.
+              </p>
+              <div style="background:#ffffff; border:1px solid #99f6e4; padding:8px 12px; border-radius:8px; font-size:0.84rem; line-height:1.45;">
+                $$5\text{ parts} = 10\text{ litres} \implies 1\text{ part} = 10 \div 5 = 2\text{ litres}$$
+                $$\text{Red} = 2 \times 2 = \mathbf{4\text{ litres}}$$
+                $$\text{Blue} = 3 \times 2 = \mathbf{6\text{ litres}}$$
+                $$\text{Total Volume} = 4 + 6 + 10 = \mathbf{20\text{ litres}}$$
+              </div>
+            </div>
+
+            <!-- Example 2: Concrete -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">🏗️ Example 2: High-Strength Concrete</div>
+              <p class="card-desc">
+                Ratio: $\text{Cement} : \text{Sand} : \text{Gravel} = 1 : 1.5 : 3$.
+                <br>Given: $3\text{ bags}$ of cement available.
+              </p>
+              <div style="background:#ffffff; border:1px solid #fde68a; padding:8px 12px; border-radius:8px; font-size:0.84rem; line-height:1.45;">
+                Scaling factor $k = 3$:
+                $$\text{Cement} = 1 \times 3 = \mathbf{3\text{ bags}}$$
+                $$\text{Sand} = 1.5 \times 3 = \mathbf{4.5\text{ bags}}$$
+                $$\text{Gravel} = 3 \times 3 = \mathbf{9\text{ bags}}$$
+                $$\text{Total Concrete} = 3 + 4.5 + 9 = \mathbf{16.5\text{ bags}}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 8 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: Quick Box 3 -->
+      <section class="slide" id="slide-9">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 57–58</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Multi-Term Ratios</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                In Viswanath's spice mix $8:4:2:1$, how many spoons of coriander seeds are needed if you decide to use 8 red chillies?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                A drink syrup requires water, lemon juice, and honey in the ratio $10:2:1$. If you use $60\text{ ml}$ of lemon juice, how much honey is required?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                If the ratio of cement to sand to gravel is $1:2:4$, how many total bags of concrete can you produce with 5 bags of cement?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 9 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: 3.4 Dividing a Whole in a Given Ratio -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.4 Dividing a Whole</span>
+            <h2 class="slide-title"><span class="icon">⚖️</span> Dividing a Given Total in a Multi-Term Ratio</h2>
+          </div>
+          <span class="page-pill">Page 58–59</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📖 The Mathematical Principle</div>
+              <p class="card-desc">
+                When dividing a known total quantity $X$ into a multi-term ratio $a : b : c : \dots$:
+              </p>
+              <div class="formula-banner">
+                $$\text{Share of Component } A = X \times \frac{a}{a + b + c + \dots}$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li>Step 1: Compute sum of all terms: $S = a + b + c + \dots$</li>
+                <li>Step 2: Determine unitary value of 1 part: $k = \frac{X}{S}$.</li>
+                <li>Step 3: Multiply each term by $k$ to allocate exact quantities.</li>
+              </ul>
+            </div>
+
+            <div class="content-card">
+              <div class="card-title">🏗️ Example 3: 110 Units of Concrete</div>
+              <p class="card-desc">
+                Ratio: Cement : Sand : Gravel = $1 : 1.5 : 3$. Total needed = $110\text{ units}$.
+              </p>
+              <div style="background:#f8fafc; border:1px solid #cbd5e1; padding:10px 14px; border-radius:10px; font-size:0.85rem; line-height:1.5;">
+                $$\text{Sum of terms} = 1 + 1.5 + 3 = 5.5\text{ parts}$$
+                $$\text{Scale multiplier} = 110 \div 5.5 = \mathbf{20}$$
+                $$\text{Cement} = 1 \times 20 = \mathbf{20\text{ units}}$$
+                $$\text{Sand} = 1.5 \times 20 = \mathbf{30\text{ units}}$$
+                $$\text{Gravel} = 3 \times 20 = \mathbf{60\text{ units}}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 10 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: Geometric Ratio Application (Triangles) -->
+      <section class="slide" id="slide-11">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.4 Geometry Link</span>
+            <h2 class="slide-title"><span class="icon">📐</span> Geometric Application: Triangles in Ratios</h2>
+          </div>
+          <span class="page-pill">Page 60</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🔺 Example 5: Angle Ratio $1:3:5$</div>
+              <p class="card-desc">
+                The interior angles of any triangle sum to $180^\circ$. If angles are in ratio $1:3:5$:
+              </p>
+              <div style="background:#ffffff; border:1px solid #99f6e4; padding:8px 12px; border-radius:8px; font-size:0.85rem; line-height:1.45;">
+                $$\text{Sum of parts} = 1 + 3 + 5 = 9\text{ parts}$$
+                $$\angle A = 180^\circ \times \frac{1}{9} = \mathbf{20^\circ}$$
+                $$\angle B = 180^\circ \times \frac{3}{9} = \mathbf{60^\circ}$$
+                $$\angle C = 180^\circ \times \frac{5}{9} = \mathbf{100^\circ}$$
+              </div>
+              <p class="card-desc" style="font-size:0.83rem; margin-top:4px;">
+                Verification: $20^\circ + 60^\circ + 100^\circ = 180^\circ$ (Obtuse scalene triangle).
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">⚠️ Sidelength Ratio $1:3:5$ Warning!</div>
+              <p class="card-desc">
+                Can you construct a triangle with side lengths in ratio $1:3:5$?
+              </p>
+              <div class="formula-banner" style="background:#d97706;">
+                $$\text{Triangle Inequality Theorem: } a + b > c$$
+              </div>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Here, shortest sides: $1 + 3 = 4$.</li>
+                <li>Longest side: $5$.</li>
+                <li>Since $4 < 5$, the two shorter segments <strong>cannot even touch</strong>!</li>
+                <li><strong>Impossible triangle!</strong> Ratio constraints must respect geometric laws.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 11 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: Quick Box 4 -->
+      <section class="slide" id="slide-12">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 59–60</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Dividing Totals & Triangles</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                A 150-minute cricket practice session is split into warm-up, batting, bowling, and fielding in the ratio $3:4:3:5$. How many minutes are spent batting?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                A collection of 100 coins has ₹10, ₹5, ₹2, and ₹1 coins in the ratio $4:3:2:1$. How many ₹10 coins are there in the collection?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Are all triangles drawn with side lengths in the ratio $3:4:5$ congruent, or are they similar? Explain why!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 12 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: 3.5 A Slice of the Pie (Pie Charts) -->
+      <section class="slide" id="slide-13">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.5 Pie Charts</span>
+            <h2 class="slide-title"><span class="icon">🥧</span> A Slice of the Pie: Proportions in Data</h2>
+          </div>
+          <span class="page-pill">Page 60–61</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📊 Grade Distribution Example (40 Students)</div>
+              <p class="card-desc">
+                A pie chart represents parts of a whole through circular sectors. Total angle around circle center is strictly $360^\circ$.
+              </p>
+              <div style="background:#ffffff; border:1px solid #99f6e4; border-radius:10px; overflow:hidden;">
+                <table style="width:100%; border-collapse:collapse; font-size:0.83rem; text-align:center;">
+                  <tr style="background:#ccfbf1; color:#0f766e; font-weight:700;">
+                    <th style="padding:5px;">Grade</th>
+                    <th>Count</th>
+                    <th>Simplified Ratio</th>
+                    <th>Central Sector Angle</th>
+                  </tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">A</td><td>12</td><td>6</td><td>$\frac{6}{20} \times 360^\circ = \mathbf{108^\circ}$</td></tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">B</td><td>10</td><td>5</td><td>$\frac{5}{20} \times 360^\circ = \mathbf{90^\circ}$</td></tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">C</td><td>8</td><td>4</td><td>$\frac{4}{20} \times 360^\circ = \mathbf{72^\circ}$</td></tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">D</td><td>6</td><td>3</td><td>$\frac{3}{20} \times 360^\circ = \mathbf{54^\circ}$</td></tr>
+                  <tr><td style="padding:4px;">E</td><td>4</td><td>2</td><td>$\frac{2}{20} \times 360^\circ = \mathbf{36^\circ}$</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- SVG Diagram of Step-by-Step Pie Chart -->
+            <div class="diagram-container">
+              <svg viewBox="0 0 240 210" width="100%" height="100%" style="font-family:var(--font-body);">
+                <circle cx="120" cy="105" r="85" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+                
+                <!-- Sector A: 108 deg (0 to 108) -->
+                <path d="M 120 105 L 205 105 A 85 85 0 0 1 93.7 185.8 Z" fill="#0d9488" fill-opacity="0.8"/>
+                <text x="155" y="145" font-size="11" font-weight="bold" fill="#ffffff">A: 108°</text>
+
+                <!-- Sector B: 90 deg (108 to 198) -->
+                <path d="M 120 105 L 93.7 185.8 A 85 85 0 0 1 39.2 78.7 Z" fill="#f59e0b" fill-opacity="0.8"/>
+                <text x="75" y="140" font-size="11" font-weight="bold" fill="#ffffff">B: 90°</text>
+
+                <!-- Sector C: 72 deg (198 to 270) -->
+                <path d="M 120 105 L 39.2 78.7 A 85 85 0 0 1 120 20 Z" fill="#0284c7" fill-opacity="0.8"/>
+                <text x="70" y="65" font-size="10" font-weight="bold" fill="#ffffff">C: 72°</text>
+
+                <!-- Sector D: 54 deg (270 to 324) -->
+                <path d="M 120 105 L 120 20 A 85 85 0 0 1 188.8 55 Z" fill="#ec4899" fill-opacity="0.8"/>
+                <text x="145" y="55" font-size="10" font-weight="bold" fill="#ffffff">D: 54°</text>
+
+                <!-- Sector E: 36 deg (324 to 360) -->
+                <path d="M 120 105 L 188.8 55 A 85 85 0 0 1 205 105 Z" fill="#8b5cf6" fill-opacity="0.8"/>
+                <text x="175" y="90" font-size="9" font-weight="bold" fill="#ffffff">E: 36°</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 13 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: Step-by-Step Pie Chart Construction -->
+      <section class="slide" id="slide-14">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.5 Construction</span>
+            <h2 class="slide-title"><span class="icon">📐</span> Step-by-Step Pie Chart Drafting Method</h2>
+          </div>
+          <span class="page-pill">Page 61–62</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">1. Simplify Ratios</div>
+              <p class="card-desc">
+                Find $\gcd$ of all category frequencies. Divide each frequency by $\gcd$ to obtain lowest terms:
+                $$12:10:8:6:4 \xrightarrow{\div 2} 6:5:4:3:2$$
+                Sum of simplified parts $= 20$.
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Calculate Central Angles</div>
+              <p class="card-desc">
+                Multiply each fraction by full circle angle ($360^\circ$):
+                $$\text{Per Part} = \frac{360^\circ}{20} = 18^\circ$$
+                Grade $A = 6 \times 18^\circ = 108^\circ$
+                <br>Grade $B = 5 \times 18^\circ = 90^\circ$
+              </p>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">3. Draw Radius & Measure</div>
+              <p class="card-desc">
+                Draw base radius $AB$. Use a protractor centered at $A$ to sweep each calculated angle anti-clockwise:
+                <br>• $AB \to AC$ ($108^\circ$)
+                <br>• $AC \to AD$ ($90^\circ$)
+                <br>• Label and color distinct slices.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 14 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15: Quick Box 5 -->
+      <section class="slide" id="slide-15">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 61–62</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Pie Chart Proportions</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                In a survey of 360 people, 90 chose Summer, 120 chose Rainy, and the rest chose Winter. What is the central angle for Winter?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If an Entertainment TV channel holds a 50% audience share, what angle sector does it occupy on a pie chart?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Why must the sum of all central sector angles in a pie chart equal exactly $360^\circ$?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 15 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16: 3.6 Direct vs Inverse Proportions -->
+      <section class="slide" id="slide-16">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.6 Variations</span>
+            <h2 class="slide-title"><span class="icon">🚗</span> Direct vs Inverse Proportions</h2>
+          </div>
+          <span class="page-pill">Page 63–64</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🚙 The Travel Time Dilemma</div>
+              <p class="card-desc">
+                Traveling between Lucknow and Kanpur ($90\text{ km}$ fixed ground distance):
+              </p>
+              <div style="background:#ffffff; border:1px solid #99f6e4; border-radius:8px; overflow:hidden; font-size:0.83rem;">
+                <table style="width:100%; border-collapse:collapse; text-align:center;">
+                  <tr style="background:#ccfbf1; color:#0f766e; font-weight:700;">
+                    <th style="padding:4px;">Mode</th><th>Speed ($x$)</th><th>Time ($y$)</th><th>Product ($xy$)</th>
+                  </tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">Walk</td><td>$5\text{ km/h}$</td><td>$18\text{ h}$</td><td>$90$</td></tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">Bicycle</td><td>$15\text{ km/h}$</td><td>$6\text{ h}$</td><td>$90$</td></tr>
+                  <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:4px;">Motorcycle</td><td>$30\text{ km/h}$</td><td>$3\text{ h}$</td><td>$90$</td></tr>
+                  <tr><td style="padding:4px;">Car</td><td>$60\text{ km/h}$</td><td>$1.5\text{ h}$</td><td>$90$</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">⚖️ Defining Inverse Proportions</div>
+              <p class="card-desc">
+                When speed triples ($\times 3$), time divides by 3 ($\times \frac{1}{3}$).
+              </p>
+              <div class="formula-banner" style="background:#0284c7;">
+                $$x \times y = k \quad (\text{Constant Product})$$
+              </div>
+              <ul class="bullet-list" style="margin-top:6px;">
+                <li><strong>Direct:</strong> Quotient is constant: $\frac{x_1}{y_1} = \frac{x_2}{y_2}$.</li>
+                <li><strong>Inverse:</strong> Product is constant: $x_1 y_1 = x_2 y_2 = k$.</li>
+                <li>Equivalent ratio form: $\frac{x_1}{x_2} = \frac{y_2}{y_1}$.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 16 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 17: Inverse Proportion Worked Examples -->
+      <section class="slide" id="slide-17">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.6 Worked Models</span>
+            <h2 class="slide-title"><span class="icon">⚡</span> Workers, Pumps & Food Stock Inverses</h2>
+          </div>
+          <span class="page-pill">Page 65–66</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Example 3: Workers -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Road Workers</div>
+              <p class="card-desc">
+                20 workers take 4 days to lay a road. How long will 10 workers take?
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$x_1 y_1 = x_2 y_2$$
+                $$20 \times 4 = 10 \times y_2$$
+                $$y_2 = \frac{80}{10} = \mathbf{8\text{ days}}$$
+                Half the workers $\implies$ double the days!
+              </div>
+            </div>
+
+            <!-- Example 4: Water Pumps -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Water Pumps</div>
+              <p class="card-desc">
+                2 pumps fill a tank in 18 hours. How long if 2 more pumps are added (total 4 pumps)?
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$x_1 y_1 = x_2 y_2$$
+                $$2 \times 18 = 4 \times x$$
+                $$x = \frac{36}{4} = \mathbf{9\text{ hours}}$$
+                Doubling pump count halves pumping duration.
+              </div>
+            </div>
+
+            <!-- Example 5: Hostel Food -->
+            <div class="content-card blue-highlight">
+              <div class="card-title">3. Hostel Provisions</div>
+              <p class="card-desc">
+                Provisions feed 80 students for 15 days. If 20 more students join (total 100), how long does food last?
+              </p>
+              <div style="font-size:0.83rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$80 \times 15 = 100 \times x$$
+                $$1200 = 100x \implies \mathbf{x = 12\text{ days}}$$
+                More students $\implies$ fewer days supply lasts.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 17 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 18: Combined Work Rates (Ram & Shyam) -->
+      <section class="slide" id="slide-18">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">3.6 Work & Time</span>
+            <h2 class="slide-title"><span class="icon">⏱️</span> Combined Work Rates: Vegetable Chopping</h2>
+          </div>
+          <span class="page-pill">Page 66–67</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">🥕 Example 6: Cutting Vegetables Together</div>
+              <p class="card-desc">
+                Ram cuts a batch of vegetables in $1\text{ hour}$. Shyam cuts the same batch in $1.5\text{ hours}$ ($= \frac{3}{2}\text{ h}$). How long if they work together?
+              </p>
+              <ul class="bullet-list" style="margin-top:4px;">
+                <li>Let 1 whole batch $= 1\text{ unit of work}$.</li>
+                <li><strong>Ram's 1-hour rate:</strong> $1 \div 1 = \mathbf{1\text{ unit/hour}}$.</li>
+                <li><strong>Shyam's 1-hour rate:</strong> $1 \div 1.5 = \mathbf{\frac{2}{3}\text{ unit/hour}}$.</li>
+                <li><strong>Combined 1-hour work:</strong>
+                  $$1 + \frac{2}{3} = \mathbf{\frac{5}{3}\text{ units/hour}}$$
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">⏳ Direct Proportion Step</div>
+              <p class="card-desc">
+                Work completed and time taken are directly proportional:
+              </p>
+              <div class="formula-banner" style="background:#0284c7;">
+                $$\text{Time to finish } 1\text{ unit} = \frac{1}{\text{Combined Rate}} = \frac{1}{5/3} = \mathbf{\frac{3}{5}\text{ hour}}$$
+              </div>
+              <div style="background:#ffffff; border:1px solid #bae6fd; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                Convert to minutes:
+                $$\frac{3}{5} \times 60\text{ minutes} = \mathbf{36\text{ minutes}}$$
+                Working collaboratively cuts total task duration significantly!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 18 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 19: Quick Box 6 -->
+      <section class="slide" id="slide-19">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 64–67</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Inverse Variation & Work</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                Identify whether this pair is in direct or inverse proportion: The speed of a cyclist and the time taken to travel a fixed distance.
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                If 3 workers paint a fence in 4 days, how many days will 4 workers take at the same pace?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                Pump A fills a tank in 3 hours, and Pump B fills it in 2 hours. What fraction of the tank is filled in 1 hour when both operate together?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 19 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 20: Real-World Inverses & Animal Sleep Charts -->
+      <section class="slide" id="slide-20">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Real-World Models</span>
+            <h2 class="slide-title"><span class="icon">🦇</span> Proportions in Biology: Animal Sleep Clocks</h2>
+          </div>
+          <span class="page-pill">Page 67</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <div class="content-card highlight">
+              <div class="card-title">🐱 1. Sleeping Cat</div>
+              <p class="card-desc">
+                24-hour circular dial with half fraction shaded:
+                $$\text{Fraction of day} = \frac{1}{2}$$
+                $$\text{Sleep time} = \frac{1}{2} \times 24 = \mathbf{12\text{ to } 13\text{ hours}}$$
+                Cats spend more than half their lifetimes asleep!
+              </p>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🐍 2. Python / Snake</div>
+              <p class="card-desc">
+                Circular clock with three-fourths shaded:
+                $$\text{Fraction of day} = \frac{3}{4}$$
+                $$\text{Sleep time} = \frac{3}{4} \times 24 = \mathbf{18\text{ hours}}$$
+                Cold-blooded reptiles conserve metabolic energy through deep rest.
+              </p>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">🦇 3. Hanging Bat</div>
+              <p class="card-desc">
+                Dial shaded for nearly five-sixths of circumference:
+                $$\text{Fraction of day} = \frac{5}{6}$$
+                $$\text{Sleep time} = \frac{5}{6} \times 24 = \mathbf{20\text{ hours}}$$
+                Bats exhibit one of the highest daily sleep fractions in mammals.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 20 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 21: Quick Box 7 -->
+      <section class="slide" id="slide-21">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 67–68</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Biological Clock Proportions</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                If an animal sleeps 18 hours out of a 24-hour day, what percentage of its life is spent sleeping?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                What central angle sector on a circular clock dial represents 6 hours of sleep?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                A giraffe sleeps roughly 2.5 hours per day. Is this more or less than $\frac{1}{8}$ of a 24-hour day?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 21 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 22: School Transport Survey Pie Chart -->
+      <section class="slide" id="slide-22">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Analysis</span>
+            <h2 class="slide-title"><span class="icon">🚌</span> Analyzing the School Transport Pie Chart</h2>
+          </div>
+          <span class="page-pill">Page 68</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-1-2">
+            <div class="content-card highlight">
+              <div class="card-title">📊 Sector Angles from Chart</div>
+              <ul class="bullet-list">
+                <li><strong>Bus:</strong> $120^\circ \implies \frac{120}{360} = \mathbf{\frac{1}{3}\text{ of students}}$ (Most common mode!).</li>
+                <li><strong>Walk:</strong> $90^\circ \implies \frac{90}{360} = \mathbf{\frac{1}{4}\text{ of students}}$.</li>
+                <li><strong>Two-Wheeler:</strong> $60^\circ \implies \frac{60}{360} = \mathbf{\frac{1}{6}\text{ of students}}$.</li>
+                <li><strong>Cycle:</strong> $60^\circ \implies \frac{60}{360} = \mathbf{\frac{1}{6}\text{ of students}}$.</li>
+                <li><strong>Car:</strong> $360^\circ - (120+90+60+60)^\circ = \mathbf{30^\circ} \implies \frac{30}{360} = \mathbf{\frac{1}{12}}$.</li>
+              </ul>
+            </div>
+
+            <div class="content-card blue-highlight">
+              <div class="card-title">🔍 Population Deductions</div>
+              <p class="card-desc">
+                If 18 children travel by car ($30^\circ$ sector):
+              </p>
+              <div style="background:#ffffff; border:1px solid #bae6fd; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                $$\text{Fraction by car} = \frac{30^\circ}{360^\circ} = \frac{1}{12}$$
+                $$\text{Total Survey Size } T = 18 \times 12 = \mathbf{216\text{ students}}$$
+                $$\text{Bus commuters} = \frac{1}{3} \times 216 = \mathbf{72\text{ students}}$$
+                Cycle and Two-wheeler tied equally with $60^\circ$ ($36\text{ students}$ each).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 22 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 23: Quick Box 8 -->
+      <section class="slide" id="slide-23">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag quick">⚡ Quick Box</span>
+            <span class="pill-tag accent">Classroom Check</span>
+          </div>
+          <span class="page-pill">Page 68</span>
+        </div>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom:12px;">⚡ Quick Box — Transport Survey Deductions</h2>
+          <div class="quick-box-container">
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 1</span>
+              <div class="quick-q-text">
+                In the transport survey pie chart, which two modes of travel were used by the exact same number of students?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 2</span>
+              <div class="quick-q-text">
+                What fraction of children walked to school if their sector angle was $90^\circ$?
+              </div>
+            </div>
+            <div class="quick-q-item">
+              <span class="quick-q-badge">Q 3</span>
+              <div class="quick-q-text">
+                A school has 8 periods of 45 minutes each. If the school shifts to 9 periods within the same total school hours, how long is each period?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 23 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 24: Industrial & Machine Variations -->
+      <section class="slide" id="slide-24">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Commercial Math</span>
+            <h2 class="slide-title"><span class="icon">🏭</span> Industrial Scaling: Factory Machines & Speed</h2>
+          </div>
+          <span class="page-pill">Page 68</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card highlight">
+              <div class="card-title">🧸 Factory Machines & Toy Deadlines</div>
+              <p class="card-desc">
+                A factory needs 42 machines to complete a toy order in 63 days. How many machines are needed to finish in 54 days?
+              </p>
+              <div style="background:#ffffff; border:1px solid #99f6e4; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                Machines ($m$) and days ($d$) vary inversely ($m \times d = k$):
+                $$42 \times 63 = m_2 \times 54$$
+                $$m_2 = \frac{42 \times 63}{54} = \frac{7 \times 63}{9} = 7 \times 7 = \mathbf{49\text{ machines}}$$
+                $$\text{Additional machines required} = 49 - 42 = \mathbf{7\text{ extra machines}}$$
+              </div>
+            </div>
+
+            <div class="content-card amber-highlight">
+              <div class="card-title">🚗 Highway Car Speed vs Travel Time</div>
+              <p class="card-desc">
+                A car takes 2 hours traveling at $60\text{ km/h}$. How long will it take at $80\text{ km/h}$?
+              </p>
+              <div style="background:#ffffff; border:1px solid #fde68a; padding:10px; border-radius:10px; font-size:0.86rem; line-height:1.5;">
+                Total distance $= 60 \times 2 = 120\text{ km}$.
+                $$\text{Time } t_2 = \frac{120\text{ km}}{80\text{ km/h}} = \mathbf{1.5\text{ hours (1 hour 30 min)}}$$
+                Check inverse equation: $60 \times 2 = 80 \times 1.5 = 120$ ✅
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 24 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 25: Exercise Highlights (Worked Problems Part 1) -->
+      <section class="slide" id="slide-25">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Key Worked Exemplars: Exercises</h2>
+          </div>
+          <span class="page-pill">Page 60, 68</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Problem 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Library Book Languages</div>
+              <p class="card-desc">
+                Odiya : Hindi : English :: $3:2:1$. Total Odiya books $= 288$. Find others.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$3\text{ parts} = 288 \implies 1\text{ part} = 96$$
+                $$\text{Hindi} = 2 \times 96 = \mathbf{192\text{ books}}$$
+                $$\text{English} = 1 \times 96 = \mathbf{96\text{ books}}$$
+                Total books in library $= 576$.
+              </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. Rearranging Chairs</div>
+              <p class="card-desc">
+                Chairs in 25 rows with 12 chairs/row. If rearranged with 20 chairs/row, find new row count.
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Total chairs $= 25 \times 12 = 300$.
+                $$r_1 c_1 = r_2 c_2$$
+                $$300 = r_2 \times 20 \implies \mathbf{r_2 = 15\text{ rows}}$$
+                Rows decreased from 25 to 15!
+              </div>
+            </div>
+
+            <!-- Problem 3 -->
+            <div class="content-card blue-highlight">
+              <div class="card-title">3. Dual Pumps Combined</div>
+              <p class="card-desc">
+                Small pump fills in 3 hours, large pump in 2 hours. Both running together?
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Rate small $= 1/3$; Rate large $= 1/2$.
+                $$\text{Sum} = \frac{1}{3} + \frac{1}{2} = \frac{5}{6}\text{ tank/h}$$
+                $$\text{Time} = \frac{1}{5/6} = \frac{6}{5}\text{ hours} = \mathbf{1.2\text{ hours}}$$
+                $$= \mathbf{1\text{ hour } 12\text{ minutes}}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 25 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 26: Advanced Worked Exemplars (Part 2) -->
+      <section class="slide" id="slide-26">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Exercise Highlights</span>
+            <h2 class="slide-title"><span class="icon">⭐</span> Advanced Worked Exemplars: Water & Tasks</h2>
+          </div>
+          <span class="page-pill">Page 67, 68</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-3">
+            <!-- Exemplar 1 -->
+            <div class="content-card highlight">
+              <div class="card-title">1. Building Water Supply</div>
+              <p class="card-desc">
+                Tank supplies 20 families for 6 days. If 10 more families move in (30 total), how long does it last?
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$x_1 y_1 = x_2 y_2$$
+                $$20 \times 6 = 30 \times y_2$$
+                $$120 = 30 y_2 \implies \mathbf{y_2 = 4\text{ days}}$$
+                Assumption: Equal daily consumption per family.
+              </div>
+            </div>
+
+            <!-- Exemplar 2 -->
+            <div class="content-card amber-highlight">
+              <div class="card-title">2. School Bell Durations</div>
+              <p class="card-desc">
+                School has 8 periods of 45 min ($360\text{ min}$ total). If increased to 9 periods with unchanged school hours:
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                $$8 \times 45 = 9 \times t_2$$
+                $$360 = 9 t_2$$
+                $$\mathbf{t_2 = 40\text{ minutes per period}}$$
+                Each period shortens by 5 minutes.
+              </div>
+            </div>
+
+            <!-- Exemplar 3 -->
+            <div class="content-card blue-highlight">
+              <div class="card-title">3. Tank Filling Duration</div>
+              <p class="card-desc">
+                It takes 6 hours to fill 2 identical tanks with a pump. How long to fill 5 such tanks?
+              </p>
+              <div style="font-size:0.82rem; background:#ffffff; padding:8px; border-radius:6px; line-height:1.45;">
+                Direct proportion ($\frac{Tanks}{Hours} = k$):
+                $$\frac{2}{6} = \frac{5}{h} \implies 2h = 30$$
+                $$\mathbf{h = 15\text{ hours}}$$
+                (Rate is $3\text{ hours}$ per tank).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 26 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 27: Chapter Master Summary -->
+      <section class="slide" id="slide-27">
+        <div class="slide-header">
+          <div class="header-left-group">
+            <span class="pill-tag accent">Chapter Summary</span>
+            <h2 class="slide-title"><span class="icon">📋</span> Master Summary Checklist</h2>
+          </div>
+          <span class="page-pill">Page 69</span>
+        </div>
+
+        <div class="slide-body">
+          <div class="cards-grid grid-2">
+            <div class="content-card">
+              <div class="card-title">✅ Multi-Term & Direct Proportions</div>
+              <ul class="bullet-list">
+                <li><strong>Multi-term Ratio:</strong> $a:b:c:d$ indicates consistent multiplicative scaling across all terms.</li>
+                <li><strong>Dividing a Whole:</strong> Share of component $p$ from total $X$ equals $X \times \frac{p}{p+q+r+\dots}$.</li>
+                <li><strong>Representative Fraction (RF):</strong> Map distance to real ground distance ratio ($RF = 1:60,00,000 \implies 1\text{ cm} = 60\text{ km}$).</li>
+                <li><strong>Pie Charts:</strong> Total circular angle $360^\circ$ split proportionally by category shares: $\text{Angle} = \frac{\text{Value}}{\text{Total}} \times 360^\circ$.</li>
+              </ul>
+            </div>
+
+            <div class="content-card highlight">
+              <div class="card-title">✅ Inverse Variations & Rates</div>
+              <ul class="bullet-list">
+                <li><strong>Direct Variation:</strong> Quotient remains constant: $\frac{x_1}{y_1} = \frac{x_2}{y_2} = k$.</li>
+                <li><strong>Inverse Variation:</strong> Product remains constant: $x_1 y_1 = x_2 y_2 = k$. When one quantity scales by $n$, the other scales by $\frac{1}{n}$.</li>
+                <li><strong>Speed & Time:</strong> Distance $= \text{Speed} \times \text{Time}$ (Speed and time vary inversely).</li>
+                <li><strong>Workers & Days:</strong> Total Work $= \text{Workers} \times \text{Days}$.</li>
+                <li><strong>Combined Work:</strong> Add individual rates ($\text{units/hour}$); total time is reciprocal of combined rate.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-watermark">teachertools.akashmaths.online</div>
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 27 / 28</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 28: CLOSING SLIDE (THANK YOU) -->
+      <section class="slide" id="slide-28">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="pill-tag accent">
+            <span>🏁</span> End of Chapter 3
+          </div>
+          <div class="pill-tag">
+            Complete Deck Review
+          </div>
+        </div>
+
+        <div class="slide-body" style="align-items:center; text-align:center; justify-content:center; gap:18px;">
+          <div style="font-size:0.9rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-secondary);">
+            NCERT • GANITA PRAKASH GRADE 8
+          </div>
+
+          <h1 style="font-family:var(--font-display); font-size:3.5rem; font-weight:700; color:var(--text-main); line-height:1.1;">
+            Thank You!
+          </h1>
+
+          <p style="font-style:italic; font-size:1.18rem; color:var(--text-muted); max-width:860px; line-height:1.6;">
+            "Proportion is the silent harmony of mathematics — whether scaling the map of an empire, mixing the mortar of a monument, or balancing the swiftness of work against the sands of time."
+          </p>
+
+          <div style="margin-top:8px;">
+            <div class="large-credit-pill">
+              <span class="symbol">✦</span> Akash Srivastva (www.akashmaths.online)
+            </div>
+          </div>
+
+          <div style="display:flex; gap:14px; margin-top:8px;">
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">✨ Interactive Classroom Slides</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">📐 Complete Section Coverage</span>
+            <span style="font-size:0.85rem; color:#cbd5e1;">•</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:600;">⚡ Quick Box Question Slides Included</span>
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <div>Ganita Prakash | Grade 8 Part-II</div>
+          <div>Slide 28 / 28</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Slide Footer Keyboard Hint -->
+    <div class="key-hint">
+      Use ◀ / ▶ or Space to navigate • [F] Fullscreen
+    </div>
+
+    <!-- On-screen Navigation Controls (bottom-right) -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" title="Previous Slide (Left Arrow)">❮</button>
+      <select class="slide-select" id="slideSelect" title="Jump to Slide"></select>
+      <button class="nav-btn" id="nextBtn" title="Next Slide (Right Arrow / Space)">❯</button>
+      <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen" style="font-size:0.75rem;">⛶</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const slideSelect = document.getElementById('slideSelect');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const viewport = document.getElementById('presentation-viewport');
+
+      // Populate slide jump menu
+      slides.forEach((slide, idx) => {
+        const option = document.createElement('option');
+        option.value = idx;
+        const titleEl = slide.querySelector('.slide-title');
+        const titleText = titleEl ? titleEl.innerText.replace(/[\n\r]+/g, ' ').trim() : (idx === 0 ? 'Cover Slide' : 'Slide ' + (idx + 1));
+        option.textContent = `${idx + 1}. ${titleText.substring(0, 32)}...`;
+        slideSelect.appendChild(option);
+      });
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentIndex].classList.remove('active');
+        currentIndex = index;
+        slides[currentIndex].classList.add('active');
+        slideSelect.value = currentIndex;
+
+        // Render KaTeX dynamic formulas
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentIndex], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentIndex < totalSlides - 1) {
+          updateSlide(currentIndex + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) {
+          updateSlide(currentIndex - 1);
+        }
+      }
+
+      // Event Listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      slideSelect.addEventListener('change', (e) => {
+        updateSlide(parseInt(e.target.value, 10));
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        } else if (e.key.toLowerCase() === 'f') {
+          toggleFullScreen();
+        }
+      });
+
+      // Touch / Swipe Navigation for tablets & boards
+      let touchStartX = 0;
+      let touchStartY = 0;
+      viewport.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        const diffY = e.changedTouches[0].screenY - touchStartY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 45) {
+          if (diffX < 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Fullscreen support
+      function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+          viewport.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+      fullscreenBtn.addEventListener('click', toggleFullScreen);
+    });
+  </script>
+</body>
+</html>
