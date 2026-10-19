@@ -100,9 +100,23 @@
     .lp-meta-val { color: var(--ink); font-weight: 600; width: 32%; }
 
     /* SECTIONS */
-    .lp-sec-title { font-size: 1.15rem; color: var(--purple-deep); background: linear-gradient(90deg, var(--lavender) 0%, transparent 100%); padding: 9px 15px; border-left: 5px solid var(--purple); border-radius: 0 8px 8px 0; margin: 28px 0 14px 0; }
-    .lp-content p, .lp-content li { font-size: 0.92rem; line-height: 1.6; color: var(--ink); }
+        /* SECTIONS */
+    .lp-sec-title { font-size: 16px; color: var(--purple-deep); background: linear-gradient(90deg, var(--lavender) 0%, transparent 100%); padding: 9px 15px; border-left: 5px solid var(--purple); border-radius: 0 8px 8px 0; margin: 28px 0 14px 0; }
+    .lp-content p, .lp-content li { font-size: 14px; line-height: 1.6; color: var(--ink); }
     .lp-content ul { padding-left: 20px; margin: 8px 0; }
+
+    /* PERIOD TABLE */
+    .lp-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    .lp-table th, .lp-table td { border: 1px solid var(--peach); padding: 9px 12px; font-size: 14px; text-align: left; }
+    .lp-table th { background: var(--purple-deep); color: #fff; font-weight: 600; }
+
+    /* PERIOD CARDS */
+    .lp-period-card { border: 1px solid var(--peach); border-radius: 14px; padding: 20px 22px; margin-bottom: 22px; background: #FFFDFB; page-break-inside: avoid; } /* Page break fix */
+    .lp-period-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--peach); padding-bottom: 10px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+    .lp-period-num { font-weight: 700; color: var(--coral-deep); font-size: 14px; }
+    .lp-period-name { font-weight: 700; color: var(--purple-deep); font-size: 16px; }
+    .lp-block-row { margin-bottom: 10px; font-size: 14px; line-height: 1.55; }
+    .lp-block-lbl { font-weight: 700; color: var(--purple-deep); text-transform: uppercase; font-size: 12px; letter-spacing: 0.04em; }
 
     /* PERIOD TABLE */
     .lp-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
@@ -155,7 +169,24 @@
 
       /* FIX: Page breaks for cards */
       .separate-period-pages .lp-period-card { page-break-after: always !important; break-after: page !important; }
+
+      /* NAYA FIX: Card View headers aur signatures print me dikhane ke liye */
+    body.force-print-headers .lp-injected-header {
+        display: block !important;
+        border-bottom: 2px dashed var(--peach) !important;
+        margin-bottom: 18px !important;
+        padding-bottom: 14px !important;
     }
+    
+  
+             body.force-print-sigs .lp-injected-sig {
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-top: 30px !important;
+        padding-top: 14px !important;
+        border-top: 2px dashed var(--peach) !important;
+    }
+  }
 
     /* MOBILE FRIENDLY */
     @media (max-width: 768px) {
@@ -554,11 +585,17 @@ STRICT RULES:
     document.getElementById('printSheet').scrollIntoView({behavior: 'smooth'});
   }
 
-  function renderModelBCards(list) {
+    function renderModelBCards(list) {
     const cont = document.getElementById('outModelBContainer'); cont.innerHTML = "";
     list.forEach(p => {
       cont.innerHTML += `
         <div class="lp-period-card">
+          <!-- Ye div add kiya hai aur isko close bhi kiya hai -->
+          <div class="lp-injected-header">
+              <h1 class="lp-school-name" style="font-size: 1.2rem;">${document.getElementById('outSchool').innerText}</h1>
+              <div style="font-size: 0.8rem;">Lesson Plan - ${document.getElementById('outClassSubject').innerText}</div>
+          </div>
+          
           <div class="lp-period-head"><span class="lp-period-name lp-editable">${p.name}</span><span class="lp-period-num lp-editable">TIME: ${p.time} | PERIOD ${p.num}</span></div>
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Focus:</span> ${p.focus}</div>
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Objectives:</span> ${p.obj}</div>
@@ -566,6 +603,9 @@ STRICT RULES:
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Process:</span> ${p.pres}</div>
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Assessment:</span> ${p.ques}</div>
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Homework:</span> ${p.hmwk}</div>
+          
+          <!-- Signatures ke liye khali div -->
+          <div class="lp-injected-sig"></div>
         </div>`;
     });
   }
@@ -626,17 +666,23 @@ STRICT RULES:
   }
 
   // Card View Print Options Logic
-  function handlePeriodPageBreak(chk) { 
-      document.getElementById('viewMode3').classList.toggle('separate-period-pages', chk); 
-  }
-  function handlePeriodHeaderRepeat(chk) { 
-      document.getElementById('viewMode3').classList.toggle('show-period-headers', chk); 
-  }
-  function handlePeriodSigRepeat(chk) { 
-      document.getElementById('viewMode3').classList.toggle('show-period-sigs', chk); 
+    function handlePeriodHeaderRepeat(chk) { 
+      // Header ko print me force dikhane ke liye class lagao
+      const headerClass = chk ? 'show-period-headers' : '';
+      document.getElementById('viewMode3').classList.toggle('show-period-headers', chk);
+      
+      // Print me bhi header dikhe, iske liye ek global class body par lagao
+      if(chk) document.body.classList.add('force-print-headers');
+      else document.body.classList.remove('force-print-headers');
   }
 
-  document.addEventListener('DOMContentLoaded', () => { handleBookSelect(); });
+  function handlePeriodSigRepeat(chk) { 
+      // Signature ko print me force dikhane ke liye class lagao
+      document.getElementById('viewMode3').classList.toggle('show-period-sigs', chk);
+      
+      if(chk) document.body.classList.add('force-print-sigs');
+      else document.body.classList.remove('force-print-sigs');
+  }
 </script>
 
 </body>
