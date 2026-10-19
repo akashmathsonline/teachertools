@@ -85,7 +85,7 @@
 
     /* HEADER BLOCK */
     .lp-header-box { border-bottom: 3px double var(--peach); padding-bottom: 20px; margin-bottom: 24px; }
-    .lp-header-flex { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .lp-header-flex { display: flex; align-items: center; justify-content: space-between; gap: 15px; flex-direction: row; }
     .lp-logo-holder { width: 75px; height: 75px; flex-shrink: 0; display: none; align-items: center; justify-content: center; border: 1px dashed #ccc; border-radius: 8px; }
     .lp-logo-holder.has-logo { display: flex; border: none; }
     .lp-logo-holder img { max-width: 100%; max-height: 100%; object-fit: contain; }
@@ -118,7 +118,7 @@
     .lp-block-lbl { font-weight: 700; color: var(--purple-deep); text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.04em; }
 
     /* SIGNATURE STRIP */
-    .lp-sig-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; padding-top: 15px; border-top: 2px dashed var(--peach); gap: 15px; flex-wrap: wrap; }
+    .lp-sig-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; padding-top: 15px; border-top: 2px dashed var(--peach); gap: 15px; flex-direction: row; }
     .lp-sig-box { text-align: center; font-size: 0.85rem; font-weight: 700; color: var(--ink); flex: 1; min-width: 100px; }
     .lp-sig-line { border-top: 1px solid var(--ink); margin-bottom: 6px; width: 100%; }
 
@@ -137,12 +137,24 @@
     .ink-saver .lp-meta-lbl { background: #f0f0f0 !important; border: 1px solid #000 !important; }
     .ink-saver .lp-table td, .ink-saver .lp-meta-table td, .ink-saver .lp-period-card { border: 1px solid #000 !important; border-radius: 0 !important; }
 
+    /* --- PRINT MEDIA QUERY --- */
     @media print {
       body { background: #fff !important; margin: 0 !important; }
       .lp-hero, .lp-setup-card, .lp-toolbar, .lp-modal-overlay, header, nav, footer, aside { display: none !important; }
       .lp-app { padding: 0 !important; background: #fff !important; }
       .lp-sheet { border: none !important; box-shadow: none !important; padding: 0 !important; max-width: 100% !important; width: 100% !important; }
       .editable-mode-active [contenteditable="true"] { outline: none !important; }
+      
+      /* FIX: Header Flex - Logos side by side */
+      .lp-header-flex { display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; }
+      .lp-logo-holder { display: flex !important; } /* Force show if they exist */
+      
+      /* FIX: Signatures Side by Side */
+      .lp-sig-row { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; }
+      .lp-sig-box { flex: 1 !important; }
+
+      /* FIX: Page breaks for cards */
+      .separate-period-pages .lp-period-card { page-break-after: always !important; break-after: page !important; }
     }
 
     /* MOBILE FRIENDLY */
@@ -273,11 +285,12 @@
         </div>
       </div>
 
+      <!-- Card View Options (Sirf Card view me dikhenge) -->
       <div class="lp-toolbar-row" id="modelOptionsRow" style="border-top: 1px dashed var(--peach); padding-top: 10px; display: none;">
         <div class="lp-btn-group">
-          <label class="lp-checkbox-label"><input type="checkbox" onchange="handlePeriodPageBreak(this.checked)" /> 📄 Separate Page</label>
-          <label class="lp-checkbox-label"><input type="checkbox" onchange="handlePeriodHeaderRepeat(this.checked)" /> 🏫 Repeat Header</label>
-          <label class="lp-checkbox-label"><input type="checkbox" onchange="handlePeriodSigRepeat(this.checked)" /> ✍️ Repeat Signatures</label>
+          <label class="lp-checkbox-label"><input type="checkbox" id="chkSepPage" onchange="handlePeriodPageBreak(this.checked)" /> 📄 Separate Page</label>
+          <label class="lp-checkbox-label"><input type="checkbox" id="chkRepHead" onchange="handlePeriodHeaderRepeat(this.checked)" /> 🏫 Repeat Header</label>
+          <label class="lp-checkbox-label"><input type="checkbox" id="chkRepSig" onchange="handlePeriodSigRepeat(this.checked)" /> ✍️ Repeat Signatures</label>
         </div>
       </div>
     </div>
@@ -488,9 +501,6 @@ STRICT RULES:
     document.getElementById('outChapter').innerText = document.getElementById('inpTopic').value || 'Topic';
     document.getElementById('outTextbook').innerText = document.getElementById('inpBookManual').value || 'Textbook';
 
-    // Math Symbols Fix: Replacing common markdown math with unicode
-    raw = raw.replace(/\^2/g, '²').replace(/\^3/g, '³').replace(/sqrt\(([^)]+)\)/g, '√$1').replace(/pi/g, 'π');
-
     const overviewMatch = raw.match(/(?:CHAPTER\s*OVERVIEW|1\.\s*CHAPTER)([\s\S]*?)(?=LEARNING\s*OUTCOMES|2\.\s*LEARNING|PERIOD\s*1)/i);
     if (overviewMatch) document.getElementById('outOverviewContent').innerHTML = `<p class="lp-editable">${cleanMarkdown(overviewMatch[1]).replace(/\n{2,}/g, '</p><p class="lp-editable">').replace(/\n/g, '<br/>')}</p>`;
 
@@ -615,9 +625,16 @@ STRICT RULES:
     closeLPModal();
   }
 
-  function handlePeriodPageBreak(chk) { document.getElementById('viewMode3').classList.toggle('separate-period-pages', chk); }
-  function handlePeriodHeaderRepeat(chk) { document.getElementById('viewMode3').classList.toggle('show-period-headers', chk); }
-  function handlePeriodSigRepeat(chk) { document.getElementById('viewMode3').classList.toggle('show-period-sigs', chk); }
+  // Card View Print Options Logic
+  function handlePeriodPageBreak(chk) { 
+      document.getElementById('viewMode3').classList.toggle('separate-period-pages', chk); 
+  }
+  function handlePeriodHeaderRepeat(chk) { 
+      document.getElementById('viewMode3').classList.toggle('show-period-headers', chk); 
+  }
+  function handlePeriodSigRepeat(chk) { 
+      document.getElementById('viewMode3').classList.toggle('show-period-sigs', chk); 
+  }
 
   document.addEventListener('DOMContentLoaded', () => { handleBookSelect(); });
 </script>
