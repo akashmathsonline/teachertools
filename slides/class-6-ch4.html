@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 6 Mathematics - Chapter 4: Data Handling and Presentation</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for formula and math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #0d9488;          /* Pine / Deep Teal */
+      --primary-dark: #115e59;
+      --primary-light: #ccfbf1;
+      --accent-cyan: #0284c7;
+      --cyan-light: #e0f2fe;
+      --accent-amber: #d97706;
+      --amber-light: #fef3c7;
+      --accent-emerald: #059669;
+      --emerald-light: #d1fae5;
+      --accent-rose: #e11d48;
+      --rose-light: #ffe4e6;
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 50%, #eff6ff 100%);
+      --card-bg: #ffffff;
+      --card-border: #99f6e4;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(13, 148, 136, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 20px 25px -5px rgba(13, 148, 136, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #edf1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--text-main);
+      overflow: hidden;
+    }
+
+        .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: #f8fafc; /* Ye line add/change karein */
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+            padding: 30px 40px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(10px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Subtle middle slide watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #64748b;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 25;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-teal { background: #ccfbf1; color: #0f766e; border: 1px solid #99f6e4; }
+    .pill-cyan { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .pill-amber { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .pill-emerald { background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
+    .pill-rose { background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; font-weight: 800; }
+
+    .slide-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.85rem;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Content Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-teal {
+      border-left: 5px solid var(--primary);
+      background: linear-gradient(145deg, #ffffff, #f0fdfa);
+    }
+
+    .card-cyan {
+      border-left: 5px solid var(--accent-cyan);
+      background: linear-gradient(145deg, #ffffff, #f0f9ff);
+    }
+
+    .card-emerald {
+      border-left: 5px solid var(--accent-emerald);
+      background: linear-gradient(145deg, #ffffff, #f0fdf4);
+    }
+
+    .card-amber {
+      border-left: 5px solid var(--accent-amber);
+      background: linear-gradient(145deg, #ffffff, #fffbeb);
+    }
+
+    .card-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #115e59;
+    }
+
+    .card-text {
+      font-size: 0.91rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .highlight-box {
+      background: #f0fdfa;
+      border: 2px dashed #14b8a6;
+      border-radius: 14px;
+      padding: 12px 18px;
+      text-align: center;
+      margin: 4px 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #0f766e;
+    }
+
+    .formula-box {
+      background: #ffffff;
+      border: 1.5px solid #99f6e4;
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: center;
+      margin: 6px 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0f766e;
+    }
+
+    /* Quick Box Styles */
+    .quickbox-wrapper {
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      border: 2px solid #fcd34d;
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #fef08a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .quick-badge {
+      background: #f59e0b;
+      color: white;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .quick-text {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.45;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Cover & Closing Slides */
+    .cover-slide, .closing-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      padding: 56px 80px;
+      background: radial-gradient(circle at 50% 30%, #ccfbf1, #f0fdfa 70%);
+    }
+
+    .eyebrow {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 3.6rem;
+      color: #115e59;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(13, 148, 136, 0.08);
+    }
+
+    .cover-subtitle {
+      font-size: 1.25rem;
+      color: #475569;
+      font-weight: 500;
+      margin-bottom: 30px;
+      max-width: 820px;
+      font-style: italic;
+    }
+
+    .credit-pill {
+      background: #115e59;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 20px -3px rgba(17, 94, 89, 0.25);
+      border: 1px solid #2dd4bf;
+    }
+
+    .credit-pill span {
+      color: #99f6e4;
+      font-weight: 600;
+    }
+
+    /* Table Component */
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .table-custom th, .table-custom td {
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .table-custom th {
+      background: #ccfbf1;
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+    /* Navigation Controls */
+    #controls {
+      position: absolute;
+      bottom: 16px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: #115e59;
+      color: white;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: #0d9488;
+      transform: translateY(-2px);
+    }
+
+    #keyboard-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 24px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="presentation-container">
+    <div id="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover-slide active" id="slide-1">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-teal">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-cyan">CHAPTER 4 • COVER</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 36px;">
+        <div class="eyebrow">Class 6 Mathematics • Chapter 4</div>
+        <h1 class="cover-title">Data Handling & Presentation</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.65rem; color: #0d9488; margin-bottom: 12px; font-weight: 600;">
+          Collection, Tally Frequency, Pictographs, Bar Graphs & Infographics
+        </div>
+        <p class="cover-subtitle">
+          "Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook."
+        </p>
+
+        <!-- Mandatory Credit Pill (Cover Slide Only) -->
+        <div class="credit-pill">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 1 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 4.1 Collecting & Organising Data -->
+    <section class="slide" id="slide-2">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.1</span>
+          <span class="slide-title">What is Data? Collection & Need for Organisation</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 74–75</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">📊 Definition of Data</div>
+            <p class="card-text">
+              Any collection of facts, numbers, measures, observations, or descriptions that convey meaningful information about things.
+            </p>
+            <div class="highlight-box">
+              $$\text{Raw Data} \longrightarrow \text{Organisation} \longrightarrow \text{Insight}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              • Unorganised lists (like Navya and Naresh's raw student roster) make it difficult to identify trends at a glance.
+            </p>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🎯 Inquiry vs. Facts: When is Data Needed?</div>
+            <p class="card-text">
+              Not all questions require fresh data collection:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55; margin-top: 6px;">
+              <li><strong>Needs Data Collection:</strong> Most popular TV show, water wastage per household, student heights.</li>
+              <li><strong>Known Facts (No Data Needed):</strong> India's independence year ($1947$), capital of India (New Delhi).</li>
+              <li><strong>Raw Roster to Tally:</strong> In Navya's class of 28, Hockey was preferred by 8 students, making it the most popular game!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 2 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX — Section 4.1 Intro -->
+    <section class="slide" id="slide-3">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Defining & Needing Data</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 74–75</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Does finding "the number of states in India" require conducting an active survey or empirical data collection? Why or why not?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Why is an unorganised, handwritten list of students and their choices insufficient to quickly determine the most popular sport?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Give two everyday examples where a teacher or school administrator must collect new data before making a decision.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 3 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Tally Marks & Frequency Distribution -->
+    <section class="slide" id="slide-4">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.1</span>
+          <span class="slide-title">Tally Marks & Frequency Tables</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 76–77</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">✏️ The 5-Bar Tally Convention</div>
+            <p class="card-text">
+              Counting in blocks of five ensures effortless scanning and addition:
+            </p>
+            <div class="formula-box">
+              $$1 = \mid, \quad 2 = \mid\mid, \quad 3 = \mid\mid\mid, \quad 4 = \mid\mid\mid\mid, \quad 5 = {\rlap{////}\mid\mid\mid\mid}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • <strong>Frequency:</strong> The count of how many times a particular value, choice, or observation occurs in the dataset.
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🍬 Shri Nilesh's Sweet Distribution Case</div>
+            <table class="table-custom">
+              <tr><th>Sweet Preference</th><th>Tally Marks</th><th>Frequency (Count)</th></tr>
+              <tr><td>Jalebi</td><td>$5 + 1$</td><td>6</td></tr>
+              <tr><td>Gulab Jamun</td><td>$5 + 4$</td><td>9</td></tr>
+              <tr><td>Gujiya</td><td>$5 + 5 + 3$</td><td>13</td></tr>
+              <tr><td>Barfi</td><td>$3$</td><td>3</td></tr>
+              <tr><td>Rasgulla</td><td>$5 + 2$</td><td>7</td></tr>
+            </table>
+            <p class="card-text" style="font-size: 0.82rem; margin-top: 6px; color: #b91c1c; font-weight: 600;">
+              ⚠️ Insight: The frequency table tells the total sweets to purchase, but not which specific student gets which sweet!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 4 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX — Tally Marks & Sweet Preferences -->
+    <section class="slide" id="slide-5">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Tally Marks & Counts</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 76–77</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">How do you write the number 14 using standard 5-bar bundle tally marks?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">In Shri Nilesh's class, if a staff member arrives with the exact sweet counts from the table, can they distribute each sweet without asking students again? Why?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What is the mathematical term for the count of occurrences of any specific outcome?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 5 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Ordering Data & Letter Frequency Distribution -->
+    <section class="slide" id="slide-6">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.1</span>
+          <span class="slide-title">Ascending Order & Natural Language Frequency</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 77–78</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">👟 Sorting Numerical Data (Shoe Sizes)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Sushri Sandhya recorded 27 shoe sizes on the board. Sorting them in ascending order:
+            </p>
+            <div class="formula-box" style="font-size: 0.86rem; text-align: left;">
+              $$3, 3, 3 \mid 4, 4, 4, 4, 4, 4, 4, 4, 4 \mid 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 \mid 6, 6, 6, 6 \mid 7$$
+            </div>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.5; margin-top: 4px;">
+              <li>Smallest size $= 3$, Largest size $= 7$.</li>
+              <li>Size 5 count $= 10$ students. Sizes $> 4$ (i.e. 5, 6, 7) $= 10 + 4 + 1 = 15$ students.</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">📰 Newspaper Letter Count Investigation</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Counting occurrences of letters in news articles reveals universal patterns:
+            </p>
+            <div class="highlight-box" style="font-size: 0.95rem;">
+              $$\text{Ascending Frequency: } \mathbf{x} < \mathbf{c} < \mathbf{r} < \mathbf{i} < \mathbf{e}$$
+            </div>
+            <p class="card-text" style="font-size: 0.86rem; margin-top: 4px;">
+              • 'e' is consistently the most frequent vowel in English prose.<br>
+              • 'x' is extremely rare. Almost every student gets the exact same relative ordering!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 6 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX — Sorting & Letter Frequency -->
+    <section class="slide" id="slide-7">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Sorting & Ordering</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 77–78</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why does sorting raw numerical data in ascending order instantly reveal both minimum and maximum values?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">In an English news article, why is the letter 'e' almost always found more times than 'x'?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">If 10 students wear size 5, 4 students wear size 6, and 1 student wears size 7, how many wear a size greater than 4?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 7 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: 4.2 Pictographs (Visual Representation) -->
+    <section class="slide" id="slide-8">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.2</span>
+          <span class="slide-title">Introduction to Pictographs</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 79–80</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">🖼️ What is a Pictograph?</div>
+            <p class="card-text">
+              A representation of data using pictures, icons, or symbols of objects.
+            </p>
+            <div class="formula-box">
+              $$\text{Total Frequency} = \text{Number of Symbols} \times \text{Key Value}$$
+            </div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55; margin-top: 6px;">
+              <li>Permits rapid visual scanning without reading dense numerical text.</li>
+              <li>Instantly communicates highest, lowest, and comparative categories.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🚌 Modes of Travel Example</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Key: 1 smiley $(\odot) = 1\text{ student}$:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.55; margin-top: 4px;">
+              <li><strong>Private car:</strong> $\odot\odot\odot\odot = 4$</li>
+              <li><strong>Public bus:</strong> $\odot\odot\odot\odot\odot = 5$</li>
+              <li><strong>School bus:</strong> $\odot\odot\odot\odot\odot\odot\odot\odot\odot = 9$ (Most used!)</li>
+              <li><strong>Cycle:</strong> $\odot\odot\odot = 3$ (Least used!)</li>
+              <li><strong>Walking:</strong> $\odot\odot\odot\odot\odot\odot\odot = 7$</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 8 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX — Section 4.2 Intro -->
+    <section class="slide" id="slide-9">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Reading Pictographs</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 79–80</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">What essential piece of information must accompany every pictograph to make sense of the counts?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If a pictograph displays 9 bus symbols and 3 cycle symbols with a 1-to-1 scale, how many more students take the bus than cycle?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why are pictographs widely preferred in newspapers and children's magazines over raw data tables?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 9 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Scaling & Fractional Symbols in Pictographs -->
+    <section class="slide" id="slide-10">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.2</span>
+          <span class="slide-title">Scaling & Partial Symbols in Pictographs</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 80–83</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">💤 Nand Kishor's Sleep Survey</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Key: $\odot = 10\text{ children}$. Half symbol $= 5\text{ children}$.
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.55; margin-top: 4px;">
+              <li><strong>Always $(\ge 9\text{ hrs}):$</strong> 5 symbols $\implies 5 \times 10 = 50$ children.</li>
+              <li><strong>Sometimes:</strong> 2 full $+$ 1 half $\implies 20 + 5 = 25$ children.</li>
+              <li><strong>Never ($< 9\text{ hrs}):$</strong> 4 symbols $\implies 4 \times 10 = 40$ children.</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">⚠️ The Fractional Limit Dilemma</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              When counts are not clean multiples of the scale:
+            </p>
+            <div class="highlight-box" style="font-size: 0.92rem; text-align: left;">
+              If $\odot = 10$, how do you draw $27$ or $33$ students? Dividing a face into $\frac{3}{10}$ or $\frac{7}{10}$ accurately is impossible!
+            </div>
+            <p class="card-text" style="font-size: 0.84rem; margin-top: 4px;">
+              • For small counts, $1\text{ symbol} = 1\text{ unit}$.<br>
+              • For moderate counts, $1\text{ symbol} = 5$ or $10\text{ units}$.<br>
+              • When counts are large and uneven, pictographs become unwieldy!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 10 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: QUICK BOX — Scaling & Partial Symbols -->
+    <section class="slide" id="slide-11">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Scaling & Limitations</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 82–83</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">If 1 symbol represents 10 students, what value is represented by 3 complete symbols and one half-symbol?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Why does drawing a pictograph become difficult when representing numbers like 33 or 27 with a scale of 1 symbol = 10?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Between Jarina's scale ($1\text{ symbol} = 5$) and Sangita's scale ($1\text{ symbol} = 10$), which scale handles the count 25 more cleanly?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 11 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: Pictograph Analysis (Kites & Library Books) -->
+    <section class="slide" id="slide-12">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Practice</span>
+          <span class="slide-title">Worked Analysis: Kites Sold & Library Circulation</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 83–85</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">📚 Middle School Ginnori Library</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Books borrowed per day (Key: $\square = 1\text{ book}$):
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.55; margin-top: 4px;">
+              <li><strong>Minimum day:</strong> Thursday (fewest borrowed).</li>
+              <li><strong>Maximum day:</strong> Saturday (students borrow for Sunday weekend reading!).</li>
+              <li><strong>Weekly Total:</strong> Sum of all days $= 24\text{ books}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🪁 Magan Bhai's Kite Sales (Jamnagar)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Key: $1\text{ diamond symbol } (\diamondsuit) = 100\text{ kites}$:
+            </p>
+            <div class="formula-box" style="font-size: 0.86rem; text-align: left;">
+              Chaman: $250 \implies 2.5\diamondsuit \quad\mid\quad$ Rani: $300 \implies 3\diamondsuit$<br>
+              Jasmeet: $450 \implies 4.5\diamondsuit \quad\mid\quad$ Poonam Ben: $700 \implies 7\diamondsuit$
+            </div>
+            <p class="card-text" style="font-size: 0.86rem; margin-top: 4px;">
+              • Poonam Ben purchased maximum ($700$).<br>
+              • $700 > 2 \times 300 = 600 \implies$ Poonam Ben bought <em>more than double</em> Rani's count!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 12 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: QUICK BOX — Kite Sales & Library Books -->
+    <section class="slide" id="slide-13">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Interpreting Pictographs</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 84–85</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">In Magan Bhai's kite store, how many complete symbols represent the 300 kites purchased by Rani when 1 symbol = 100 kites?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Between Jasmeet (450 kites) and Chaman (250 kites), who bought more kites, and by how many symbols?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why might library book borrowings spike to their highest level on Saturday compared to weekdays?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 13 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: 4.3 Bar Graphs (Structure & Basics) -->
+    <section class="slide" id="slide-14">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.3</span>
+          <span class="slide-title">What is a Bar Graph?</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 85–86</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">📊 Core Anatomy of a Bar Graph</div>
+            <p class="card-text">
+              A representation of data using rectangular bars:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55; margin-top: 6px;">
+              <li><strong>Uniform Width:</strong> All bars must have identical, constant width.</li>
+              <li><strong>Uniform Spacing:</strong> Equal gaps between consecutive bars.</li>
+              <li><strong>Length/Height = Frequency:</strong> The length or height of the bar directly represents the numerical quantity.</li>
+              <li>Can be oriented <strong>vertically</strong> (column graph) or <strong>horizontally</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🏫 Classroom Absence Example</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Scale: $1\text{ unit length} = 1\text{ student}$:
+            </p>
+            <div class="formula-box" style="text-align: left; font-size: 0.88rem;">
+              Class 1: 3, Class 2: 5, Class 3: 4, Class 4: 2<br>
+              <strong>Class 5: 0 (Zero height bar $\implies$ Full attendance!)</strong><br>
+              Class 6: 1, Class 7: 5, <strong>Class 8: 7 (Maximum absentees)</strong>
+            </div>
+            <p class="card-text" style="font-size: 0.84rem; margin-top: 4px;">
+              A bar graph shows zero values clearly as a flat line without ambiguity!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 14 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: QUICK BOX — Bar Graph Basics -->
+    <section class="slide" id="slide-15">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Bar Graph Rules</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 85–86</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why must all rectangular bars in a bar graph be drawn with the exact same width?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">In a bar graph showing student absentees, what does it mean when Class 5 has a bar height of zero?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can bar graphs be drawn horizontally as well as vertically? Does the meaning change?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 15 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: Scaled Bar Graphs (Vehicular Traffic & Population) -->
+    <section class="slide" id="slide-16">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.3</span>
+          <span class="slide-title">Reading Scaled Graphs: Delhi Traffic & Decadal Population</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 87–89</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">🚦 Delhi Crossing Traffic (Horizontal Bars)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Scale: $1\text{ unit length} = 100\text{ vehicles}$:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.55; margin-top: 4px;">
+              <li><strong>6–7 AM:</strong> $\approx 150$ vehicles (Minimum traffic).</li>
+              <li><strong>7–8 AM:</strong> $1200$ vehicles (Peak morning rush!).</li>
+              <li><strong>8–9 AM:</strong> $1000$ vehicles; <strong>9–10 AM:</strong> $800$ vehicles.</li>
+              <li><strong>10–11 AM:</strong> $700$; <strong>11–12 Noon:</strong> $600$ vehicles.</li>
+              <li><strong>Total (6 AM–12 Noon):</strong> $150 + 1200 + 1000 + 800 + 700 + 600 = \mathbf{4450\text{ vehicles}}$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">📈 India's Population (Large Scale)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Scale: $1\text{ unit length} = 10\text{ crore people}$:
+            </p>
+            <div class="highlight-box" style="font-size: 0.9rem; text-align: left;">
+              1951: $36\text{ cr} \implies 3.6\text{ units}$<br>
+              1971: $54\text{ cr} \implies 5.4\text{ units}$<br>
+              1991: $84\text{ cr} \implies 8.4\text{ units}$<br>
+              2001: $102\text{ cr} \implies 10.2\text{ units}$
+            </div>
+            <p class="card-text" style="font-size: 0.84rem; margin-top: 4px;">
+              Using a scale of 10 crores condenses 100 crore into a clean 10 cm bar!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 16 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: QUICK BOX — Scaled Graphs -->
+    <section class="slide" id="slide-17">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Scale Interpretation</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 87–89</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">In the Delhi traffic graph, why does the hour of 7–8 AM experience the heaviest vehicle volume compared to 6–7 AM?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If a population bar has a length of 8 units where 1 unit = 10 crore, how many people does it represent?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What would happen if we tried to plot India's population using a scale of 1 unit = 1 person?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 17 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: 4.4 Drawing a Bar Graph (4-Step Method) -->
+    <section class="slide" id="slide-18">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.4</span>
+          <span class="slide-title">How to Draw a Bar Graph: 4-Step Method</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 89–91</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">📜 The 4 Systematic Steps</div>
+            <ol style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55;">
+              <li><strong>Step 1 (Axes):</strong> Draw two perpendicular axes—horizontal (categories) and vertical (frequencies).</li>
+              <li><strong>Step 2 (Scale Selection):</strong> Choose a convenient scale starting strictly from 0 ($1\text{ unit} = 1, 5, 10, 200$, etc.).</li>
+              <li><strong>Step 3 (Bar Dimensions):</strong> Calculate the height of each bar:
+                $$\text{Height} = \frac{\text{Category Frequency}}{\text{Scale Unit Value}}$$
+              </li>
+              <li><strong>Step 4 (Uniform Plotting):</strong> Draw bars of equal width with uniform spacing between them.</li>
+            </ol>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🏏 Smriti's Cricket Runs Example</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Scores: $80, 50, 10, 100, 90, 0, 90, 50$. Scale: $1\text{ unit} = 10\text{ runs}$.
+            </p>
+            <div class="formula-box" style="font-size: 0.86rem; text-align: left;">
+              Match 1: $80 \div 10 = 8\text{ units} \quad\mid\quad$ Match 3: $10 \div 10 = 1\text{ unit}$<br>
+              <strong>Match 4: $100 \div 10 = 10\text{ units}$ (Peak score!)</strong><br>
+              <strong>Match 6: $0\text{ runs} \implies \text{Flat baseline}$</strong>
+            </div>
+            <p class="card-text" style="font-size: 0.84rem; margin-top: 4px;">
+              A 10-unit scale keeps the entire match chart perfectly within a 10 cm page!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 18 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: QUICK BOX — Drawing Bar Graphs -->
+    <section class="slide" id="slide-19">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Construction Steps</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 90–91</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">If a batsman scores 80 runs and the chosen scale is 1 unit = 10 runs, what will be the height of that match's bar?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Why must scale tick markings on the vertical frequency axis always begin at zero rather than the minimum score?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">How is a score of zero runs shown on a vertical bar graph?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 19 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: Family Budget Bar Graph (Imran's Family) -->
+    <section class="slide" id="slide-20">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Case Study</span>
+          <span class="slide-title">Imran's Family Monthly Expenditure</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 91–93</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">💰 Expense Breakdown & Scale</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Scale: $1\text{ unit length} = \text{₹}200$:
+            </p>
+            <table class="table-custom">
+              <tr><th>Expense Item</th><th>Amount (₹)</th><th>Bar Height</th></tr>
+              <tr><td>Food</td><td>₹3400</td><td>$3400 \div 200 = 17\text{ units}$ (Highest)</td></tr>
+              <tr><td>House rent</td><td>₹3000</td><td>$3000 \div 200 = 15\text{ units}$ (2nd)</td></tr>
+              <tr><td>Miscellaneous</td><td>₹1200</td><td>$1200 \div 200 = 6\text{ units}$</td></tr>
+              <tr><td>Education</td><td>₹800</td><td>$800 \div 200 = 4\text{ units}$</td></tr>
+              <tr><td>Transport</td><td>₹600</td><td>$600 \div 200 = 3\text{ units}$</td></tr>
+              <tr><td>Electricity</td><td>₹400</td><td>$400 \div 200 = 2\text{ units}$ (Lowest)</td></tr>
+            </table>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🔍 Comparative Financial Deductions</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6; margin-top: 6px;">
+              <li><strong>Highest vs 2nd Highest:</strong> Family spends the most on <em>Food</em> (₹3400) and second most on <em>House Rent</em> (₹3000).</li>
+              <li><strong>Electricity vs Education:</strong>
+                $$\text{Electricity} = \text{₹}400 = \frac{1}{2} \times \text{Education (₹800)} \quad \text{[Exactly Half!]}$$
+              </li>
+              <li><strong>Education vs Food:</strong>
+                $$\frac{1}{4} \times \text{Food} = \frac{3400}{4} = \text{₹}850 > \text{₹}800 \implies \mathbf{Yes,\; less\; than\; 1/4th!}$$
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 20 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX — Family Expenditure -->
+    <section class="slide" id="slide-21">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Ratio Comparisons</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 92–93</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">In Imran's family budget, on which single item is the highest amount of money spent?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If education costs ₹800 and electricity costs ₹400, is electricity expenditure exactly one-half of education?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why is ₹200 chosen as the scale unit rather than ₹1 for graphing expenses ranging up to ₹3400?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 21 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: 4.5 Artistic & Aesthetic Considerations -->
+    <section class="slide" id="slide-22">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Section 4.5</span>
+          <span class="slide-title">Aesthetics & Spatial Orientation of Graphs</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 101–103</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">🏔️ Vertical Columns for Heights</div>
+            <p class="card-text">
+              Natural alignment reinforces visual intuition:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55; margin-top: 6px;">
+              <li><strong>Tallest Mountain Peaks:</strong> Mountains rise vertically from the earth. Drawing them as <strong>vertical column bars</strong> mirrors reality!</li>
+              <li>Everest (8848m), Aconcagua (6962m), Denali (6194m), Kilimanjaro (5895m), Elbrus (5642m), Vinson Massif (4892m), Kosciuszko (2228m).</li>
+              <li>Columns evoke architectural pillars reaching skyward.</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🌊 Horizontal Bars for Distances & Rivers</div>
+            <p class="card-text">
+              Horizontal phenomena flow parallel to the earth's surface:
+            </p>
+            <div class="highlight-box">
+              $$\text{River Lengths, Road Distances, Track Laps} \implies \mathbf{Horizontal\;Bars}$$
+              $$\text{Mountain Elevations, Human Heights, Tree Growth} \implies \mathbf{Vertical\;Columns}$$
+            </div>
+            <p class="card-text" style="font-size: 0.86rem; margin-top: 4px;">
+              Matching chart orientation to physical geometry makes interpretation instant and natural!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 22 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: QUICK BOX — Graph Orientation -->
+    <section class="slide" id="slide-23">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Orientation & Intuition</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 101–103</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">If you graph the heights of the tallest students in your school, should you choose vertical or horizontal bars? Why?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If you are comparing the lengths of the Nile, Amazon, and Yangtze rivers, which bar orientation is most intuitive?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What is the tallest continental peak in the world, and which continent's highest peak is Mount Kosciuszko?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 23 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: Infographics & The Danger of Misleading Visuals -->
+    <section class="slide" id="slide-24">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Infographics</span>
+          <span class="slide-title">Infographics: Visual Power vs. Misleading Distortion</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 103–105</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">🎨 What is an Infographic?</div>
+            <p class="card-text">
+              An <em>information graphic</em> combining data visualisations with artistic illustrations, creative shapes, and stylized imagery to engage audiences.
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55; margin-top: 6px;">
+              <li>High visual engagement and instant aesthetic appeal.</li>
+              <li>Used widely in public awareness campaigns and digital media.</li>
+            </ul>
+          </div>
+
+          <div class="card card-rose" style="border-left: 5px solid #e11d48; background: linear-gradient(145deg, #ffffff, #fff1f2);">
+            <div class="card-title" style="color: #9f1239;">⚠️ The 2D Area Distortion Trap</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              When rectangular bars are replaced with triangular mountain shapes:
+            </p>
+            <div class="formula-box" style="font-size: 0.86rem; text-align: left; border-color: #fca5a5; color: #9f1239;">
+              • Taller triangles are drawn with <em>wider bases</em>!<br>
+              • If height doubles and width doubles, <strong>surface area quadruples ($4\times$)!</strong><br>
+              • Eye perceives area, misleading the viewer into thinking Everest is $4\times$ bigger than other peaks!
+            </div>
+            <p class="card-text" style="font-size: 0.84rem; margin-top: 4px; font-weight: 700; color: #b91c1c;">
+              Rule: Graphic embellishments must never distort true proportional values!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 24 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 25: QUICK BOX — Infographics & Misleading Data -->
+    <section class="slide" id="slide-25">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Critical Data Literacy</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 104–105</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why does substituting triangular mountain shapes for uniform-width rectangular bars risk misleading the viewer?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If Mount Elbrus is 5642m and Everest is 8848m, is Everest twice as tall as Elbrus? What is $5642 \times 2$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What is the golden rule of data presentation when balancing artistic creativity with factual accuracy?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 25 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 26: Real-World Case Studies: Project Tiger & Mudhol Hounds -->
+    <section class="slide" id="slide-26">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Real-World Data</span>
+          <span class="slide-title">Conservation Data: Project Tiger & Mudhol Hounds</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 98, 100</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">🐅 Project Tiger Quadrennial Censuses</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Tracking tiger populations from 2006 to 2022:
+            </p>
+            <div class="highlight-box" style="font-size: 0.88rem; text-align: left;">
+              2006: 1400 tigers $\quad\mid\quad$ 2010: 1700 tigers<br>
+              2014: 2200 tigers $\quad\mid\quad$ 2018: 3000 tigers<br>
+              <strong>2022: 3700 tigers (Remarkable recovery!)</strong>
+            </div>
+            <p class="card-text" style="font-size: 0.84rem; margin-top: 4px;">
+              • Graphing errors happen when bars don't match the table counts—data integrity requires rigorous verification!
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">🐕 Mudhol Hounds (Karnataka Indigenous Breed)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Counts across 6 villages (A:18, B:36, C:12, D:48, E:18, F:24):
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.5; margin-top: 4px;">
+              <li><strong>Optimal Scale:</strong> All counts are exact multiples of $6 \implies \text{Scale: } 1\text{ symbol } (\blacklozenge) = 6\text{ dogs}$!</li>
+              <li>Village B: $36 \div 6 = 6\text{ symbols}$.</li>
+              <li>$\text{Villages } B + D = 36 + 48 = 84$. Others $(A+C+E+F) = 18+12+18+24 = 72$.</li>
+              <li>Since $84 > 72$, Kamini's conjecture was mathematically correct!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 26 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 27: QUICK BOX — Conservation Data -->
+    <section class="slide" id="slide-27">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Conservation Analytics</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 98, 100</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why is a scale of 1 symbol = 6 dogs optimal for plotting village hound counts of 18, 36, 12, 48, 18, and 24?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Between 2006 (1400 tigers) and 2022 (3700 tigers), by how many total tigers did India's recorded population increase?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">How does tracking data over 4-year census intervals help governments evaluate whether a conservation policy is working?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 27 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 28: Exercise Highlights (Worked Problems) -->
+    <section class="slide" id="slide-28">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Worked Examples</span>
+          <span class="slide-title">Exercise Highlights & Solutions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 94–99</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-teal">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 1: Train Tickets Scale</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Vidisha sold 24 tickets with a bar of 6 units. Find scale and Jabalpur's bar (20 tickets).
+            </p>
+            <div style="background: #f0fdfa; border: 1px dashed #14b8a6; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $\text{Scale} = 24 \div 6 = 4\text{ tickets/unit}$<br>
+              Jabalpur: $20 \div 4 = 5\text{ units}$<br>
+              Sagar (16 tickets): $16 \div 4 = 4\text{ units}$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #0f766e; font-size: 0.85rem;">Answer: 1 unit = 4 tickets</p>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 2: Bumrah's Wickets</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> How to find total wickets from match frequency table? (0 to 7 wickets).
+            </p>
+            <div style="background: #f0f9ff; border: 1px dashed #38bdf8; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              Multiply each wicket value by its match count: $\sum (\text{Wickets} \times \text{Matches})$.<br>
+              Sum all products: Total $= \mathbf{90\text{ wickets}}$!
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #0284c7; font-size: 0.85rem;">Answer: 90 total wickets</p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 3: Tree Planting Week</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Total saplings on Wed (30) & Thu (40). Total planted in whole week?
+            </p>
+            <div style="background: #f0fdf4; border: 1px dashed #34d399; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              Wed $+$ Thu $= 30 + 40 = 70$.<br>
+              Total $= 52 + 40 + 30 + 40 + 50 + 60 + 40 = \mathbf{312\text{ or } 310}$. Peak on Saturday (60).
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #059669; font-size: 0.85rem;">Answer: 70 (Wed+Thu), 310 total</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 28 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 29: Chapter Summary Checklist -->
+    <section class="slide" id="slide-29">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-teal">Chapter Summary</span>
+          <span class="slide-title">Core Takeaways & Rules Checklist</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 105–106</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-teal">
+            <div class="card-title">✅ Collection & Tally Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Data:</strong> Empirical facts, measurements, or observations collected to answer questions.</li>
+              <li><strong>Tally Bundles:</strong> Grouped into units of five for fast, error-free summation.</li>
+              <li><strong>Frequency:</strong> Exact count of occurrences for each observation or category.</li>
+              <li><strong>Ascending Order:</strong> Immediately identifies minimum, maximum, median, and clusters.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">✅ Visualisation & Ethics Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Pictographs:</strong> Uses pictures/symbols; scale key is mandatory; fractional symbols have limits.</li>
+              <li><strong>Bar Graphs:</strong> Uniform bar width, uniform spacing; bar height/length equals frequency.</li>
+              <li><strong>Orientation:</strong> Columns (vertical) for heights/elevations; horizontal bars for lengths/flows.</li>
+              <li><strong>Aesthetic Ethics:</strong> Never distort width or area in a way that exaggerates or misleads facts!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 29 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 30: CLOSING SLIDE -->
+    <section class="slide closing-slide" id="slide-30">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-teal">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-emerald">CHAPTER 4 COMPLETE</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 30px;">
+        <div class="eyebrow">Conclusion • The Story of Data</div>
+        <h1 class="cover-title" style="font-size: 3.2rem;">Congratulations!</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: #0d9488; margin-bottom: 16px; font-weight: 600;">
+          You Have Mastered Data Handling, Visualisation & Interpretation
+        </div>
+        <p class="cover-subtitle" style="font-size: 1.15rem; max-width: 780px;">
+          "Data are not just numbers on a page; they are the footprints of our world. When organised with clarity and presented with honesty, they illuminate truth and empower wise decisions."<br>
+          <span style="font-size: 0.95rem; font-style: normal; color: #64748b; margin-top: 6px; display: inline-block;">
+            — Inspired by the statistical foundations of modern scientific inquiry
+          </span>
+        </p>
+
+        <!-- Mandatory Credit Pill (Closing Slide Only) -->
+        <div class="credit-pill" style="margin-top: 10px;">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 30 / 30</span>
+      </div>
+    </section>
+
+    <!-- Navigation Overlay Controls -->
+    <div id="controls">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+
+        // Render KaTeX for newly active slide
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentSlide], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ]
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          updateSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          updateSlide(currentSlide - 1);
+        }
+      }
+
+      // Button navigation
+      document.getElementById('next-btn').addEventListener('click', nextSlide);
+      document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
