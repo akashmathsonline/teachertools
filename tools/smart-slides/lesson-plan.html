@@ -3,151 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Lesson Plan Studio</title>
+  <title>AI Lesson Plan Studio</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
+    /* [PASTE ALL YOUR EXISTING CSS HERE] */
     .lp-app, .lp-app * { box-sizing: border-box; }
     .lp-app {
-      --cream:        #FFF7EF;
-      --cream-deep:   #FCEEDF;
-      --peach:        #FBD9C4;
-      --coral:        #F4805F;
-      --coral-deep:   #E4653F;
-      --lavender:     #E9E2FB;
-      --lavender-2:   #D9CCF7;
-      --purple:       #8574E0;
-      --purple-deep:  #2E2A4A;
-      --ink:          #2E2A4A;
-      --ink-soft:     #6B6584;
-      --white:        #FFFFFF;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      padding: 15px 12px 60px;
-      min-height: 100vh;
+      --cream: #FFF7EF; --cream-deep: #FCEEDF; --peach: #FBD9C4;
+      --coral: #F4805F; --coral-deep: #E4653F; --lavender: #E9E2FB;
+      --lavender-2: #D9CCF7; --purple: #8574E0; --purple-deep: #2E2A4A;
+      --ink: #2E2A4A; --ink-soft: #6B6584; --white: #FFFFFF;
+      font-family: 'Inter', system-ui, sans-serif; background: var(--cream);
+      color: var(--ink); padding: 15px 12px 60px; min-height: 100vh;
     }
     .lp-display { font-family: 'Fredoka', cursive, sans-serif; }
     .lp-container { max-width: 960px; margin: 0 auto; }
-
-    /* HERO HEADER */
-    .lp-hero {
-      text-align: center;
-      background: linear-gradient(135deg, var(--purple-deep) 0%, #3D3568 45%, var(--purple) 100%);
-      border-radius: 24px;
-      padding: 34px 20px;
-      margin-bottom: 24px;
-      box-shadow: 0 15px 35px rgba(46, 42, 74, 0.2);
-      color: #ffffff;
-    }
+    .lp-hero { text-align: center; background: linear-gradient(135deg, var(--purple-deep) 0%, #3D3568 45%, var(--purple) 100%); border-radius: 24px; padding: 34px 20px; margin-bottom: 24px; box-shadow: 0 15px 35px rgba(46, 42, 74, 0.2); color: #ffffff; }
     .lp-hero-title { font-size: 2.2rem; font-weight: 700; margin: 0 0 6px 0; }
     .lp-hero-sub { font-size: 0.95rem; color: var(--peach); font-weight: 700; margin: 0 0 8px 0; }
-
-    /* SETUP CARD */
     .lp-setup-card { background: var(--white); border: 2px solid var(--peach); border-radius: 24px; padding: 28px; margin-bottom: 28px; box-shadow: 0 10px 25px rgba(92, 77, 196, 0.06); }
     .lp-step-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; border-bottom: 2px dashed var(--peach); padding-bottom: 12px; }
     .lp-step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--purple-deep); color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; }
     .lp-step-title { font-size: 1.2rem; font-weight: 700; color: var(--purple-deep); margin: 0; }
-    
     .lp-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px; }
     .lp-field label { display: block; font-size: 0.82rem; font-weight: 700; color: var(--purple-deep); margin-bottom: 5px; }
     .lp-input, .lp-select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--peach); font-size: 0.9rem; font-family: inherit; outline: none; background: #fff; transition: border-color 0.2s; }
     .lp-input:focus, .lp-select:focus { border-color: var(--purple); }
-
-    /* BUTTONS */
-    .lp-btn { border: none; padding: 9px 16px; border-radius: 999px; font-size: 0.86rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
-    .lp-btn-primary { background: var(--coral); color: #ffffff !important; }
-    .lp-btn-primary:hover { background: var(--coral-deep); transform: translateY(-2px); }
-    .lp-btn-purple { background: var(--purple); color: #ffffff !important; }
+    .lp-btn { border: none; padding: 12px 28px; border-radius: 999px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+    .lp-btn-purple { background: var(--purple); color: #ffffff !important; width: 100%; box-shadow: 0 4px 15px rgba(133, 116, 224, 0.4); }
     .lp-btn-purple:hover { background: #6a5acd; transform: translateY(-2px); }
-    .lp-btn-sec { background: var(--lavender); color: var(--purple-deep) !important; border: 1px solid var(--lavender-2); }
-    .lp-btn-sec:hover { background: var(--lavender-2); }
-    .lp-btn-active { background: var(--purple-deep) !important; color: #ffffff !important; }
-    .lp-btn-edit-active { background: #E4653F !important; color: #ffffff !important; }
-
-    /* PROMPT BOX */
-    .lp-prompt-box { background: #1E1E2E; border: 2px solid var(--purple); border-radius: 18px; padding: 20px; color: #CDD6F4; position: relative; margin-top: 14px; }
-    .lp-prompt-box pre { margin: 0; font-family: monospace; font-size: 0.85rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; max-height: 200px; overflow-y: auto; }
-    .lp-copy-btn { position: absolute; top: 14px; right: 14px; background: var(--purple); color: #ffffff; border: none; padding: 6px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
-
-    /* TOOLBAR CONTROLS */
-    .lp-toolbar { background: var(--white); border: 2px solid var(--peach); border-radius: 20px; padding: 14px 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 25px rgba(92, 77, 196, 0.08); margin-bottom: 20px; }
-    .lp-toolbar-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
-    .lp-btn-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .lp-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
     
-    .lp-checkbox-label { display: inline-flex; align-items: center; gap: 8px; background: var(--cream-deep); border: 1px solid var(--peach); padding: 7px 14px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; color: var(--purple-deep); cursor: pointer; user-select: none; transition: background 0.2s; }
-    .lp-checkbox-label:hover { background: var(--lavender); }
-    .lp-checkbox-label input[type="checkbox"] { accent-color: var(--coral); width: 16px; height: 16px; cursor: pointer; }
-
     /* LESSON PLAN PAPER CONTAINER */
-    .lp-sheet { background: var(--white); border: 1px solid var(--peach); border-radius: 24px; padding: 44px; box-shadow: 0 15px 35px rgba(46, 42, 74, 0.08); position: relative; transition: border-color 0.2s; }
+    .lp-sheet { background: var(--white); border: 1px solid var(--peach); border-radius: 24px; padding: 44px; box-shadow: 0 15px 35px rgba(46, 42, 74, 0.08); position: relative; transition: border-color 0.2s; display: none; }
     .editable-mode-active .lp-sheet { border: 2px dashed var(--coral) !important; }
     .editable-mode-active [contenteditable="true"] { outline: 1px dashed rgba(133, 116, 224, 0.45); outline-offset: 2px; cursor: text; border-radius: 4px; }
-
-    /* HEADER BLOCK */
     .lp-header-box { border-bottom: 3px double var(--peach); padding-bottom: 20px; margin-bottom: 24px; }
     .lp-header-flex { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
-    .lp-logo-holder { width: 75px; height: 75px; flex-shrink: 0; display: none; align-items: center; justify-content: center; }
-    .lp-logo-holder.has-logo { display: flex; }
-    .lp-logo-holder img { max-width: 100%; max-height: 100%; object-fit: contain; }
     .lp-header-center { flex: 1; text-align: center; }
     .lp-school-name { font-size: 1.85rem; font-weight: 700; color: var(--purple-deep); margin: 0 0 4px 0; text-transform: uppercase; letter-spacing: 0.04em; }
     .lp-sub-title { font-size: 1.05rem; font-weight: 700; color: var(--coral-deep); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
-
-    /* META TABLE */
     .lp-meta-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
     .lp-meta-table td { border: 1px solid var(--peach); padding: 8px 12px; font-size: 0.88rem; }
     .lp-meta-lbl { font-weight: 700; background: var(--cream-deep); color: var(--purple-deep); width: 18%; }
     .lp-meta-val { color: var(--ink); font-weight: 600; width: 32%; }
-
-    /* SECTIONS & TYPOGRAPHY */
     .lp-sec-title { font-size: 1.15rem; color: var(--purple-deep); background: var(--lavender); padding: 9px 15px; border-left: 5px solid var(--purple); border-radius: 0 8px 8px 0; margin: 28px 0 14px 0; }
     .lp-content p, .lp-content li { font-size: 0.92rem; line-height: 1.6; color: var(--ink); }
     .lp-content ul { padding-left: 20px; margin: 8px 0; }
-
-    /* PERIOD TABLE */
     .lp-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
     .lp-table th, .lp-table td { border: 1px solid var(--peach); padding: 9px 12px; font-size: 0.86rem; text-align: left; }
     .lp-table th { background: var(--purple-deep); color: #fff; font-weight: 600; }
-
-    /* PERIOD CARDS */
     .lp-period-card { border: 1px solid var(--peach); border-radius: 14px; padding: 20px 22px; margin-bottom: 22px; background: #FFFDFB; }
     .lp-period-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--peach); padding-bottom: 10px; margin-bottom: 12px; }
     .lp-period-num { font-weight: 700; color: var(--coral-deep); font-size: 0.95rem; }
     .lp-period-name { font-weight: 700; color: var(--purple-deep); font-size: 1.1rem; }
     .lp-block-row { margin-bottom: 10px; font-size: 0.91rem; line-height: 1.55; }
     .lp-block-lbl { font-weight: 700; color: var(--purple-deep); text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.04em; }
-
-    /* DYNAMIC HEADERS & SIGNATURES */
-    .lp-injected-header { display: none; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 2px dashed var(--peach); }
-    .show-period-headers .lp-injected-header { display: block; }
-    .lp-injected-sig { display: none; margin-top: 30px; padding-top: 14px; border-top: 2px dashed var(--peach); }
-    .show-period-sigs .lp-injected-sig { display: flex; justify-content: space-between; align-items: flex-end; gap: 15px; }
-    .separate-period-pages .lp-period-card { page-break-after: always; break-after: page; margin-bottom: 40px; }
-
-    /* SIGNATURE STRIP */
+    
+    .lp-toolbar { background: var(--white); border: 2px solid var(--peach); border-radius: 20px; padding: 14px 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 10px 25px rgba(92, 77, 196, 0.08); margin-bottom: 20px; display: none; }
+    .lp-toolbar-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+    .lp-btn-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .lp-btn-sec { background: var(--lavender); color: var(--purple-deep) !important; border: 1px solid var(--lavender-2); font-size: 0.86rem; padding: 9px 16px; }
+    .lp-btn-sec:hover { background: var(--lavender-2); }
+    .lp-btn-active { background: var(--purple-deep) !important; color: #ffffff !important; }
     .lp-sig-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; padding-top: 15px; border-top: 2px dashed var(--peach); gap: 15px; }
     .lp-sig-box { text-align: center; font-size: 0.85rem; font-weight: 700; color: var(--ink); flex: 1; }
     .lp-sig-line { border-top: 1px solid var(--ink); margin-bottom: 6px; width: 100%; }
 
-    /* MODALS */
-    .lp-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(46, 42, 74, 0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; z-index: 99999; padding: 16px; }
-    .lp-modal-card { background: var(--white); border-radius: 24px; max-width: 650px; width: 100%; padding: 30px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); border: 2px solid var(--peach); max-height: 90vh; overflow-y: auto; position: relative; }
-    .lp-modal-close { position: absolute; top: 18px; right: 20px; background: var(--cream-deep); border: 1px solid var(--peach); color: var(--purple-deep); width: 32px; height: 32px; border-radius: 50%; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-    .lp-modal-close:hover { background: var(--coral); color: #fff; border-color: var(--coral); }
-    .lp-form-row { margin-bottom: 14px; }
-
-    /* INK SAVER MODE & PRINTING */
-    .ink-saver { --cream: #ffffff !important; --cream-deep: #ffffff !important; --peach: #cccccc !important; --coral: #000000 !important; --coral-deep: #000000 !important; --lavender: #f4f4f4 !important; --lavender-2: #eeeeee !important; --purple: #444444 !important; --purple-deep: #000000 !important; --ink: #000000 !important; --ink-soft: #333333 !important; --white: #ffffff !important; background: #ffffff !important; }
-    .ink-saver .lp-sheet { box-shadow: none !important; border: 1px solid #000 !important; border-radius: 0 !important; }
-    .ink-saver .lp-table th { background: #e5e5e5 !important; color: #000 !important; border: 1px solid #000 !important; }
-    .ink-saver .lp-meta-lbl { background: #f0f0f0 !important; border: 1px solid #000 !important; }
-    .ink-saver .lp-table td, .ink-saver .lp-meta-table td, .ink-saver .lp-period-card { border: 1px solid #000 !important; border-radius: 0 !important; }
-
     @media print {
       body { background: #fff !important; margin: 0 !important; }
-      .lp-hero, .lp-setup-card, .lp-toolbar, .lp-modal-overlay, header, nav, footer, aside { display: none !important; }
+      .lp-hero, .lp-setup-card, .lp-toolbar, header, nav, footer, aside { display: none !important; }
       .lp-app { padding: 0 !important; background: #fff !important; }
-      .lp-sheet { border: none !important; box-shadow: none !important; padding: 0 !important; max-width: 100% !important; width: 100% !important; }
+      .lp-sheet { border: none !important; box-shadow: none !important; padding: 0 !important; display: block !important; }
       .editable-mode-active [contenteditable="true"] { outline: none !important; }
     }
   </style>
@@ -158,29 +85,29 @@
   <div class="lp-container">
     
     <div class="lp-hero">
-      <h1 class="lp-hero-title lp-display">Dynamic Lesson Plan Studio</h1>
-      <div class="lp-hero-sub">AI-Powered NEP 2023 Planning & Formatting Engine</div>
+      <h1 class="lp-hero-title lp-display">AI Lesson Plan Studio</h1>
+      <div class="lp-hero-sub">Generate NEP 2023 Aligned Lesson Plans in Seconds</div>
     </div>
 
-    <!-- AI PROMPT SETUP CARD -->
-    <div class="lp-setup-card">
+    <!-- FORM SECTION (ONLY THIS SHOWS FIRST) -->
+    <div class="lp-setup-card" id="setupCard">
       <div class="lp-step-head">
-        <div class="lp-step-num">1</div>
-        <h2 class="lp-step-title lp-display">Step 1: Curriculum & Book Details</h2>
+        <div class="lp-step-num">✨</div>
+        <h2 class="lp-step-title lp-display">Enter Details to Generate Plan</h2>
       </div>
 
       <div class="lp-form-grid">
         <div class="lp-field">
           <label>Class & Section</label>
-          <input type="text" id="inpClass" class="lp-input" placeholder="e.g. Class IX" oninput="updatePrompt()" />
+          <input type="text" id="inpClass" class="lp-input" placeholder="e.g. Class IX" />
         </div>
         <div class="lp-field">
           <label>Subject</label>
-          <input type="text" id="inpSubject" class="lp-input" placeholder="e.g. Mathematics" value="Mathematics" oninput="updatePrompt()" />
+          <input type="text" id="inpSubject" class="lp-input" placeholder="e.g. Mathematics" value="Mathematics" />
         </div>
         <div class="lp-field">
           <label>Chapter / Topic</label>
-          <input type="text" id="inpTopic" class="lp-input" placeholder="e.g. Coordinate Geometry" oninput="updatePrompt()" />
+          <input type="text" id="inpTopic" class="lp-input" placeholder="e.g. Coordinate Geometry" />
         </div>
       </div>
 
@@ -194,60 +121,36 @@
               <option value="NCERT Curiosity (Science)">NCERT Curiosity (Science)</option>
               <option value="Custom / Other Book">Other (Type manually) ➔</option>
             </select>
-            <input type="text" id="inpBookManual" class="lp-input" style="width: 50%;" placeholder="e.g. R.S. Aggarwal" oninput="updatePrompt()" />
+            <input type="text" id="inpBookManual" class="lp-input" style="width: 50%;" placeholder="e.g. R.S. Aggarwal" />
           </div>
         </div>
 
         <div class="lp-field">
           <label>Number of Periods</label>
-          <select id="inpPeriods" class="lp-select" onchange="updatePrompt()">
+          <select id="inpPeriods" class="lp-select">
             <option value="Auto-Decide by AI" selected>🤖 Auto-Decide (AI Chooses)</option>
             <option value="1">1 Period</option><option value="2">2 Periods</option><option value="3">3 Periods</option>
             <option value="4">4 Periods</option><option value="5">5 Periods</option><option value="6">6 Periods</option>
-            <option value="8">8 Periods</option><option value="10">10 Periods</option><option value="12">12 Periods</option>
           </select>
         </div>
       </div>
 
       <div class="lp-form-grid">
-        <div class="lp-field" style="grid-column: span 2;">
+        <div class="lp-field" style="grid-column: span 3;">
           <label>Special Instructions for AI (Optional)</label>
-          <textarea id="inpSpecial" class="lp-input" rows="2" placeholder="e.g. Focus on experiential learning, add a quiz..." oninput="updatePrompt()"></textarea>
-        </div>
-        <div class="lp-field" style="display:flex; align-items:flex-end; padding-bottom:10px;">
-          <label class="lp-checkbox-label" style="margin-bottom:0;">
-            <input type="checkbox" id="chkPdfUpload" onchange="updatePrompt()" />
-            I will upload my PDF/Material to AI
-          </label>
+          <textarea id="inpSpecial" class="lp-input" rows="2" placeholder="e.g. Focus on experiential learning, add a quiz..."></textarea>
         </div>
       </div>
 
-      <!-- STEP 2: PROMPT -->
-      <div style="margin-top:24px;">
-        <div class="lp-step-head"><div class="lp-step-num">2</div><h2 class="lp-step-title lp-display">Step 2: Copy AI Prompt</h2></div>
-        <div class="lp-prompt-box">
-          <button class="lp-copy-btn" onclick="copyPrompt()" id="btnCopyPrompt">Copy Prompt</button>
-          <pre id="promptTextDisplay"></pre>
-        </div>
-      </div>
-
-      <!-- STEP 3: PASTE & RENDER -->
-      <div style="margin-top:24px;">
-        <div class="lp-step-head"><div class="lp-step-num">3</div><h2 class="lp-step-title lp-display">Step 3: Paste AI Output</h2></div>
-        <textarea id="rawPlanInput" class="lp-input" rows="6" placeholder="Paste the generated text from ChatGPT/Claude here..." style="font-size:0.86rem;"></textarea>
-        
-        <!-- NAYA AI BUTTON AUR PARSER BUTTON -->
-        <div style="margin-top:14px; display: flex; gap: 10px; justify-content: flex-end;">
-          <button class="lp-btn lp-btn-purple" id="btnAiGenerate" style="padding:12px 28px; font-size:0.95rem;" onclick="generateWithDeepSeek()">
-            🤖 1-Click AI Generate
-          </button>
-          <button class="lp-btn lp-btn-primary" style="padding:12px 28px; font-size:0.95rem;" onclick="executeSmartParser()">🚀 Parse Text to Plan</button>
-        </div>
+      <div style="margin-top: 20px;">
+        <button class="lp-btn lp-btn-purple" id="btnGenerate" onclick="startGeneration()">
+          🚀 Generate Lesson Plan with AI
+        </button>
       </div>
     </div>
 
-    <!-- TOP TOOLBAR (Document Controls) -->
-    <div class="lp-toolbar" id="docToolbar" style="display:none;">
+    <!-- TOOLBAR (APPEARS AFTER GENERATION) -->
+    <div class="lp-toolbar" id="docToolbar">
       <div class="lp-toolbar-row">
         <div class="lp-btn-group">
           <button class="lp-btn lp-btn-sec" onclick="openLPModal()">✨ Personalize Name/Logos</button>
@@ -257,35 +160,23 @@
         <div class="lp-btn-group">
           <button class="lp-btn lp-btn-sec" id="btnLiveEdit" onclick="toggleLiveEdit()">✏️ Edit Content: OFF</button>
           <button class="lp-btn lp-btn-sec" id="btnInkToggle" onclick="toggleInkSaver()">🌱 Ink-Saver: OFF</button>
-          <button class="lp-btn lp-btn-primary" onclick="window.print()">🖨️ Print Document</button>
-        </div>
-      </div>
-
-      <div class="lp-toolbar-row" id="modelOptionsRow" style="border-top: 1px dashed var(--peach); padding-top: 10px; display: none;">
-        <div class="lp-btn-group">
-          <label class="lp-checkbox-label"><input type="checkbox" onchange="handlePeriodPageBreak(this.checked)" /> 📄 Separate Page per Period</label>
-          <label class="lp-checkbox-label"><input type="checkbox" onchange="handlePeriodHeaderRepeat(this.checked)" /> 🏫 Repeat Header per Page</label>
-          <label class="lp-checkbox-label"><input type="checkbox" onchange="handlePeriodSigRepeat(this.checked)" /> ✍️ Repeat Signatures</label>
+          <button class="lp-btn lp-btn-purple" style="width:auto; padding: 9px 16px; font-size:0.86rem;" onclick="window.print()">🖨️ Print Document</button>
         </div>
       </div>
     </div>
 
-    <!-- LESSON PLAN DOCUMENT BODY -->
-    <div class="lp-sheet" id="printSheet" style="display:none;">
-      <!-- MAIN HEADER -->
+    <!-- FINAL DOCUMENT SHEET -->
+    <div class="lp-sheet" id="printSheet">
       <div class="lp-header-box">
         <div class="lp-header-flex">
-          <div class="lp-logo-holder" id="outLogoLeftBox"><img id="outLogoLeft" src="" alt="" /></div>
           <div class="lp-header-center">
             <h1 class="lp-school-name lp-display lp-editable" id="outSchool">[SCHOOL / INSTITUTION NAME]</h1>
             <div class="lp-sub-title">LESSON PLAN (<span id="outSession" class="lp-editable">2026–27</span>)</div>
             <div class="lp-editable" style="font-size:0.85rem; color:var(--ink-soft); font-weight:600;" id="outCurriculum">Aligned with NEP 2020 & NCF 2023</div>
           </div>
-          <div class="lp-logo-holder" id="outLogoRightBox"><img id="outLogoRight" src="" alt="" /></div>
         </div>
       </div>
 
-      <!-- META INFO TABLE -->
       <table class="lp-meta-table">
         <tr>
           <td class="lp-meta-lbl">Teacher</td><td class="lp-meta-val lp-editable" id="outTeacher">[Name]</td>
@@ -293,7 +184,7 @@
         </tr>
         <tr>
           <td class="lp-meta-lbl">Class & Subject</td><td class="lp-meta-val lp-editable" id="outClassSubject">Class — Subject</td>
-          <td class="lp-meta-lbl">Total Periods</td><td class="lp-meta-val lp-editable" id="outTotalPeriods">X Periods (40 Min)</td>
+          <td class="lp-meta-lbl">Total Periods</td><td class="lp-meta-val lp-editable" id="outTotalPeriods">X Periods</td>
         </tr>
         <tr>
           <td class="lp-meta-lbl">Textbook</td><td class="lp-meta-val lp-editable" id="outTextbook">Book Name</td>
@@ -301,7 +192,6 @@
         </tr>
       </table>
 
-      <!-- OVERVIEW -->
       <div class="lp-content">
         <div class="lp-sec-title lp-display lp-editable">1. CHAPTER OVERVIEW & OBJECTIVES</div>
         <div id="outOverviewContent"></div>
@@ -310,7 +200,6 @@
         <div id="outOutcomesContent"></div>
       </div>
 
-      <!-- MODEL A -->
       <div id="viewMode1" class="lp-content">
         <div class="lp-sec-title lp-display lp-editable">3. PERIOD-WISE TEACHING PLAN</div>
         <table class="lp-table" id="outModelATable">
@@ -320,36 +209,29 @@
         <div id="outModelAExtra"></div>
       </div>
 
-      <!-- MODEL B -->
       <div id="viewMode3" class="lp-content" style="display:none;">
         <div class="lp-sec-title lp-display lp-editable">3. PERIOD-BY-PERIOD DETAILED PLAN</div>
         <div id="outModelBContainer"></div>
       </div>
 
-      <!-- SIGNATURE STRIP -->
       <div class="lp-sig-row" id="lpSigContainer">
         <div class="lp-sig-box"><div class="lp-sig-line"></div>Subject Teacher</div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- PERSONALIZATION MODAL -->
-  <div class="lp-modal-overlay" id="lpModal">
-    <div class="lp-modal-card">
-      <button class="lp-modal-close" onclick="closeLPModal()">✕</button>
-      <h3 class="lp-display" style="margin:0 0 6px 0; color:var(--purple-deep);">Personalize Details</h3>
-      <p style="font-size:0.85rem; color:var(--ink-soft); margin:0 0 16px 0;">Set your credentials to appear on the final document.</p>
-      
-      <div class="lp-form-row"><label>Full Name</label><input type="text" id="inpModalTeacher" class="lp-input" /></div>
-      <div class="lp-form-row"><label>Designation</label><input type="text" id="inpModalDesig" class="lp-input" /></div>
-      <div class="lp-form-row"><label>School Name</label><input type="text" id="inpModalSchool" class="lp-input" /></div>
-      
-      <div style="font-size:0.82rem; font-weight:700; color:var(--coral-deep); margin:15px 0 10px 0;">Authorities (For Signatures)</div>
-      <div class="lp-form-row"><input type="text" id="inpAuth1" class="lp-input" placeholder="e.g. Coordinator" /></div>
-      <div class="lp-form-row"><input type="text" id="inpAuth2" class="lp-input" placeholder="e.g. Principal" /></div>
-      
-      <div style="margin-top:20px;"><button class="lp-btn lp-btn-primary" style="width:100%; justify-content:center; padding:12px;" onclick="saveLPDetails()">Apply Settings</button></div>
+<!-- MODAL -->
+<div class="lp-modal-overlay" id="lpModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(46,42,74,0.85); align-items:center; justify-content:center; z-index:999;">
+  <div style="background:#fff; border-radius:24px; max-width:500px; width:100%; padding:30px; position:relative;">
+    <button onclick="document.getElementById('lpModal').style.display='none'" style="position:absolute; top:15px; right:15px; border:none; background:none; font-size:20px; cursor:pointer;">✕</button>
+    <h3 class="lp-display" style="margin:0 0 15px 0; color:var(--purple-deep);">Personalize Details</h3>
+    <div class="lp-form-grid" style="grid-template-columns: 1fr;">
+      <div class="lp-field"><label>Teacher Name</label><input type="text" id="inpModalTeacher" class="lp-input" /></div>
+      <div class="lp-field"><label>Designation</label><input type="text" id="inpModalDesig" class="lp-input" /></div>
+      <div class="lp-field"><label>School Name</label><input type="text" id="inpModalSchool" class="lp-input" /></div>
     </div>
+    <button class="lp-btn lp-btn-purple" style="margin-top:15px;" onclick="saveLPDetails()">Apply Settings</button>
   </div>
 </div>
 
@@ -362,17 +244,16 @@
     const man = document.getElementById('inpBookManual');
     if(sel === "Custom / Other Book") { man.value = ""; man.focus(); }
     else { man.value = sel; }
-    updatePrompt();
   }
 
-  function updatePrompt() {
+  // The function that builds the hidden prompt for AI
+  function buildHiddenPrompt() {
     const cls = document.getElementById('inpClass').value.trim() || 'Class IX';
     const sub = document.getElementById('inpSubject').value.trim() || 'Subject';
     const topic = document.getElementById('inpTopic').value.trim() || 'Topic Name';
     const book = document.getElementById('inpBookManual').value.trim() || 'NCERT textbook';
     const periods = document.getElementById('inpPeriods').value;
     const special = document.getElementById('inpSpecial').value.trim();
-    const isPdf = document.getElementById('chkPdfUpload').checked;
 
     let prompt = `Act as an Expert Indian Educator. Generate a structured NEP 2023 Lesson Plan.
 Class: ${cls}
@@ -381,8 +262,6 @@ Chapter/Topic: ${topic}
 Reference Book: ${book}
 Allocated Periods: ${periods === 'Auto-Decide by AI' ? 'Determine the best number of periods yourself (between 3 to 12)' : periods}
 `;
-
-    if (isPdf) prompt += `\nIMPORTANT: I am providing reference PDF/material. Strictly base the lesson plan on it.\n`;
     if (special) prompt += `\nSPECIAL INSTRUCTION: ${special}\n`;
 
     prompt += `
@@ -417,36 +296,22 @@ REAL-LIFE CONNECTIONS
 (Bullet points)
 
 STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learning_viz":...} JSON or special symbols.`;
-    
-    document.getElementById('promptTextDisplay').innerText = prompt;
+    return prompt;
   }
 
-  function copyPrompt() {
-    navigator.clipboard.writeText(document.getElementById('promptTextDisplay').innerText).then(() => {
-      const btn = document.getElementById('btnCopyPrompt');
-      btn.innerText = "Copied!"; setTimeout(() => { btn.innerText = "Copy Prompt"; }, 2000);
-    });
-  }
-
-  // ==========================================
-  // DEEPSEEK AI INTEGRATION (Backend Call)
-  // ==========================================
-  async function generateWithDeepSeek() {
-    const promptText = document.getElementById('promptTextDisplay').innerText;
-    const rawInput = document.getElementById('rawPlanInput');
-    const aiBtn = document.getElementById('btnAiGenerate');
+  // MAIN AI GENERATION FUNCTION
+  async function startGeneration() {
+    const btn = document.getElementById('btnGenerate');
+    const originalText = btn.innerHTML;
     
-    if(!promptText || promptText.trim() === "") { alert("Pehle form fill karein takki prompt ban sake."); return; }
-
-    // UI Loading State
-    const originalBtnText = aiBtn.innerText;
-    aiBtn.innerText = "⏳ Generating (15s)...";
-    aiBtn.disabled = true;
-    rawInput.value = "AI is writing your lesson plan, please wait...";
-    rawInput.disabled = true;
+    // UI Loading
+    btn.innerHTML = "⏳ Generating Lesson Plan (15-20s)...";
+    btn.disabled = true;
 
     try {
-      // Vercel Serverless API Call
+      const promptText = buildHiddenPrompt();
+
+      // Call Vercel Backend API
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -454,31 +319,21 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
       });
 
       const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to generate');
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Network response was not ok');
-      }
-      
-      // AI ka output textarea me daalein
-      rawInput.value = data.text;
-
-      // Automatically Parser chala dein
-      executeSmartParser();
+      // Parse and Display
+      executeSmartParser(data.text);
 
     } catch (error) {
-      console.error("AI Error:", error);
-      rawInput.value = "❌ Error: AI generate nahi kar paya. Kripya manually text paste karein aur 'Parse Text to Plan' dabayein.";
+      console.error(error);
+      alert("❌ Error: AI generate nahi kar paya. Please check your internet or try again.");
     } finally {
-      // UI Reset
-      aiBtn.innerText = originalBtnText;
-      aiBtn.disabled = false;
-      rawInput.disabled = false;
+      btn.innerHTML = originalText;
+      btn.disabled = false;
     }
   }
 
-  // ==========================================
-  // PARSER & RENDERING LOGIC
-  // ==========================================
+  // PARSER LOGIC (Converts AI text to HTML)
   function cleanMarkdown(txt) {
     if (!txt) return "";
     return txt.replace(/&#8211;/g, '–').replace(/&#8212;/g, '—').replace(/&amp;/g, '&')
@@ -488,26 +343,22 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
 
   function cleanAiFluff(raw) {
     if (!raw) return "";
-    return raw
-      .replace(/.*?/gs, '')
-      .replace(/\{"learning_viz".*?\}\}/gs, '')
-      .replace(/^(?:Sure!?|Here is).*?\n+/im, '')
-      .trim();
+    return raw.replace(/.*?/gs, '').replace(/\{"learning_viz".*?\}\}/gs, '').replace(/^(?:Sure!?|Here is).*?\n+/im, '').trim();
   }
 
-  function executeSmartParser() {
-    let raw = cleanAiFluff(document.getElementById('rawPlanInput').value.trim());
-    if (!raw) { alert("Please paste the AI output first."); return; }
-
+  function executeSmartParser(rawText) {
+    let raw = cleanAiFluff(rawText);
+    
     // Set Header Data
     document.getElementById('outClassSubject').innerText = `${document.getElementById('inpClass').value || 'Class'} — ${document.getElementById('inpSubject').value || 'Subject'}`;
     document.getElementById('outChapter').innerText = document.getElementById('inpTopic').value || 'Topic';
     document.getElementById('outTextbook').innerText = document.getElementById('inpBookManual').value || 'Textbook';
 
-    // Parse Overview & Outcomes
+    // Overview
     const overviewMatch = raw.match(/(?:CHAPTER\s*OVERVIEW|1\.\s*CHAPTER)([\s\S]*?)(?=LEARNING\s*OUTCOMES|2\.\s*LEARNING|PERIOD\s*1)/i);
     if (overviewMatch) document.getElementById('outOverviewContent').innerHTML = `<p class="lp-editable">${cleanMarkdown(overviewMatch[1]).replace(/\n{2,}/g, '</p><p class="lp-editable">').replace(/\n/g, '<br/>')}</p>`;
 
+    // Outcomes
     const outcomesMatch = raw.match(/(?:LEARNING\s*OUTCOMES|2\.\s*LEARNING|COMPETENCIES)([\s\S]*?)(?=PERIOD\s*1|3\.\s*PERIOD)/i);
     if (outcomesMatch) {
       const list = cleanMarkdown(outcomesMatch[1]).split(/\n/).filter(l => l.trim().length > 2)
@@ -515,7 +366,7 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
       document.getElementById('outOutcomesContent').innerHTML = `<ul>${list}</ul>`;
     }
 
-    // Parse Periods
+    // Periods
     const periodRegex = /PERIOD\s*(\d+)[\s\-—:]*([^\n]*)([\s\S]*?)(?=(?:PERIOD\s*\d+|TEACHING\s*STRATEGIES|$))/gi;
     let match; const parsedPeriods = [];
     while ((match = periodRegex.exec(raw)) !== null) {
@@ -527,10 +378,8 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
         obj: cleanMarkdown((pBody.match(/Learning\s*Outcomes[^\n:]*[:\n]([\s\S]*?)(?=Teaching|Assimilation|$)/i)||['',''])[1]),
         aids: cleanMarkdown((pBody.match(/Teaching\s*Method[^\n:]*[:\n]\s*([^\n]+)/i)||['',''])[1]),
         pres: cleanMarkdown((pBody.match(/Teaching-Learning\s*Process[^\n:]*[:\n]([\s\S]*?)(?=Assimilation|Assessment|$)/i)||['',''])[1]),
-        assm: cleanMarkdown((pBody.match(/Assimilation[^\n:]*[:\n]\s*([^\n]+)/i)||['',''])[1]),
         ques: cleanMarkdown((pBody.match(/Assessment[^\n:]*[:\n]\s*([^\n]+)/i)||['',''])[1]),
-        hmwk: cleanMarkdown((pBody.match(/Homework[^\n:]*[:\n]\s*([^\n]+)/i)||['',''])[1]),
-        out: cleanMarkdown((pBody.match(/Outcomes[^\n:]*[:\n]\s*([^\n]+)/i)||['',''])[1])
+        hmwk: cleanMarkdown((pBody.match(/Homework[^\n:]*[:\n]\s*([^\n]+)/i)||['',''])[1])
       });
     }
 
@@ -544,7 +393,7 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
       document.getElementById('outTotalPeriods').innerText = `${parsedPeriods.length} Periods`;
     }
 
-    // Parse Strategies
+    // Strategies
     const stratMatch = raw.match(/TEACHING\s*STRATEGIES([\s\S]*?)(?=DIFFERENTIATED|$)/i);
     const diffMatch = raw.match(/DIFFERENTIATED\s*LEARNING([\s\S]*?)(?=REAL-LIFE|$)/i);
     const realMatch = raw.match(/REAL-LIFE\s*CONNECTIONS([\s\S]*?)$/i);
@@ -557,8 +406,10 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
       document.getElementById('outModelAExtra').innerHTML = extraHTML;
     }
 
-    document.getElementById('docToolbar').style.display = 'flex';
-    document.getElementById('printSheet').style.display = 'block';
+    // SHOW RESULTS
+    document.getElementById('setupCard').style.display = 'none'; // Hide form
+    document.getElementById('docToolbar').style.display = 'flex'; // Show toolbar
+    document.getElementById('printSheet').style.display = 'block'; // Show paper
     document.getElementById('printSheet').scrollIntoView({behavior: 'smooth'});
   }
 
@@ -567,7 +418,6 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
     list.forEach(p => {
       cont.innerHTML += `
         <div class="lp-period-card">
-          <div class="lp-injected-header"></div>
           <div class="lp-period-head"><span class="lp-period-name lp-editable">${p.name}</span><span class="lp-period-num lp-editable">TIME: ${p.time} | PERIOD ${p.num}</span></div>
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Focus:</span> ${p.focus}</div>
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Objectives:</span> ${p.obj}</div>
@@ -575,16 +425,14 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Process:</span> ${p.pres}</div>
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Assessment:</span> ${p.ques}</div>
           <div class="lp-block-row lp-editable"><span class="lp-block-lbl">Homework:</span> ${p.hmwk}</div>
-          <div class="lp-injected-sig"></div>
         </div>`;
     });
   }
 
-  // UTILITIES (Modals, Toggles, Display Logic)
+  // UTILITIES
   function switchLPModel(m) {
     document.getElementById('viewMode1').style.display = (m===1) ? 'block' : 'none';
     document.getElementById('viewMode3').style.display = (m===3) ? 'block' : 'none';
-    document.getElementById('modelOptionsRow').style.display = (m===3) ? 'flex' : 'none';
     document.getElementById('btnModel1').classList.toggle('lp-btn-active', m===1);
     document.getElementById('btnModel3').classList.toggle('lp-btn-active', m===3);
   }
@@ -592,41 +440,20 @@ STRICT RULE: Do NOT use markdown tables. Output plain text. NEVER output {"learn
     isLiveEdit = !isLiveEdit;
     document.getElementById('lpAppRoot').classList.toggle('editable-mode-active', isLiveEdit);
     document.getElementById('btnLiveEdit').innerText = isLiveEdit ? "💾 Finish Editing: ON" : "✏️ Edit Content: OFF";
-    document.getElementById('btnLiveEdit').classList.toggle('lp-btn-edit-active', isLiveEdit);
     document.querySelectorAll('.lp-editable').forEach(el => isLiveEdit ? el.setAttribute('contenteditable', 'true') : el.removeAttribute('contenteditable'));
   }
   function toggleInkSaver() {
     isInkSaver = !isInkSaver;
     document.getElementById('lpAppRoot').classList.toggle('ink-saver', isInkSaver);
     document.getElementById('btnInkToggle').innerText = isInkSaver ? "🌱 Ink-Saver: ON" : "🌱 Ink-Saver: OFF";
-    document.getElementById('btnInkToggle').classList.toggle('lp-btn-active', isInkSaver);
   }
   function openLPModal() { document.getElementById('lpModal').style.display = 'flex'; }
-  function closeLPModal() { document.getElementById('lpModal').style.display = 'none'; }
-  
   function saveLPDetails() {
-    const t = document.getElementById('inpModalTeacher').value || '[Teacher Name]';
-    const d = document.getElementById('inpModalDesig').value || '[Designation]';
-    const s = document.getElementById('inpModalSchool').value || '[SCHOOL NAME]';
-    document.getElementById('outTeacher').innerText = t;
-    document.getElementById('outDesignation').innerText = d;
-    document.getElementById('outSchool').innerText = s;
-    
-    // Auth signatures
-    let sigs = `<div class="lp-sig-box"><div class="lp-sig-line"></div>Subject Teacher</div>`;
-    ['inpAuth1','inpAuth2'].forEach(id => {
-      let val = document.getElementById(id).value;
-      if(val) sigs += `<div class="lp-sig-box"><div class="lp-sig-line"></div>${val}</div>`;
-    });
-    document.getElementById('lpSigContainer').innerHTML = sigs;
-    closeLPModal();
+    document.getElementById('outTeacher').innerText = document.getElementById('inpModalTeacher').value || '[Teacher Name]';
+    document.getElementById('outDesignation').innerText = document.getElementById('inpModalDesig').value || '[Designation]';
+    document.getElementById('outSchool').innerText = document.getElementById('inpModalSchool').value || '[SCHOOL NAME]';
+    document.getElementById('lpModal').style.display = 'none';
   }
-
-  function handlePeriodPageBreak(chk) { document.getElementById('viewMode3').classList.toggle('separate-period-pages', chk); }
-  function handlePeriodHeaderRepeat(chk) { document.getElementById('viewMode3').classList.toggle('show-period-headers', chk); }
-  function handlePeriodSigRepeat(chk) { document.getElementById('viewMode3').classList.toggle('show-period-sigs', chk); }
-
-  document.addEventListener('DOMContentLoaded', () => { handleBookSelect(); });
 </script>
 
 </body>
