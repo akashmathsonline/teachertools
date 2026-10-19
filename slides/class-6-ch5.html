@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 6 Mathematics - Chapter 5: Prime Time</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for crisp formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]});"></script>
+
+  <style>
+    :root {
+      --primary: #4f46e5;          /* Vibrant Royal Indigo */
+      --primary-dark: #3730a3;
+      --primary-light: #e0e7ff;
+      --accent-cyan: #0891b2;
+      --cyan-light: #cffafe;
+      --accent-amber: #d97706;
+      --amber-light: #fef3c7;
+      --accent-emerald: #059669;
+      --emerald-light: #d1fae5;
+      --accent-rose: #e11d48;
+      --rose-light: #ffe4e6;
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #f0fdfa 100%);
+      --card-bg: #ffffff;
+      --card-border: #c7d2fe;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(79, 70, 229, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 20px 25px -5px rgba(79, 70, 229, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b0f19;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--text-main);
+      overflow: hidden;
+    }
+
+        .deck-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100%;
+      max-height: 100%;
+      background: #f8fafc; /* Ye line add/change karein */
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+       padding: 30px 40px 30px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.985) translateY(10px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Subtle middle slide watermark */
+    .slide-watermark {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: #64748b;
+      opacity: 0.32;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      z-index: 25;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-tag {
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-indigo { background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; }
+    .pill-cyan { background: #cffafe; color: #0e7490; border: 1px solid #a5f3fc; }
+    .pill-amber { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .pill-emerald { background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
+    .pill-rose { background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; }
+    .pill-page { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; font-weight: 800; }
+
+    .slide-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.85rem;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+
+    .slide-subtitle {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Slide Body Layouts */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-indigo {
+      border-left: 5px solid var(--primary);
+      background: linear-gradient(145deg, #ffffff, #f5f7ff);
+    }
+
+    .card-cyan {
+      border-left: 5px solid var(--accent-cyan);
+      background: linear-gradient(145deg, #ffffff, #f0fdfa);
+    }
+
+    .card-emerald {
+      border-left: 5px solid var(--accent-emerald);
+      background: linear-gradient(145deg, #ffffff, #f0fdf4);
+    }
+
+    .card-amber {
+      border-left: 5px solid var(--accent-amber);
+      background: linear-gradient(145deg, #ffffff, #fffbeb);
+    }
+
+    .card-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1e1b4b;
+    }
+
+    .card-text {
+      font-size: 0.91rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .highlight-box {
+      background: #eef2ff;
+      border: 2px dashed #818cf8;
+      border-radius: 14px;
+      padding: 12px 18px;
+      text-align: center;
+      margin: 4px 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #3730a3;
+    }
+
+    .formula-box {
+      background: #ffffff;
+      border: 1.5px solid #c7d2fe;
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-align: center;
+      margin: 6px 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #4338ca;
+    }
+
+    /* Quick Box Styles */
+    .quickbox-wrapper {
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+      border: 2px solid #fcd34d;
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .quick-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #fef08a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .quick-badge {
+      background: #f59e0b;
+      color: white;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .quick-text {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.45;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Cover & Closing Slides */
+    .cover-slide, .closing-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      padding: 56px 80px;
+      background: radial-gradient(circle at 50% 30%, #e0e7ff, #fdf4ff 70%);
+    }
+
+    .eyebrow {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 4rem;
+      color: #1e1b4b;
+      line-height: 1.1;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(79, 70, 229, 0.08);
+    }
+
+    .cover-subtitle {
+      font-size: 1.25rem;
+      color: #475569;
+      font-weight: 500;
+      margin-bottom: 30px;
+      max-width: 820px;
+      font-style: italic;
+    }
+
+    .credit-pill {
+      background: #1e1b4b;
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 20px -3px rgba(30, 27, 75, 0.25);
+      border: 1px solid #4338ca;
+    }
+
+    .credit-pill span {
+      color: #818cf8;
+      font-weight: 600;
+    }
+
+    /* Navigation Controls */
+    #controls {
+      position: absolute;
+      bottom: 16px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      background: #1e1b4b;
+      color: white;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-btn:hover {
+      background: #4f46e5;
+      transform: translateY(-2px);
+    }
+
+    #keyboard-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 24px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="presentation-container">
+    <div id="keyboard-hint">Use ◀ / ▶ or Space to navigate</div>
+
+    <!-- SLIDE 1: COVER -->
+    <section class="slide cover-slide active" id="slide-1">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-indigo">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-cyan">CHAPTER 5 • COVER</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 36px;">
+        <div class="eyebrow">Class 6 Mathematics • Chapter 5</div>
+        <h1 class="cover-title">Prime Time</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.7rem; color: #4f46e5; margin-bottom: 12px; font-weight: 600;">
+          Multiples, Factors, Primes & Divisibility Laws
+        </div>
+        <p class="cover-subtitle">
+          "Exhaustive point-by-point presentation covering every concept, theorem, and formula directly from the textbook."
+        </p>
+
+        <!-- Mandatory Credit Pill (Cover Slide Only) -->
+        <div class="credit-pill">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 1 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: 5.1 Idli-Vada Game & Common Multiples -->
+    <section class="slide" id="slide-2">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Section 5.1</span>
+          <span class="slide-title">Common Multiples: The Idli-Vada Game</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 107–108</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">🍽️ The Idli-Vada Counting Circle</div>
+            <p class="card-text">
+              Children count in a circle starting from $1$:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6; margin-top: 6px;">
+              <li>Say <strong>'Idli'</strong> for multiples of $3$: $3, 6, 9, 12, 18, 21 \dots$</li>
+              <li>Say <strong>'Vada'</strong> for multiples of $5$: $5, 10, 20, 25 \dots$</li>
+              <li>Say <strong>'Idli-Vada'</strong> for numbers that are multiples of both $3$ and $5$!</li>
+            </ul>
+            <div class="formula-box">
+              $$\text{First 'Idli-Vada'} = \mathbf{15}$$
+            </div>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🎯 Overlapping Sets (Venn Diagram)</div>
+            <p class="card-text">
+              The common multiples of $3$ and $5$ are multiples of their product:
+            </p>
+            <div class="highlight-box">
+              $$\text{Common Multiples} = 15, 30, 45, 60, 75, 90 \dots$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              • Up to $90$: 'Idli' is called $30$ times, 'Vada' $18$ times, and 'Idli-Vada' exactly $6$ times ($90 \div 15$).<br>
+              • Up to $900$: 'Idli-Vada' occurs $60$ times ($900 \div 15$)!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 2 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: QUICK BOX — Section 5.1 (Idli-Vada) -->
+    <section class="slide" id="slide-3">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Common Multiples</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 107–108</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">At what number will children shout 'Idli-Vada' for the 10th time in the game of 3 and 5?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">In a game with two numbers where one number is 4, children only ever say 'Idli' or 'Idli-Vada' and nobody says 'Vada'. What could the other number be from $\{2, 3, 5, 8, 10\}$?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What is the smallest number that is a common multiple of both 4 and 6?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 3 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Jump Jackpot: Factors & Common Factors -->
+    <section class="slide" id="slide-4">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Section 5.1</span>
+          <span class="slide-title">Jump Jackpot: Factors & Divisors</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 109–110</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">🎲 The Single Treasure Game</div>
+            <p class="card-text">
+              Grumpy hides treasure on $24$. Jumpy must land exactly on $24$ starting from $0$:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.6; margin-top: 6px;">
+              <li>Jump size $4 \implies 0, 4, 8, 12, 16, 20, 24$ (Success!)</li>
+              <li>Jump size $5 \implies 0, 5, 10, 15, 20, 25$ (Missed!)</li>
+            </ul>
+            <div class="formula-box">
+              $$\text{Factors of } 24 = \{1, 2, 3, 4, 6, 8, 12, 24\}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Numbers that divide $24$ exactly with zero remainder are its <strong>factors</strong> (or divisors).
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">💎 Two Treasures: Common Factors</div>
+            <p class="card-text">
+              Treasures are kept on $14$ and $36$. One jump size must hit both numbers:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6; margin-top: 6px;">
+              <li>$\text{Factors of } 14 = \{1, 2, 7, 14\}$</li>
+              <li>$\text{Factors of } 36 = \{1, 2, 3, 4, 6, 9, 12, 18, 36\}$</li>
+            </ul>
+            <div class="highlight-box">
+              $$\text{Common Factors} = \{1, 2\}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 4px;">
+              Only jump sizes of $1$ and $2$ can claim both treasures simultaneously!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 4 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: QUICK BOX — Jump Jackpot & Factors -->
+    <section class="slide" id="slide-5">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Factors & Common Factors</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 109–110</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">What are all the possible jump sizes that will allow Jumpy to reach both 15 and 30?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Find the common factors of 20 and 28.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Grumpy places treasures on 28 and 70. What jump sizes will land on both treasures?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 5 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Multiples Range, Riddles & Perfect Numbers -->
+    <section class="slide" id="slide-6">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Section 5.1</span>
+          <span class="slide-title">Multiples Range, Riddles & Perfect Numbers</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 110–111</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-indigo">
+            <div class="card-title">🔢 Multiples in a Range</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Multiples of $40$ between $310$ and $410$:
+            </p>
+            <div class="formula-box" style="font-size: 0.95rem;">
+              $$320, 360, 400$$
+            </div>
+            <p class="card-text" style="font-size: 0.85rem;">
+              • Multiples of $25$ that are not multiples of $50$:
+              $$25, 75, 125, 175 \dots$$
+            </p>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🧩 "Who Am I?" Riddles</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • <em>Less than 40, factor of 7, sum of digits is 8:</em><br>
+              Multiples of 7: $7, 14, 21, 28, \mathbf{35}$ ($3+5=8$).
+            </p>
+            <div class="formula-box" style="font-size: 0.95rem;">$$\text{Number} = \mathbf{35}$$</div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 4px;">
+              • <em>Less than 100, factors 3 and 5, digits differ by 1:</em><br>
+              Multiples of 15: $15, 30, \mathbf{45}$ ($5-4=1$).
+            </p>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">👑 Perfect Numbers</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              A number where the sum of all its factors equals <strong>twice the number</strong>:
+            </p>
+            <div class="highlight-box" style="font-size: 0.9rem; text-align: left;">
+              $$\mathbf{28}: 1+2+4+7+14+28 = 56 = 2 \times 28$$
+              $$\mathbf{6}: 1+2+3+6 = 12 = 2 \times 6$$
+            </div>
+            <p class="card-text" style="font-size: 0.85rem;">
+              $6$ is the unique perfect number between $1$ and $10$!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 6 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: QUICK BOX — Riddles & Multiples of 1 to 10 -->
+    <section class="slide" id="slide-7">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Perfect Numbers & Multiples</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 110–111</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">What is the smallest positive number that is a multiple of every whole number from 1 to 10 except 7?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What is the smallest number that is a multiple of all numbers from 1 to 10 without any exceptions?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why is 10 not a perfect number? (Test by summing all its factors).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 7 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: 5.2 Prime & Composite Numbers (Packing Figs) -->
+    <section class="slide" id="slide-8">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Section 5.2</span>
+          <span class="slide-title">Prime & Composite Numbers: Rectangular Packing</span>
+        </div>
+        <span class="pill-tag pill-page">Page 112</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">📦 Packing 12 Figs vs 7 Figs</div>
+            <p class="card-text">
+              • <strong>Guna packs 12 figs:</strong> Multiple rectangular arrays exist:
+              $$1 \times 12, \quad 2 \times 6, \quad 3 \times 4, \quad 4 \times 3, \quad 6 \times 2, \quad 12 \times 1$$
+              Because $12$ has $6$ factors: $\{1, 2, 3, 4, 6, 12\}$.
+            </p>
+            <p class="card-text" style="margin-top: 6px;">
+              • <strong>Anshu packs 7 figs:</strong> Only $1$ rectangular shape is possible:
+              $$1 \times 7 \quad\text{or}\quad 7 \times 1$$
+              Because $7$ has only two factors: $1$ and $7$.
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">⭐ Prime vs. Composite Definitions</div>
+            <div class="formula-box" style="text-align: left; line-height: 1.6; font-size: 0.95rem;">
+              • <strong>Prime Number:</strong> A natural number that has <em>exactly two distinct factors</em>: $1$ and itself.<br>
+              $\implies 2, 3, 5, 7, 11, 13, 17, 19, 23 \dots$<br><br>
+              • <strong>Composite Number:</strong> A number that has <em>more than two factors</em>.<br>
+              $\implies 4, 6, 8, 9, 10, 12, 14, 15, 16 \dots$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #b91c1c; font-size: 0.88rem; margin-top: 6px;">
+              ⚠️ Special Fact: 1 has only one factor ($1$). Hence, 1 is NEITHER prime NOR composite!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 8 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: QUICK BOX — Section 5.2 (Primes Intro) -->
+    <section class="slide" id="slide-9">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Prime & Composite Definitions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 112–113</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">How many prime numbers and how many composite numbers exist in the decade from 21 to 30?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Why is the number 1 disqualified from being called a prime number?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What is the only even prime number in the entire universe of numbers?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 9 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Sieve of Eratosthenes (1 to 100) -->
+    <section class="slide" id="slide-10">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Algorithm</span>
+          <span class="slide-title">The Sieve of Eratosthenes (2200 Years Old)</span>
+        </div>
+        <span class="pill-tag pill-page">Page 113</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">📜 5-Step Sifting Algorithm</div>
+            <ol style="padding-left: 20px; font-size: 0.88rem; line-height: 1.55;">
+              <li><strong>Step 1:</strong> Cross out $1$ (neither prime nor composite).</li>
+              <li><strong>Step 2:</strong> Circle $2$, cross out all remaining multiples of $2$ ($4, 6, 8 \dots$).</li>
+              <li><strong>Step 3:</strong> Circle next uncrossed number $3$, cross out all remaining multiples of $3$ ($6, 9, 12 \dots$).</li>
+              <li><strong>Step 4:</strong> Circle next uncrossed $5$, cross out remaining multiples of $5$.</li>
+              <li><strong>Step 5:</strong> Repeat for $7$. All remaining uncrossed numbers are primes!</li>
+            </ol>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">📊 The 25 Primes Under 100</div>
+            <div class="highlight-box" style="text-align: left; font-size: 0.95rem; line-height: 1.6;">
+              <strong>2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97</strong>
+            </div>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.5; margin-top: 6px;">
+              <li>Smallest prime gap: $1$ (between $2$ and $3$).</li>
+              <li>Largest prime gap under 100: $8$ (between $89$ and $97$).</li>
+              <li>Row with least primes: $91$ to $100$ (only one prime: $97$).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 10 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: QUICK BOX — Sieve of Eratosthenes -->
+    <section class="slide" id="slide-11">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — The Sieve of Eratosthenes</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 113–114</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Why does sifting multiples of 2, 3, 5, and 7 suffice to reveal all prime numbers up to 100?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">How many prime numbers exist between 91 and 100? Name it.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why can no prime number other than 2 ever end with the units digit 4, 6, or 8?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 11 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: Twin Primes, Digit Reversals & Prime Patterns -->
+    <section class="slide" id="slide-12">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Prime Patterns</span>
+          <span class="slide-title">Twin Primes & Reversible Primes</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 114–115</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-indigo">
+            <div class="card-title">👯 Twin Primes (Diff = 2)</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Pairs of prime numbers differing by exactly $2$:
+            </p>
+            <div class="formula-box" style="font-size: 0.9rem; line-height: 1.5;">
+              $$(3, 5), (5, 7), (11, 13)$$
+              $$(17, 19), (29, 31)$$
+              $$(41, 43), (59, 61), (71, 73)$$
+            </div>
+            <p class="card-text" style="font-size: 0.85rem;">Exactly 8 pairs of twin primes under 100!</p>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🔄 Reversible Prime Pairs</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Both $AB$ and reversed number $BA$ are primes:
+            </p>
+            <div class="highlight-box" style="font-size: 0.9rem;">
+              $$13 \longleftrightarrow 31$$
+              $$17 \longleftrightarrow 71$$
+              $$37 \longleftrightarrow 73$$
+              $$79 \longleftrightarrow 97$$
+            </div>
+          </div>
+
+          <div class="card card-amber">
+            <div class="card-title">🧱 7 Consecutive Composites</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Between $89$ and $97$ lies the longest continuous composite stretch under 100:
+            </p>
+            <div class="formula-box" style="font-size: 0.88rem;">
+              $$\mathbf{90, 91, 92, 93, 94, 95, 96}$$
+            </div>
+            <p class="card-text" style="font-size: 0.84rem;">
+              Notice $91 = 7 \times 13$, so it is composite!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 12 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: QUICK BOX — Twin Primes & Patterns -->
+    <section class="slide" id="slide-13">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Prime Patterns</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 114–115</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Can you make any three-digit prime number using each of the digits 2, 4, and 5 exactly once? Explain why.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">For the prime 3, doubling and adding 1 gives $2 \times 3 + 1 = 7$ (also prime). Find two more primes with this property.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Is the product of two prime numbers ever a prime number? Why or why not?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 13 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: 5.3 Co-prime Numbers & Safekeeping Treasures -->
+    <section class="slide" id="slide-14">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Section 5.3</span>
+          <span class="slide-title">Co-prime Numbers: Safekeeping Treasures</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 115–116</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">🔐 What Makes a Pair "Safe"?</div>
+            <p class="card-text">
+              Grumpy places treasures on two numbers. Jumpy cannot win if no single jump size $> 1$ lands on both!
+            </p>
+            <div class="formula-box">
+              $$\text{Two numbers are }\mathbf{co\text{-}prime}\text{ if }\text{HCF}(a, b) = 1$$
+            </div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6; margin-top: 6px;">
+              <li>$15$ and $39$: Not safe! (Share factor $3$).</li>
+              <li>$4$ and $9$: <strong>Safe / Co-prime!</strong> (No common factor except $1$).</li>
+              <li>$18$ and $35$: <strong>Co-prime!</strong> ($18=2 \times 3^2, 35=5 \times 7$).</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">💡 The Co-prime LCM Law</div>
+            <p class="card-text">
+              Anshu observed this profound connection in the Idli-Vada game:
+            </p>
+            <div class="highlight-box">
+              $$\text{If } a \text{ and } b \text{ are co-prime } \implies \text{LCM}(a, b) = a \times b$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              • For $3$ and $5$: First common multiple $= 3 \times 5 = 15$.<br>
+              • If numbers share factors (e.g., $4$ and $6$), first common multiple is strictly less than their product ($12 < 24$)!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 14 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: QUICK BOX — Co-prime Numbers -->
+    <section class="slide" id="slide-15">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Co-prime Pairs</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 115–116</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Are 15 and 37 co-prime? How about 81 and 18?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Do two numbers have to be prime individually in order to be co-prime to each other? Give an example.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Guna says: "Any two distinct prime numbers are always co-prime." Is he right?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 15 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: Co-prime Thread Art Geometry -->
+    <section class="slide" id="slide-16">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Visual Mathematics</span>
+          <span class="slide-title">Co-prime Thread Art & Modular Loops</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 116–117</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">🧵 The Peg and Thread Experiment</div>
+            <p class="card-text">
+              Pegs are numbered $1$ to $N$ on a circle. A thread steps by constant gap $G$:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6; margin-top: 6px;">
+              <li><strong>Case 1 ($12$ pegs, gap $4$):</strong> Hits $0, 4, 8, 12(0)$. Forms a simple triangle! Traps inside a closed sub-loop; many pegs untouched ($\text{HCF}(12, 4) = 4 \ne 1$).</li>
+              <li><strong>Case 2 ($13$ pegs, gap $3$):</strong> Since $\text{HCF}(13, 3) = 1$, the thread visits <em>every single peg</em> before returning to the start, weaving an intricate star!</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">⭐ Universal Thread Art Law</div>
+            <div class="highlight-box">
+              $$\text{Thread visits EVERY peg } \iff \text{HCF}(\text{Pegs}, \text{Gap}) = 1$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              • $10$ pegs, gap $7 \implies$ Visits all $10$ pegs (co-prime!).<br>
+              • $14$ pegs, gap $6 \implies$ $\text{HCF}(14, 6) = 2 \implies$ Misses alternate pegs.<br>
+              • $8$ pegs, gap $3 \implies$ Weaves an 8-pointed star hitting all pegs!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 16 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: QUICK BOX — Thread Art -->
+    <section class="slide" id="slide-17">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Thread Art Loops</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 116–117</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">In a circular board with 15 pegs and thread-gap 10, will the thread touch every peg? Why or why not?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If you have 12 pegs, name two thread-gaps that will guarantee touching all 12 pegs.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">What shape does the thread trace when there are 24 pegs and the thread-gap is 6?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 17 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: 5.4 Prime Factorisation & Fundamental Theorem -->
+    <section class="slide" id="slide-18">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Section 5.4</span>
+          <span class="slide-title">Prime Factorisation & Uniqueness</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 118–119</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">🌳 Decomposing Into Prime Factors</div>
+            <p class="card-text">
+              Every composite number can be broken down until only primes remain:
+            </p>
+            <div class="formula-box">
+              $$56 = 4 \times 14 = (2 \times 2) \times (2 \times 7) = \mathbf{2 \times 2 \times 2 \times 7}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              The prime factors of $56$ are $2$ and $7$.
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">👑 The Fundamental Theorem of Arithmetic</div>
+            <p class="card-text">
+              For $36$, whether factored as $2 \times 18$, $3 \times 12$, $4 \times 9$, or $6 \times 6$:
+            </p>
+            <div class="highlight-box">
+              $$\text{Prime Factorisation of } 36 = \mathbf{2 \times 2 \times 3 \times 3}$$
+            </div>
+            <p class="card-text" style="font-size: 0.88rem; margin-top: 6px;">
+              <strong>Uniqueness Law:</strong> The prime factorisation of any number is completely <em>unique</em>, regardless of the order in which factors are multiplied!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 18 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 19: QUICK BOX — Prime Factorisation -->
+    <section class="slide" id="slide-19">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Prime Factorisation</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 119–120</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A number's prime factorisation contains one 2, two 3s, and one 11. What is the number?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">What is the smallest number whose prime factorisation has three different prime numbers?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Find three prime numbers, all strictly less than 30, whose product is 1955.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 19 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 20: Applications: Checking Co-primes & Divisibility -->
+    <section class="slide" id="slide-20">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Applications</span>
+          <span class="slide-title">Checking Co-primes & Divisibility via Primes</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 121–122</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">🔍 Testing for Co-primes</div>
+            <p class="card-text" style="font-size: 0.9rem;">
+              Compare the prime factorisations:
+            </p>
+            <div class="formula-box" style="text-align: left; font-size: 0.9rem;">
+              • $40 = 2^3 \times 5$ & $231 = 3 \times 7 \times 11$<br>
+              $\implies$ Zero common primes $\implies \mathbf{Co\text{-}prime!}$<br><br>
+              • $56 = 2^3 \times 7$ & $63 = 3^2 \times 7$<br>
+              $\implies$ Share prime $7 \implies \mathbf{Not\;co\text{-}prime!}$
+            </div>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">➗ Divisibility Without Long Division</div>
+            <p class="card-text" style="font-size: 0.9rem;">
+              $A$ is divisible by $B$ if all prime factors of $B$ are contained in $A$ with at least equal multiplicity:
+            </p>
+            <div class="formula-box" style="text-align: left; font-size: 0.88rem;">
+              • $168 = 2^3 \times 3 \times 7$, $12 = 2^2 \times 3 \implies \mathbf{Divisible!}$<br>
+              • $42 = 2 \times 3 \times 7$, $12 = 2^2 \times 3 \implies$ $2$ appears only once in $42 \implies \mathbf{Not\;divisible!}$
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 20 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 21: QUICK BOX — Applications of Prime Factorisation -->
+    <section class="slide" id="slide-21">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Divisibility via Primes</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 121–122</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">A number has prime factorisation $2 \times 3 \times 7$ and another has $3 \times 7 \times 11$. Are they co-prime? Does one divide the other?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Is 225 divisible by 27? Justify using their prime factorisations.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Are 343 and 216 co-prime? (Hint: $7^3$ vs $2^3 \times 3^3$).</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 21 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 22: 5.5 Divisibility Tests (10, 5, 2, 4, 8) -->
+    <section class="slide" id="slide-22">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Section 5.5</span>
+          <span class="slide-title">Divisibility Tests: 10, 5, 2, 4, and 8</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 123–125</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-indigo">
+            <div class="card-title">10, 5, and 2 (Last Digit)</div>
+            <ul style="padding-left: 18px; font-size: 0.86rem; line-height: 1.55;">
+              <li><strong>Divisible by 10:</strong> Last digit must be <strong>0</strong>.</li>
+              <li><strong>Divisible by 5:</strong> Last digit must be <strong>0 or 5</strong>.</li>
+              <li><strong>Divisible by 2:</strong> Last digit is even: <strong>0, 2, 4, 6, 8</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">Divisibility by 4 (Last 2 Digits)</div>
+            <p class="card-text" style="font-size: 0.86rem;">
+              Since $100$ is divisible by $4$, all hundreds drop out!
+            </p>
+            <div class="formula-box" style="font-size: 0.88rem;">
+              $$\text{Check last 2 digits only}$$
+            </div>
+            <p class="card-text" style="font-size: 0.84rem;">
+              $85\mathbf{36} \implies 36 \div 4 = 9 \implies \text{Divisible!}$
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">Divisibility by 8 (Last 3 Digits)</div>
+            <p class="card-text" style="font-size: 0.86rem;">
+              Since $1000$ is divisible by $8$, all thousands drop out!
+            </p>
+            <div class="formula-box" style="font-size: 0.88rem;">
+              $$\text{Check last 3 digits only}$$
+            </div>
+            <p class="card-text" style="font-size: 0.84rem;">
+              $8\mathbf{560} \implies 560 \div 8 = 70 \implies \text{Divisible!}$
+            </p>
+          </div>
+        </div>
+
+        <div class="highlight-box" style="font-size: 0.95rem;">
+          ✨ <strong>Shortcut:</strong> To verify if a number is divisible by 2, 4, 5, 8, and 10 simultaneously, checking divisibility by just <strong>5 and 8</strong> is sufficient!
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 22 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 23: QUICK BOX — Divisibility Tests -->
+    <section class="slide" id="slide-23">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Divisibility Tests</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 125–126</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Find the remainders when 572 is divided by (a) 10, (b) 5, and (c) 2 without performing division.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Is the sum of any two odd numbers always, sometimes, or never a multiple of 4? Give examples.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Write two whole numbers whose product is 10000, such that neither number has 0 as its units digit.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 23 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 24: 5.6 Special Numbers & Prime Multiplicative Puzzles -->
+    <section class="slide" id="slide-24">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Section 5.6</span>
+          <span class="slide-title">Special Numbers & Prime Grid Puzzles</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 126–128</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">🌟 "What Makes Each Number Special?"</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              In the box $\{9, 16, 25, 43\}$:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.55; margin-top: 4px;">
+              <li><strong>9:</strong> Only single-digit number; only multiple of 3.</li>
+              <li><strong>16:</strong> Only even number; only multiple of 4.</li>
+              <li><strong>25:</strong> Only multiple of 5.</li>
+              <li><strong>43:</strong> Only prime number; only non-square number!</li>
+            </ul>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🧩 Prime Cross-Product Grid Rules</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              Fill cells with <strong>prime numbers only</strong>:
+            </p>
+            <ul style="padding-left: 20px; font-size: 0.86rem; line-height: 1.55; margin-top: 4px;">
+              <li>Product of row primes $=$ Number at right.</li>
+              <li>Product of col primes $=$ Number at bottom.</li>
+            </ul>
+            <div class="formula-box" style="font-size: 0.88rem;">
+              $$\text{Row 1: } 5 \times 5 \times 3 = 75 \quad\mid\quad \text{Col 1: } 5 \times 2 \times 17 = 170$$
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 24 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 25: QUICK BOX — Special Numbers & Prime Grids -->
+    <section class="slide" id="slide-25">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Number Properties</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 126–128</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">In the set {3, 8, 11, 24}, state one unique reason why each number can be considered special compared to the other three.</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">If a grid cell is at the intersection of a row with product 20 and a column with product 125, what prime number must occupy that cell?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Can any composite number ever be entered into the Prime Cross-Product Puzzle grid?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 25 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 26: Historical Roots: From Ancient India to Euclid -->
+    <section class="slide" id="slide-26">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Historical Roots</span>
+          <span class="slide-title">Primes Through the Ages & Euclid's Proof</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 114, 128</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-indigo">
+            <div class="card-title">📜 Ancient Greece & Egypt</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Over 2300 years ago, Euclid proved that there are <strong>infinitely many prime numbers</strong>—the list never ends!<br><br>
+              • Eratosthenes of Cyrene (c. 200 BCE) invented the prime sieve algorithm.
+            </p>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title">🇮🇳 Ancient Indian Arithmetic</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Indian mathematicians deeply explored factor chains, GCD, and modular arithmetic.<br><br>
+              • Primes were understood as the indivisible atoms of numbers, essential for astronomical cycles and calendar calculations.
+            </p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">💻 Modern Cybersecurity</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              • Primes form the backbone of modern internet encryption (RSA cryptosystem).<br><br>
+              • The largest known prime has millions of digits and would take over 6,500 printed pages to write down!
+            </p>
+          </div>
+        </div>
+
+        <div class="highlight-box" style="font-size: 0.95rem;">
+          📖 <em>"Prime numbers are the fundamental building blocks of all whole numbers—every integer is built uniquely from their products."</em>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 26 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 27: QUICK BOX — History & Infinitude of Primes -->
+    <section class="slide" id="slide-27">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-amber">⚡ Quick Box</span>
+          <span class="slide-title">Classroom Check — Primes in History</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 114, 128</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="quickbox-wrapper">
+          <div class="quick-item">
+            <span class="quick-badge">Q1</span>
+            <div class="quick-text">Is there a largest prime number in existence? How did mathematicians establish the answer?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q2</span>
+            <div class="quick-text">Why are prime numbers called the "atoms" or "building blocks" of whole numbers?</div>
+          </div>
+          <div class="quick-item">
+            <span class="quick-badge">Q3</span>
+            <div class="quick-text">Why are massive prime numbers indispensable in modern banking and computer security?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 27 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 28: Exercise Highlights (Worked Problems) -->
+    <section class="slide" id="slide-28">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Worked Examples</span>
+          <span class="slide-title">Exercise Highlights & Solutions</span>
+        </div>
+        <span class="pill-tag pill-page">Pages 120–126</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card card-indigo">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 1: Product Factorisation</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Prime factorise $56 \times 25$ without multiplying first.
+            </p>
+            <div style="background: #eef2ff; border: 1px dashed #818cf8; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $56 = 2 \times 2 \times 2 \times 7$<br>
+              $25 = 5 \times 5$<br>
+              Combine: $2^3 \times 5^2 \times 7$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #4338ca; font-size: 0.85rem;">Answer: $2 \times 2 \times 2 \times 5 \times 5 \times 7$</p>
+          </div>
+
+          <div class="card card-cyan">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 2: Product of 3 Primes</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Which of $\{45, 60, 91, 105, 330\}$ is product of <em>exactly 3 distinct primes</em>?
+            </p>
+            <div style="background: #f0fdfa; border: 1px dashed #2dd4bf; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $45 = 3^2 \times 5$ (not distinct)<br>
+              $60 = 2^2 \times 3 \times 5$, $91 = 7 \times 13$<br>
+              $105 = 3 \times 5 \times 7$ (exactly 3!)
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #0891b2; font-size: 0.85rem;">Answer: $105$</p>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title" style="font-size: 1.05rem;">Problem 3: Product is 10,000</div>
+            <p class="card-text" style="font-size: 0.88rem;">
+              <strong>Question:</strong> Find two numbers with product $10000$, neither ending in $0$.
+            </p>
+            <div style="background: #f0fdf4; border: 1px dashed #34d399; border-radius: 8px; padding: 6px; margin: 6px 0; font-size: 0.84rem;">
+              $10000 = 10^4 = 2^4 \times 5^4$<br>
+              Separate 2s and 5s:<br>
+              $2^4 = 16$, $5^4 = 625$
+            </div>
+            <p class="card-text" style="font-weight: 700; color: #059669; font-size: 0.85rem;">Answer: $16 \times 625 = 10000$</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 28 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 29: Chapter Summary Checklist -->
+    <section class="slide" id="slide-29">
+      <div class="slide-watermark">teachertools.akashmaths.online</div>
+      <div class="slide-header">
+        <div class="header-left">
+          <span class="pill-tag pill-indigo">Chapter Summary</span>
+          <span class="slide-title">Core Takeaways & Rules Checklist</span>
+        </div>
+        <span class="pill-tag pill-page">Page 128</span>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <div class="card-title">✅ Factors & Primes Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Factors & Multiples:</strong> If $A \div B$ has remainder zero, $B$ is a factor of $A$, and $A$ is a multiple of $B$.</li>
+              <li><strong>Primes:</strong> Exactly two distinct factors: $1$ and itself. $2$ is the only even prime.</li>
+              <li><strong>Composites:</strong> More than two factors. The number $1$ is neither prime nor composite.</li>
+              <li><strong>Co-primes:</strong> Two numbers sharing no common factor other than $1$.</li>
+            </ul>
+          </div>
+
+          <div class="card card-emerald">
+            <div class="card-title">✅ Factorisation & Divisibility Checklist</div>
+            <ul style="padding-left: 20px; font-size: 0.88rem; line-height: 1.6;">
+              <li><strong>Unique Prime Factorisation:</strong> Every integer $> 1$ has a unique representation as a product of primes.</li>
+              <li><strong>Co-prime Test:</strong> If two numbers share zero common prime factors, they are co-prime.</li>
+              <li><strong>Divisibility Tests:</strong>
+                <br>• By $10, 5, 2$: Determined by the last digit.
+                <br>• By $4$: Determined by the number formed by last two digits.
+                <br>• By $8$: Determined by the number formed by last three digits.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Ganita Prakash | Grade 6</span>
+        <span class="slide-counter-text">Slide 29 / 30</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 30: CLOSING SLIDE -->
+    <section class="slide closing-slide" id="slide-30">
+      <div style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 32px; padding: 0 48px;">
+        <span class="pill-tag pill-indigo">GANITA PRAKASH | GRADE 6</span>
+        <span class="pill-tag pill-emerald">CHAPTER 5 COMPLETE</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 30px;">
+        <div class="eyebrow">Conclusion • The Atoms of Mathematics</div>
+        <h1 class="cover-title" style="font-size: 3.2rem;">Congratulations!</h1>
+        <div style="font-family: 'Fredoka', sans-serif; font-size: 1.6rem; color: #4f46e5; margin-bottom: 16px; font-weight: 600;">
+          You Have Mastered Multiples, Factors & Prime Arithmetic
+        </div>
+        <p class="cover-subtitle" style="font-size: 1.15rem; max-width: 780px;">
+          "Prime numbers are the atoms of arithmetic, indivisible and eternal. In studying them, we gaze directly into the foundational structure of mathematical thought."<br>
+          <span style="font-size: 0.95rem; font-style: normal; color: #64748b; margin-top: 6px; display: inline-block;">
+            — Inspired by Euclid's Elements and the timeless legacy of Indian Ganita
+          </span>
+        </p>
+
+        <!-- Mandatory Credit Pill (Closing Slide Only) -->
+        <div class="credit-pill" style="margin-top: 10px;">
+          ✦ Akash Srivastva <span>(www.akashmaths.online)</span>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="width: 100%; position: absolute; bottom: 20px; padding: 0 48px; border-top: none;">
+        <span>Ganita Prakash | Grade 6 Part-I</span>
+        <span class="slide-counter-text">Slide 30 / 30</span>
+      </div>
+    </section>
+
+    <!-- Navigation Overlay Controls -->
+    <div id="controls">
+      <button class="nav-btn" id="prev-btn" title="Previous Slide (◀)">❮</button>
+      <button class="nav-btn" id="next-btn" title="Next Slide (▶)">❯</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      function updateSlide(index) {
+        if (index < 0 || index >= totalSlides) return;
+        
+        slides[currentSlide].classList.remove('active');
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+
+        // Render KaTeX for newly active slide
+        if (window.renderMathInElement) {
+          renderMathInElement(slides[currentSlide], {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ]
+          });
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          updateSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          updateSlide(currentSlide - 1);
+        }
+      }
+
+      // Button navigation
+      document.getElementById('next-btn').addEventListener('click', nextSlide);
+      document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          updateSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
